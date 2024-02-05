@@ -1,6 +1,7 @@
 from flask import Flask
 import psycopg2
 import plotly.graph_objects as go
+import operator
 
 app = Flask(__name__)
 
@@ -29,19 +30,41 @@ cur.execute(postgresSQL_team_Query)
 
 teams = cur.fetchall()
 
-autoamps = []
+autoamps = {}
 
 for team in teams:
     postgresSQL_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
     cur.execute(postgresSQL_autoamp_Query)
-    autoamps = list.append([team, cur.fetchall()])
-    print("autoamps")
-    print(autoamps)
+    datapoints = cur.fetchall()   
+    print(datapoints)
+    total = 0
 
-print("after")
-print(autoamps)
-fig = go.Figure([go.Bar (x=autoamps[0], y=autoamps[1])])
+    for datapoint in datapoints:
+        total += datapoint[0]
+
+        autoamps[team] = round(total / len(datapoints), 2)
+
+
+descending_autoamps = sorted(autoamps.items(), key=operator.itemgetter(1))
+descending_autoamps = dict( sorted(autoamps.items(), key=operator.itemgetter(1), reverse=True))
+
+    # print(team, total)
+    # print(autoamps[team])
+    # autoamps[team] = cur.fetchall()
+
+
+keys = [key[0] for key in list(descending_autoamps.keys())]
+values = [value for value in list(descending_autoamps.values())]
+
+print(keys)
+print(values)
+
+marker = '1540'
+
+fig = go.Figure([go.Bar (x=keys, y=values)])
 fig.show()
+
+
 
 # # Execute a query
 # postgreSQL_select_Query = 'SELECT team_key, auto_amp_succeed FROM "TeamMatches"'
@@ -66,8 +89,8 @@ fig.show()
 # fig.show()
 
 # Close the cursor and the connection
-# cur.close()
-# conn.close()
+cur.close()
+conn.close()
 
 @app.route("/")
 def hello_world():
