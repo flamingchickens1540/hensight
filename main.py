@@ -1,6 +1,7 @@
 from flask import Flask
 import psycopg2
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import operator
 
 app = Flask(__name__)
@@ -59,10 +60,27 @@ values = [value for value in list(descending_autoamps.values())]
 print(keys)
 print(values)
 
-marker = '1540'
+fig = make_subplots(rows=2, cols=1)
 
-fig = go.Figure([go.Bar (x=keys, y=values)])
+fig.add_trace(go.Bar(x=keys, y=values), row=1, col=1)
+fig.add_trace(go.Bar(x=values, y=keys), row=2, col=1)
+
+fig.update_layout(
+    autosize=False,
+    width=1000,
+    height=1000,
+    margin=dict(
+        l=50,
+        r=50,
+        b=100,
+        t=100,
+        pad=4
+    ),
+    paper_bgcolor="LightSteelBlue",
+)
+
 fig.show()
+
 
 
 
