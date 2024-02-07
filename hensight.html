@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HENSIGHT!!!!!!</title>
+<style>
+    .slides {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+    
+    .slide1 {
+        background-color: #f0f0f0;
+    }
+    
+    .slide2 {
+        background-color: #ccc;
+    }
+    
+    .fade-in {
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+<div class="slides slide1 fade-in">
+    <h1>Slide 1</h1>
+</div>
+<div class="slides slide2">
+    <h1>Slide 2</h1>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slides');
+    let currentSlide = 0;
+
+    function showSlide() {
+        slides.forEach((slide) => {
+            slide.classList.remove('fade-in');
+        });
+
+        slides[currentSlide].classList.add('fade-in');
+
+        currentSlide = (currentSlide + 1) % slides.length;
+    }
+
+    setInterval(showSlide, 10000);
+</script>
+</body>
+</html>
