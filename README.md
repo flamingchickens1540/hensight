@@ -1,1 +1,3 @@
-We need to make the holy hen aquire vision again...
+# Hensight
+
+Hensight is a display platform used to display FRC team data on a portable screen.
