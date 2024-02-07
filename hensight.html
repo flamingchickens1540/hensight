@@ -15,43 +15,40 @@
         opacity: 0;
         transition: opacity 1s ease;
     }
-    
-    .slide1 {
-        background-color: #f0f0f0;
-    }
-    
-    .slide2 {
-        background-color: #ccc;
-    }
-    
     .fade-in {
         opacity: 1;
     }
 </style>
 </head>
 <body>
-<div class="slides slide1 fade-in">
+<div class="slides fade-in">
     <h1>Slide 1</h1>
 </div>
-<div class="slides slide2">
+<div class="slides">
     <h1>Slide 2</h1>
 </div>
-
+<div class="slides">
+    <h1>Slide 3</h1>
+</div>
 <script>
     const slides = document.querySelectorAll('.slides');
-    let currentSlide = 0;
+    let currentSlide = 1;
 
     function showSlide() {
         slides.forEach((slide) => {
             slide.classList.remove('fade-in');
         });
 
-        slides[currentSlide].classList.add('fade-in');
-
-        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide-1].classList.add('fade-in');
+        if (currentSlide == slides.length){
+            currentSlide = 1
+        }
+        else{
+        currentSlide = (currentSlide + 1);
     }
-
-    setInterval(showSlide, 10000);
+    }
+    console.log(currentSlide)
+    setInterval(showSlide, 1000);
 </script>
 </body>
 </html>
