@@ -21,34 +21,34 @@
 </style>
 </head>
 <body>
-<div class="slides fade-in">
-    <h1>Slide 1</h1>
-</div>
-<div class="slides">
-    <h1>Slide 2</h1>
-</div>
-<div class="slides">
-    <h1>Slide 3</h1>
+<div id="content">
+
 </div>
 <script>
+    var contents = ["<h4>test1</h4>", "<h4>test2</h4>", "<h4>test3</h4>"];
     const slides = document.querySelectorAll('.slides');
     let currentSlide = 1;
-
     function showSlide() {
-        slides.forEach((slide) => {
-            slide.classList.remove('fade-in');
-        });
-
-        slides[currentSlide-1].classList.add('fade-in');
-        if (currentSlide == slides.length){
+    for (var i = 0; i < contents.length; i++) {
+    if (i + 1 == currentSlide){
+        document.getElementById("content").innerHTML = contents[i]
+    }
+  }
+        if (currentSlide == contents.length){
             currentSlide = 1
         }
         else{
         currentSlide = (currentSlide + 1);
     }
     }
-    console.log(currentSlide)
     setInterval(showSlide, 1000);
+
 </script>
 </body>
 </html>
+
+<style>
+    h4{
+        font-size: 48px;
+    }
+</style>
