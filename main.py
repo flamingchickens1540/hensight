@@ -1,6 +1,8 @@
-from flask import Flask
+import os
+import sys
 import psycopg2
 import plotly.graph_objects as go
+from flask import Flask
 from plotly.subplots import make_subplots
 import operator
 
@@ -8,20 +10,24 @@ app = Flask(__name__)
 
 
 # Define the connection parameters
-host = "127.0.0.1"
-port = 5432
-database = "crescendo_scouting"
-user = "chargedup_scouting_analysis"
-password = "amptrapspeaker1540"
+host = os.getenv("DB_HOST", default="127.0.0.1")
+port = int(os.getenv("DB_PORT", default=5432))
+database = os.getenv("DB_NAME", default="crescendo_scouting")
+user = os.getenv("DB_USER", default="chargedup_scouting_analysis")
+password = os.getenv("DB_PASSWORD", default="amptrapspeaker1540")
 
 # Connect to the database
-conn = psycopg2.connect(
-    host=host,
-    port=port,
-    database=database,
-    user=user,
-    password=password,
-)
+try:
+    conn = psycopg2.connect(
+        host=host,
+        port=port,
+        database=database,
+        user=user,
+        password=password,
+    )
+except:
+    print(f"Unable to connect to database. Are you SSHed? Error: {sys.exc_info()[0]}")
+    quit(0)
 
 # Create a cursor
 cur = conn.cursor()
@@ -239,9 +245,9 @@ def get_broke():
 print(get_auto_acc())
 
 
-    # print(team, total)
-    # print(autoamps[team])
-    # autoamps[team] = cur.fetchall()
+# print(team, total)
+# print(autoamps[team])
+# autoamps[team] = cur.fetchall()
 
 
 # keys = [key[0] for key in list(descending_autoamps.keys())]
@@ -249,29 +255,23 @@ print(get_auto_acc())
 
 # print(keys)
 # print(values)
+keys = [key[0] for key in list(descending_autoamps.keys())]
+values = [value for value in list(descending_autoamps.values())]
 
 # fig = make_subplots(rows=2, cols=1)
 
 # fig.add_trace(go.Bar(x=keys, y=values), row=1, col=1)
 # fig.add_trace(go.Bar(x=values, y=keys), row=2, col=1)
 
-# fig.update_layout(
-#     autosize=False,
-#     width=1000,
-#     height=1000,
-#     margin=dict(
-#         l=50,
-#         r=50,
-#         b=100,
-#         t=100,
-#         pad=4
-#     ),
-#     paper_bgcolor="LightSteelBlue",
-# )
+fig.update_layout(
+    autosize=False,
+    width=1000,
+    height=1000,
+    margin=dict(l=50, r=50, b=100, t=100, pad=4),
+    paper_bgcolor="LightSteelBlue",
+)
 
-# fig.show()
-
-
+fig.show()
 
 
 # # Execute a query
@@ -282,7 +282,6 @@ print(get_auto_acc())
 # cur.execute(teamnames_Query)
 
 
-
 # # Get the results
 # rows = cur.fetchmany(50)
 
@@ -290,7 +289,6 @@ print(get_auto_acc())
 
 # teamnums = [row[0] for row in rows]
 # autoamps = [row[1] for row in rows]
-
 
 
 # fig = go.Figure([go.Bar (x=teamnums, y=autoamps)])
