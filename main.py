@@ -36,7 +36,7 @@ postgresSQL_team_Query = 'SELECT team_key FROM "Teams"'
 cur.execute(postgresSQL_team_Query)
 teams = cur.fetchall()
 
-
+#returns [percent acc of our team for amp in tele, percent acc of average of all other teams for amp in tele]
 def get_amp_acc():
     for team in teams:
         postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
@@ -77,12 +77,12 @@ def get_amp_acc():
         total += datapoint[0]
     mis_avgteamdata = round(total / len(teamdata), 2)
     amp_acc.append(round(sec_avgteamdata / mis_avgteamdata, 2))
-    amp_acc.append(round(sec_final_average / mis_final_average))
+    amp_acc.append(round(sec_final_average / mis_final_average, 2))
     return amp_acc
 sec_average_ampacc = {}
 mis_average_ampacc = {}
 amp_acc = []
-
+#returns [percent acc of our team for speaker in tele, percent acc of average of all other teams for speaker in tele]
 def get_speaker_acc():
     for team in teams:
         postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
@@ -123,12 +123,12 @@ def get_speaker_acc():
         total += datapoint[0]
     mis_avgteamdata = round(total / len(teamdata), 2)
     speaker_acc.append(round(sec_avgteamdata / mis_avgteamdata, 2))
-    speaker_acc.append(round(sec_final_average / mis_final_average))
+    speaker_acc.append(round(sec_final_average / mis_final_average, 2))
     return speaker_acc
 sec_average_speakeracc = {}
 mis_average_speakeracc = {}
 speaker_acc = []
-
+#returns [average of percent acc of amp in auto and percent acc of speaker in auto for our team, same thing for average of all other teams]
 def get_auto_acc():
     for team in teams:
         postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
@@ -223,7 +223,7 @@ mis_average_autoampacc = {}
 ampautocalc = []
 speakerautocalc = []
 autoacc = []
-
+#returns number of traps scored for our team, returns None if 0
 def get_trap_number():
     postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_trap_Query)
@@ -232,69 +232,37 @@ def get_trap_number():
     trapnumber = round(total / len(trapnumber), 2)
     if trapnumber > 0:
         return trapnumber
-
+#returns True or False for wether or not our robot has broke
 def get_broke():
     postgresSQL_broke_Query = """SELECT is_broke FROM "TeamMatches" WHERE team_key='1540' AND is_broke='True'"""
     cur.execute(postgresSQL_broke_Query)
     broke = cur.fetchall()
-    if broke == "[]":
-        return True
-    else:
+    if broke == []:
         return False
+    else:
+        return True
     
-print(get_auto_acc())
-
-
-# print(team, total)
-# print(autoamps[team])
-# autoamps[team] = cur.fetchall()
+print("Auto acc:",get_auto_acc())
+print("Speaker acc:",get_speaker_acc())
+print("Amp acc:", get_amp_acc())
+print("has broke:", get_broke())
+print("# of trap:", get_trap_number())
 
 
 # keys = [key[0] for key in list(descending_autoamps.keys())]
 # values = [value for value in list(descending_autoamps.values())]
 
-# print(keys)
-# print(values)
-keys = [key[0] for key in list(descending_autoamps.keys())]
-values = [value for value in list(descending_autoamps.values())]
+# fig.update_layout(
+#     autosize=False,
+#     width=1000,
+#     height=1000,
+#     margin=dict(l=50, r=50, b=100, t=100, pad=4),
+#     paper_bgcolor="LightSteelBlue",
+# )
 
-# fig = make_subplots(rows=2, cols=1)
-
-# fig.add_trace(go.Bar(x=keys, y=values), row=1, col=1)
-# fig.add_trace(go.Bar(x=values, y=keys), row=2, col=1)
-
-fig.update_layout(
-    autosize=False,
-    width=1000,
-    height=1000,
-    margin=dict(l=50, r=50, b=100, t=100, pad=4),
-    paper_bgcolor="LightSteelBlue",
-)
-
-fig.show()
-
-
-# # Execute a query
-# postgreSQL_select_Query = 'SELECT team_key, auto_amp_succeed FROM "TeamMatches"'
-# cur.execute(postgreSQL_select_Query)
-
-# teamnames_Query = 'SELECT team_key FROM "Teams"'
-# cur.execute(teamnames_Query)
-
-
-# # Get the results
-# rows = cur.fetchmany(50)
-
-# print(rows)
-
-# teamnums = [row[0] for row in rows]
-# autoamps = [row[1] for row in rows]
-
-
-# fig = go.Figure([go.Bar (x=teamnums, y=autoamps)])
 # fig.show()
 
-# Close the cursor and the connection
+
 cur.close()
 conn.close()
 
@@ -302,5 +270,5 @@ conn.close()
 def hello_world():
     return "<p>Goodbye, World!</p>" 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0',port=5001,debug=True)
+# if __name__ == '__main__':
+#     app.run(host='0.0.0',port=5001,debug=True)
