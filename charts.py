@@ -36,6 +36,11 @@ def make_graph():
         if get_broke() == True:
             return None
         else:
-            return 0
+            return "<h4>0</h4>"
 
-    
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
+    reallist = []
+    for result in listofresults:
+        if result != None:
+            reallist.append(result)
+    return get_amp_graph()
