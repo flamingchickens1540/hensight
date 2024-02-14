@@ -39,7 +39,7 @@ cur.execute(postgresSQL_team_Query)
 teams = cur.fetchall()
 
 #returns [percent acc of our team for amp in tele, percent acc of average of all other teams for amp in tele]
-def get_amp_acc():
+def get_amp_acc() -> list[float]:
     for team in teams:
         postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
         cur.execute(postgresSQL_average_ampacc_Query)
@@ -85,7 +85,7 @@ sec_average_ampacc = {}
 mis_average_ampacc = {}
 amp_acc = []
 #returns [percent acc of our team for speaker in tele, percent acc of average of all other teams for speaker in tele]
-def get_speaker_acc():
+def get_speaker_acc() -> list[float]:
     for team in teams:
         postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
         cur.execute(postgresSQL_average_speakeracc_Query)
@@ -131,7 +131,7 @@ sec_average_speakeracc = {}
 mis_average_speakeracc = {}
 speaker_acc = []
 #returns [average of percent acc of amp in auto and percent acc of speaker in auto for our team, same thing for average of all other teams]
-def get_auto_acc():
+def get_auto_acc() -> list[float]:
     for team in teams:
         postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
         cur.execute(postgresSQL_average_autospeakeracc_Query)
@@ -226,7 +226,7 @@ ampautocalc = []
 speakerautocalc = []
 autoacc = []
 #returns number of traps scored for our team, returns None if 0
-def get_trap_number():
+def get_trap_number() -> float | None:
     postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_trap_Query)
     trapnumber = cur.fetchall()
@@ -235,7 +235,7 @@ def get_trap_number():
     if trapnumber > 0:
         return trapnumber
 #returns True or False for wether or not our robot has broke
-def get_broke():
+def get_broke() -> bool:
     postgresSQL_broke_Query = """SELECT is_broke FROM "TeamMatches" WHERE team_key='1540' AND is_broke='True'"""
     cur.execute(postgresSQL_broke_Query)
     broke = cur.fetchall()
