@@ -244,7 +244,7 @@ def get_broke() -> bool:
     
 
 
-def make_graph():
+def make_graph() -> str:
 
     def get_trap_graph():
         if get_trap_number() != None:
