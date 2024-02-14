@@ -3,7 +3,11 @@ import psycopg2
 import plotly.graph_objects as go
 import operator
 from main import get_amp_acc, get_auto_acc, get_broke, get_speaker_acc, get_trap_number
-
+#-------------------------------------------------------------------------------------------------------------------------#
+#
+#    THIS FILE IS NOT IN USE
+#
+#-------------------------------------------------------------------------------------------------------------------------#
 def make_graph():
 
     def get_trap_graph():

@@ -4,8 +4,6 @@ import psycopg2
 import plotly.graph_objects as go
 from flask import Flask, render_template
 import operator
-
-
 from flask import Request
 
 app = Flask(__name__)
@@ -252,7 +250,7 @@ def make_graph():
         if get_trap_number() != None:
             return "<h4>"+get_trap_number()+ "</h4>"
     def get_amp_graph():
-        if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
+        # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
             ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc()))
             amp_html = ampfig.to_html (
                 include_plotlyjs=False,
@@ -280,19 +278,19 @@ def make_graph():
         else:
             return "<h4>0</h4>"
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
-    reallist = []
-    for result in listofresults:
-        if result != None:
-            reallist.append(result)
+    # listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
+    # reallist = []
+    # for result in listofresults:
+    #     if result != None:
+    #         reallist.append(result)
     return get_amp_graph()
 # Converting charts.py to html 
-
+print(make_graph())
 @app.route('/')
 def main():
-    html = make_graph()
+    html = str(make_graph)
     frontend = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>HENSIGHT!!!!!!</title> <style> body { margin: 0; padding: 0; overflow: hidden; animation: fadein 1s forwards; /* Initial fade in */ } @keyframes fadeout { from { opacity: 1; /* Fully visible */ } to { opacity: 0; /* Fully transparent */ } } @keyframes fadein { from { opacity: 0; /* Fully transparent */ } to { opacity: 1; /* Fully visible */ } } </style> </head> <body> <div id="content"> </div> </body> <script> let faded = false var contents = ' + html + '; let currentSlide = 1; function showSlide() { for (var i = 0; i < contents.length; i++) { if (i + 1 == currentSlide) { document.getElementById("content").innerHTML = contents[i] } } if (currentSlide == contents.length) { currentSlide = 1 } else { currentSlide = (currentSlide + 1); } } setInterval(fadeEffect, 10000); setTimeout(function() { showSlide(); setInterval(showSlide, 10000); }, 1000); //chatgpt code plz do not touch plz if // Repeat the fade effect every 10 seconds (10000 ms) function fadeEffect() { console.log("fade started") document.body.style.animation = "fadeout 1s forwards"; // Fade out animation setTimeout(function() { document.body.style.animation = "fadein 1s forwards"; // Fade in animation }, 1000); // Wait for 2 seconds for fade out to complet } </script> </html> <style> h4 { font-size: 48px; } </style>'
-    return html
+    return frontend
 
 # cur.close()
 # conn.close()
