@@ -27,7 +27,7 @@ try:
         user=user,
         password=password,
     )
-except:
+except psycopg2.OperationalError:
     print(f"Unable to connect to database. Are you SSHed? Error: {sys.exc_info()[0]}")
     quit(0)
 
