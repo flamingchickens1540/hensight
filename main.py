@@ -5,8 +5,7 @@ import plotly.graph_objects as go
 from flask import Flask, render_template
 import operator
 from flask import Request
-
-index = 0
+listindex = 0
 app = Flask(__name__)
 
 # Define the connection parameters
@@ -242,64 +241,80 @@ def get_broke() -> bool:
     else:
         return True
 
-@app.route("/fet")
+@app.route("/")
 def index():
     return render_template('hensight.html')
-@app.route('/feeet')
-def make_graph() -> str:
-
-    def get_trap_graph():
-        if get_trap_number() != "0":
-            return "<h4>"+ str(get_trap_number()) +"</h4>"
-    def get_amp_graph():
-        if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
-            ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc()))
-            amp_html = ampfig.to_html (
-                include_plotlyjs=True, 
-                full_html=False,
-            )
-            return amp_html
-    def get_speaker_graph():
-        if get_speaker_acc()[0] >= 0.90 and get_speaker_acc()[0] > get_speaker_acc()[1]:
-            speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_graph()))
+def get_trap_graph():
+        if get_trap_number() != None:
+            return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
+        else:
+            return "bad"
+def get_amp_graph():
+        # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
+                ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255, 193, 69)"))
+                ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+                ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+                ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+                amp_html = ampfig.to_html (
+                    include_plotlyjs=True, 
+                    full_html=False,
+                    
+                )
+                return amp_html
+        # else:
+        #     return bad
+def get_speaker_graph():
+        # if get_speaker_acc()[0] >= 0.90 and get_speaker_acc()[0] > get_speaker_acc()[1]:
+            speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_acc(), marker_color="rgb(255, 193, 69)"))
+            speakerfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+            speakerfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+            speakerfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
             speaker_html = speakerfig.to_html(
                 include_plotlyjs=True,
                 full_html=False,
             )
             return speaker_html
-    def auto_acc_graph():
-        if get_auto_acc()[0] >= 0.70 and get_auto_acc()[0] > get_auto_acc()[1]:
-            autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc()))
+        # else:
+            # return "bad"
+def auto_acc_graph():
+        # if get_auto_acc()[0] >= 0.70 and get_auto_acc()[0] > get_auto_acc()[1]:
+            autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc(), marker_color="rgb(255, 193, 69)"))
+            autofig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+            autofig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+            autofig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
             auto_html = autofig.to_html(
                 include_plotlyjs=True,
                 full_html=False,
             )
             return auto_html
-    def get_broke_graph():
+        # else:
+        #     return "bad"
+def get_broke_graph():
         if get_broke() == False:
-            return "<h4>0</h4>"
+            return "<h4>Team 1540's robot has broken</h4><h3>0<h3><h4> times this competition</h4>"
+        else:
+            return "bad"
+def make_graph() -> str:
+
 
     listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
     reallist = []
     for result in listofresults:
-        if result != None:
-            reallist.append(result)
+        # if result != "bad":
+        reallist.append(result)
     return reallist
-# Converting charts.py to html 
-@app.route('/')
+
+@app.route('/request')
 def main():
-    index = 0
+    global listindex
     html = make_graph()
-    # frontend = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>HENSIGHT!!!!!!</title> <style> body { margin: 0; padding: 0; overflow: hidden; animation: fadein 1s forwards; /* Initial fade in */ } @keyframes fadeout { from { opacity: 1; /* Fully visible */ } to { opacity: 0; /* Fully transparent */ } } @keyframes fadein { from { opacity: 0; /* Fully transparent */ } to { opacity: 1; /* Fully visible */ } } </style> </head> <body> <div id="content"> </div> </body> <script> let faded = false var contents = ' + html + '; let currentSlide = 1; function showSlide() { for (var i = 0; i < contents.length; i++) { if (i + 1 == currentSlide) { document.getElementById("content").innerHTML = contents[i] } } if (currentSlide == contents.length) { currentSlide = 1 } else { currentSlide = (currentSlide + 1); } } setInterval(fadeEffect, 10000); setTimeout(function() { showSlide(); setInterval(showSlide, 10000); }, 1000); //chatgpt code plz do not touch plz if // Repeat the fade effect every 10 seconds (10000 ms) function fadeEffect() { console.log("fade started") document.body.style.animation = "fadeout 1s forwards"; // Fade out animation setTimeout(function() { document.body.style.animation = "fadein 1s forwards"; // Fade in animation }, 1000); // Wait for 2 seconds for fade out to complet } </script> </html> <style> h4 { font-size: 48px; } </style>'
-    index = index + 1
-    print(html[len(html) % index])
-    return html[len(html) % index]
+    listindex = listindex + 1
+    return html[1]
+
 @app.route('/gitfeet')
 def gitfeet():
     return '<marquee><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4></marquee>'
 
-# cur.close()
-# conn.close()
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
+

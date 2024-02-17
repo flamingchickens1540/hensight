@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +16,9 @@
         padding: 0;
         overflow: hidden;
         animation: fadein 2s forwards; /* Initial fade in */
+        position: relative;
+    width: 100vw; /* Set container height to 100% of viewport height */
+    height: 100vh;
     }
     @keyframes fadeout {
         from {
@@ -30,13 +37,28 @@
             opacity: 1; /* Fully visible */
         }
     }
+    h4{
+        color: white;
+        font-size: large;
+        font-family: Poppins;
+        font-size: 5rem;
+        margin:1rem
+    }
+    h3{
+        color:orange;
+        font-size: 20rem;
+        margin:0rem;
+        font-family: Poppins;
+    }
     </style>
 </head>
 
-<body>
-    <div hx-get="/" hx-trigger="every 1s" hx-swap="outerHTML">
-<h1>test1</h1>
-    </div>
+<body style="background-color: #1C1C1C;">
+    <center>
+    <div class="content">
+    <div hx-get="/request" hx-trigger="every 1s" hx-swap="outerHTML">
+</div>
+</center>
 </body>
 <script>
     function fadeEffect() {
@@ -47,6 +69,6 @@
 
             }, 3000); // Wait for 2 seconds for fade out to complet
         }
-        setInterval(fadeEffect, 10000);      
+        setInterval(fadeEffect, 20000);      
 </script>
 </html>
