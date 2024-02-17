@@ -17,8 +17,8 @@
         overflow: hidden;
         animation: fadein 2s forwards; /* Initial fade in */
         position: relative;
-    width: 100vw; /* Set container height to 100% of viewport height */
-    height: 100vh;
+        border: 10px solid orange; /* Adjust border width as needed */
+        height:100vh
     }
     @keyframes fadeout {
         from {
@@ -50,13 +50,13 @@
         margin:0rem;
         font-family: Poppins;
     }
+
     </style>
 </head>
 
 <body style="background-color: #1C1C1C;">
     <center>
-    <div class="content">
-    <div hx-get="/request" hx-trigger="every 1s" hx-swap="outerHTML">
+    <div style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
 </div>
 </center>
 </body>
@@ -67,8 +67,8 @@
             setTimeout(function() {
                 document.body.style.animation = "fadein 2s forwards"; // Fade in animation
 
-            }, 3000); // Wait for 2 seconds for fade out to complet
+            }, 2000); // Wait for 2 seconds for fade out to complet
         }
-        setInterval(fadeEffect, 20000);      
+        setInterval(fadeEffect, 10000);      
 </script>
 </html>

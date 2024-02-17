@@ -255,6 +255,8 @@ def get_amp_graph():
                 ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
                 ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
                 ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+                ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+                ampfig.update_xaxes(title_text="Amp Accuracy", title_font=dict(color="white", family="Poppins"))
                 amp_html = ampfig.to_html (
                     include_plotlyjs=True, 
                     full_html=False,
@@ -269,6 +271,8 @@ def get_speaker_graph():
             speakerfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
             speakerfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
             speakerfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+            speakerfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            speakerfig.update_xaxes(title_text="Speaker Accuracy", title_font=dict(color="white", family="Poppins"))
             speaker_html = speakerfig.to_html(
                 include_plotlyjs=True,
                 full_html=False,
@@ -282,6 +286,8 @@ def auto_acc_graph():
             autofig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
             autofig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
             autofig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+            autofig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+            autofig.update_xaxes(title_text="Auto Accuracy", title_font=dict(color="white", family="Poppins"))
             auto_html = autofig.to_html(
                 include_plotlyjs=True,
                 full_html=False,
@@ -300,16 +306,19 @@ def make_graph() -> str:
     listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
     reallist = []
     for result in listofresults:
-        # if result != "bad":
-        reallist.append(result)
+        if result != "bad":
+            reallist.append(result)
     return reallist
 
 @app.route('/request')
 def main():
     global listindex
     html = make_graph()
-    listindex = listindex + 1
-    return html[1]
+    if len(html)-1 != listindex:
+        listindex = listindex + 1
+    else:
+        listindex = 0
+    return html[listindex]
 
 @app.route('/gitfeet')
 def gitfeet():
