@@ -33,21 +33,19 @@
 </head>
 
 <body>
-    <div id="content">
-
+    <div hx-post="/" throttle:1s>
+<h1>test1</h1>
     </div>
 </body>
 <script>
-    let faded = false
-
     function fadeEffect() {
         console.log("fade started")
             document.body.style.animation = "fadeout 2s forwards"; // Fade out animation
             setTimeout(function() {
                 document.body.style.animation = "fadein 2s forwards"; // Fade in animation
-            }, 1000); // Wait for 2 seconds for fade out to complet
+
+            }, 3000); // Wait for 2 seconds for fade out to complet
         }
         setInterval(fadeEffect, 10000);      
-
 </script>
 </html>
