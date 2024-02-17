@@ -6,6 +6,7 @@ from flask import Flask, render_template
 import operator
 from flask import Request
 
+index = 0
 app = Flask(__name__)
 
 # Define the connection parameters
@@ -222,8 +223,8 @@ mis_average_autoampacc = {}
 ampautocalc = []
 speakerautocalc = []
 autoacc = []
-#returns number of traps scored for our team, returns None if 0
-def get_trap_number() -> float:
+#returns number of traps scored for our team
+def get_trap_number() -> str:
     postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_trap_Query)
     trapnumber = cur.fetchall()
@@ -240,14 +241,16 @@ def get_broke() -> bool:
         return False
     else:
         return True
-    
 
-@app.route('/feet')
+@app.route("/fet")
+def index():
+    return render_template('hensight.html')
+@app.route('/feeet')
 def make_graph() -> str:
 
     def get_trap_graph():
-        if get_trap_number() != None:
-            return "<h4>"+get_trap_number()+ "</h4>"
+        if get_trap_number() != "0":
+            return "<h4>"+ str(get_trap_number()) +"</h4>"
     def get_amp_graph():
         if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
             ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc()))
@@ -285,12 +288,15 @@ def make_graph() -> str:
 # Converting charts.py to html 
 @app.route('/')
 def main():
-    html = str(make_graph())
-    frontend = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>HENSIGHT!!!!!!</title> <style> body { margin: 0; padding: 0; overflow: hidden; animation: fadein 1s forwards; /* Initial fade in */ } @keyframes fadeout { from { opacity: 1; /* Fully visible */ } to { opacity: 0; /* Fully transparent */ } } @keyframes fadein { from { opacity: 0; /* Fully transparent */ } to { opacity: 1; /* Fully visible */ } } </style> </head> <body> <div id="content"> </div> </body> <script> let faded = false var contents = ' + html + '; let currentSlide = 1; function showSlide() { for (var i = 0; i < contents.length; i++) { if (i + 1 == currentSlide) { document.getElementById("content").innerHTML = contents[i] } } if (currentSlide == contents.length) { currentSlide = 1 } else { currentSlide = (currentSlide + 1); } } setInterval(fadeEffect, 10000); setTimeout(function() { showSlide(); setInterval(showSlide, 10000); }, 1000); //chatgpt code plz do not touch plz if // Repeat the fade effect every 10 seconds (10000 ms) function fadeEffect() { console.log("fade started") document.body.style.animation = "fadeout 1s forwards"; // Fade out animation setTimeout(function() { document.body.style.animation = "fadein 1s forwards"; // Fade in animation }, 1000); // Wait for 2 seconds for fade out to complet } </script> </html> <style> h4 { font-size: 48px; } </style>'
-    return frontend
+    index = 0
+    html = make_graph()
+    # frontend = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>HENSIGHT!!!!!!</title> <style> body { margin: 0; padding: 0; overflow: hidden; animation: fadein 1s forwards; /* Initial fade in */ } @keyframes fadeout { from { opacity: 1; /* Fully visible */ } to { opacity: 0; /* Fully transparent */ } } @keyframes fadein { from { opacity: 0; /* Fully transparent */ } to { opacity: 1; /* Fully visible */ } } </style> </head> <body> <div id="content"> </div> </body> <script> let faded = false var contents = ' + html + '; let currentSlide = 1; function showSlide() { for (var i = 0; i < contents.length; i++) { if (i + 1 == currentSlide) { document.getElementById("content").innerHTML = contents[i] } } if (currentSlide == contents.length) { currentSlide = 1 } else { currentSlide = (currentSlide + 1); } } setInterval(fadeEffect, 10000); setTimeout(function() { showSlide(); setInterval(showSlide, 10000); }, 1000); //chatgpt code plz do not touch plz if // Repeat the fade effect every 10 seconds (10000 ms) function fadeEffect() { console.log("fade started") document.body.style.animation = "fadeout 1s forwards"; // Fade out animation setTimeout(function() { document.body.style.animation = "fadein 1s forwards"; // Fade in animation }, 1000); // Wait for 2 seconds for fade out to complet } </script> </html> <style> h4 { font-size: 48px; } </style>'
+    index = index + 1
+    print(html[len(html) % index])
+    return html[len(html) % index]
 @app.route('/gitfeet')
 def gitfeet():
-    return '<marquee><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEEt</h4></marquee>'
+    return '<marquee><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4></marquee>'
 
 # cur.close()
 # conn.close()
