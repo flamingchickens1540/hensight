@@ -8,7 +8,6 @@ from flask import Request
 
 app = Flask(__name__)
 
-
 # Define the connection parameters
 host = os.getenv("DB_HOST", default="127.0.0.1")
 port = int(os.getenv("DB_PORT", default=5432))
@@ -224,7 +223,7 @@ ampautocalc = []
 speakerautocalc = []
 autoacc = []
 #returns number of traps scored for our team, returns None if 0
-def get_trap_number() -> float | None:
+def get_trap_number() -> float:
     postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_trap_Query)
     trapnumber = cur.fetchall()
@@ -295,7 +294,6 @@ def gitfeet():
 
 # cur.close()
 # conn.close()
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
