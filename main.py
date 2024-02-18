@@ -251,7 +251,7 @@ def get_trap_graph():
             return "bad"
 def get_amp_graph():
         # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
-                ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255, 193, 69)"))
+                ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255,193,69)"))
                 ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
                 ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
                 ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
