@@ -56,29 +56,39 @@
 
 <body style="background-color: #1C1C1C;">
     <center>
-    <div class="fadein" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
+    <div id="div" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
 </div>
 </center>
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
 <script>
-    // function fadeEffect() {
-    //     console.log("fade started")
-    //         document.body.style.animation = "fadeout 2s forwards";
-    //         setTimeout(function() {
-    //             document.body.style.animation = "fadein 2s forwards";
+    function fadeEffect() {
+        console.log("fade started")
+            document.body.style.animation = "fadeout 2s forwards";
+            setTimeout(function() {
+                document.body.style.animation = "fadein 2s forwards";
 
-    //         }, 2000); 
-    //     }
-    //     setInterval(fadeEffect, 10000);      
-    document.addEventListener('readystatechange', function() {
-        document.body.addEventListener('hxrequest', function() {
-            document.body.classList.add('fade-out');
-        });
-        document.body.addEventListener('hx-after-swap', function() {
-            document.body.classList.remove('fadeout');
-            document.body.classList.add('fade-in');
-        });
+            }, 4000); 
+        }
+
+    // document.addEventListener('readystatechange', function() {
+    //     document.body.addEventListener('hxrequest', function() {
+    //         document.body.classList.add('fadeout');
+    //     });
+    //     document.body.addEventListener('hx-after-swap', function() {
+    //         document.body.classList.remove('fadeout');
+    //         document.body.classList.add('fadein');
+    //     });
+    // });
+
+    document.addEventListener('htmx:beforeRequest', function(event) {
+        // Check if the request is for the specific div
+        if (event.detail.target.matches('#div')) {
+            fadeEffect()
+            console.log('HTMX request initiated for #div');
+        }
     });
+    
+        
 </script>
 </html>
