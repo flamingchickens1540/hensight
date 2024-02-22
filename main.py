@@ -241,6 +241,83 @@ def get_broke() -> bool:
     else:
         return True
 
+def get_speaker_acc_noavg() -> list[float]:
+    postgresSQL_1540_speaker_Query = """SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_speaker_Query)
+    missed1540 = cur.fetchall()
+    total = 0
+    for i in missed1540:
+        total += i[0]
+        missed1540avg = round(total / len(missed1540), 2)
+    postgresSQL_1540_speaker_Query2 = """SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_speaker_Query2)
+    scored1540 = cur.fetchall()
+    total = 0
+    for i in scored1540:
+        total += i[0]
+        scored1540avg = round(total / len(missed1540), 2)
+    acc1540 = round(scored1540avg / missed1540avg , 2)
+    acc_all = []
+    for team in teams:
+        postgresSQL_other_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_speaker_Query)
+        missedother = cur.fetchall()
+        total = 0
+        for i in missedother:
+            total += i[0]
+            missedotheravg = round(total / len(missedother), 2)
+        postgresSQL_other_speaker_Query2 = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_speaker_Query2)
+        scoredother = cur.fetchall()
+        total = 0
+        for i in scoredother:
+            total += i[0]
+            scoredotheravg = round(total / len(missedother), 2)
+        acc_all.append(round(scoredotheravg / missedotheravg , 2))
+    acc = [acc1540]
+    for i in acc_all:
+        acc.append(i)
+    return acc
+        
+def get_amp_acc_noavg() -> list[float]:
+    postgresSQL_1540_amp_Query = """SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_amp_Query)
+    missed1540 = cur.fetchall()
+    total = 0
+    for i in missed1540:
+        total += i[0]
+        missed1540avg = round(total / len(missed1540), 2)
+    postgresSQL_1540_amp_Query2 = """SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_amp_Query2)
+    scored1540 = cur.fetchall()
+    total = 0
+    for i in scored1540:
+        total += i[0]
+        scored1540avg = round(total / len(missed1540), 2)
+    acc1540 = round(scored1540avg / missed1540avg , 2)
+    acc_all = []
+    for team in teams:
+        postgresSQL_other_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_amp_Query)
+        missedother = cur.fetchall()
+        total = 0
+        for i in missedother:
+            total += i[0]
+            missedotheravg = round(total / len(missedother), 2)
+        postgresSQL_other_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_amp_Query2)
+        scoredother = cur.fetchall()
+        total = 0
+        for i in scoredother:
+            total += i[0]
+            scoredotheravg = round(total / len(missedother), 2)
+        acc_all.append(round(scoredotheravg / missedotheravg , 2))
+    acc = [acc1540]
+    for i in acc_all:
+        acc.append(i)
+    return acc
+
+print(get_speaker_acc_noavg())
 @app.route("/")
 def index():
     return render_template('hensight.html')
