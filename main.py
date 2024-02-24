@@ -248,14 +248,14 @@ def get_speaker_acc_noavg() -> list[float]:
     total = 0
     for i in missed1540:
         total += i[0]
-        missed1540avg = round(total / len(missed1540), 2)
+    missed1540avg = round(total / len(missed1540), 2)
     postgresSQL_1540_speaker_Query2 = """SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_speaker_Query2)
     scored1540 = cur.fetchall()
     total = 0
     for i in scored1540:
         total += i[0]
-        scored1540avg = round(total / len(missed1540), 2)
+    scored1540avg = round(total / len(missed1540), 2)
     acc1540 = round(scored1540avg / missed1540avg , 2)
     acc_all = []
     for team in teams:
@@ -265,14 +265,14 @@ def get_speaker_acc_noavg() -> list[float]:
         total = 0
         for i in missedother:
             total += i[0]
-            missedotheravg = round(total / len(missedother), 2)
+        missedotheravg = round(total / len(missedother), 2)
         postgresSQL_other_speaker_Query2 = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
         cur.execute(postgresSQL_other_speaker_Query2)
         scoredother = cur.fetchall()
         total = 0
         for i in scoredother:
             total += i[0]
-            scoredotheravg = round(total / len(missedother), 2)
+        scoredotheravg = round(total / len(missedother), 2)
         acc_all.append(round(scoredotheravg / missedotheravg , 2))
     acc = [acc1540]
     for i in acc_all:
@@ -317,7 +317,7 @@ def get_amp_acc_noavg() -> list[float]:
         acc.append(i)
     return acc
 
-print(get_speaker_acc_noavg())
+
 @app.route("/")
 def index():
     return render_template('hensight.html')
@@ -377,10 +377,25 @@ def get_broke_graph():
             return "<h4>Team 1540's robot has broken</h4><h3>0<h3><h4> times this competition</h4>"
         else:
             return "bad"
+def get_total_auto():
+    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autospeaker_Query)
+    speakerlist = cur.fetchall()
+    speaker_total = 0
+    for i in speakerlist:
+        speaker_total +=i[0]
+    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+    cur.execute(postgresSQL_1540_autoamp_Query)
+    amplist = cur.fetchall()
+    amp_total = 0
+    for i in amplist:
+        amp_total +=i[0]
+    ampspeaker = amp_total + speaker_total
+    return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto</h4>"
 def make_graph() -> str:
 
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph(), get_total_auto()]
     reallist = []
     for result in listofresults:
         if result != "bad":
