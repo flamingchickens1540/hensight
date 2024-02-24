@@ -423,10 +423,18 @@ def get_total_whole():
     teleampspeaker = teleamp_total + telespeaker_total
     allampspeaker = teleampspeaker + autoampspeaker
     return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+def times_climb():
+    postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_climb_Query)
+    stage = cur.fetchall()
+def message1():
+    return "<h2>Thank You</h2><h4>for visiting team 1540's pits</h4>"
+def message2():
+    return "<h4>We appreciate</h4><h2>YOU</h2><h4>for joining us in our pits</h4>"
 def make_graph() -> str:
 
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(), message1()]
     reallist = []
     for result in listofresults:
         if result != "bad":
