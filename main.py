@@ -392,10 +392,41 @@ def get_total_auto():
         amp_total +=i[0]
     ampspeaker = amp_total + speaker_total
     return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto</h4>"
+def get_total_whole():
+    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autospeaker_Query)
+    autospeakerlist = cur.fetchall()
+    autospeaker_total = 0
+    for i in autospeakerlist:
+        autospeaker_total +=i[0]
+    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+    cur.execute(postgresSQL_1540_autoamp_Query)
+    amplist = cur.fetchall()
+    autoamp_total = 0
+    for i in amplist:
+        autoamp_total +=i[0]
+    autoampspeaker = autoamp_total + autospeaker_total
+    
+    
+    postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_telespeaker_Query)
+    telespeakerlist = cur.fetchall()
+    telespeaker_total = 0
+    for i in telespeakerlist:
+        telespeaker_total +=i[0]
+    postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+    cur.execute(postgresSQL_1540_teleamp_Query)
+    amplist = cur.fetchall()
+    teleamp_total = 0
+    for i in amplist:
+        teleamp_total +=i[0]
+    teleampspeaker = teleamp_total + telespeaker_total
+    allampspeaker = teleampspeaker + autoampspeaker
+    return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
 def make_graph() -> str:
 
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph(), get_total_auto()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole()]
     reallist = []
     for result in listofresults:
         if result != "bad":
