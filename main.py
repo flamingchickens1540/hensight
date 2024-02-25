@@ -229,8 +229,7 @@ def get_trap_number() -> str:
     trapnumber = cur.fetchall()
     total = 0
     trapnumber = round(total / len(trapnumber), 2)
-    if trapnumber > 0:
-        return trapnumber
+    return trapnumber
 #returns True or False for wether or not our robot has broke
 def get_broke() -> bool:
     postgresSQL_broke_Query = """SELECT is_broke FROM "TeamMatches" WHERE team_key='1540' AND is_broke='True'"""
@@ -322,7 +321,7 @@ def get_amp_acc_noavg() -> list[float]:
 def index():
     return render_template('hensight.html')
 def get_trap_graph():
-        if get_trap_number() != None:
+        if get_trap_number() > 0:
             return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
         else:
             return "bad"
@@ -392,7 +391,7 @@ def get_total_auto():
         amp_total +=i[0]
     ampspeaker = amp_total + speaker_total
     return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto</h4>"
-def get_total_whole():
+def get_total_whole(html):
     postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_autospeaker_Query)
     autospeakerlist = cur.fetchall()
@@ -422,13 +421,52 @@ def get_total_whole():
         teleamp_total +=i[0]
     teleampspeaker = teleamp_total + telespeaker_total
     allampspeaker = teleampspeaker + autoampspeaker
-    return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+    if html:
+        return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+    else:
+        return allampspeaker
+def get_total_whole_other(html):
+    autoampspeaker = 0
+    for team in teams:
+        postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_autospeaker_Query)
+        autospeakerlist = cur.fetchall()
+        autospeaker_total = 0
+        for i in autospeakerlist:
+            autospeaker_total +=i[0]
+        postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+        cur.execute(postgresSQL_other_autoamp_Query)
+        amplist = cur.fetchall()
+        autoamp_total = 0
+        for i in amplist:
+            autoamp_total +=i[0]
+        autoampspeaker += autoamp_total + autospeaker_total
+    
+    teleampspeaker = 0
+    for team in teams:
+        postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        cur.execute(postgresSQL_other_telespeaker_Query)
+        telespeakerlist = cur.fetchall()
+        telespeaker_total = 0
+        for i in telespeakerlist:
+            telespeaker_total +=i[0]
+        postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+        cur.execute(postgresSQL_other_teleamp_Query)
+        amplist = cur.fetchall()
+        teleamp_total = 0
+        for i in amplist:
+            teleamp_total +=i[0]
+        teleampspeaker += teleamp_total + telespeaker_total
+    allampspeaker = teleampspeaker + autoampspeaker
+    if html:
+        return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+    else:
+        return allampspeaker
 def times_climb():
     postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_climb_Query)
     stage = cur.fetchall()
     #i need help with enums!!!
-def trap_num():
     postgresSQL_trap_suc_Query = """SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_trap_suc_Query)
     trap = cur.fetchall()
@@ -436,17 +474,69 @@ def trap_num():
     for i in trap:
         total += i[0]
     if total > 1:
-        return f"<h4>Team 1540's robot has scored</h4><h2>{total}</h2><h4>notes in trap this season</h4>"
+        return f"<h4>Team 1540's robot has scored</h4><h2>{total}</h2><h4>notes in trap this competition</h4>"
     else:
         return "bad"
 def message1():
     return "<h2>Thank You</h2><h4>for visiting team 1540's pits</h4>"
 def message2():
     return "<h4>We appreciate</h4><h2>YOU</h2><h4>for joining us in our pits</h4>"
+def percent_by_us():
+    percent = round(get_total_whole(False) / get_total_whole_other(False), 1)
+    return f"<h4>Team 1540's robot has scored</h4><h3>{percent}%</h3><h4>of the notes scored this competition</h4>"
+def total_shots():
+    big_total = 0
+    
+    #SPEAKER
+    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autospeaker_Query)
+    autospeakerlist = cur.fetchall()
+    for i in autospeakerlist:
+        big_total +=i[0]
+    postgresSQL_1540_autospeaker_missed_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autospeaker_missed_Query)
+    autospeakerlistmissed = cur.fetchall()
+    for i in autospeakerlistmissed:
+       big_total +=i[0]
+    postgresSQL_1540_telespeaker_missed_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_telespeaker_missed_Query)
+    telespeakerlistmissed = cur.fetchall()
+    for i in telespeakerlistmissed:
+       big_total +=i[0]
+    postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_telespeaker_Query)
+    telespeakerlist = cur.fetchall()
+    for i in telespeakerlist:
+       big_total +=i[0]
+    
+    
+    #AMP
+    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autoamp_Query)
+    autoamplist = cur.fetchall()
+    for i in autoamplist:
+        big_total +=i[0]
+    postgresSQL_1540_autoamp_missed_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_autoamp_missed_Query)
+    autoamplistmissed = cur.fetchall()
+    for i in autoamplistmissed:
+       big_total +=i[0]
+    postgresSQL_1540_teleamp_missed_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_teleamp_missed_Query)
+    teleamplistmissed = cur.fetchall()
+    for i in teleamplistmissed:
+       big_total +=i[0]
+    postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    cur.execute(postgresSQL_1540_teleamp_Query)
+    teleamplist = cur.fetchall()
+    for i in teleamplist:
+       big_total +=i[0]
+    
+    return f"<h4>Team 1540's robot has made</h4><h3>{big_total}<h3><h4>shots this season</h4>"
 def make_graph() -> str:
 
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(), message1(), trap_num()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(True), message1(), percent_by_us(), total_shots()]
     reallist = []
     for result in listofresults:
         if result != "bad":
