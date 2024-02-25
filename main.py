@@ -427,6 +427,7 @@ def times_climb():
     postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_1540_climb_Query)
     stage = cur.fetchall()
+    #i need help with enums!!!
 def trap_num():
     postgresSQL_trap_suc_Query = """SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
     cur.execute(postgresSQL_trap_suc_Query)
@@ -445,8 +446,7 @@ def message2():
 def make_graph() -> str:
 
 
-    # listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(), message1(), trap_num()]
-    listofresults=[trap_num()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(), message1(), trap_num()]
     reallist = []
     for result in listofresults:
         if result != "bad":
