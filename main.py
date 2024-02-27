@@ -7,6 +7,11 @@ import operator
 from flask import request
 listindex = 0
 app = Flask(__name__)
+#------------------------------------------------------------------------------------------------------------#
+
+comp = ""
+
+#------------------------------------------------------------------------------------------------------------#
 
 # Define the connection parameters
 host = os.getenv("DB_HOST", default="127.0.0.1")
@@ -38,7 +43,7 @@ teams = cur.fetchall()
 #returns [percent acc of our team for amp in tele, percent acc of average of all other teams for amp in tele]
 def get_amp_acc() -> list[float]:
     for team in teams:
-        postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_ampacc_Query)
         sec_datapoints = cur.fetchall()   
         total = 0
@@ -49,7 +54,7 @@ def get_amp_acc() -> list[float]:
         for average in sec_average_ampacc:
             total += int(average[0])
         sec_final_average = round(total / len(sec_average_ampacc), 2)
-    postgresSQL_1540_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_ampacc_Query)
     sec_teamdata = cur.fetchall()
     total = 0
@@ -57,7 +62,7 @@ def get_amp_acc() -> list[float]:
         total += datapoint[0]
     sec_avgteamdata = round(total / len(sec_teamdata), 2)
     for team in teams:
-        postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_ampacc_Query)
         mis_datapoints = cur.fetchall()   
         total = 0
@@ -68,7 +73,7 @@ def get_amp_acc() -> list[float]:
         for average in mis_average_ampacc:
             total += int(average[0])
         mis_final_average = round(total / len(mis_average_ampacc), 2)
-    postgresSQL_1540_ampacc_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_ampacc_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_ampacc_Query)
     teamdata = cur.fetchall()
     total = 0
@@ -84,7 +89,7 @@ amp_acc = []
 #returns [percent acc of our team for speaker in tele, percent acc of average of all other teams for speaker in tele]
 def get_speaker_acc() -> list[float]:
     for team in teams:
-        postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_speakeracc_Query)
         sec_datapoints = cur.fetchall()   
         total = 0
@@ -95,7 +100,7 @@ def get_speaker_acc() -> list[float]:
         for average in sec_average_speakeracc:
             total += int(average[0])
         sec_final_average = round(total / len(sec_average_speakeracc), 2)
-    postgresSQL_1540_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_speakeracc_Query)
     sec_teamdata = cur.fetchall()
     total = 0
@@ -103,7 +108,7 @@ def get_speaker_acc() -> list[float]:
         total += datapoint[0]
     sec_avgteamdata = round(total / len(sec_teamdata), 2)
     for team in teams:
-        postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_speakeracc_Query)
         mis_datapoints = cur.fetchall()   
         total = 0
@@ -114,7 +119,7 @@ def get_speaker_acc() -> list[float]:
         for average in mis_average_speakeracc:
             total += int(average[0])
         mis_final_average = round(total / len(mis_average_speakeracc), 2)
-    postgresSQL_1540_speakeracc_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_speakeracc_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_speakeracc_Query)
     teamdata = cur.fetchall()
     total = 0
@@ -130,7 +135,7 @@ speaker_acc = []
 #returns [average of percent acc of amp in auto and percent acc of speaker in auto for our team, same thing for average of all other teams]
 def get_auto_acc() -> list[float]:
     for team in teams:
-        postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_autospeakeracc_Query)
         sec_datapoints = cur.fetchall()   
         total = 0
@@ -141,7 +146,7 @@ def get_auto_acc() -> list[float]:
         for average in sec_average_autospeakeracc:
             total += int(average[0])
         sec_final_average = round(total / len(sec_average_autospeakeracc), 2)
-    postgresSQL_1540_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_autospeakeracc_Query)
     sec_teamdata = cur.fetchall()
     total = 0
@@ -149,7 +154,7 @@ def get_auto_acc() -> list[float]:
         total += datapoint[0]
     sec_avgteamdata = round(total / len(sec_teamdata), 2)
     for team in teams:
-        postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_autospeakeracc_Query)
         mis_datapoints = cur.fetchall()   
         total = 0
@@ -160,7 +165,7 @@ def get_auto_acc() -> list[float]:
         for average in mis_average_autospeakeracc:
             total += int(average[0])
         mis_final_average = round(total / len(mis_average_autospeakeracc), 2)
-    postgresSQL_1540_autospeakeracc_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_autospeakeracc_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_autospeakeracc_Query)
     teamdata = cur.fetchall()
     total = 0
@@ -173,7 +178,7 @@ def get_auto_acc() -> list[float]:
 
 
     for team in teams:
-        postgresSQL_average_autoampacc_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_autoampacc_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_autoampacc_Query)
         sec_datapoints = cur.fetchall()   
         total = 0
@@ -184,7 +189,7 @@ def get_auto_acc() -> list[float]:
         for average in sec_average_autoampacc:
             total += int(average[0])
         sec_final_average = round(total / len(sec_average_autoampacc), 2)
-    postgresSQL_1540_autoampacc_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_autoampacc_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_autoampacc_Query)
     sec_teamdata = cur.fetchall()
     total = 0
@@ -192,7 +197,7 @@ def get_auto_acc() -> list[float]:
         total += datapoint[0]
     sec_avgteamdata = round(total / len(sec_teamdata), 2)
     for team in teams:
-        postgresSQL_average_autoampacc_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_average_autoampacc_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_average_autoampacc_Query)
         mis_datapoints = cur.fetchall()   
         total = 0
@@ -203,7 +208,7 @@ def get_auto_acc() -> list[float]:
         for average in mis_average_autoampacc:
             total += int(average[0])
         mis_final_average = round(total / len(mis_average_autoampacc), 2)
-    postgresSQL_1540_autoampacc_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_autoampacc_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_autoampacc_Query)
     teamdata = cur.fetchall()
     total = 0
@@ -224,7 +229,7 @@ speakerautocalc = []
 autoacc = []
 #returns number of traps scored for our team
 def get_trap_number() -> str:
-    postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_trap_Query)
     trapnumber = cur.fetchall()
     total = 0
@@ -232,7 +237,7 @@ def get_trap_number() -> str:
     return trapnumber
 #returns True or False for wether or not our robot has broke
 def get_broke() -> bool:
-    postgresSQL_broke_Query = """SELECT is_broke FROM "TeamMatches" WHERE team_key='1540' AND is_broke='True'"""
+    postgresSQL_broke_Query = f"""SELECT is_broke FROM "TeamMatches" WHERE team_key='1540' AND is_broke='True' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_broke_Query)
     broke = cur.fetchall()
     if broke == []:
@@ -241,14 +246,14 @@ def get_broke() -> bool:
         return True
 
 def get_speaker_acc_noavg() -> list[float]:
-    postgresSQL_1540_speaker_Query = """SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_speaker_Query)
     missed1540 = cur.fetchall()
     total = 0
     for i in missed1540:
         total += i[0]
     missed1540avg = round(total / len(missed1540), 2)
-    postgresSQL_1540_speaker_Query2 = """SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_speaker_Query2 = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_speaker_Query2)
     scored1540 = cur.fetchall()
     total = 0
@@ -258,14 +263,14 @@ def get_speaker_acc_noavg() -> list[float]:
     acc1540 = round(scored1540avg / missed1540avg , 2)
     acc_all = []
     for team in teams:
-        postgresSQL_other_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_other_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_other_speaker_Query)
         missedother = cur.fetchall()
         total = 0
         for i in missedother:
             total += i[0]
         missedotheravg = round(total / len(missedother), 2)
-        postgresSQL_other_speaker_Query2 = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_other_speaker_Query2 = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_other_speaker_Query2)
         scoredother = cur.fetchall()
         total = 0
@@ -279,14 +284,14 @@ def get_speaker_acc_noavg() -> list[float]:
     return acc
         
 def get_amp_acc_noavg() -> list[float]:
-    postgresSQL_1540_amp_Query = """SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_amp_Query)
     missed1540 = cur.fetchall()
     total = 0
     for i in missed1540:
         total += i[0]
         missed1540avg = round(total / len(missed1540), 2)
-    postgresSQL_1540_amp_Query2 = """SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+    postgresSQL_1540_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
     cur.execute(postgresSQL_1540_amp_Query2)
     scored1540 = cur.fetchall()
     total = 0
@@ -296,14 +301,14 @@ def get_amp_acc_noavg() -> list[float]:
     acc1540 = round(scored1540avg / missed1540avg , 2)
     acc_all = []
     for team in teams:
-        postgresSQL_other_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_other_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_other_amp_Query)
         missedother = cur.fetchall()
         total = 0
         for i in missedother:
             total += i[0]
             missedotheravg = round(total / len(missedother), 2)
-        postgresSQL_other_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+        postgresSQL_other_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_other_amp_Query2)
         scoredother = cur.fetchall()
         total = 0
@@ -324,7 +329,7 @@ def get_trap_graph(toggle, html):
     if toggle:
         if html:
             if get_trap_number() > 0:
-                return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
+                return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times this event</h4>"
             else:
                 return "bad"
         else: return get_trap_number()
@@ -417,13 +422,13 @@ def get_total_auto(toggle, html): # needs benchmark
     else: return "bad"
 def get_total_whole(toggle, html): # needs benchmark
     if toggle:
-        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_autospeaker_Query)
         autospeakerlist = cur.fetchall()
         autospeaker_total = 0
         for i in autospeakerlist:
             autospeaker_total +=i[0]
-        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'""" 
         cur.execute(postgresSQL_1540_autoamp_Query)
         amplist = cur.fetchall()
         autoamp_total = 0
@@ -432,13 +437,13 @@ def get_total_whole(toggle, html): # needs benchmark
         autoampspeaker = autoamp_total + autospeaker_total
         
         
-        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_telespeaker_Query)
         telespeakerlist = cur.fetchall()
         telespeaker_total = 0
         for i in telespeakerlist:
             telespeaker_total +=i[0]
-        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'""" 
         cur.execute(postgresSQL_1540_teleamp_Query)
         amplist = cur.fetchall()
         teleamp_total = 0
@@ -455,13 +460,13 @@ def get_total_whole_other(toggle, html):
     if toggle:
         autoampspeaker = 0
         for team in teams:
-            postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+            postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
             cur.execute(postgresSQL_other_autospeaker_Query)
             autospeakerlist = cur.fetchall()
             autospeaker_total = 0
             for i in autospeakerlist:
                 autospeaker_total +=i[0]
-            postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+            postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'""" 
             cur.execute(postgresSQL_other_autoamp_Query)
             amplist = cur.fetchall()
             autoamp_total = 0
@@ -471,13 +476,13 @@ def get_total_whole_other(toggle, html):
         
         teleampspeaker = 0
         for team in teams:
-            postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+            postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'"""
             cur.execute(postgresSQL_other_telespeaker_Query)
             telespeakerlist = cur.fetchall()
             telespeaker_total = 0
             for i in telespeakerlist:
                 telespeaker_total +=i[0]
-            postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+            postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}'""" 
             cur.execute(postgresSQL_other_teleamp_Query)
             amplist = cur.fetchall()
             teleamp_total = 0
@@ -492,7 +497,7 @@ def get_total_whole_other(toggle, html):
     else: return 
 def times_climb(toggle, html):
     if toggle:
-        postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_climb_Query)
         stage = cur.fetchall()
         #i need help with enums!!!
@@ -514,22 +519,22 @@ def total_shots(toggle, html):
         big_total = 0
         
         #SPEAKER
-        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_autospeaker_Query)
         autospeakerlist = cur.fetchall()
         for i in autospeakerlist:
             big_total +=i[0]
-        postgresSQL_1540_autospeaker_missed_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_autospeaker_missed_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_autospeaker_missed_Query)
         autospeakerlistmissed = cur.fetchall()
         for i in autospeakerlistmissed:
             big_total +=i[0]
-        postgresSQL_1540_telespeaker_missed_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_telespeaker_missed_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_telespeaker_missed_Query)
         telespeakerlistmissed = cur.fetchall()
         for i in telespeakerlistmissed:
             big_total +=i[0]
-        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_telespeaker_Query)
         telespeakerlist = cur.fetchall()
         for i in telespeakerlist:
@@ -537,22 +542,22 @@ def total_shots(toggle, html):
         
         
         #AMP
-        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_autoamp_Query)
         autoamplist = cur.fetchall()
         for i in autoamplist:
             big_total +=i[0]
-        postgresSQL_1540_autoamp_missed_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_autoamp_missed_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_autoamp_missed_Query)
         autoamplistmissed = cur.fetchall()
         for i in autoamplistmissed:
             big_total +=i[0]
-        postgresSQL_1540_teleamp_missed_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_teleamp_missed_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_teleamp_missed_Query)
         teleamplistmissed = cur.fetchall()
         for i in teleamplistmissed:
             big_total +=i[0]
-        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}'"""
         cur.execute(postgresSQL_1540_teleamp_Query)
         teleamplist = cur.fetchall()
         for i in teleamplist:
