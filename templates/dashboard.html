@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true]
+    function setColor(btn, toggle_number) {
+        var property = document.getElementById(btn);
+        if (toggle_list[toggle_number] == false) {
+            property.style.backgroundColor = "#12b31d"
+            toggle_list[toggle_number] = !toggle_list[toggle_number]
+        }
+        else {
+            property.style.backgroundColor = "#ff0800"
+            toggle_list[toggle_number] = !toggle_list[toggle_number]
+        }
+    }
+    // Example POST method implementation:
+    async function update() {
+        console.log("update")
+        const response = await fetch('http://127.0.0.1:5001/fet', {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(toggle_list),
+        });
+    }
+</script>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hensight Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            border: 10px solid #FFC145;
+            /* Adjust border width as needed */
+            height: calc(100vh - 20px);
+        }
+
+        h1 {
+            color: white;
+            font-size: large;
+            font-family: Poppins;
+            font-size: 5rem;
+            margin: 1rem
+        }
+
+        h3 {
+            color: #FFC145;
+            font-size: 19rem;
+            margin: 0rem;
+            font-family: Poppins;
+        }
+
+        h2 {
+            color: #FFC145;
+            font-size: 10rem;
+            margin: 0rem;
+            font-family: Poppins;
+        }
+
+        h4 {
+            color: white;
+            font-family: Poppins;
+            font-size: 2rem;
+            margin: 1rem
+        }
+
+        #title {
+            color: #FFC145;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            row-gap: 1rem;
+        }
+
+        .switchbutton {
+            background-color: #12b31d;
+        }
+
+        button {
+            border: none;
+            color: white;
+            padding: 2.5%;
+            font-size: large;
+            border-radius: 5%;
+            transition: 100ms;
+            margin-bottom: 1%;
+        }
+
+        button:hover {
+            padding: 3.5%;
+            margin-bottom: -1%;
+        }
+
+        #updatebtn {
+            background-color: white;
+            border-radius: 5%;
+            color: black;
+            font-family: Poppins;
+            padding: 1% 5% 1% 5%;
+            margin-top: 2.3%;
+            margin-right: 3%;
+        }
+
+        #updatebtn:hover {
+            padding: 1.2% 5.2% 1.2% 5.2%;
+        }
+    </style>
+</head>
+
+<body style="background-color: #1C1C1C;">
+    <div class="grid-container">
+        <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;"></center>
+        <center><h1 id="title">Hensight Dashboard</h1></center>
+        <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
+    </div>
+    <div class="grid-container">
+        <div><center><h4>Amp Acc</h4><button class="switchbutton" id="amp" onclick="setColor('amp', 0)">Toggle</button></center></div>
+        <div><center><h4>Speaker Acc</h4><button class="switchbutton" id="speaker"onclick="setColor('speaker', 1)">Toggle</button></center></div>
+        <div><center><h4>Trap Number</h4><button class="switchbutton" id="trap" onclick="setColor('trap', 2)">Toggle</button></center></div>
+        <div><center><h4>Auto Acc</h4><button class="switchbutton" id="autoacc"onclick="setColor('autoacc', 3)">Toggle</button></center></div>
+        <div><center><h4>Message 1</h4><button class="switchbutton" id="msg1" onclick="setColor('msg1', 4)">Toggle</button></center></div>
+        <div><center><h4>Message 2</h4><button class="switchbutton" id="msg2" onclick="setColor('msg2', 5)">Toggle</button></center></div>
+        <div><center><h4>Total Auto</h4><button class="switchbutton" id="autotot" onclick="setColor('autotot', 6)">Toggle</button></center></div>
+        <div><center><h4>Total Allgame</h4><button class="switchbutton" id="alltot"onclick="setColor('alltot', 7)">Toggle</button></center></div>
+        <div><center><h4>Total Shots</h4><button class="switchbutton" id="shotot" onclick="setColor('shotot', 8)">Toggle</button></center> </div>
+        <div><center><h4>% by us</h4><button class="switchbutton" id="perbyus" onclick="setColor('perbyus', 9)">Toggle</button></center></div>
+        <div><center><h4>Broke</h4><button class="switchbutton" id="broke" onclick="setColor('broke', 10)">Toggle</button></center></div>
+        <img src="https://emoji.slack-edge.com/T0ALL74SY/aaaaaaaahhhhhhhhhh/1ba2f3745aa648b3.png" alt=""style="width: 2%;">
+    </div>
+    <center><button id="updatebtn" onclick="update()">UPDATE</button></center>
+</body>
+<script src="https://unpkg.com/hyperscript"></script>
+
+</html>

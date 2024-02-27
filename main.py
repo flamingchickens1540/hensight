@@ -4,7 +4,7 @@ import psycopg2
 import plotly.graph_objects as go
 from flask import Flask, render_template
 import operator
-from flask import Request
+from flask import request
 listindex = 0
 app = Flask(__name__)
 
@@ -320,229 +320,258 @@ def get_amp_acc_noavg() -> list[float]:
 @app.route("/")
 def index():
     return render_template('hensight.html')
-def get_trap_graph():
-        if get_trap_number() > 0:
-            return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
-        else:
-            return "bad"
-def get_amp_graph():
-        # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
-                ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255,193,69)"))
-                ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
-                ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
-                ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
-                ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
-                ampfig.update_xaxes(title_text="Amp Accuracy", title_font=dict(color="white", family="Poppins"))
-                amp_html = ampfig.to_html (
-                    include_plotlyjs=True, 
-                    full_html=False,
-                    
-                )
-                return amp_html
-        # else:
-        #     return bad
-def get_speaker_graph():
-        # if get_speaker_acc()[0] >= 0.90 and get_speaker_acc()[0] > get_speaker_acc()[1]:
-            speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_acc(), marker_color="rgb(255, 193, 69)"))
-            speakerfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
-            speakerfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
-            speakerfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
-            speakerfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
-            speakerfig.update_xaxes(title_text="Speaker Accuracy", title_font=dict(color="white", family="Poppins"))
-            speaker_html = speakerfig.to_html(
-                include_plotlyjs=True,
-                full_html=False,
-            )
-            return speaker_html
-        # else:
-            # return "bad"
-def auto_acc_graph():
-        # if get_auto_acc()[0] >= 0.70 and get_auto_acc()[0] > get_auto_acc()[1]:
-            autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc(), marker_color="rgb(255, 193, 69)"))
-            autofig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
-            autofig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
-            autofig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
-            autofig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
-            autofig.update_xaxes(title_text="Auto Accuracy", title_font=dict(color="white", family="Poppins"))
-            auto_html = autofig.to_html(
-                include_plotlyjs=True,
-                full_html=False,
-            )
-            return auto_html
-        # else:
-        #     return "bad"
-def get_broke_graph():
-        if get_broke() == False:
-            return "<h4>Team 1540's robot has broken</h4><h3>0<h3><h4> times this competition</h4>"
-        else:
-            return "bad"
-def get_total_auto():
-    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autospeaker_Query)
-    speakerlist = cur.fetchall()
-    speaker_total = 0
-    for i in speakerlist:
-        speaker_total +=i[0]
-    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
-    cur.execute(postgresSQL_1540_autoamp_Query)
-    amplist = cur.fetchall()
-    amp_total = 0
-    for i in amplist:
-        amp_total +=i[0]
-    ampspeaker = amp_total + speaker_total
-    return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto</h4>"
-def get_total_whole(html):
-    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autospeaker_Query)
-    autospeakerlist = cur.fetchall()
-    autospeaker_total = 0
-    for i in autospeakerlist:
-        autospeaker_total +=i[0]
-    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
-    cur.execute(postgresSQL_1540_autoamp_Query)
-    amplist = cur.fetchall()
-    autoamp_total = 0
-    for i in amplist:
-        autoamp_total +=i[0]
-    autoampspeaker = autoamp_total + autospeaker_total
-    
-    
-    postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_telespeaker_Query)
-    telespeakerlist = cur.fetchall()
-    telespeaker_total = 0
-    for i in telespeakerlist:
-        telespeaker_total +=i[0]
-    postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
-    cur.execute(postgresSQL_1540_teleamp_Query)
-    amplist = cur.fetchall()
-    teleamp_total = 0
-    for i in amplist:
-        teleamp_total +=i[0]
-    teleampspeaker = teleamp_total + telespeaker_total
-    allampspeaker = teleampspeaker + autoampspeaker
-    if html:
-        return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+def get_trap_graph(toggle, html):
+    if toggle:
+        if html:
+            if get_trap_number() > 0:
+                return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
+            else:
+                return "bad"
+        else: return get_trap_number()
+    else: return "bad"
+def get_amp_graph(toggle, html):
+    if toggle:
+        if html:
+            # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
+                    ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255,193,69)"))
+                    ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+                    ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+                    ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+                    ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+                    ampfig.update_xaxes(title_text="Amp Accuracy", title_font=dict(color="white", family="Poppins"))
+                    amp_html = ampfig.to_html (
+                        include_plotlyjs=True, 
+                        full_html=False,
+                        
+                    )
+                    return amp_html
+            # else:
+                # return "bad"
+        else: return get_amp_acc()
     else:
-        return allampspeaker
-def get_total_whole_other(html):
-    autoampspeaker = 0
-    for team in teams:
-        postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
-        cur.execute(postgresSQL_other_autospeaker_Query)
+        return "bad"
+def get_speaker_graph(toggle, html):
+    if toggle:
+        if html:
+            # if get_speaker_acc()[0] >= 0.90 and get_speaker_acc()[0] > get_speaker_acc()[1]:
+                speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_acc(), marker_color="rgb(255, 193, 69)"))
+                speakerfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+                speakerfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+                speakerfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+                speakerfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+                speakerfig.update_xaxes(title_text="Speaker Accuracy", title_font=dict(color="white", family="Poppins"))
+                speaker_html = speakerfig.to_html(
+                    include_plotlyjs=True,
+                    full_html=False,
+                )
+                return speaker_html
+            # else:
+                # return "bad"
+        else: return get_speaker_acc()
+    else:
+        return "bad"
+def auto_acc_graph(toggle, html):
+    if toggle:
+        if html:
+            # if get_auto_acc()[0] >= 0.70 and get_auto_acc()[0] > get_auto_acc()[1]:
+                autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc(), marker_color="rgb(255, 193, 69)"))
+                autofig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+                autofig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+                autofig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+                autofig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+                autofig.update_xaxes(title_text="Auto Accuracy", title_font=dict(color="white", family="Poppins"))
+                auto_html = autofig.to_html(
+                    include_plotlyjs=True,
+                    full_html=False,
+                )
+                return auto_html
+            # else:
+                # return "bad"
+        else: return get_auto_acc()
+    else: return "bad"
+def get_broke_graph(toggle):
+    if toggle:
+            if get_broke() == False:
+                return "<h4>Team 1540's robot has broken</h4><h3>0<h3><h4> times this competition</h4>"
+            else:
+                return "bad"
+    else: return "bad"
+def get_total_auto(toggle, html): # needs benchmark
+    if toggle:
+        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autospeaker_Query)
+        speakerlist = cur.fetchall()
+        speaker_total = 0
+        for i in speakerlist:
+            speaker_total +=i[0]
+        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+        cur.execute(postgresSQL_1540_autoamp_Query)
+        amplist = cur.fetchall()
+        amp_total = 0
+        for i in amplist:
+            amp_total +=i[0]
+        ampspeaker = amp_total + speaker_total
+        if html:
+            return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto this event</h4>"
+        else: return ampspeaker
+    else: return "bad"
+def get_total_whole(toggle, html): # needs benchmark
+    if toggle:
+        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autospeaker_Query)
         autospeakerlist = cur.fetchall()
         autospeaker_total = 0
         for i in autospeakerlist:
             autospeaker_total +=i[0]
-        postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
-        cur.execute(postgresSQL_other_autoamp_Query)
+        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+        cur.execute(postgresSQL_1540_autoamp_Query)
         amplist = cur.fetchall()
         autoamp_total = 0
         for i in amplist:
             autoamp_total +=i[0]
-        autoampspeaker += autoamp_total + autospeaker_total
-    
-    teleampspeaker = 0
-    for team in teams:
-        postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
-        cur.execute(postgresSQL_other_telespeaker_Query)
+        autoampspeaker = autoamp_total + autospeaker_total
+        
+        
+        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_telespeaker_Query)
         telespeakerlist = cur.fetchall()
         telespeaker_total = 0
         for i in telespeakerlist:
             telespeaker_total +=i[0]
-        postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
-        cur.execute(postgresSQL_other_teleamp_Query)
+        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'""" 
+        cur.execute(postgresSQL_1540_teleamp_Query)
         amplist = cur.fetchall()
         teleamp_total = 0
         for i in amplist:
             teleamp_total +=i[0]
-        teleampspeaker += teleamp_total + telespeaker_total
-    allampspeaker = teleampspeaker + autoampspeaker
-    if html:
-        return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
-    else:
-        return allampspeaker
-def times_climb():
-    postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_climb_Query)
-    stage = cur.fetchall()
-    #i need help with enums!!!
-    postgresSQL_trap_suc_Query = """SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_trap_suc_Query)
-    trap = cur.fetchall()
-    total = 0
-    for i in trap:
-        total += i[0]
-    if total > 1:
-        return f"<h4>Team 1540's robot has scored</h4><h2>{total}</h2><h4>notes in trap this competition</h4>"
-    else:
-        return "bad"
-def message1():
-    return "<h2>Thank You</h2><h4>for visiting team 1540's pits</h4>"
-def message2():
-    return "<h4>We appreciate</h4><h2>YOU</h2><h4>for joining us in our pits</h4>"
-def percent_by_us():
-    percent = round(get_total_whole(False) / get_total_whole_other(False), 1)
-    return f"<h4>Team 1540's robot has scored</h4><h3>{percent}%</h3><h4>of the notes scored this competition</h4>"
-def total_shots():
-    big_total = 0
-    
-    #SPEAKER
-    postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autospeaker_Query)
-    autospeakerlist = cur.fetchall()
-    for i in autospeakerlist:
-        big_total +=i[0]
-    postgresSQL_1540_autospeaker_missed_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autospeaker_missed_Query)
-    autospeakerlistmissed = cur.fetchall()
-    for i in autospeakerlistmissed:
-       big_total +=i[0]
-    postgresSQL_1540_telespeaker_missed_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_telespeaker_missed_Query)
-    telespeakerlistmissed = cur.fetchall()
-    for i in telespeakerlistmissed:
-       big_total +=i[0]
-    postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_telespeaker_Query)
-    telespeakerlist = cur.fetchall()
-    for i in telespeakerlist:
-       big_total +=i[0]
-    
-    
-    #AMP
-    postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autoamp_Query)
-    autoamplist = cur.fetchall()
-    for i in autoamplist:
-        big_total +=i[0]
-    postgresSQL_1540_autoamp_missed_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_autoamp_missed_Query)
-    autoamplistmissed = cur.fetchall()
-    for i in autoamplistmissed:
-       big_total +=i[0]
-    postgresSQL_1540_teleamp_missed_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_teleamp_missed_Query)
-    teleamplistmissed = cur.fetchall()
-    for i in teleamplistmissed:
-       big_total +=i[0]
-    postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
-    cur.execute(postgresSQL_1540_teleamp_Query)
-    teleamplist = cur.fetchall()
-    for i in teleamplist:
-       big_total +=i[0]
-    
-    return f"<h4>Team 1540's robot has made</h4><h3>{big_total}<h3><h4>shots this season</h4>"
+        teleampspeaker = teleamp_total + telespeaker_total
+        allampspeaker = teleampspeaker + autoampspeaker
+        if html:
+            return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes this season</h4>"
+        else:
+            return allampspeaker
+    else: return "bad"
+def get_total_whole_other(toggle, html):
+    if toggle:
+        autoampspeaker = 0
+        for team in teams:
+            postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+            cur.execute(postgresSQL_other_autospeaker_Query)
+            autospeakerlist = cur.fetchall()
+            autospeaker_total = 0
+            for i in autospeakerlist:
+                autospeaker_total +=i[0]
+            postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+            cur.execute(postgresSQL_other_autoamp_Query)
+            amplist = cur.fetchall()
+            autoamp_total = 0
+            for i in amplist:
+                autoamp_total +=i[0]
+            autoampspeaker += autoamp_total + autospeaker_total
+        
+        teleampspeaker = 0
+        for team in teams:
+            postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'"""
+            cur.execute(postgresSQL_other_telespeaker_Query)
+            telespeakerlist = cur.fetchall()
+            telespeaker_total = 0
+            for i in telespeakerlist:
+                telespeaker_total +=i[0]
+            postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}'""" 
+            cur.execute(postgresSQL_other_teleamp_Query)
+            amplist = cur.fetchall()
+            teleamp_total = 0
+            for i in amplist:
+                teleamp_total +=i[0]
+            teleampspeaker += teleamp_total + telespeaker_total
+        allampspeaker = teleampspeaker + autoampspeaker
+        if html:
+            return f"<h4>Team 1540's robot has scored</h4><h3>{allampspeaker}<h3><h4> Notes Total</h4>"
+        else:
+            return allampspeaker
+    else: return 
+def times_climb(toggle, html):
+    if toggle:
+        postgresSQL_1540_climb_Query = f"""SELECT stage_enum FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_climb_Query)
+        stage = cur.fetchall()
+        #i need help with enums!!!
+    else: return "bad"
+def message1(toggle):
+    if toggle: return "<h2>Thank You</h2><h4>for visiting team 1540's pits</h4>"
+    else: return "bad"
+def message2(toggle):
+    if toggle: return "<h4>We appreciate</h4><h2>YOU</h2><h4>for joining us in our pits</h4>"
+    else: return "bad"
+def percent_by_us(toggle, html): # needs benchmark
+    if toggle:
+        percent = round(get_total_whole(True, False) / get_total_whole_other(True, False), 1)
+        if html: return f"<h4>Team 1540's robot has scored</h4><h3>{percent}%</h3><h4>of the notes scored this event</h4>"
+        else: return percent
+    else: return "bad"
+def total_shots(toggle, html):
+    if toggle:
+        big_total = 0
+        
+        #SPEAKER
+        postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autospeaker_Query)
+        autospeakerlist = cur.fetchall()
+        for i in autospeakerlist:
+            big_total +=i[0]
+        postgresSQL_1540_autospeaker_missed_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autospeaker_missed_Query)
+        autospeakerlistmissed = cur.fetchall()
+        for i in autospeakerlistmissed:
+            big_total +=i[0]
+        postgresSQL_1540_telespeaker_missed_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_telespeaker_missed_Query)
+        telespeakerlistmissed = cur.fetchall()
+        for i in telespeakerlistmissed:
+            big_total +=i[0]
+        postgresSQL_1540_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_telespeaker_Query)
+        telespeakerlist = cur.fetchall()
+        for i in telespeakerlist:
+            big_total +=i[0]
+        
+        
+        #AMP
+        postgresSQL_1540_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autoamp_Query)
+        autoamplist = cur.fetchall()
+        for i in autoamplist:
+            big_total +=i[0]
+        postgresSQL_1540_autoamp_missed_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_autoamp_missed_Query)
+        autoamplistmissed = cur.fetchall()
+        for i in autoamplistmissed:
+            big_total +=i[0]
+        postgresSQL_1540_teleamp_missed_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_teleamp_missed_Query)
+        teleamplistmissed = cur.fetchall()
+        for i in teleamplistmissed:
+            big_total +=i[0]
+        postgresSQL_1540_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540'"""
+        cur.execute(postgresSQL_1540_teleamp_Query)
+        teleamplist = cur.fetchall()
+        for i in teleamplist:
+            big_total +=i[0]
+        
+        if html: return f"<h4>Team 1540's robot has made</h4><h3>{big_total}<h3><h4>shots this season</h4>"
+        else: return big_total
+    else: return "bad"
 def make_graph() -> str:
 
-
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), message2(), auto_acc_graph(), get_broke_graph(), get_total_auto(), get_total_whole(True), message1(), percent_by_us(), total_shots()]
+    
+    listofresults=[get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), total_shots(toggle_list[8], True)]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
 
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True]
 @app.route('/request')
 def main():
     global listindex
@@ -553,6 +582,14 @@ def main():
         listindex = 0
     return html[listindex]
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+@app.route('/fet', methods = ['POST'])
+def dashrequest():
+    global toggle_list
+    toggle_list = request.json
+    return "hi"
 @app.route('/gitfeet')
 def gitfeet():
     return '<marquee><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4></marquee>'
