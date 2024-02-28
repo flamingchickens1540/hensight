@@ -317,7 +317,6 @@ def get_amp_acc_noavg() -> list[float]:
         acc.append(i)
     return acc
 
-print(get_speaker_acc_noavg())
 @app.route("/")
 def index():
     return render_template('hensight.html')
@@ -326,6 +325,102 @@ def get_trap_graph():
             return "<h4> We have scored in the trap</h4><h3>"+ str(get_trap_number()) +"</h3> times</h4>"
         else:
             return "bad"
+
+not_1540_speaker= []
+count = 0 
+
+for team in teams:
+    if team == ('1540',):
+        not_1540_speaker.append('1540')
+    else:
+        not_1540_speaker.append(f"{count}")
+        count = count + 1
+
+speaker_comparison_raw_data = {}       
+count = 0
+
+for team in not_1540_speaker:
+    speaker_acc_noavg = get_speaker_acc_noavg()
+    speaker_comparison_raw_data[team] = speaker_acc_noavg[count]
+    count = count + 1
+
+speaker_comparison_data = sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1))
+speaker_comparison_data = dict(sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+speaker_comparison_keys = [key for key in list(speaker_comparison_data.keys())]
+speaker_comparison_values = [value for value in list(speaker_comparison_data.values())]
+
+speaker_colors = []
+
+for key in speaker_comparison_keys:
+    if key == '1540':
+        speaker_colors.append("rgb(255,193,69)")
+    else: 
+        speaker_colors.append("rgb(195,195,195)")
+
+def get_speaker_comparison_graph():
+    ampfig = go.Figure(go.Bar(x=speaker_comparison_keys, y=speaker_comparison_values, marker_color=speaker_colors))
+    ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+    ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+    ampfig.update_layout(barmode='group')
+    ampfig.update_xaxes(title_text="Speaker Comparison", title_font=dict(color="white", family="Poppins"))
+    amp_html = ampfig.to_html (
+        include_plotlyjs=True, 
+        full_html=False,
+        
+    )
+    return amp_html        
+
+
+not_1540_amp = []
+count = 0 
+
+for team in teams:
+    if team == ('1540',):
+        not_1540_amp.append('1540')
+    else:
+        not_1540_amp.append(f"{count}")
+        count = count + 1
+
+amp_comparison_raw_data = {}       
+count = 0
+
+for team in not_1540_amp:
+    amp_acc_noavg = get_amp_acc_noavg()
+    amp_comparison_raw_data[team] = amp_acc_noavg[count]
+    count = count + 1
+
+amp_comparison_data = sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1))
+amp_comparison_data = dict(sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+amp_comparison_keys = [key for key in list(amp_comparison_data.keys())]
+amp_comparison_values = [value for value in list(amp_comparison_data.values())]
+
+amp_colors = []
+
+for key in amp_comparison_keys:
+    if key == '1540':
+        amp_colors.append("rgb(255,193,69)")
+    else: 
+        amp_colors.append("rgb(195,195,195)")
+
+def get_amp_comparison_graph():
+    ampfig = go.Figure(go.Bar(x=amp_comparison_keys, y=amp_comparison_values, marker_color=amp_colors))
+    ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+    ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+    ampfig.update_layout(barmode='group')
+    ampfig.update_xaxes(title_text="Amp Comparison", title_font=dict(color="white", family="Poppins"))
+    amp_html = ampfig.to_html (
+        include_plotlyjs=True, 
+        full_html=False,
+        
+    )
+    return amp_html
+
 def get_amp_graph():
         # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
                 ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255,193,69)"))
@@ -380,7 +475,7 @@ def get_broke_graph():
 def make_graph() -> str:
 
 
-    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph()]
+    listofresults=[get_trap_graph(), get_amp_graph(), get_speaker_graph(), auto_acc_graph(), get_broke_graph(), get_amp_comparison_graph(), get_speaker_comparison_graph()]
     reallist = []
     for result in listofresults:
         if result != "bad":
@@ -403,4 +498,3 @@ def gitfeet():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
-

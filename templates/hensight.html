@@ -53,10 +53,9 @@
 
     </style>
 </head>
-<img src="https://emoji.slack-edge.com/T0ALL74SY/aaaaaaaahhhhhhhhhh/1ba2f3745aa648b3.png" alt="">
 <body style="background-color: #1C1C1C;">
     <center>
-    <div id="div" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
+    <div id="div" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 7s">
 </div>
 </center>
 </body>
@@ -64,9 +63,9 @@
 <script>
     function fadeEffect() {
         console.log("fade started")
-            document.body.style.animation = "fadeout 1s forwards";
+            document.body.style.animation = "fadeout 2s forwards";
             setTimeout(function() {
-                document.body.style.animation = "fadein 1s forwards";
+                document.body.style.animation = "fadein 2s forwards";
 
             }, 2000); 
         }
@@ -84,13 +83,13 @@
     document.addEventListener('htmx:beforeRequest', function(event) {
         // Check if the request is for the specific div
         if (event.detail.target.matches('#div')) {
-            document.body.style.animation = "fadeout 1s forwards";
+            document.body.style.animation = "fadeout 2s forwards";
         }
     });
     document.addEventListener('htmx:afterRequest', function(event) {
         // Check if the response is for the specific div
         if (event.detail.target.matches('#div')) {
-            document.body.style.animation = "fadein 1s forwards";
+            document.body.style.animation = "fadein 2s forwards";
         }
     });
     
