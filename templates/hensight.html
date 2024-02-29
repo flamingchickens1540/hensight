@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script>
+    var elem = document.documentElement;
+    function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+    }
+</script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -42,7 +53,7 @@
         font-size: large;
         font-family: Poppins;
         font-size: 5rem;
-        margin:1rem
+        margin:0rem
     }
     h3{
         color:#FFC145;
@@ -59,7 +70,7 @@
 
     </style>
 </head>
-<body style="background-color: #1C1C1C;">
+<body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
     <div id="div" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
 </div>
