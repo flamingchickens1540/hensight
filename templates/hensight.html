@@ -67,24 +67,35 @@
         margin:0rem;
         font-family: Poppins;
     }
+    .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%; /* Set width to 100% */
+    }
 
     </style>
 </head>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
-    <div id="div" style="margin-top: 10vh;" hx-get="/request" hx-trigger="every 10s">
-</div>
-</center>
+        <div class="center" id="div" style="margin:auto" hx-get="/request" hx-trigger="click">
+            <h3 style="font-size: 10rem;">Hensight</h3>
+            <img style="width: 20rem; margin:5rem" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="">
+            <h4>Click to start</h4>
+        <center>
+    </div>
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
 <script>
     function fadeEffect() {
         console.log("fade started")
-            document.body.style.animation = "fadeout 1s forwards";
+            document.body.style.animation = "fadeout 2s forwards";
             setTimeout(function() {
-                document.body.style.animation = "fadein 1s forwards";
+                document.body.style.animation = "fadein 2s forwards";
 
-            }, 2000); 
+            }, 1000); 
         }
 
     // document.addEventListener('readystatechange', function() {
@@ -106,10 +117,27 @@
     document.addEventListener('htmx:afterRequest', function(event) {
         // Check if the response is for the specific div
         if (event.detail.target.matches('#div')) {
-            document.body.style.animation = "fadein 1s forwards";
+            setTimeout(function() {
+                document.body.style.animation = "fadein 1s forwards";
+
+            }, 1000); 
+            
         }
     });
-    
+    var timerId;
+
+  document.getElementById('div').addEventListener('click', function() {
+    // Cancel the previous timer if exists
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+
+    // Set a new timer for 5 seconds
+    timerId = setTimeout(function() {
+      // Trigger the request after 5 seconds
+      document.getElementById('div').dispatchEvent(new Event('click'));
+    }, 10000);
+  });
         
 </script>
 </html>

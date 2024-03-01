@@ -291,40 +291,43 @@ def get_amp_acc_noavg() -> list[float]:
     postgresSQL_1540_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
     cur.execute(postgresSQL_1540_amp_Query)
     missed1540 = cur.fetchall()
-    total = 0
-    for i in missed1540:
-        total += i[0]
-        missed1540avg = round(total / len(missed1540), 2)
-    postgresSQL_1540_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
-    cur.execute(postgresSQL_1540_amp_Query2)
-    scored1540 = cur.fetchall()
-    total = 0
-    for i in scored1540:
-        total += i[0]
-        scored1540avg = round(total / len(missed1540), 2)
-    acc1540 = round(scored1540avg / missed1540avg , 2)
-    acc_all = []
-    for team in teams:
-        postgresSQL_other_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_other_amp_Query)
-        missedother = cur.fetchall()
-        total = 0
-        for i in missedother:
-            total += i[0]
-            missedotheravg = round(total / len(missedother), 2)
-        postgresSQL_other_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_other_amp_Query2)
-        scoredother = cur.fetchall()
-        total = 0
-        for i in scoredother:
-            total += i[0]
-            scoredotheravg = round(total / len(missedother), 2)
-        acc_all.append(round(scoredotheravg / missedotheravg , 2))
-    acc = [acc1540]
-    for i in acc_all:
-        acc.append(i)
-    return acc
-
+    if cur.rowcount != 0:
+            total = 0
+            for i in missed1540:
+                total += i[0]
+                missed1540avg = round(total / len(missed1540), 2)
+            postgresSQL_1540_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_1540_amp_Query2)
+            scored1540 = cur.fetchall()
+            if cur.rowcount != 0:
+                total = 0
+                for i in scored1540:
+                    total += i[0]
+                    scored1540avg = round(total / len(missed1540), 2)
+                acc1540 = round(scored1540avg / missed1540avg , 2)
+                acc_all = []
+                for team in teams:
+                    postgresSQL_other_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+                    cur.execute(postgresSQL_other_amp_Query)
+                    missedother = cur.fetchall()
+                    if cur.rowcount != 0:
+                        total = 0
+                        for i in missedother:
+                            total += i[0]
+                            missedotheravg = round(total / len(missedother), 2)
+                        postgresSQL_other_amp_Query2 = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+                        cur.execute(postgresSQL_other_amp_Query2)
+                        scoredother = cur.fetchall()
+                        if cur.rowcount != 0:
+                            total = 0
+                            for i in scoredother:
+                                total += i[0]
+                                scoredotheravg = round(total / len(missedother), 2)
+                            acc_all.append(round(scoredotheravg / missedotheravg , 2))
+                        acc = [acc1540]
+                        for i in acc_all:
+                            acc.append(i)
+                        return acc
 
 @app.route("/")
 def index():
@@ -338,11 +341,171 @@ def get_trap_graph(toggle, html):
                 return "bad"
         else: return get_trap_number()
     else: return "bad"
+
+def get_speaker_comparison_keys():
+    not_1540_speaker= []
+    count = 0 
+
+    for team in teams:
+        if team == ('1540',):
+            not_1540_speaker.append('1540')
+        else:
+            not_1540_speaker.append(f"{count}")
+            count = count + 1
+
+    speaker_comparison_raw_data = {}       
+    count = 0
+
+    for team in not_1540_speaker:
+        speaker_acc_noavg = get_speaker_acc_noavg()
+        speaker_comparison_raw_data[team] = speaker_acc_noavg[count]
+        count = count + 1
+
+    speaker_comparison_data = sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1))
+    speaker_comparison_data = dict(sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+    speaker_comparison_keys = [key for key in list(speaker_comparison_data.keys())]
+    speaker_comparison_values = [value for value in list(speaker_comparison_data.values())]
+
+    return speaker_comparison_keys
+
+def get_speaker_comparison_values():
+    not_1540_speaker= []
+    count = 0 
+
+    for team in teams:
+        if team == ('1540',):
+            not_1540_speaker.append('1540')
+        else:
+            not_1540_speaker.append(f"{count}")
+            count = count + 1
+
+    speaker_comparison_raw_data = {}       
+    count = 0
+
+    for team in not_1540_speaker:
+        speaker_acc_noavg = get_speaker_acc_noavg()
+        speaker_comparison_raw_data[team] = speaker_acc_noavg[count]
+        count = count + 1
+
+    speaker_comparison_data = sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1))
+    speaker_comparison_data = dict(sorted(speaker_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+    speaker_comparison_keys = [key for key in list(speaker_comparison_data.keys())]
+    speaker_comparison_values = [value for value in list(speaker_comparison_data.values())]
+    
+    return speaker_comparison_values
+
+def speaker_color_filter(speaker_comparison_keys):    
+    speaker_colors = []
+
+    for key in speaker_comparison_keys:
+        if key == '1540':
+            speaker_colors.append("rgb(255,193,69)")
+        else: 
+            speaker_colors.append("rgb(195,195,195)")
+            
+    return speaker_colors
+
+def get_speaker_comparison_graph():
+    ampfig = go.Figure(go.Bar(x=get_speaker_comparison_keys(), y=get_speaker_comparison_values(), marker_color=speaker_color_filter(get_speaker_comparison_keys())))
+    ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+    ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+    ampfig.update_layout(barmode='group')
+    ampfig.update_xaxes(title_text="Speaker Comparison", title_font=dict(color="white", family="Poppins"))
+    amp_html = ampfig.to_html (
+        include_plotlyjs=True, 
+        full_html=False,
+        
+    )
+    return amp_html        
+
+def get_amp_comparison_keys():
+    not_1540_amp = []
+    count = 0 
+
+    for team in teams:
+        if team == ('1540',):
+            not_1540_amp.append('1540')
+        else:
+            not_1540_amp.append(f"{count}")
+            count = count + 1
+
+    amp_comparison_raw_data = {}       
+    count = 0
+
+    for team in not_1540_amp:
+        amp_acc_noavg = get_amp_acc_noavg()
+        amp_comparison_raw_data[team] = amp_acc_noavg[count]
+        count = count + 1
+
+    amp_comparison_data = sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1))
+    amp_comparison_data = dict(sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+    amp_comparison_keys = [key for key in list(amp_comparison_data.keys())]
+    amp_comparison_values = [value for value in list(amp_comparison_data.values())]
+    
+    return amp_comparison_keys
+
+def get_amp_comparison_values():
+    not_1540_amp = []
+    count = 0 
+
+    for team in teams:
+        if team == ('1540',):
+            not_1540_amp.append('1540')
+        else:
+            not_1540_amp.append(f"{count}")
+            count = count + 1
+
+    amp_comparison_raw_data = {}       
+    count = 0
+
+    for team in not_1540_amp:
+        amp_acc_noavg = get_amp_acc_noavg()
+        amp_comparison_raw_data[team] = amp_acc_noavg[count]
+        count = count + 1
+
+    amp_comparison_data = sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1))
+    amp_comparison_data = dict(sorted(amp_comparison_raw_data.items(), key=operator.itemgetter(1), reverse=True))
+
+    amp_comparison_keys = [key for key in list(amp_comparison_data.keys())]
+    amp_comparison_values = [value for value in list(amp_comparison_data.values())]
+    
+    return amp_comparison_values
+
+def amp_color_filter(amp_comparison_keys):
+    amp_colors = []
+
+    for key in amp_comparison_keys:
+        if key == '1540':
+            amp_colors.append("rgb(255,193,69)")
+        else: 
+            amp_colors.append("rgb(195,195,195)")
+            
+    return amp_colors
+
+def get_amp_comparison_graph(toggle, html):
+    ampfig = go.Figure(go.Bar(x=get_amp_comparison_keys(), y=get_amp_comparison_values(), marker_color=amp_color_filter(get_amp_comparison_keys())))
+    ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
+    ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
+    ampfig.update_layout(xaxis=dict(showgrid=False), yaxis=dict(showgrid=False))
+    ampfig.update_layout(barmode='group')
+    ampfig.update_xaxes(title_text="Amp Comparison", title_font=dict(color="white", family="Poppins"))
+    amp_html = ampfig.to_html (
+        include_plotlyjs=True, 
+        full_html=False,
+        
+    )
+    return amp_html
 def get_amp_graph(toggle, html):
     if toggle:
         if html:
             # if get_amp_acc()[0] >= 0.90 and get_amp_acc()[0] > get_amp_acc()[1]:
-                    ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color="rgb(255,193,69)"))
+                    ampfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_amp_acc(), marker_color=["rgb(255,193,69)", "rgb(195,195,195)"]))
                     ampfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
                     ampfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
                     ampfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
@@ -363,7 +526,7 @@ def get_speaker_graph(toggle, html):
     if toggle:
         if html:
             # if get_speaker_acc()[0] >= 0.90 and get_speaker_acc()[0] > get_speaker_acc()[1]:
-                speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_acc(), marker_color="rgb(255, 193, 69)"))
+                speakerfig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_speaker_acc(), marker_color=["rgb(255,193,69)", "rgb(195,195,195)"]))
                 speakerfig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
                 speakerfig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
                 speakerfig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
@@ -383,7 +546,7 @@ def auto_acc_graph(toggle, html):
     if toggle:
         if html:
             # if get_auto_acc()[0] >= 0.70 and get_auto_acc()[0] > get_auto_acc()[1]:
-                autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc(), marker_color="rgb(255, 193, 69)"))
+                autofig = go.Figure(go.Bar(x=['1540', 'Average'], y=get_auto_acc(), marker_color=["rgb(255,193,69)", "rgb(195,195,195)"]))
                 autofig.update_layout(plot_bgcolor='rgb(28, 28, 28)')
                 autofig.update_layout(paper_bgcolor='rgb(28, 28, 28)')
                 autofig.update_layout(font=dict(color="white", size=14, family = "Poppins"))
@@ -574,6 +737,7 @@ def make_graph() -> str:
 
     
     listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True)]
+    # listofresults=[get_amp_comparison_graph(True, True), get_speaker_comparison_graph()]
     reallist = []
     for result in listofresults:
         if result != "bad":
@@ -585,7 +749,7 @@ toggle_list = [True, True, True, True, True, True, True, True, True, True, True]
 def main():
     global listindex
     html = make_graph()
-    if len(html)-1 != listindex:
+    if len(html) > listindex:
         listindex = listindex + 1
     else:
         listindex = 0
@@ -605,4 +769,3 @@ def gitfeet():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
-
