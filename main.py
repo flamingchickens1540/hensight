@@ -765,7 +765,7 @@ def egg_laying_message(toggle, html):
 def make_graph() -> str:
 
     
-    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), feather_message(True, True), egg_laying_message(True, True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
+    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), feather_message(toggle_list[14], True), egg_laying_message(toggle_list[15], True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
     # listofresults=[eggs_in_season(toggle_list[11], True)]
     reallist = []
     for result in listofresults:
