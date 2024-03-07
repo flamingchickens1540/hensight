@@ -89,14 +89,31 @@
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
 <script>
-    function fadeEffect() {
-        console.log("fade started")
-            document.body.style.animation = "fadeout 2s forwards";
-            setTimeout(function() {
-                document.body.style.animation = "fadein 2s forwards";
+    var fadeoutInProgress = false;
 
-            }, 1000); 
+    document.addEventListener('htmx:beforeRequest', function(event) {
+        // Check if the request is for the specific div
+        if (event.detail.target.matches('#div')) {
+            document.body.style.animation = "fadeout 1s forwards";
+            fadeoutInProgress = true;
         }
+    });
+
+    document.addEventListener('htmx:afterRequest', function(event) {
+        // Check if the response is for the specific div
+        if (event.detail.target.matches('#div')) {
+            setTimeout(function() {
+                if (fadeoutInProgress) {
+                    setTimeout(function() {
+                        document.body.style.animation = "fadein 1s forwards";
+                    }, 500); // Delayed fadein after fadeout completes
+                } else {
+                    document.body.style.animation = "fadein 1s forwards";
+                }
+                fadeoutInProgress = false; // Reset the flag
+            }, 500); // Additional delay to ensure at least 1s after fadeout
+        }
+    });
 
     // document.addEventListener('readystatechange', function() {
     //     document.body.addEventListener('hxrequest', function() {
