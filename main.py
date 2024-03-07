@@ -752,17 +752,27 @@ def event_total_score(toggle, html):
         if html: return f'<h4>There has been</h4><h3>{event_tot}</h3><h4>notes scored this event</h4>'
         else: return event_tot
     else: return 'bad'
+def feather_message(toggle, html):
+    if toggle:
+        if html:
+            return "<h4>There are as many people that do</h4><h2>FIRST</h2><h4>as feathers on ten and half chickens!</h4>"  
+    else: return 'bad'
+def egg_laying_message(toggle, html):
+    if toggle:
+        if html:
+            return "<h4>During each match over</h4><h2>520,000</h2><h4>eggs are laid in the US</h4>"
+    else: return 'bad'
 def make_graph() -> str:
 
     
-    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
+    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), feather_message(True, True), egg_laying_message(True, True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
     # listofresults=[eggs_in_season(toggle_list[11], True)]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
-toggle_list = [False, False, False, False, True, True, False, False, False, False, False, True, True, True]
+toggle_list = [False, False, False, False, True, True, False, False, False, False, False, True, True, True, True, True]
 @app.route("/")
 def index():
     return render_template('hensight.html')
