@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from flask import Flask, render_template
 import operator
 from flask import request
+import time
 listindex = 0
 app = Flask(__name__)
 #------------------------------------------------------------------------------------------------------------#
@@ -42,18 +43,22 @@ teams = cur.fetchall()
 
 #returns [percent acc of our team for amp in tele, percent acc of average of all other teams for amp in tele]
 def get_amp_acc() -> list[float]:
+    sec_average_ampacc = {}
+    mis_average_ampacc = {}
+    amp_acc = []
     for team in teams:
         postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_average_ampacc_Query)
-        sec_datapoints = cur.fetchall()   
-        total = 0
-        for datapoint in sec_datapoints:
-            total += datapoint[0]
-            sec_average_ampacc[team] = round(total / len(sec_datapoints), 2)
-        total = 0
-        for average in sec_average_ampacc:
-            total += int(average[0])
-        sec_final_average = round(total / len(sec_average_ampacc), 2)
+        if cur.rowcount != 0:
+            sec_datapoints = cur.fetchall()   
+            total = 0
+            for datapoint in sec_datapoints:
+                total += datapoint[0]
+                sec_average_ampacc[team] = round(total / len(sec_datapoints), 2)
+            total = 0
+            for average in sec_average_ampacc:
+                total += int(average[0])
+            sec_final_average = round(total / len(sec_average_ampacc), 2)
     postgresSQL_1540_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
     cur.execute(postgresSQL_1540_ampacc_Query)
     sec_teamdata = cur.fetchall()
@@ -83,11 +88,11 @@ def get_amp_acc() -> list[float]:
     amp_acc.append(round(sec_avgteamdata / mis_avgteamdata, 2))
     amp_acc.append(round(sec_final_average / mis_final_average, 2))
     return amp_acc
-sec_average_ampacc = {}
-mis_average_ampacc = {}
-amp_acc = []
 #returns [percent acc of our team for speaker in tele, percent acc of average of all other teams for speaker in tele]
 def get_speaker_acc() -> list[float]:
+    sec_average_speakeracc = {}
+    mis_average_speakeracc = {}
+    speaker_acc = []
     for team in teams:
         postgresSQL_average_speakeracc_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_average_speakeracc_Query)
@@ -129,11 +134,15 @@ def get_speaker_acc() -> list[float]:
     speaker_acc.append(round(sec_avgteamdata / mis_avgteamdata, 2))
     speaker_acc.append(round(sec_final_average / mis_final_average, 2))
     return speaker_acc
-sec_average_speakeracc = {}
-mis_average_speakeracc = {}
-speaker_acc = []
 #returns [average of percent acc of amp in auto and percent acc of speaker in auto for our team, same thing for average of all other teams]
 def get_auto_acc() -> list[float]:
+    sec_average_autospeakeracc = {}
+    mis_average_autospeakeracc = {}
+    sec_average_autoampacc = {}
+    mis_average_autoampacc = {}
+    ampautocalc = []
+    speakerautocalc = []
+    autoacc = []
     for team in teams:
         postgresSQL_average_autospeakeracc_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_average_autospeakeracc_Query)
@@ -220,13 +229,6 @@ def get_auto_acc() -> list[float]:
     autoacc.append(round(ampautocalc[0] / speakerautocalc[0], 2))
     autoacc.append(round(ampautocalc[1] / speakerautocalc[1], 2))
     return autoacc
-sec_average_autospeakeracc = {}
-mis_average_autospeakeracc = {}
-sec_average_autoampacc = {}
-mis_average_autoampacc = {}
-ampautocalc = []
-speakerautocalc = []
-autoacc = []
 #returns number of traps scored for our team
 def get_trap_number() -> str:
     postgresSQL_1540_trap_Query = f"""SELECT trap_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
@@ -329,9 +331,7 @@ def get_amp_acc_noavg() -> list[float]:
                             acc.append(i)
                         return acc
 
-@app.route("/")
-def index():
-    return render_template('hensight.html')
+
 def get_trap_graph(toggle, html):
     if toggle:
         if html:
@@ -733,24 +733,45 @@ def total_shots(toggle, html):
         if html: return f"<h4>Team 1540's robot has made</h4><h3>{big_total}<h3><h4>shots this season</h4>"
         else: return big_total
     else: return "bad"
+def eggs_in_season(toggle, html):
+    if toggle:
+        current_time = round(time.time())
+        secconds_passed = round(current_time - 	1704571200)
+        years = secconds_passed / 31536000
+        eggs_laied = round(years * 250)
+        if html:
+            return f'<h4>A single chicken would have laid</h4><h3>{eggs_laied}</h3><h4>eggs since build season started</h4>'
+        else: return eggs_laied
+    else: return 'bad'
+def chicken_weight(toggle):
+    if toggle: return '<h4>The heaviest chicken was 22lbs! That is</h4><h3>88 lbs</h3><h4>less than the weight of our robot!</h4>'
+    else: return 'bad'
+def event_total_score(toggle, html):
+    if toggle:
+        event_tot = get_total_whole(True, False) + get_total_whole_other(True, False)
+        if html: return f'<h4>There has been</h4><h3>{event_tot}</h3><h4>notes scored this event</h4>'
+        else: return event_tot
+    else: return 'bad'
 def make_graph() -> str:
 
     
-    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True)]
-    # listofresults=[get_amp_comparison_graph(True, True), get_speaker_comparison_graph()]
+    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
+    # listofresults=[eggs_in_season(toggle_list[11], True)]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
-
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True]
+toggle_list = [False, False, False, False, True, True, False, False, False, False, False, True, True, True]
+@app.route("/")
+def index():
+    return render_template('hensight.html')
 @app.route('/request')
 def main():
     global listindex
     html = make_graph()
-    if len(html) > listindex:
-        listindex = listindex + 1
+    if len(html)-1 > listindex:
+        listindex +=1
     else:
         listindex = 0
     return html[listindex]
@@ -763,6 +784,10 @@ def dashrequest():
     global toggle_list
     toggle_list = request.json
     return "hi"
+@app.route('/feet')
+def dashget():
+    datalist = [get_amp_graph(True, False), get_speaker_graph(True, False), get_trap_graph(True, False), auto_acc_graph(True, False), '', '', get_total_auto(True, False), get_total_whole(True, False), total_shots(True, False), percent_by_us(True, False), 'Automatic', eggs_in_season(True, False), event_total_score(True,False)]
+    return datalist
 @app.route('/gitfeet')
 def gitfeet():
     return '<marquee><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4></marquee>'

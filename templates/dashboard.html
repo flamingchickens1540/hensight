@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true]
+    var toggle_list = [false, false, false, false, true, true, false, false, false, false, false, true, true, true]
+    var idlist = ['amp','speaker','trap','autoacc','msg1','msg2','autotot','alltot','shotot','perbyus','broke', 'eggs', 'weight', 'eventot']
+    function updateColors(){
+        for (let i = 0; i < idlist.length; i++) {
+            console.log("update colors", i)
+            let property = document.getElementById(idlist[i])
+            if (!toggle_list[i]){property.style.backgroundColor = "#ff0800"}
+            else {property.style.backgroundColor = "#12b31d"}
+        }
+    }
     function setColor(btn, toggle_number) {
         var property = document.getElementById(btn);
-        if (toggle_list[toggle_number] == false) {
+        if (!toggle_list[toggle_number]) {
             property.style.backgroundColor = "#12b31d"
             toggle_list[toggle_number] = !toggle_list[toggle_number]
         }
@@ -13,9 +22,9 @@
             toggle_list[toggle_number] = !toggle_list[toggle_number]
         }
     }
-    // Example POST method implementation:
     async function update() {
         console.log("update")
+        updateColors()
         const response = await fetch('http://127.0.0.1:5001/fet', {
             method: "POST",
             mode: "cors",
@@ -28,7 +37,20 @@
             referrerPolicy: "no-referrer",
             body: JSON.stringify(toggle_list),
         });
-    }
+        const response2 = await fetch('http://127.0.0.1:5001/feet');
+        const data = await response2.json();
+        document.getElementById('ampdata').innerHTML = data[0];
+        document.getElementById('speakerdata').innerHTML = data[1];
+        document.getElementById('trapdata').innerHTML = data[2];
+        document.getElementById('autodata').innerHTML = data[3];
+        document.getElementById('autototdata').innerHTML = data[6];
+        document.getElementById('alltotdata').innerHTML = data[7];
+        document.getElementById('shottotdata').innerHTML = data[8];
+        document.getElementById('perbyusdata').innerHTML = data[9];
+        document.getElementById('brokedata').innerHTML = data[10];
+        document.getElementById('eggsdata').innerHTML = data[11];
+        document.getElementById('eventotdata').innerHTML = data[12];
+        }
 </script>
 
 <head>
@@ -44,16 +66,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hensight Dashboard</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-            border: 10px solid #FFC145;
-            /* Adjust border width as needed */
-            height: calc(100vh - 20px);
-        }
+    <style>   
 
         h1 {
             color: white;
@@ -84,6 +97,14 @@
             margin: 1rem
         }
 
+        p{
+            color: white;
+            font-family: Poppins;
+            font-size: 1rem;
+            margin: 0rem;
+            padding-bottom: 0;
+            padding-top: 2%;
+        }
         #title {
             color: #FFC145;
         }
@@ -118,38 +139,61 @@
             border-radius: 5%;
             color: black;
             font-family: Poppins;
-            padding: 1% 5% 1% 5%;
-            margin-top: 0.7%;
-            margin-right: 3%;
+            padding: 0.5%;
+            margin-right: 1.1%;
+            margin-top: 1%;
+            margin-bottom: 0%;
         }
 
-        #updatebtn:hover {
-            padding: 1.2% 5.2% 1.2% 5.2%;
+        #bigdiv{
+            margin-top: -2%;
+        }
+        .indev {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        body{
+            margin: 0;
+            visibility: visible;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            border: 10px solid #FFC145;
+            /* Adjust border width as needed */
+            height: 100%;
+            width: 98%;
+            overflow-y: auto;
         }
     </style>
 </head>
 
-<body style="background-color: #1C1C1C;">
-    <div class="grid-container">
-        <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;"></center>
-        <center><h1 id="title">Hensight Dashboard</h1></center>
-        <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
+<body style="background-color: #1C1C1C;" onload="update()">
+    <div id="maindiv">
+        <div class="grid-container">
+            <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;"></center>
+            <center><h1 id="title">Hensight Dashboard</h1></center>
+            <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
+        </div>
+        <div class="grid-container" id="bigdiv">
+            <div class="indev"><center><h4>1540 Amp Acc</h4><button class="switchbutton" id="amp" onclick="setColor('amp', 0)">Toggle</button><p id="ampdata" class="indev"></p></center></div>
+            <div class="indev"><center><h4>1540 Speaker Acc</h4><button class="switchbutton" id="speaker"onclick="setColor('speaker', 1)">Toggle</button><p id="speakerdata" class="indev"></p></center></div>
+            <div class="indev"><center><h4>1540 Trap Number</h4><button class="switchbutton" id="trap" onclick="setColor('trap', 2)">Toggle</button><p id="trapdata" class="indev"></p></center></div>
+            <div class="indev"><center><h4>1540 Auto Acc</h4><button class="switchbutton" id="autoacc"onclick="setColor('autoacc', 3)">Toggle</button><p class="indev" id="autodata"></p></center></div>
+            <div class="indev"><center><h4>Message 1</h4><button class="switchbutton" id="msg1" onclick="setColor('msg1', 4)">Toggle</button><p class="indev"></p></center></div>
+            <div class="indev"><center><h4>Message 2</h4><button class="switchbutton" id="msg2" onclick="setColor('msg2', 5)">Toggle</button><p class="indev"></p></center></div>
+            <div class="indev"><center><h4>1540 Scored Auto</h4><button class="switchbutton" id="autotot" onclick="setColor('autotot', 6)">Toggle</button><p class="indev" id="autototdata"></p></center></div>
+            <div class="indev"><center><h4>1540 Scored All Game</h4><button class="switchbutton" id="alltot"onclick="setColor('alltot', 7)">Toggle</button><p class="indev" id="alltotdata"></p></center></div>
+            <div class="indev"><center><h4>1540 Total Shots</h4><button class="switchbutton" id="shotot" onclick="setColor('shotot', 8)">Toggle</button><p class="indev" id="shottotdata"></p></center> </div>
+            <div class="indev"><center><h4>% by us</h4><button class="switchbutton" id="perbyus" onclick="setColor('perbyus', 9)">Toggle</button><p class="indev" id="perbyusdata"></p></center></div>
+            <div class="indev"><center><h4>1540 Broke</h4><button class="switchbutton" id="broke" onclick="setColor('broke', 10)">Toggle</button><p class="indev" id="brokedata"></p></center></div>
+            <div class="indev"><center><h4># eggs since build</h4><button class="switchbutton" id="eggs" onclick="setColor('eggs', 11)">Toggle</button><p class="indev" id="eggsdata"></p></center></div>
+            <div class="indev"><center><h4>Chicken Weight</h4><button class="switchbutton" id="weight" onclick="setColor('weight', 12)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Total Scored</h4><button class="switchbutton" id="eventot" onclick="setColor('eventot', 13)">Toggle</button><p class="indev" id="eventotdata"></p></center></div>
+        </div>
+        <center><button id="updatebtn" onclick="update()">UPDATE</button></center>
     </div>
-    <div class="grid-container">
-        <div><center><h4>Amp Acc</h4><button class="switchbutton" id="amp" onclick="setColor('amp', 0)">Toggle</button></center></div>
-        <div><center><h4>Speaker Acc</h4><button class="switchbutton" id="speaker"onclick="setColor('speaker', 1)">Toggle</button></center></div>
-        <div><center><h4>Trap Number</h4><button class="switchbutton" id="trap" onclick="setColor('trap', 2)">Toggle</button></center></div>
-        <div><center><h4>Auto Acc</h4><button class="switchbutton" id="autoacc"onclick="setColor('autoacc', 3)">Toggle</button></center></div>
-        <div><center><h4>Message 1</h4><button class="switchbutton" id="msg1" onclick="setColor('msg1', 4)">Toggle</button></center></div>
-        <div><center><h4>Message 2</h4><button class="switchbutton" id="msg2" onclick="setColor('msg2', 5)">Toggle</button></center></div>
-        <div><center><h4>Total Auto</h4><button class="switchbutton" id="autotot" onclick="setColor('autotot', 6)">Toggle</button></center></div>
-        <div><center><h4>Total Allgame</h4><button class="switchbutton" id="alltot"onclick="setColor('alltot', 7)">Toggle</button></center></div>
-        <div><center><h4>Total Shots</h4><button class="switchbutton" id="shotot" onclick="setColor('shotot', 8)">Toggle</button></center> </div>
-        <div><center><h4>% by us</h4><button class="switchbutton" id="perbyus" onclick="setColor('perbyus', 9)">Toggle</button></center></div>
-        <div><center><h4>Broke</h4><button class="switchbutton" id="broke" onclick="setColor('broke', 10)">Toggle</button></center></div>
-        <img src="https://emoji.slack-edge.com/T0ALL74SY/aaaaaaaahhhhhhhhhh/1ba2f3745aa648b3.png" alt=""style="width: 2%;">
-    </div>
-    <center><button id="updatebtn" onclick="update()">UPDATE</button></center>
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
 
