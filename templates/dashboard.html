@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [false, false, false, false, true, true, false, false, false, false, false, true, true, true]
+    var toggle_list = [false, false, false, false, true, true, false, false, false, false, false, true, true, true, true, true, true]
     var idlist = ['amp','speaker','trap','autoacc','msg1','msg2','autotot','alltot','shotot','perbyus','broke', 'eggs', 'weight', 'eventot']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
-            console.log("update colors", i)
             let property = document.getElementById(idlist[i])
             if (!toggle_list[i]){property.style.backgroundColor = "#ff0800"}
             else {property.style.backgroundColor = "#12b31d"}
@@ -50,7 +49,10 @@
         document.getElementById('brokedata').innerHTML = data[10];
         document.getElementById('eggsdata').innerHTML = data[11];
         document.getElementById('eventotdata').innerHTML = data[12];
+        document.getElementById('eggsmatchdata').innerHTML = data[13];
+        document.getElementById('eventaccdata').innerHTML = data[14];
         }
+    setInterval(update(), 60000)
 </script>
 
 <head>
@@ -134,17 +136,6 @@
             margin-bottom: -1%;
         }
 
-        #updatebtn {
-            background-color: white;
-            border-radius: 5%;
-            color: black;
-            font-family: Poppins;
-            padding: 0.5%;
-            margin-right: 1.1%;
-            margin-top: 1%;
-            margin-bottom: 0%;
-        }
-
         #bigdiv{
             margin-top: -2%;
         }
@@ -172,9 +163,9 @@
 <body style="background-color: #1C1C1C;" onload="update()">
     <div id="maindiv">
         <div class="grid-container">
-            <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;"></center>
-            <center><h1 id="title">Hensight Dashboard</h1></center>
-            <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
+            <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;" onclick="update()"></center>
+            <center><h1 id="title" onclick="update()">Hensight Dashboard</h1></center>
+            <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;" onclick="update()"></center>
         </div>
         <div class="grid-container" id="bigdiv">
             <div class="indev"><center><h4>1540 Amp Acc</h4><button class="switchbutton" id="amp" onclick="setColor('amp', 0)">Toggle</button><p id="ampdata" class="indev"></p></center></div>
@@ -191,8 +182,10 @@
             <div class="indev"><center><h4># eggs since build</h4><button class="switchbutton" id="eggs" onclick="setColor('eggs', 11)">Toggle</button><p class="indev" id="eggsdata"></p></center></div>
             <div class="indev"><center><h4>Chicken Weight</h4><button class="switchbutton" id="weight" onclick="setColor('weight', 12)">Toggle</button></center></div>
             <div class="indev"><center><h4>Event Total Scored</h4><button class="switchbutton" id="eventot" onclick="setColor('eventot', 13)">Toggle</button><p class="indev" id="eventotdata"></p></center></div>
+            <div class="indev"><center><h4>Chicken Feathers</h4><button class="switchbutton" id="feather" onclick="setColor('feather', 14)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Eggs in a Match</h4><button class="switchbutton" id="eggmatch" onclick="setColor('eggmatch', 15)">Toggle</button><p class="indev" id="eggsmatchdata"></p></center></div>
+            <div class="indev"><center><h4>Event Acc</h4><button class="switchbutton" id="eventacc" onclick="setColor('eventacc', 16)">Toggle</button><p class="indev" id="eventaccdata"></p></center></div>
         </div>
-        <center><button id="updatebtn" onclick="update()">UPDATE</button></center>
     </div>
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
