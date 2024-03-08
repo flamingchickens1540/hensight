@@ -80,7 +80,7 @@
 </head>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
-        <div class="center" id="div" style="margin:auto" hx-get="/request" hx-trigger="click">
+        <div class="center" id="div" style="margin:auto" hx-get="/request" hx-trigger="every 10s">
             <h3 style="font-size: 10rem;">Hensight</h3>
             <img style="width: 20rem; margin:5rem" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="">
             <h4>Click to start</h4>
@@ -89,31 +89,24 @@
 </body>
 <script src="https://unpkg.com/hyperscript"></script>
 <script>
-    var fadeoutInProgress = false;
+    // var fadeoutInProgress = false;
 
-    document.addEventListener('htmx:beforeRequest', function(event) {
-        // Check if the request is for the specific div
-        if (event.detail.target.matches('#div')) {
-            document.body.style.animation = "fadeout 1s forwards";
-            fadeoutInProgress = true;
-        }
-    });
+    // document.addEventListener('htmx:beforeRequest', function(event) {
+    //     // Check if the request is for the specific div
+    //     if (event.detail.target.matches('#div') && (shouldfade == true)) {
+    //         document.body.style.animation = "fadeout 1s forwards";
+    //         fadeoutInProgress = true;
+    //     }
+    // });
 
-    document.addEventListener('htmx:afterRequest', function(event) {
-        // Check if the response is for the specific div
-        if (event.detail.target.matches('#div')) {
-            setTimeout(function() {
-                if (fadeoutInProgress) {
-                    setTimeout(function() {
-                        document.body.style.animation = "fadein 1s forwards";
-                    }, 500); // Delayed fadein after fadeout completes
-                } else {
-                    document.body.style.animation = "fadein 1s forwards";
-                }
-                fadeoutInProgress = false; // Reset the flag
-            }, 500); // Additional delay to ensure at least 1s after fadeout
-        }
-    });
+    // document.addEventListener('htmx:afterRequest', function(event) {
+    //     // Check if the response is for the specific div
+    //     if (event.detail.target.matches('#div')) {
+    //                 setTimeout(function() {
+    //                     document.body.style.animation = "fadein 1s forwards";
+    //                 }, 500); // Delayed fadein after fadeout completes
+    //     }
+    // });
 
     // document.addEventListener('readystatechange', function() {
     //     document.body.addEventListener('hxrequest', function() {
@@ -125,36 +118,36 @@
     //     });
     // });
 
-    document.addEventListener('htmx:beforeRequest', function(event) {
-        // Check if the request is for the specific div
-        if (event.detail.target.matches('#div')) {
-            document.body.style.animation = "fadeout 1s forwards";
-        }
-    });
-    document.addEventListener('htmx:afterRequest', function(event) {
-        // Check if the response is for the specific div
-        if (event.detail.target.matches('#div')) {
-            setTimeout(function() {
-                document.body.style.animation = "fadein 1s forwards";
+    // document.addEventListener('htmx:beforeRequest', function(event) {
+    //     // Check if the request is for the specific div
+    //     if (event.detail.target.matches('#div')) {
+    //         document.body.style.animation = "fadeout 1s forwards";
+    //     }
+    // });
+    // document.addEventListener('htmx:afterRequest', function(event) {
+    //     // Check if the response is for the specific div
+    //     if (event.detail.target.matches('#div')) {
+    //         setTimeout(function() {
+    //             document.body.style.animation = "fadein 1s forwards";
 
-            }, 1000); 
+    //         }, 1000); 
             
-        }
-    });
-    var timerId;
+    //     }
+    // });
+//     var timerId;
 
-  document.getElementById('div').addEventListener('click', function() {
-    // Cancel the previous timer if exists
-    if (timerId) {
-      clearTimeout(timerId);
-    }
+//   document.getElementById('div').addEventListener('click', function() {
+//     // Cancel the previous timer if exists
+//     if (timerId) {
+//       clearTimeout(timerId);
+//     }
 
-    // Set a new timer for 5 seconds
-    timerId = setTimeout(function() {
-      // Trigger the request after 5 seconds
-      document.getElementById('div').dispatchEvent(new Event('click'));
-    }, 10000);
-  });
+//     // Set a new timer for 5 seconds
+//     timerId = setTimeout(function() {
+//       // Trigger the request after 5 seconds
+//       document.getElementById('div').dispatchEvent(new Event('click'));
+//     }, 10000);
+//   });
         
 </script>
 </html>

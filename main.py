@@ -10,7 +10,7 @@ listindex = 0
 app = Flask(__name__)
 #------------------------------------------------------------------------------------------------------------#
 
-comp = "test"
+comp = "2024orore"
 
 #------------------------------------------------------------------------------------------------------------#
 
@@ -49,8 +49,8 @@ def get_amp_acc() -> list[float]:
     for team in teams:
         postgresSQL_average_ampacc_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_average_ampacc_Query)
+        sec_datapoints = cur.fetchall()  
         if cur.rowcount != 0:
-            sec_datapoints = cur.fetchall()   
             total = 0
             for datapoint in sec_datapoints:
                 total += datapoint[0]
@@ -568,7 +568,7 @@ def get_broke_graph(toggle):
             else:
                 return "bad"
     else: return "bad"
-def get_total_auto(toggle, html): # needs benchmark
+def get_total_auto(toggle, html):
     if toggle:
         postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_1540_autospeaker_Query)
@@ -587,7 +587,7 @@ def get_total_auto(toggle, html): # needs benchmark
             return f"<h4>Team 1540's robot has scored</h4><h3>{ampspeaker}<h3><h4> Notes during auto this event</h4>"
         else: return ampspeaker
     else: return "bad"
-def get_total_whole(toggle, html): # needs benchmark
+def get_total_whole(toggle, html):
     if toggle:
         postgresSQL_1540_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='1540' AND match_key LIKE '{comp}%'"""
         cur.execute(postgresSQL_1540_autospeaker_Query)
@@ -629,10 +629,11 @@ def get_total_whole_other(toggle, html):
         for team in teams:
             postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
             cur.execute(postgresSQL_other_autospeaker_Query)
-            autospeakerlist = cur.fetchall()
-            autospeaker_total = 0
-            for i in autospeakerlist:
-                autospeaker_total +=i[0]
+            if cur.rowcount != 0:
+                autospeakerlist = cur.fetchall()
+                autospeaker_total = 0
+                for i in autospeakerlist:
+                    autospeaker_total +=i[0]
             postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'""" 
             cur.execute(postgresSQL_other_autoamp_Query)
             amplist = cur.fetchall()
@@ -646,15 +647,17 @@ def get_total_whole_other(toggle, html):
             postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
             cur.execute(postgresSQL_other_telespeaker_Query)
             telespeakerlist = cur.fetchall()
-            telespeaker_total = 0
-            for i in telespeakerlist:
-                telespeaker_total +=i[0]
+            if cur.rowcount != 0:
+                telespeaker_total = 0
+                for i in telespeakerlist:
+                    telespeaker_total +=i[0]
             postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'""" 
             cur.execute(postgresSQL_other_teleamp_Query)
             amplist = cur.fetchall()
-            teleamp_total = 0
-            for i in amplist:
-                teleamp_total +=i[0]
+            if cur.rowcount != 0:
+                teleamp_total = 0
+                for i in amplist:
+                    teleamp_total +=i[0]
             teleampspeaker += teleamp_total + telespeaker_total
         allampspeaker = teleampspeaker + autoampspeaker
         if html:
@@ -675,7 +678,7 @@ def message1(toggle):
 def message2(toggle):
     if toggle: return "<h4>We appreciate</h4><h2>YOU</h2><h4>for joining us in our pits</h4>"
     else: return "bad"
-def percent_by_us(toggle, html): # needs benchmark
+def percent_by_us(toggle, html):
     if toggle:
         percent = round(get_total_whole(True, False) / get_total_whole_other(True, False), 3) * 100
         if html: return f"<h4>Team 1540's robot has scored</h4><h3>{percent}%</h3><h4>of the notes scored this event</h4>"
@@ -748,8 +751,9 @@ def chicken_weight(toggle):
     else: return 'bad'
 def event_total_score(toggle, html):
     if toggle:
-        event_tot = get_total_whole(True, False) + get_total_whole_other(True, False)
-        if html: return f'<h4>There has been</h4><h3>{event_tot}</h3><h4>notes scored this event</h4>'
+        event_tot = get_total_whole_other(True, False)
+        tot_format = ('{:,}'.format(event_tot))
+        if html: return f'<h4>There has been</h4><h3>{tot_format}</h3><h4>notes scored this event</h4>'
         else: return event_tot
     else: return 'bad'
 def feather_message(toggle, html):
@@ -760,19 +764,67 @@ def feather_message(toggle, html):
 def egg_laying_message(toggle, html):
     if toggle:
         if html:
-            return "<h4>During each match over</h4><h2>520,000</h2><h4>eggs are laid in the US</h4>"
+            return "<h4>During each match over</h4><h2>520,000</h2><h4>eggs are laid in the US!</h4>"
+    else: return 'bad'
+def short_msg(toggle, html): #HELP
+    teamdata = []
+    short_num = 0
+    not_short_num = 0
+    if toggle:
+        for team in teams:
+            postgresSQL_short_Query = f"""SELECT is_short FROM "TeamEvents" WHERE team_key='{team[0]}' AND event_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_short_Query)
+            data = cur.fetchall()
+            teamdata.append(data)
+        for datapoint in teamdata:
+            if datapoint == True: short_num +=1
+            else: not_short_num +=1
+        print('short:', short_num,'\nnot short:', not_short_num)
+def event_acc(toggle, html):
+    bigacc = 0
+    sectot = get_total_whole_other(True, False)
+    misstot = 0
+    if toggle:
+        for team in teams:
+            #MISSED
+            postgresSQL_other_autospeaker_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_other_autospeaker_Query)
+            autospeakerlist = cur.fetchall()
+            if cur.rowcount != 0:
+                for i in autospeakerlist:
+                    misstot +=i[0]
+            postgresSQL_other_telespeaker_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_other_telespeaker_Query)
+            telespeakerlist = cur.fetchall()
+            if cur.rowcount != 0:
+                for i in telespeakerlist:
+                    misstot +=i[0]
+            postgresSQL_other_autoamp_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_other_autoamp_Query)
+            autoamplist = cur.fetchall()
+            if cur.rowcount != 0:
+                for i in autoamplist:
+                    misstot +=i[0]
+            postgresSQL_other_teleamp_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+            cur.execute(postgresSQL_other_teleamp_Query)
+            if cur.rowcount != 0:
+                teleamplist = cur.fetchall()
+                for i in teleamplist:
+                    misstot +=i[0]
+        bigtot = misstot + sectot
+        bigacc = round(misstot/bigtot, 3) *100
+        if html: return f'<h4>All teams combined at this event have scored</h4><h3>{bigacc}%</h3><h4>of thier shots!</h4>'
+        else: return bigacc
     else: return 'bad'
 def make_graph() -> str:
-
-    
-    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), feather_message(toggle_list[14], True), egg_laying_message(toggle_list[15], True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True)]
+    listofresults=[total_shots(toggle_list[8], True), get_trap_graph(toggle_list[2], True), get_amp_graph(toggle_list[0], True), get_speaker_graph(toggle_list[1], True), message2(toggle_list[5]), auto_acc_graph(toggle_list[3], True), get_broke_graph(toggle_list[10]), get_total_auto(toggle_list[6], True), get_total_whole(toggle_list[7], True), message1(toggle_list[4]), percent_by_us(toggle_list[9] ,True), feather_message(toggle_list[14], True), egg_laying_message(toggle_list[15], True), eggs_in_season(toggle_list[11], True), chicken_weight(toggle_list[12]), event_total_score(toggle_list[13], True), event_acc(toggle_list[16], True)]
     # listofresults=[eggs_in_season(toggle_list[11], True)]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
-toggle_list = [False, False, False, False, True, True, False, False, False, False, False, True, True, True, True, True]
+toggle_list = [False, False, False, False, True, True, False, False, False, False, False, True, True, False, True, True, False]
 @app.route("/")
 def index():
     return render_template('hensight.html')
@@ -796,7 +848,7 @@ def dashrequest():
     return "hi"
 @app.route('/feet')
 def dashget():
-    datalist = [get_amp_graph(True, False), get_speaker_graph(True, False), get_trap_graph(True, False), auto_acc_graph(True, False), '', '', get_total_auto(True, False), get_total_whole(True, False), total_shots(True, False), percent_by_us(True, False), 'Automatic', eggs_in_season(True, False), event_total_score(True,False)]
+    datalist = [get_amp_graph(True, False), get_speaker_graph(True, False), get_trap_graph(True, False), auto_acc_graph(True, False), '', '', get_total_auto(True, False), get_total_whole(True, False), total_shots(True, False), percent_by_us(True, False), 'Automatic', eggs_in_season(True, False), event_total_score(True,False), '520,000', event_acc(True, False)]
     return datalist
 @app.route('/gitfeet')
 def gitfeet():
