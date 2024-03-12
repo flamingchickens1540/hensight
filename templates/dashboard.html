@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [false, false, false, false, true, true, false, false, false, false, false, true, true, true, true, true, true]
-    var idlist = ['amp','speaker','trap','autoacc','msg1','msg2','autotot','alltot','shotot','perbyus','broke', 'eggs', 'weight', 'eventot']
+    var toggle_list = [true, true, true, true, true, true, true, false, true, true, true, true, true]
+    var idlist = ['thankmsg', 'eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'eventscored', 'chickenoise', 'chickeneat', 'cycles', 'socials', 'logodvd']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
             let property = document.getElementById(idlist[i])
@@ -38,19 +38,9 @@
         });
         const response2 = await fetch('http://127.0.0.1:5001/feet');
         const data = await response2.json();
-        document.getElementById('ampdata').innerHTML = data[0];
-        document.getElementById('speakerdata').innerHTML = data[1];
-        document.getElementById('trapdata').innerHTML = data[2];
-        document.getElementById('autodata').innerHTML = data[3];
-        document.getElementById('autototdata').innerHTML = data[6];
-        document.getElementById('alltotdata').innerHTML = data[7];
-        document.getElementById('shottotdata').innerHTML = data[8];
-        document.getElementById('perbyusdata').innerHTML = data[9];
-        document.getElementById('brokedata').innerHTML = data[10];
-        document.getElementById('eggsdata').innerHTML = data[11];
-        document.getElementById('eventotdata').innerHTML = data[12];
-        document.getElementById('eggsmatchdata').innerHTML = data[13];
-        document.getElementById('eventaccdata').innerHTML = data[14];
+        document.getElementById('eggsinmatch').innerHTML = data[0];
+        document.getElementById('eggsinseason').innerHTML = data[1];
+        document.getElementById('eventscoredata').innerHTML = data[2];
         }
     setInterval(update(), 60000)
 </script>
@@ -168,23 +158,19 @@
             <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;" onclick="update()"></center>
         </div>
         <div class="grid-container" id="bigdiv">
-            <div class="indev"><center><h4>1540 Amp Acc</h4><button class="switchbutton" id="amp" onclick="setColor('amp', 0)">Toggle</button><p id="ampdata" class="indev"></p></center></div>
-            <div class="indev"><center><h4>1540 Speaker Acc</h4><button class="switchbutton" id="speaker"onclick="setColor('speaker', 1)">Toggle</button><p id="speakerdata" class="indev"></p></center></div>
-            <div class="indev"><center><h4>1540 Trap Number</h4><button class="switchbutton" id="trap" onclick="setColor('trap', 2)">Toggle</button><p id="trapdata" class="indev"></p></center></div>
-            <div class="indev"><center><h4>1540 Auto Acc</h4><button class="switchbutton" id="autoacc"onclick="setColor('autoacc', 3)">Toggle</button><p class="indev" id="autodata"></p></center></div>
-            <div class="indev"><center><h4>Message 1</h4><button class="switchbutton" id="msg1" onclick="setColor('msg1', 4)">Toggle</button><p class="indev"></p></center></div>
-            <div class="indev"><center><h4>Message 2</h4><button class="switchbutton" id="msg2" onclick="setColor('msg2', 5)">Toggle</button><p class="indev"></p></center></div>
-            <div class="indev"><center><h4>1540 Scored Auto</h4><button class="switchbutton" id="autotot" onclick="setColor('autotot', 6)">Toggle</button><p class="indev" id="autototdata"></p></center></div>
-            <div class="indev"><center><h4>1540 Scored All Game</h4><button class="switchbutton" id="alltot"onclick="setColor('alltot', 7)">Toggle</button><p class="indev" id="alltotdata"></p></center></div>
-            <div class="indev"><center><h4>1540 Total Shots</h4><button class="switchbutton" id="shotot" onclick="setColor('shotot', 8)">Toggle</button><p class="indev" id="shottotdata"></p></center> </div>
-            <div class="indev"><center><h4>% by us</h4><button class="switchbutton" id="perbyus" onclick="setColor('perbyus', 9)">Toggle</button><p class="indev" id="perbyusdata"></p></center></div>
-            <div class="indev"><center><h4>1540 Broke</h4><button class="switchbutton" id="broke" onclick="setColor('broke', 10)">Toggle</button><p class="indev" id="brokedata"></p></center></div>
-            <div class="indev"><center><h4># eggs since build</h4><button class="switchbutton" id="eggs" onclick="setColor('eggs', 11)">Toggle</button><p class="indev" id="eggsdata"></p></center></div>
-            <div class="indev"><center><h4>Chicken Weight</h4><button class="switchbutton" id="weight" onclick="setColor('weight', 12)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Total Scored</h4><button class="switchbutton" id="eventot" onclick="setColor('eventot', 13)">Toggle</button><p class="indev" id="eventotdata"></p></center></div>
-            <div class="indev"><center><h4>Chicken Feathers</h4><button class="switchbutton" id="feather" onclick="setColor('feather', 14)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Eggs in a Match</h4><button class="switchbutton" id="eggmatch" onclick="setColor('eggmatch', 15)">Toggle</button><p class="indev" id="eggsmatchdata"></p></center></div>
-            <div class="indev"><center><h4>Event Acc</h4><button class="switchbutton" id="eventacc" onclick="setColor('eventacc', 16)">Toggle</button><p class="indev" id="eventaccdata"></p></center></div>
+            <div class="indev"><center><h4>Thank Message</h4><button class="switchbutton" id="thankmsg" onclick="setColor('thankmsg', 0)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Eggs in match</h4><button class="switchbutton" id="eggs_match" onclick="setColor('eggs_match', 1)">Toggle</button><p class="indev" id="eggsinmatch"></p></center></div>
+            <div class="indev"><center><h4>Feather Message</h4><button class="switchbutton" id="feathers" onclick="setColor('feathers', 2)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Chicken Notes</h4><button class="switchbutton" id="chickenotes" onclick="setColor('chickenotes', 3)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Chicken Weight</h4><button class="switchbutton" id="weight" onclick="setColor('weight', 4)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Eggs in Season</h4><button class="switchbutton" id="eggs_season" onclick="setColor('eggs_season', 5)">Toggle</button><p class="indev" id="eggsinseason"></p></center></div>
+            <div class="indev"><center><h4>Robot Name</h4><button class="switchbutton" id="roboname" onclick="setColor('roboname', 6)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Notes Scored</h4><button class="switchbutton" id="eventscored" onclick="setColor('eventscored', 7)">Toggle</button><p class="indev" id="eventscoredata"></p></center></div>
+            <div class="indev"><center><h4>Chicken Noise</h4><button class="switchbutton" id="chickenoise" onclick="setColor('chickenoise', 8)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Chicken Eat</h4><button class="switchbutton" id="chickeneat" onclick="setColor('chickeneat', 9)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Chicken Cycles</h4><button class="switchbutton" id="headless" onclick="setColor('cycles', 10)">Toggle</button></center></div>
+            <div class="indev"><center><h4>1540 Socials</h4><button class="switchbutton" id="socials" onclick="setColor('socials', 11)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Logo DVD Screen</h4><button class="switchbutton" id="logodvd" onclick="setColor('logodvd', 12)">Toggle</button></center></div>
         </div>
     </div>
 </body>
