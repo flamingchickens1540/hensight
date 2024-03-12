@@ -255,7 +255,7 @@ def feather_message(toggle):
         return "<h4>There are as many people that do FIRST as feathers on </h4><h2>Ten and Half chickens!</h2>"  
     else: return 'bad'
 def chicken_notes(toggle):
-    if toggle: return "<h4 style='display: inline-block;'>A chicken of the</h4><h4 style='color: #FFC145; display: inline-block;'>non-flaming variety</h4><h4>is expected to score</h4><h3>0</h3><h4>notes during a match!</h4>"
+    if toggle: return "<h4 style='display:inline-block;'>A chicken of the </h4><p style='display:inline-block;'></p><h4 style='color: #FFC145; display:inline-block;'> non-flaming</h4><h4>variety is expected to score</h4><h3>0</h3><h4>notes during a match!</h4>"
     else: return 'bad'
 def chicken_weight(toggle):
     if toggle: return '<h4>The heaviest chicken was 22lbs! That is</h4><h3>88 lbs</h3><h4>less than the weight of our robot!</h4>'
@@ -305,7 +305,7 @@ def chicken_eat(toggle):
     else: return 'bad'
 def chicken_cycles(toggle):
     if toggle:
-        return '<h4 style="display: inline-block;">A chicken</h4><h4 style="display: inline-block; color: #FFC145;">of the non-flaming variety</h4><h4>can make a speaker cycle in</h4><h2>3 seconds!</h2>'
+        return '<h4 style="display:inline-block;">A chicken of the </h4><p style="display:inline-block;"> </p><h4 style="display:inline-block; color: #FFC145;"> non-flaming</h4><h4>variety can make a speaker cycle in</h4><h2>3 seconds!</h2>'
     else: return 'bad'
 def socials(toggle):
     if toggle: return '<div><h6>Team Website</h6><img src="https://i.ibb.co/dphZnQt/teamwebqr.png" alt="THIS IS ALT TEXT" id="bigimg"></div><div class="grid-container"><div><h5>Team Instagram</h5><img src="https://i.ibb.co/7nmGL3T/qr-code-1.png" alt="qr code" id="smallimg"></div><div><h5>Team YouTube</h5><img src="https://i.ibb.co/LnywZNv/qr-code-2.png" alt="qr code" id="smallimg"></div></div>'
@@ -384,7 +384,9 @@ def gitfeet():
 @app.route('/testhtml')
 def test_html():
     return render_template('test.html')
-
+@app.route('/spin')
+def CHICKEN_SPIN():
+    return render_template('chickenspin.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
