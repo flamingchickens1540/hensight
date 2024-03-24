@@ -1,244 +1,245 @@
 import os
 import sys
-import psycopg2
-import plotly.graph_objects as go
+# import psycopg2
+# import plotly.graph_objects as go
 from flask import Flask, render_template
 import operator
 from flask import request
 import time
 import requests
 import random
+from flask import Flask, render_template, send_file
 listindex = 0
 old = ''
 old2 = ''
 old3 = ''
 app = Flask(__name__)
-#------------------------------------------------------------------------------------------------------------#
+# #------------------------------------------------------------------------------------------------------------#
 
-comp = "2024orsal"
+# comp = "2024orsal"
 
-#------------------------------------------------------------------------------------------------------------#
+# #------------------------------------------------------------------------------------------------------------#
 
-# Define the connection parameters
-host = os.getenv("DB_HOST", default="127.0.0.1")
-port = int(os.getenv("DB_PORT", default=5432))
-database = os.getenv("DB_NAME", default="crescendo_scouting")
-user = os.getenv("DB_USER", default="chargedup_scouting_analysis")
-password = os.getenv("DB_PASSWORD", default="amptrapspeaker1540")
+# # Define the connection parameters
+# host = os.getenv("DB_HOST", default="127.0.0.1")
+# port = int(os.getenv("DB_PORT", default=5432))
+# database = os.getenv("DB_NAME", default="crescendo_scouting")
+# user = os.getenv("DB_USER", default="chargedup_scouting_analysis")
+# password = os.getenv("DB_PASSWORD", default="amptrapspeaker1540")
 
-# Connect to the database
-try:
-    conn = psycopg2.connect(
-        host=host,
-        port=port,
-        database=database,
-        user=user,
-        password=password,
-    )
-except psycopg2.OperationalError:
-    print(f"Unable to connect to database. Are you SSHed? Error: {sys.exc_info()[0]}")
-    quit(0)
+# # Connect to the database
+# try:
+#     conn = psycopg2.connect(
+#         host=host,
+#         port=port,
+#         database=database,
+#         user=user,
+#         password=password,
+#     )
+# except psycopg2.OperationalError:
+#     print(f"Unable to connect to database. Are you SSHed? Error: {sys.exc_info()[0]}")
+#     quit(0)
 
-# Create a cursor
-cur = conn.cursor()
+# # Create a cursor
+# cur = conn.cursor()
 
-postgresSQL_team_Query = 'SELECT team_key FROM "Teams"'
-cur.execute(postgresSQL_team_Query)
-teams = cur.fetchall()
+# postgresSQL_team_Query = 'SELECT team_key FROM "Teams"'
+# cur.execute(postgresSQL_team_Query)
+# teams = cur.fetchall()
 
 
-def sum_auto_amp_sec():
-    total = 0
-    for team in teams:
-        postgresSQL_auto_amp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_amp_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-        else: return 0
-    return total
-def avg_auto_amp_sec():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_auto_amp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_amp_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_auto_amp_sec():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_auto_amp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_amp_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#         else: return 0
+#     return total
+# def avg_auto_amp_sec():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_auto_amp_Query = f"""SELECT auto_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_amp_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_auto_amp_miss():
-    total = 0
-    for team in teams:
-        postgresSQL_auto_amp_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_amp_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_auto_amp_miss():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_auto_amp_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_amp_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_auto_amp_miss():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_auto_amp_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_amp_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_auto_amp_miss():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_auto_amp_Query = f"""SELECT auto_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_amp_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_tele_amp_sec():
-    total = 0
-    for team in teams:
-        postgresSQL_tele_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_amp_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_tele_amp_sec():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_tele_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_amp_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total * 100
+# def sum_tele_amp_sec():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_tele_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_amp_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_tele_amp_sec():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_tele_amp_Query = f"""SELECT tele_amp_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_amp_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total * 100
 
-def sum_tele_amp_miss():
-    total = 0
-    for team in teams:
-        postgresSQL_tele_amp_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_amp_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_tele_amp_miss():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_tele_amp_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_amp_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_tele_amp_miss():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_tele_amp_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_amp_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_tele_amp_miss():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_tele_amp_Query = f"""SELECT tele_amp_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_amp_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_auto_speaker_sec():
-    total = 0
-    for team in teams:
-        postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_speaker_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_auto_speaker_sec():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_speaker_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_auto_speaker_sec():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_speaker_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_auto_speaker_sec():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_speaker_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_tele_speaker_sec():
-    total = 0
-    for team in teams:
-        postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_speaker_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_tele_speaker_sec():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_speaker_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_tele_speaker_sec():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_speaker_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_tele_speaker_sec():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_succeed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_speaker_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_auto_speaker_miss():
-    total = 0
-    for team in teams:
-        postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_speaker_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_auto_speaker_miss():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_auto_speaker_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_auto_speaker_miss():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_speaker_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_auto_speaker_miss():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_auto_speaker_Query = f"""SELECT auto_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_auto_speaker_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
-def sum_tele_speaker_miss():
-    total = 0
-    for team in teams:
-        postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_speaker_Query)
-        if cur.rowcount != 0:
-            data = cur.fetchall()
-            for i in data:
-                total += i[0]
-    return total
-def avg_tele_speaker_miss():
-    big_total = 0
-    len_total = 0
-    for team in teams:
-        postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
-        cur.execute(postgresSQL_tele_speaker_Query)
-        if cur.rowcount !=0:
-            data = cur.fetchall()
-            for i in data:
-                big_total += i[0]
-            len_total += len(data)
-    total = round(big_total / len_total, 2)
-    return total
+# def sum_tele_speaker_miss():
+#     total = 0
+#     for team in teams:
+#         postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_speaker_Query)
+#         if cur.rowcount != 0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 total += i[0]
+#     return total
+# def avg_tele_speaker_miss():
+#     big_total = 0
+#     len_total = 0
+#     for team in teams:
+#         postgresSQL_tele_speaker_Query = f"""SELECT tele_speaker_missed FROM "TeamMatches" WHERE team_key='{team[0]}' AND match_key LIKE '{comp}%'"""
+#         cur.execute(postgresSQL_tele_speaker_Query)
+#         if cur.rowcount !=0:
+#             data = cur.fetchall()
+#             for i in data:
+#                 big_total += i[0]
+#             len_total += len(data)
+#     total = round(big_total / len_total, 2)
+#     return total
 
 
 
@@ -273,32 +274,29 @@ def eggs_in_season(toggle, html):
 def robo_name(toggle):
     if toggle: return "<h4>Our robot is named Fried Egg because</h4><h2>We're cooking</h2><h4>this year!</h4>"
     else: return 'bad'
-def event_scored(toggle, html):
-    if toggle:
-        amp_total = sum_auto_amp_sec() + sum_tele_amp_sec()
-        speaker_total = sum_auto_speaker_sec() + sum_tele_speaker_sec()
-        big_total = amp_total + speaker_total
-        number = ('{:,}'.format(big_total)) 
-        if html: return f'<h4>There has been</h4><h3>{number}</h3><h4>notes scored this event!</h4>'
-        else: return big_total
-    else: return 'bad'
-def event_acc(toggle, html):
-    if toggle:
-        scored = event_scored(True, False)
-        miss_amp = sum_auto_amp_miss() + sum_tele_amp_miss()
-        miss_speaker = sum_auto_speaker_miss() + sum_tele_speaker_miss()
-        missed = miss_speaker + miss_amp
-        shots = scored + missed
-        acc = round(scored / missed, 3)
-        if html: return f'<h4>Teams at this event have scored</h4><h3>{acc * 100}%</h3><h4>of total notes shot!</h4>'
-    else: return 'bad'
+# def event_scored(toggle, html):
+#     if toggle:
+#         amp_total = sum_auto_amp_sec() + sum_tele_amp_sec()
+#         speaker_total = sum_auto_speaker_sec() + sum_tele_speaker_sec()
+#         big_total = amp_total + speaker_total
+#         number = ('{:,}'.format(big_total)) 
+#         if html: return f'<h4>There has been</h4><h3>{number}</h3><h4>notes scored this event!</h4>'
+#         else: return big_total
+#     else: return 'bad'
+# def event_acc(toggle, html):
+#     if toggle:
+#         scored = event_scored(True, False)
+#         miss_amp = sum_auto_amp_miss() + sum_tele_amp_miss()
+#         miss_speaker = sum_auto_speaker_miss() + sum_tele_speaker_miss()
+#         missed = miss_speaker + miss_amp
+#         shots = scored + missed
+#         acc = round(scored / missed, 3)
+#         if html: return f'<h4>Teams at this event have scored</h4><h3>{acc * 100}%</h3><h4>of total notes shot!</h4>'
+#     else: return 'bad'
 def chicken_foul():
     return "<h1>However, in the whimsical scenario where we decide to replace the robot on the field with a live chicken, a cascade of unforeseen consequences would likely unfold. Picture this: amidst the high-stakes game, the unsuspecting chicken, blissfully unaware of the intricate rules governing the match, would likely become the unwitting perpetrator of an array of tech fouls. The referee, undoubtedly perplexed by the surreal turn of events, might find themselves compelled to brandish a red card, signaling not only an expulsion from the game but also drawing attention to the peculiar nature of the infringement.</h1>"
 def chicken_noise(toggle):
     if toggle: return "<h4>Chickens can squawk as loud as</h4><h2>70 decibels<h2><h4>about as loud as the average classroom</h4>"
-    else: return 'bad'
-def party_parrot(toggle):
-    if toggle: return '<img src="https://cultofthepartyparrot.com/parrots/hd/60fpsparrot.gif" style="width: 95%">'
     else: return 'bad'
 def chicken_eat(toggle):
     if toggle: return '<h4>FRC Students eat approximately</h4><h3 style="font-size: 17rem;">7,917,000</h3><h4>chickens per year</h4>'
@@ -308,23 +306,32 @@ def chicken_cycles(toggle):
         return '<h4 style="display:inline-block;">A chicken of the </h4><p style="display:inline-block;"> </p><h4 style="display:inline-block; color: #FFC145;"> non-flaming</h4><h4>variety can make a speaker cycle in</h4><h2>3 seconds!</h2>'
     else: return 'bad'
 def socials(toggle):
-    if toggle: return '<div><h6>Team Website</h6><img src="https://i.ibb.co/dphZnQt/teamwebqr.png" alt="THIS IS ALT TEXT" id="bigimg"></div><div class="grid-container"><div><h5>Team Instagram</h5><img src="https://i.ibb.co/7nmGL3T/qr-code-1.png" alt="qr code" id="smallimg"></div><div><h5>Team YouTube</h5><img src="https://i.ibb.co/LnywZNv/qr-code-2.png" alt="qr code" id="smallimg"></div></div>'
+    if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery</h5>'
     else: return 'bad'
 def logodvd(toggle):
     if toggle: return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20"><marquee behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee>'
     else: return 'bad'
 
 def make_graph() -> list[str]:
-    listofresults=[eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]), chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]), event_scored(toggle_list[7],True),event_acc(toggle_list[8], True), chicken_noise(toggle_list[9]), party_parrot(toggle_list[10]), chicken_eat(toggle_list[11]), chicken_cycles(toggle_list[12]), socials(toggle_list[13]), logodvd(toggle_list)]
+    listofresults=[eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]), chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]), chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]), socials(toggle_list[10]), logodvd(toggle_list)]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
-toggle_list = [True, True, True, True, True, True, True, False, False, True, False, True, True, True, True, True]
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True]
 @app.route("/")
 def index():
     return render_template('hensight.html')
+@app.route("/cad")
+def func():
+    return render_template('cad.html')
+@app.route('/FriedEgg.glb')
+def serve_obj_file():
+        return send_file("./static/FriedEgg.glb")
+@app.route('/OrbitControls.js')
+def serve_obje_file():
+        return send_file("./OrbitControls.js")
 @app.route('/request')
 def main():
     global listindex
@@ -373,13 +380,6 @@ def dashrequest():
     global toggle_list
     toggle_list = request.json
     return "hi"
-@app.route('/feet')
-def dashget():
-    datalist = ['520,000', eggs_in_season(True, False), event_scored(True, False)]
-    return datalist
-@app.route('/gitfeet')
-def gitfeet():
-    return '<marquee><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4><h4 style="font-size: 30px">GIT FEEt</h4><h4 style="font-size: 30px">GIT FEET</h4></marquee>'
 
 @app.route('/testhtml')
 def test_html():
