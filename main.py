@@ -322,6 +322,9 @@ def index():
 @app.route("/cad")
 def func():
     return render_template('cad.html')
+@app.route("/reveal")
+def fun():
+    return render_template('reveal.html')
 @app.route('/FriedEgg.glb')
 def serve_obj_file():
         return send_file("./static/FriedEgg.glb")
