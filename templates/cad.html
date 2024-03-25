@@ -109,17 +109,17 @@ border-radius: 5px;
 	scene.background = new THREE.Color('#1C1C1C');
 
 	// Add ambient light with a lower intensity
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
 scene.add(ambientLight);
 
 // Add directional light with a higher intensity
-const directionalLight = new THREE.DirectionalLight(0xffffff, 20);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(0, 1, 1); // adjust as needed
 scene.add(directionalLight);
-const direcionalLight = new THREE.DirectionalLight(0xffffff, 20);
+const direcionalLight = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(1, 1, 0); // adjust as needed
 scene.add(direcionalLight);
-const direcionalLiht = new THREE.DirectionalLight(0xffffff, 20);
+const direcionalLiht = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(-3, 1, 0); // adjust as needed
 scene.add(direcionalLiht);
 
@@ -129,6 +129,14 @@ scene.add(direcionalLiht);
 		loader.load('./FriedEgg.glb', function (gltf) {
 			scene.scale.set(10, 10, 10)
 			scene.position.set(0, -3, -3)
+			
+			// Set metalness to 0 for all materials in the model
+			gltf.scene.traverse(function (child) {
+				if (child.isMesh) {
+					child.material.metalness = 0.6;
+				}
+			});
+			
 			scene.add(gltf.scene);
 		}, undefined, function (error) {
 			console.error(error);
@@ -164,8 +172,8 @@ scene.add(direcionalLiht);
 		controls.update();
 		
 	}
-	function redirectView(){
-	
+	function redirectReveal(){
+	window.location.href = "/reveal";
 	}
 	function redirectSlides(){
 	window.location.href = "/";
