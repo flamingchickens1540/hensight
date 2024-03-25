@@ -1,4 +1,18 @@
-<!-- <button style="width:100%; height:30px" id="resetButton">reset view!111111!!!11!!! omg click it1111!111</button> -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<div id="thediv">
+	<center>
+<h4 id="shooter">Shooter</h4>
+</center>
+<center>
+<h4 id="tramp">Tramp</h4>
+</center>
+<center>
+<h4 id="intake">Intake</h4>
+</center>
+<center>
+<h4 id="reset">Reset</h4>
+</center>
+</div>
 <canvas id="c"></canvas>
 <script type="importmap">
 {
@@ -20,6 +34,25 @@
 		height: 100%;
 		display: block;
 	}
+	h4{
+color: #FFFFFF;
+background-color: #404040;
+margin: 1rem;
+font-family: Poppins;
+font-size: 4rem;
+border-radius: 5px;
+
+	}
+#shooter { grid-area: header; }
+#tramp { grid-area: menu; }
+#intake { grid-area: main; }
+#reset { grid-area: right; }
+#thediv{
+	display: grid;
+  grid-template-areas:
+    'header menu main right';
+	background-color: #1C1C1C;
+}
 </style>
 
 <script type="module">
@@ -43,87 +76,22 @@
 	controls.update();
 
 	const scene = new THREE.Scene();
-	scene.background = new THREE.Color('white');
+	scene.background = new THREE.Color('#1C1C1C');
 
-	{
+	// Add ambient light with a lower intensity
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
 
-		const color = 0xFFFFFF;
-		const intensity = 20;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(0, 10, 0);
-		light.target.position.set(0 , -3, -3);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(10, 0, 0);
-		light.target.position.set(0, -3, -3);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(-10, 0, 0);
-		light.target.position.set(0, -3, 0);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(0, 10, 0);
-		light.target.position.set(0, -3, 0);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(0, -10, 0);
-		light.target.position.set(0, -3, 0);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(0, 0, -10);
-		light.target.position.set(0, -3, 0);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-	{
-
-		const color = 0xFFFFFF;
-		const intensity = 2;
-		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(0, 0, 10);
-		light.target.position.set(0, -3, 0);
-		scene.add(light);
-		scene.add(light.target);
-
-	}
-
+// Add directional light with a higher intensity
+const directionalLight = new THREE.DirectionalLight(0xffffff, 20);
+directionalLight.position.set(0, 1, 1); // adjust as needed
+scene.add(directionalLight);
+const direcionalLight = new THREE.DirectionalLight(0xffffff, 20);
+directionalLight.position.set(1, 1, 0); // adjust as needed
+scene.add(direcionalLight);
+const direcionalLiht = new THREE.DirectionalLight(0xffffff, 20);
+directionalLight.position.set(-3, 1, 0); // adjust as needed
+scene.add(direcionalLiht);
 
 	{
 
@@ -137,23 +105,35 @@
 		});
 
 	}
+	function shooterView() {
+		camera.position.set(10, 4, -2);
+		controls.target.set(0, 0, -1);
+		camera.updateProjectionMatrix();
+		controls.update();
+	}
+	function trampView() {
+		camera.position.set(12, 5, 5);
+		controls.target.set(0, 3, 3);
+		camera.updateProjectionMatrix();
+		controls.update();
+	}
+	function intakeView() {
+		camera.position.set(0, 3, 10);
+		controls.target.set(0, -2, 2);
+		camera.updateProjectionMatrix();
+		controls.update();
+	}
 	function resetView() {
-	// Set the camera position to focus on a specific part of the CAD
-    camera.position.set(0, 10, 20); // Adjust the position as needed
-
-    // Set the camera's target to look at the specific part of the CAD
-    controls.target.set(0, 0, 0); // Adjust the target position as needed
-
-    // Optionally, you can also adjust other camera properties like fov, aspect, near, and far
-    camera.fov = 45; // Adjust the field of view as needed
-    camera.aspect = canvas.clientWidth / canvas.clientHeight; // Adjust aspect ratio if needed
-    camera.near = 0.1; // Adjust near clipping plane if needed
-    camera.far = 100; // Adjust far clipping plane if needed
-
-    // Update the camera and controls
-    camera.updateProjectionMatrix();
-    controls.update();
-}
+		camera.position.set(0, 10, 20);
+		controls.target.set(0, 0, 0);
+		camera.fov = 45;
+		camera.aspect = canvas.clientWidth / canvas.clientHeight;
+		camera.near = 0.1;
+		camera.far = 100;
+		camera.updateProjectionMatrix();
+		controls.update();
+		
+	}
 	function resizeRendererToDisplaySize(renderer) {
 
 		const canvas = renderer.domElement;
@@ -188,6 +168,9 @@
 
 	requestAnimationFrame(render);
 
-	
-	document.getElementById("resetButton").addEventListener("click", resetView);
+
+	document.getElementById("shooter").addEventListener("click", shooterView);
+	document.getElementById("tramp").addEventListener("click", trampView);
+	document.getElementById("intake").addEventListener("click", intakeView);
+	document.getElementById("reset").addEventListener("click", resetView);
 </script>
