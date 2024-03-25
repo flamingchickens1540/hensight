@@ -1,12 +1,8 @@
-import os
-import sys
 # import psycopg2
 # import plotly.graph_objects as go
 from flask import Flask, render_template
-import operator
 from flask import request
 import time
-import requests
 import random
 from flask import Flask, render_template, send_file
 listindex = 0
