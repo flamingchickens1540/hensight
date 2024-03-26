@@ -35,7 +35,7 @@ def thank_msg(toggle):
     else: return 'bad'
 def eggs_in_match(toggle):
     if toggle:
-        return "<h4>During each match over</h4><h3>520,000</h3><h4>eggs are laid in the US!</h4>"
+        return "<h4>During each match over</h4><h3 style='font-size: 10rem'>520,000</h3><h4>eggs are laid in the US!</h4>"
     else: return 'bad'
 def feather_message(toggle):
     if toggle:
@@ -66,7 +66,7 @@ def chicken_noise(toggle):
     if toggle: return "<h4>Chickens can squawk as loud as</h4><h2>70 decibels<h2><h4>about as loud as the average classroom</h4>"
     else: return 'bad'
 def chicken_eat(toggle):
-    if toggle: return '<h4>FRC Students eat approximately</h4><h3 style="font-size: 17rem;">7,917,000</h3><h4>chickens per year</h4>'
+    if toggle: return '<h4>FRC Students eat approximately</h4><h3 style="font-size: 10rem;">7,917,000</h3><h4>chickens per year</h4>'
     else: return 'bad'
 def chicken_cycles(toggle):
     if toggle:
@@ -76,11 +76,15 @@ def socials(toggle):
     if toggle: return '<div><h6>Team Website</h6><img src="https://i.ibb.co/dphZnQt/teamwebqr.png" alt="THIS IS ALT TEXT" id="bigimg"></div><div class="grid-container"><div><h5>Team Instagram</h5><img src="https://i.ibb.co/7nmGL3T/qr-code-1.png" alt="qr code" id="smallimg"></div><div><h5>Team YouTube</h5><img src="https://i.ibb.co/LnywZNv/qr-code-2.png" alt="qr code" id="smallimg"></div></div><marquee></marquee>'
     else: return 'bad'
 def logodvd(toggle):
-    if toggle: return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20"><marquee behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee>'
+    if toggle: return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20"><marquee style="margin-bottom: 160px" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee>'
     else: return 'bad'
 def chargedchickens(toggle):
     if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
     else: return 'bad'
+def chargedchickens(toggle):
+    if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
+    else: return 'bad'
+
 
 
 def make_graph() -> list[str]:
