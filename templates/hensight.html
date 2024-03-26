@@ -53,6 +53,7 @@
             font-size: large;
             font-family: Poppins;
             font-size: 4rem;
+            font-size: 4rem;
             margin:0rem
         }
         h1{
@@ -121,20 +122,56 @@
         #spin {
             animation: rotation 2s infinite linear;
         }
+        #theseconddiv {
+	border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+	position: fixed;
+	bottom: 0;
+	width: calc(100% - 3rem);
+	display: grid;
+  grid-template-areas:
+    'menu main right';
+	background-color: #1C1C1C;
+	padding: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	margin-right: 4rem;
+    overflow: hidden;
+}
+h6{
+color: #FFFFFF;
+background-color: #404040;
+margin: 0.5rem;
+font-family: Poppins;
+font-size: 3rem;
+border-radius: 5px;
+	}
     </style>
     
 </head>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
-        <div class="center" id="div" style="margin:auto" hx-get="/request" hx-trigger="click">
+        
+        <div  class="center" id="div" hx-get="/request" hx-trigger="click">
             <h3 style="font-size: 10rem;">Hensight</h3>
             <img style="width: 20rem; margin:5rem" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="">
-            <h4>Click to start</h4>
         </div>
-    </center>
+        
+    </center>    
 </body>
+<div id="theseconddiv">
+    <center>
+<h6 id="slides">Slides</h6>
+</center>
+<center>
+<h6 id="cad">Cad</h6>
+</center>
+<center>
+<h6 id="reveal">Robot Reveal</h6>
+</center>
+</div>
 
 <script src="https://unpkg.com/hyperscript"></script>
+
 <script>
     let marquee = document.querySelector('.marquee');
     function fadeout() {
@@ -160,5 +197,15 @@
         console.log("Received, fading in")
     })
     setInterval(fadeout, 15000)
+
+	document.getElementById("reveal").addEventListener("click", redirectReveal);
+    document.getElementById("cad").addEventListener("click", redirectCad);
+
+    function redirectCad(){
+	window.location.href = "/cad";
+	}
+    function redirectReveal(){
+    window.location.href = "/reveal";
+    }
 </script>
 </html>
