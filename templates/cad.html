@@ -30,10 +30,12 @@
 </body>
 
 <script type="importmap">
+	
 {
   "imports": {
     "three": "https://threejs.org/build/three.module.js",
-    "three/addons/": "https://threejs.org/examples/jsm/"
+    "three/addons/": "https://threejs.org/examples/jsm/",
+	"@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
   }
 }
 </script>
@@ -97,7 +99,7 @@ border-radius: 5px;
     overflow: hidden;
 }
 </style>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
 <script type="module">
 	import * as THREE from 'three';
 	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -157,10 +159,17 @@ scene.add(direcionalLiht);
 
 	}
 	function shooterView() {
-		camera.position.set(10, 4, -2);
+		const targetPosition = new THREE.Vector3(10, 4, -2);
+		const duration = 1000; // Transition duration in milliseconds
+
+		const tween = new TWEEN.Tween(camera.position)
+			.to(targetPosition, duration)
+			.easing(TWEEN.Easing.Quadratic.InOut)
+			.start();
 		controls.target.set(0, 0, -1);
 		camera.updateProjectionMatrix();
 		controls.update();
+		console.log(change)
 	}
 	function trampView() {
 		camera.position.set(12, 5, 5);
@@ -233,3 +242,4 @@ scene.add(direcionalLiht);
 	document.getElementById("slides").addEventListener("click", redirectSlides);
 	document.getElementById("reveal").addEventListener("click", redirectReveal);
 </script>
+
