@@ -78,17 +78,19 @@ def socials(toggle):
 def logodvd(toggle):
     if toggle: return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20"><marquee behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee>'
     else: return 'bad'
-
+def chargedchickens(toggle):
+    if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
+    else: return 'bad'
 
 
 def make_graph() -> list[str]:
-    listofresults=[eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]), chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]), chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]), socials(toggle_list[10]), logodvd(toggle_list)]
+    listofresults=[chargedchickens(toggle_list[0]), eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]), chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]), chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]), socials(toggle_list[10])]
     reallist = []
     for result in listofresults:
         if result != "bad":
             reallist.append(result)
     return reallist
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True]
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True]
 @app.route("/")
 def index():
     return render_template('hensight.html')
