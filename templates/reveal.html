@@ -1,21 +1,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<div id="thediv">
-	<center>
-<h4 id="shooter">Shooter</h4>
+<body style="background-color: #1C1C1C;">
+    <center>
+<iframe style="margin-top:  5rem;" width="80%" height="30%" src="https://www.youtube.com/embed/0-0po7hmveI?si=JZw3MtGdv6maPI94" frameborder="0"></iframe>
+</center>
+</iframe>
 </center>
 <center>
-<h4 id="tramp">Tramp</h4>
-</center>
-<center>
-<h4 id="intake">Intake</h4>
-</center>
-<center>
-<h4 id="reset">Reset</h4>
-</center>
-</div>
-
-<center><h4>looks like rex forgot to finish something before he pushed O_O</h4></center>
-
 <div id="theseconddiv">
 	<center>
 <h4 id="slides">Slides</h4>
@@ -27,19 +17,15 @@
 <h4 id="reveal">Robot Reveal</h4>
 </center>
 </div>
-
+</body>
 <style>
-	html,
-	body {
-		margin: 0;
-		height: 100%;
-	}
-
-	#c {
-		width: 100%;
-		height: calc(100% - 100px);
-		display: block;
-	}
+            body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            height: calc(100vh);
+        }
 	h4{
 color: #FFFFFF;
 background-color: #404040;
@@ -49,26 +35,14 @@ font-size: 3rem;
 border-radius: 5px;
 
 	}
-#shooter { grid-area: header; }
-#tramp { grid-area: menu; }
-#intake { grid-area: main; }
-#reset { grid-area: right; }
 #slides { grid-area: menu; }
 #reveal { grid-area: main; }
 #cad { grid-area: right; }
-#thediv{
-	display: grid;
-  grid-template-areas:
-    'header menu main right';
-	background-color: #1C1C1C;
-	padding: 1rem;
-	padding-top: 2rem;
-	padding-bottom: 2rem;
-}
 #theseconddiv {
+    border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
 	position: fixed;
 	bottom: 0;
-	width: 100%;
+	width: calc(100% - 3rem);
 	display: grid;
   grid-template-areas:
     'menu main right';
@@ -76,7 +50,8 @@ border-radius: 5px;
 	padding: 1rem;
 	padding-top: 2rem;
 	padding-bottom: 2rem;
-	margin-right: 1rem;
+	margin-right: 4rem;
+    overflow: hidden;
 }
 </style>
 
