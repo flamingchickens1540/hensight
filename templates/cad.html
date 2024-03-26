@@ -143,7 +143,8 @@ scene.add(direcionalLiht);
 		const loader = new GLTFLoader();
 		loader.load('./FriedEgg.glb', function (gltf) {
 			scene.scale.set(10, 10, 10)
-			scene.position.set(0, -3, -3)
+			scene.position.set(0, -1, -3)
+
 			
 			// Set metalness to 0 for all materials in the model
 			gltf.scene.traverse(function (child) {
@@ -159,33 +160,27 @@ scene.add(direcionalLiht);
 
 	}
 	function shooterView() {
-		const targetPosition = new THREE.Vector3(10, 4, -2);
-		const duration = 1000; // Transition duration in milliseconds
-
-		const tween = new TWEEN.Tween(camera.position)
-			.to(targetPosition, duration)
-			.easing(TWEEN.Easing.Quadratic.InOut)
-			.start();
-		controls.target.set(0, 0, -1);
+		camera.position.set(10, 6, -2);
+		controls.target.set(0, 2, -1);
 		camera.updateProjectionMatrix();
 		controls.update();
 		console.log(change)
 	}
 	function trampView() {
-		camera.position.set(12, 5, 5);
-		controls.target.set(0, 3, 3);
+		camera.position.set(12, 7, 5);
+		controls.target.set(0, 5, 3);
 		camera.updateProjectionMatrix();
 		controls.update();
 	}
 	function intakeView() {
-		camera.position.set(0, 3, 10);
-		controls.target.set(0, -2, 2);
+		camera.position.set(0, 5, 10);
+		controls.target.set(0, 0, 2);
 		camera.updateProjectionMatrix();
 		controls.update();
 	}
 	function resetView() {
-		camera.position.set(0, 10, 20);
-		controls.target.set(0, 0, 0);
+		camera.position.set(0, 12, 20);
+		controls.target.set(0, 2, 0);
 		camera.fov = 45;
 		camera.aspect = canvas.clientWidth / canvas.clientHeight;
 		camera.near = 0.1;
