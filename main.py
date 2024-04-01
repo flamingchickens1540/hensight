@@ -3,31 +3,20 @@ from flask import request
 import time
 import random
 from flask import Flask, render_template, send_file
+import requests
 listindex = 0
 old = ''
 old2 = ''
 old3 = ''
 app = Flask(__name__)
+api_key = 'Ab5I0k9SHkYT1FC4Yh5T2lpnjsewAsHNRUnoRLcnk7vueOW4VeNWf2NMBzfGsDeN'
 
-# def event_scored(toggle, html):
-#     if toggle:
-#         amp_total = sum_auto_amp_sec() + sum_tele_amp_sec()
-#         speaker_total = sum_auto_speaker_sec() + sum_tele_speaker_sec()
-#         big_total = amp_total + speaker_total
-#         number = ('{:,}'.format(big_total)) 
-#         if html: return f'<h4>There has been</h4><h3>{number}</h3><h4>notes scored this event!</h4>'
-#         else: return big_total
-#     else: return 'bad'
-# def event_acc(toggle, html):
-#     if toggle:
-#         scored = event_scored(True, False)
-#         miss_amp = sum_auto_amp_miss() + sum_tele_amp_miss()
-#         miss_speaker = sum_auto_speaker_miss() + sum_tele_speaker_miss()
-#         missed = miss_speaker + miss_amp
-#         shots = scored + missed
-#         acc = round(scored / missed, 3)
-#         if html: return f'<h4>Teams at this event have scored</h4><h3>{acc * 100}%</h3><h4>of total notes shot!</h4>'
-#     else: return 'bad'
+
+#-----------------------------------------------------------------------------------------------------#
+#
+event_key = '2024orwil'
+#
+#-----------------------------------------------------------------------------------------------------#
 
 def thank_msg(toggle):
     if toggle:
@@ -82,9 +71,8 @@ def chargedchickens(toggle):
     if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
     else: return 'bad'
 def chargedchickens(toggle):
-    if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3>5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
+    if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3 id="h7">5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
     else: return 'bad'
-
 
 
 def make_graph() -> list[str]:
