@@ -73,7 +73,18 @@ def chargedchickens(toggle):
 def chargedchickens(toggle):
     if toggle: return '<h5>A chicken running on a hamster wheel would take</h5><h3 id="h7">5 hours</h3><h5>to generate enough power for a ES 17-12 battery.<h5>'
     else: return 'bad'
-
+def total_event_points(toggle):
+    if toggle:
+        points = 0
+        return f'<h4>At this event</h4><h3>{points}</h3><h4>notes have been scored</h4>'
+def total_event_trap(toggle):
+    if toggle:
+        points = 0
+        return f'<h4>At this event</h4><h3>{points}</h3><h4>have been scored in the trap</h4>'
+def event_melody_percent(toggle):
+    if toggle:
+        percent = 0
+        return f'<h4>The Melody Ranking Point have been scored</h4><h3>{percent}</h3><h4>percent of matches this event</h4>'
 
 def make_graph() -> list[str]:
     listofresults=[chargedchickens(toggle_list[0]), eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]), chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]), chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]), socials(toggle_list[10])]
