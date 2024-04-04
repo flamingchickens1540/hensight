@@ -1,7 +1,19 @@
+<script>
+    var elem = document.documentElement;
+    function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+    }
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<body style="background-color: #1C1C1C;">
+<body style="background-color: #1C1C1C;" onclick="openFullscreen()">
     <center>
-<iframe style="margin-top:  5rem;" width="80%" height="30%" src="https://www.youtube.com/embed/0-0po7hmveI?si=JZw3MtGdv6maPI94" frameborder="0"></iframe>
+<iframe style="margin-top:  5rem;" width="80%" height="30%" src="https://www.youtube.com/embed/-noXKy4wT0k?si=43qeq8vmKsQ4A9dz" frameborder="0"></iframe>
 </center>
 </iframe>
 </center>
@@ -25,6 +37,7 @@
             position: relative;
             border: 0.5rem solid #FFC145; /* Adjust border width as needed */
             height: calc(100vh);
+			overflow: hidden; /* Hide scrollbars */
         }
 	h4{
 color: #FFFFFF;
