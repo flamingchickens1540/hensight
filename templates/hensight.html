@@ -204,7 +204,7 @@ border-radius: 5px;
             console.log("fading out")
             setTimeout(function () {
                 document.getElementById('div').dispatchEvent(new Event('click'));
-            }, 1500);
+            }, 1000);
         }
     }
     document.addEventListener('htmx:afterRequest', function (event) {

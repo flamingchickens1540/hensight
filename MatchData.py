@@ -73,6 +73,20 @@ class MatchData:
             self.totalAmpNotes = 0
             self.totalSpeakerNotes = 0
             self.totalNotes = 0
+        if self.zebraData is not None:
+            self.totalDistanceTraveled = 0
+
+            team1Zebra = self.zebraData.alliances.blue[0]
+            team2Zebra = self.zebraData.alliances.blue[1]
+            team3Zebra = self.zebraData.alliances.blue[2]
+            team4Zebra = self.zebraData.alliances.red[0]
+            team5Zebra = self.zebraData.alliances.red[1]
+            team6Zebra = self.zebraData.alliances.red[2]
+
+            self.totalDistanceTraveled = getTeamDistance(team1Zebra) + getTeamDistance(team2Zebra) + getTeamDistance(
+                team3Zebra) + getTeamDistance(team4Zebra) + getTeamDistance(team5Zebra) + getTeamDistance(team6Zebra)
+        else:
+            self.totalDistanceTraveled = 0
 
     def computeDistance(self):
         if self.zebraData is not None:

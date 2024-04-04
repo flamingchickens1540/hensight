@@ -119,7 +119,8 @@ class HensightStatsManager:
         self.hensight_stats["global_spotlight_notes"] = global_spotlight_notes
         self.hensight_stats["event_spotlight_notes"] = event_spotlight_notes
         self.hensight_stats["global_spotlight_note_percentage"] = global_spotlight_notes / (6 * global_number_of_matches)
-        self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
+        if (event_number_of_matches is not 0):
+            self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
         self.hensight_stats["global_speaker_notes"] = global_speaker_notes
         self.hensight_stats["event_speaker_notes"] = event_speaker_notes
         self.hensight_stats["global_amplified_speaker_notes"] = global_amplified_speaker_notes
