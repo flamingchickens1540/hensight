@@ -1,5 +1,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<body>
+<script>
+    var elem = document.documentElement;
+    function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+    }
+</script>
+<body onclick="openFullscreen()">
 	
 <div id="thediv">
 	<center>
@@ -58,6 +70,8 @@
 		width: 100%;
 		height: calc(100% - 100px);
 		display: block;
+		padding: 0rem;
+		background-color: #1C1C1C;
 	}
 	h4{
 color: #FFFFFF;
