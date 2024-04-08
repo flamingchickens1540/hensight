@@ -96,75 +96,63 @@ def logodvd(toggle):
         return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20" id="logo"><marquee style="margin-bottom: 160px" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee><p id="msg">inside of my head rn</p>'
     else:
         return 'bad'
-
-
 def event_total_notes(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>There has been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["event_total_notes"]))}</h3><h4>notes scored at this event</h4>'
     else:
         return 'bad'
-
-
 def event_trap_notes(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>Teams have scored</h4><h3>{round(hensightStats.hensight_stats["event_trap_notes"])}</h3><h4>notes in the trap at this event</h4>'
     else:
         return 'bad'
-
-
 def event_high_score(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>The high score at this event is</h4><h3>{round(hensightStats.hensight_stats["event_high_score"])}</h3><h4>points! (good job)</h4>'
     else:
         return 'bad'
-
-
 def spotlight_percent(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h1>At this competition</h1><h3>{round(hensightStats.hensight_stats["event_spotlight_note_percentage"], 2)}%<h3><h1>of robotics have been spotlit</h1><div></div><h1>In the world</h1><h3>{round(hensightStats.hensight_stats["global_spotlight_note_percentage"], 2)}%</h3><h1>of robots have been spotlit</h1>'
     else:
         return 'bad'
-
-
 def global_total_notes(toggle):
     if toggle:
         return f'<h4>In the world</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_total_notes"]))}</h2><h4>notes have been scored</h4>'
     else:
         return 'bad'
-
-
 def global_high_score(toggle):
     if toggle:
         return f"<h4>The global high score is</h4><h3>{round(hensightStats.hensight_stats["global_high_score"])}</h3><h4>points! That's a lot"
     else:
         return 'bad'
-
-
 def event_speaker_notes(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h1>At this event, teams have scored</h1><h3>{"{:,}".format(round(hensightStats.hensight_stats["event_speaker_notes"]))}</h3><h1>notes in the speaker, while having scored</h1><h3>{round(hensightStats.hensight_stats["event_amplified_speaker_notes"])}</h3><h1>notes in an amplified speaker</h1>'
     else:
         return 'bad'
-
-
 def global_amp_notes(toggle):
     if toggle:
         return f'<h4>Throughout the world</h4><h3 id="h7">{"{:,}".format(round(hensightStats.hensight_stats["global_amp_notes"]))}</h3><h4>notes have been scored in the amp</h4>'
     else:
         return 'bad'
-
-
 def event_travel(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>Robots at this event have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
     else:
         return 'bad'
-
-
 def global_travel(toggle):
     if toggle:
-        return f'<h4>All the robots in the world have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
-
+        return f'<h4>All the robotcs in the world have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
+    else: return 'bad'
 def event_alliance_score(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>At this event, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
+    else: return 'bad'
+def global_amplified_speaker(toggle):
+    if toggle:
+        return f'<h4>Throughout the world</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_amplified_speaker_notes"]))}</h2><h4>notes have been scored in an amplified speaker</h4>'
+    else: return 'bad'
+def compare_auto_notes(toggle, event_toggle):
+    if toggle and event_toggle:
+        return f'<h4>At this event there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
