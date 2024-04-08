@@ -112,9 +112,9 @@ class TBAData:
         currentTime = time.time()
         eventsDone = 0
         for eventKey in self.CURRENT_EVENT_KEYS:
+            self.event_to_match_data[eventKey] = {}
             for match in self.get_event_matches(eventKey):
-                self.event_to_match_data[eventKey] = {}
-                self.event_to_match_data[match.key] = MatchData(match, match_to_thread[match.key].get())
+                self.event_to_match_data[eventKey][match.key] = MatchData(match, match_to_thread[match.key].get())
             eventsDone = eventsDone + 1
             print(eventsDone / totalEvents * 100, "% of Events Loaded")
         self.current_event_data = [self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS]
@@ -122,6 +122,7 @@ class TBAData:
         self.at_event_data = self.event_to_match_data[self.AT_EVENT_KEY]
 
         print("Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds")
+        print(self.event_to_match_data["2024pncmp"])
         print("Writing to File...")
         self.write_to_file(file)
         print("Writing to File Complete")
@@ -129,3 +130,10 @@ class TBAData:
 
     def get_match_data(self, event_key, match_key):
         return self.event_to_match_data[event_key][match_key]
+
+
+
+
+
+
+
