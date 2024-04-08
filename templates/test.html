@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     var elem = document.documentElement;
     function openFullscreen() {
@@ -10,6 +11,21 @@
     } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
+    }
+    var toggle = true
+    function clickme() {    
+        if (toggle == true) {
+            toggle = !toggle
+            $(".popup").removeClass("hide")
+            $(".popup").addClass("show")
+            console.log('added show')
+        }
+        else {
+            toggle = !toggle
+            $(".poppup").removeClass("show")
+            $(".popup").addClass("hide")
+            console.log('added hide')
+        }
     }
 </script>
 <head>
@@ -159,13 +175,47 @@
 			left: 10%;
 			z-index: -1;
 		}
+        .popup::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 45px;
+        border-style: solid;
+        border-color: #404040 transparent transparent transparent;
+    }
+        .show {
+        visibility: visible;
+        animation: popup_fadeIn 1s;
+    }
+    .hide {
+        visibility: hidden;
+        animation: popup_fadeOut 1s;
+    }
+    @keyframes popup_fadeIn {
+        0% {opacity: 0;}
+        50% {transform: translateY(50); opacity: 1;}
+        100% {transform: translateY(0);}
+    }
+    @keyframes popup_fadeOut {
+        50% {transform: translateY(50);}
+        100% {transform: translateY(0); opacity: 0;}
+    }
+    .popup {
+        position: absolute;
+        padding: 5%;
+        bottom: 10%;
+        left: 20%;
+        z-index: 1;
+    }
     </style>
     
 </head>
-<body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
+<body style="background-color: #1C1C1C;" onclick="clickme()" id="body">
     <center>
         
-        <marquee class="marquee" behavior="alternate" direction="down"scrollamount="20" id="logo"><marquee style="margin-bottom: 160px" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee><p id="msg">inside of my head rn</p>
+        <h6 class="popup">Click me!</h6>
         
     </center>    
 </body>

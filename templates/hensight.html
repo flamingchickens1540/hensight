@@ -19,29 +19,29 @@ function incrementSeconds() {
 	if (idle_secconds == 10) {
         console.log('attempting popup');
         var popup = document.getElementById("myPopup");
-        $(".popup").removeClass("hidden")
+        $(".popup").removeClass("hide")
         $(".popup").addClass("show");
 	}
     else if (idle_secconds >= 20) {
         console.log('reseting popup');
         $(".popup").removeClass("show");
-        $(".popup").addClass("hidden")
+        $(".popup").addClass("hide")
         idle_secconds = 0;
         console.log('yay');
     }
     else if (idle_secconds == 1) {
         console.log('reseting popup')
         $(".popup").removeClass("show")
-        $(".popup").addClass("hidden")
+        $(".popup").addClass("hide")
     }
     else if (idle_secconds == 2) {
         console.log('reseting popup')
         $(".popup").removeClass("show")
-        $(".popup").addClass("hidden")
+        $(".popup").addClass("hide")
     }
 }
 var cancel = setInterval(incrementSeconds, 1000);
-$(".popup").addClass("hidden")
+$(".popup").addClass("hide")
 window.addEventListener('touchstart', function() {
   idle_secconds = 0
   $(".popup").removeClass("show")
@@ -216,11 +216,11 @@ border-radius: 5px;
         border-style: solid;
         border-color: #404040 transparent transparent transparent;
     }
-    .popup .show {
+    .show {
         visibility: visible;
         animation: popup_fadeIn 1s;
     }
-    .popup .hide {
+    .hide {
         visibility: hidden;
         animation: popup_fadeOut 1s;
     }
