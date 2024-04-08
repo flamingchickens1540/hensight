@@ -48,6 +48,16 @@
                 opacity: 1; /* Fully visible */
             }
         }
+        .mediumText {
+            font-size: 50px;
+            font-family: Poppins;
+            color: white;
+        }
+        .mediumTextYellow{
+            font-size: 50px;
+            font-family: Poppins;
+            color: #FFC145;
+        }
         h4{
             color: white;
             font-size: large;
@@ -167,7 +177,7 @@ border-radius: 5px;
 <h6 id="slides">Slides</h6>
 </center>
 <center>
-<h6 id="cad">Cad</h6>
+<h6 id="cad">CAD</h6>
 </center>
 <center>
 <h6 id="reveal">Robot Reveal</h6>
@@ -204,7 +214,7 @@ border-radius: 5px;
             console.log("fading out")
             setTimeout(function () {
                 document.getElementById('div').dispatchEvent(new Event('click'));
-            }, 1500);
+            }, 1000);
         }
     }
     document.addEventListener('htmx:afterRequest', function (event) {
