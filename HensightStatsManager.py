@@ -1,3 +1,4 @@
+from MatchData import MatchData
 class HensightStatsManager:
     def __init__(self, data):
         self.data = data
@@ -72,23 +73,24 @@ class HensightStatsManager:
         event_number_of_matches = 0
         print(self.data.event_to_match_data)
         for matches in self.data.event_to_match_data.values():
-            for match_data in matches.values():
-                if match_data.scoringData.score_breakdown is not None:
-                    global_number_of_matches = global_number_of_matches + 1
-                if match_data.maxScore > global_max_score:
-                    global_max_score = match_data.maxScore
-                new_auto_notes = match_data.autoAmpNotes + match_data.autoSpeakerNotes
-                global_auto_notes = global_auto_notes + new_auto_notes
-                global_tele_notes = global_tele_notes + (match_data.totalNotes - new_auto_notes)
-                global_trap_notes = global_trap_notes + match_data.trapNotes
-                global_spotlight_notes = global_spotlight_notes + match_data.numberOfSpotlights
-                global_speaker_notes = global_speaker_notes + match_data.totalSpeakerNotes
-                global_amplified_speaker_notes = global_amplified_speaker_notes + match_data.amplifiedSpeakerNotes
-                global_amp_notes = global_amp_notes + match_data.totalAmpNotes
-                global_total_notes = global_total_notes + match_data.totalNotes
-                global_distance_traveled = global_distance_traveled + match_data.totalDistanceTraveled
-                global_red_alliance_score = global_red_alliance_score + match_data.redScore
-                global_blue_alliance_score = global_blue_alliance_score + match_data.blueScore
+            if type(matches) != MatchData:
+                for match_data in matches.values():
+                    if match_data.scoringData.score_breakdown is not None:
+                        global_number_of_matches = global_number_of_matches + 1
+                    if match_data.maxScore > global_max_score:
+                        global_max_score = match_data.maxScore
+                    new_auto_notes = match_data.autoAmpNotes + match_data.autoSpeakerNotes
+                    global_auto_notes = global_auto_notes + new_auto_notes
+                    global_tele_notes = global_tele_notes + (match_data.totalNotes - new_auto_notes)
+                    global_trap_notes = global_trap_notes + match_data.trapNotes
+                    global_spotlight_notes = global_spotlight_notes + match_data.numberOfSpotlights
+                    global_speaker_notes = global_speaker_notes + match_data.totalSpeakerNotes
+                    global_amplified_speaker_notes = global_amplified_speaker_notes + match_data.amplifiedSpeakerNotes
+                    global_amp_notes = global_amp_notes + match_data.totalAmpNotes
+                    global_total_notes = global_total_notes + match_data.totalNotes
+                    global_distance_traveled = global_distance_traveled + match_data.totalDistanceTraveled
+                    global_red_alliance_score = global_red_alliance_score + match_data.redScore
+                    global_blue_alliance_score = global_blue_alliance_score + match_data.blueScore
 
         for match_data in self.current_event_data.values():
             if match_data.scoringData.score_breakdown is not None:
@@ -135,8 +137,3 @@ class HensightStatsManager:
         self.hensight_stats["event_red_alliance_score"] = event_red_alliance_score
         self.hensight_stats["global_blue_alliance_score"] = global_blue_alliance_score
         self.hensight_stats["event_blue_alliance_score"] = event_blue_alliance_score
-
-
-
-
-
