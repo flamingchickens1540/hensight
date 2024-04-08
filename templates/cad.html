@@ -9,9 +9,47 @@
     } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
-    }
+    }    
+var idle_secconds = 0
+function incrementSeconds() {
+    idle_secconds += 1;
+	console.log('idle for:',idle_secconds, 'seccond')
+	if (idle_secconds >= 60) {
+		window.location.herf("/");
+	}
+}
+var cancel = setInterval(incrementSeconds, 1000);
+
+window.addEventListener('touchstart', function() {
+  idle_secconds = 0
+  console.log(reset)
+});
+
+// function isCanvasBlank(canvas) {
+//   const context = canvas.getContext('2d');
+
+//   const pixelBuffer = new Uint32Array(
+//     context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
+//   );
+
+//   return !pixelBuffer.some(color => color !== 0);
+// }
+// while (true) {
+// 	blank = isCanvasBlank(document.getElementById('c'))
+// 	var div = document.getElementById('load-container');
+// 	if (blank == true) {
+// 		div.style.display = "block";
+// 		console.log("block")
+// 	}
+// 	else {
+// 		div.style.display = "none";
+// 		console.log('none')
+// 		break
+// 	}
+// }
+
 </script>
-<body onclick="openFullscreen()">
+<body>
 	
 <div id="thediv">
 	<center>
@@ -28,6 +66,7 @@
 </center>
 </div>
 <canvas id="c"></canvas>
+<div id="load-container"><div id="loading"></div><h3>Loading...</h3></div>
 <div id="theseconddiv">
 	<center>
 <h4 id="slides">Slides</h4>
@@ -52,6 +91,36 @@
 }
 </script>
 <style>
+	#loading {
+	position: absolute;
+	top: 40%;
+	right: 30%;
+	margin: auto;
+	border: 30px solid #FFC145;
+	border-radius: 50%;
+	border-top: 30px solid #1C1C1C;
+	width: 300px;
+	height: 300px;
+	animation: spinner 2s linear infinite;
+	z-index: 2;
+}
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  80% { transform: rotate(315deg); }
+  100% {transform: rotate(360deg);}
+}
+h3 {
+	color: #FFFFFF;
+	font-family: Poppins;
+	font-size: 3rem;
+	position: absolute;
+	top: 45%;
+	right: 35%;
+	z-index: 1;
+}
+#load-container{
+	display: none;
+}
 	        body {
             margin: 0;
             padding: 0;
@@ -72,6 +141,7 @@
 		display: block;
 		padding: 0rem;
 		background-color: #1C1C1C;
+		position: absolute;
 	}
 	h4{
 color: #FFFFFF;

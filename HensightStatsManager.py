@@ -71,7 +71,7 @@ class HensightStatsManager:
         event_blue_alliance_score = 0
         global_number_of_matches = 0
         event_number_of_matches = 0
-        print(self.data.event_to_match_data)
+        # print(self.data.event_to_match_data)
         for matches in self.data.event_to_match_data.values():
             if type(matches) != MatchData:
                 for match_data in matches.values():

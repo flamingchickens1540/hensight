@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     var elem = document.documentElement;
     function openFullscreen() {
@@ -11,6 +12,42 @@
         elem.msRequestFullscreen();
     }
     }
+    var idle_secconds = 0;
+function incrementSeconds() {
+    idle_secconds += 1;
+	console.log('idle for:',idle_secconds, 'secconds');
+	if (idle_secconds == 10) {
+        console.log('attempting popup');
+        var popup = document.getElementById("myPopup");
+        $(".popup").removeClass("hidden")
+        $(".popup").addClass("show");
+	}
+    else if (idle_secconds >= 20) {
+        console.log('reseting popup');
+        $(".popup").removeClass("show");
+        $(".popup").addClass("hidden")
+        idle_secconds = 0;
+        console.log('yay');
+    }
+    else if (idle_secconds == 1) {
+        console.log('reseting popup')
+        $(".popup").removeClass("show")
+        $(".popup").addClass("hidden")
+    }
+    else if (idle_secconds == 2) {
+        console.log('reseting popup')
+        $(".popup").removeClass("show")
+        $(".popup").addClass("hidden")
+    }
+}
+var cancel = setInterval(incrementSeconds, 1000);
+$(".popup").addClass("hidden")
+window.addEventListener('touchstart', function() {
+  idle_secconds = 0
+  $(".popup").removeClass("show")
+  $(".popup").addClass("hidden")
+  console.log('--reset--')
+});
 </script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,7 +117,7 @@
         }
         h2{
             color:#FFC145;
-            font-size: 9rem;
+            font-size: 11rem;
             margin:0rem;
             font-family: Poppins;
         }
@@ -169,6 +206,40 @@ border-radius: 5px;
 			left: 10%;
 			z-index: -1;
 		}
+    .popup::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 45px;
+        border-style: solid;
+        border-color: #404040 transparent transparent transparent;
+    }
+    .popup .show {
+        visibility: visible;
+        animation: popup_fadeIn 1s;
+    }
+    .popup .hide {
+        visibility: hidden;
+        animation: popup_fadeOut 1s;
+    }
+    @keyframes popup_fadeIn {
+        0% {opacity: 0;}
+        50% {transform: translateY(50); opacity: 1;}
+        100% {transform: translateY(0);}
+    }
+    @keyframes popup_fadeOut {
+        50% {transform: translateY(50);}
+        100% {transform: translateY(0); opacity: 0;}
+    }
+    .popup {
+        position: absolute;
+        padding: 5%;
+        bottom: 10%;
+        left: 20%;
+        z-index: 1;
+    }
     </style>
     
 </head>
@@ -183,6 +254,9 @@ border-radius: 5px;
 <h6 id="reveal">Robot Reveal</h6>
 </center>
 </div>
+<center>
+    <h6 class="popup">Click me!</h6>
+</center>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
         
