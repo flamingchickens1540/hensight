@@ -1,10 +1,7 @@
 from flask import Flask, render_template
 from flask import request
 # import time
-# import time
 import random
-import schedule
-import threading
 import schedule
 import threading
 from flask import Flask, render_template, send_file
@@ -59,7 +56,7 @@ def make_graph() -> list[str]:
                         event_trap_notes(toggle_list[13], event_toggle), event_high_score(toggle_list[14], event_toggle), spotlight_percent(toggle_list[15], event_toggle),
                         global_total_notes(toggle_list[16]), global_high_score(toggle_list[17]), event_speaker_notes(toggle_list[18], event_toggle),
                         global_amp_notes(toggle_list[19]), event_travel(toggle_list[20], event_toggle), global_travel(toggle_list[21]), event_alliance_score(toggle_list[22], event_toggle),
-                        global_amplified_speaker(toggle_list[23]), compare_auto_notes(toggle_list[24], event_toggle)
+                        global_amplified_speaker(toggle_list[23]), compare_auto_notes(toggle_list[24], event_toggle), melody_rp(toggle_list[25])
                      ]
     reallist = []
     for result in listofresults:
@@ -68,7 +65,7 @@ def make_graph() -> list[str]:
     return reallist
 
 event_toggle = True
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, True, True, True]
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, True, True, True, True]
 
 
 @app.route("/")
@@ -167,5 +164,5 @@ def CHICKEN_SPIN():
     return render_template('chickenspin.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
     print("hi")
