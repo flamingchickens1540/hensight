@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true]
+    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true, true]
     var idlist = ['eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery','logodvd', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'compare_auto_notes', 'melody_rp']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
+            console.log('updating: ', document.getElementById(idlist[i]))
             let property = document.getElementById(idlist[i])
             if (!toggle_list[i]){property.style.backgroundColor = "#ff0800"}
             else {property.style.backgroundColor = "#12b31d"}
@@ -37,7 +38,7 @@
             body: JSON.stringify(toggle_list),
         });
         }
-    setInterval(updateColors(), 60000)
+    setInterval(update(), 60000)
 </script>
 
 <head>
@@ -104,6 +105,8 @@
 
         .switchbutton {
             background-color: #12b31d;
+            font-family: Poppins;
+            color: #FFFF;
         }
 
         button {
@@ -145,9 +148,9 @@
     </style>
 </head>
 
-<body style="background-color: #1C1C1C;" onload="updateColors()">
+<body style="background-color: #1C1C1C;" onload="update()">
     <div id="maindiv">
-        <div class="grid-container" onclick="updateColors()">
+        <div class="grid-container" onclick="update()">
             <center><img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="" style="padding-left: 50%;"></center>
             <center><h1 id="title">Hensight Dashboard</h1></center>
             <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
@@ -165,7 +168,7 @@
             <div class="indev"><center><h4>Battery Charge</h4><button class="switchbutton" id="battery" onclick="setColor('battery', 10)">Toggle</button></center></div>
             <div class="indev"><center><h4>Logo DVD</h4><button class="switchbutton" id="logodvd" onclick="setColor('logodvd', 11)">Toggle</button></center></div>
             <div class="indev"><center><h4>Event Total Notes</h4><button class="switchbutton" id="event_total_notes" onclick="setColor('event_total_notes', 12)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Trap Notes</h4><button class="switchbutton" id="event_total_notes" onclick="setColor('event_total_notes', 13)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Trap Notes</h4><button class="switchbutton" id="event_trap_notes" onclick="setColor('event_trap_notes', 13)">Toggle</button></center></div>
             <div class="indev"><center><h4>Event High Score</h4><button class="switchbutton" id="event_high_score" onclick="setColor('event_high_score', 14)">Toggle</button></center></div>
             <div class="indev"><center><h4>Spotlight Percent</h4><button class="switchbutton" id="spotlight_percent" onclick="setColor('spotlight_percent', 15)">Toggle</button></center></div>
             <div class="indev"><center><h4>Global Total Notes</h4><button class="switchbutton" id="global_total_notes" onclick="setColor('global_total_notes', 16)">Toggle</button></center></div>

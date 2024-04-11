@@ -161,5 +161,6 @@ def global_trap_notes(toggle):
     else: return 'bad'
 def easter_egg():
     return '<h4>You found the secret slide!</h4><h3>Good job!</h3>'
-def melody_rp(toggle):
-    if toggle: return f'<h4>The melody ranking point has been awared</h4><h3>{round(hensightStats.hensight_stats["global_melody_percentage"])}%</h3><h4>of matches the season</h4>'
+# def melody_rp(toggle):
+#     if toggle: return f'<h4>The melody ranking point has been awared</h4><h3>{round(hensightStats.hensight_stats["global_melody_percentage"])}%</h3><h4>of matches the season</h4>'
+#     else: return 'bad'
