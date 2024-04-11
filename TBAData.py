@@ -41,13 +41,33 @@ class TBAData:
         eventsDone = 0
         totalEvents = len(self.EVENT_KEYS)
 
-        match_to_thread = {}
+        # match_to_thread = {}
+
+        # for eventKey in self.EVENT_KEYS:
+        #     print("Requesting Event: " + eventKey)
+        #     matches = self.get_event_matches(eventKey)
+        #     for match in matches:
+        #         match_to_thread[match.key] = self.match_api_instance.get_match_zebra(match.key, async_req=True)
+        #     eventsDone = eventsDone + 1
+        #     print(eventsDone / totalEvents * 100, "% of Events Requested")
+        #     print("--------------------------------------------------------")
+        # print("Loading Event Matches Took: " + str(time.time() - currentTime))
+        # currentTime = time.time()
+        # eventsDone = 0
+        # for eventKey in self.EVENT_KEYS:
+        #     self.event_to_match_data[eventKey] = {}
+        #     for match in self.get_event_matches(eventKey):
+        #         self.event_to_match_data[eventKey][match.key] = MatchData(match, match_to_thread[match.key].get())
+        #     eventsDone = eventsDone + 1
+        #     print(eventsDone / totalEvents * 100, "% of Events Loaded")
+        # for eventKey in self.EVENT_KEYS:
 
         for eventKey in self.EVENT_KEYS:
             print("Requesting Event: " + eventKey)
             matches = self.get_event_matches(eventKey)
+            self.event_to_match_data[eventKey] = {}
             for match in matches:
-                match_to_thread[match.key] = self.match_api_instance.get_match_zebra(match.key, async_req=True)
+                self.event_to_match_data[eventKey][match.key] = MatchData(match, self.match_api_instance.get_match_zebra(match.key))
             eventsDone = eventsDone + 1
             print(eventsDone / totalEvents * 100, "% of Events Requested")
             print("--------------------------------------------------------")
