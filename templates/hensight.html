@@ -272,14 +272,14 @@ border-radius: 5px;
         marquee = document.querySelector('.marquee');
         if (marquee) {
             setTimeout(function () {
-                document.body.style.animation = "fadeout 1s forwards";
+                document.getElementById('div').style.animation = "fadeout 1s forwards";
                 console.log("fading out")
                 setTimeout(function () {
                     document.getElementById('div').dispatchEvent(new Event('click'));
                 }, 1500);
             }, 15000);
         } else {
-            document.body.style.animation = "fadeout 1s forwards";
+            document.getElementById('div').style.animation = "fadeout 1s forwards"
             console.log("fading out")
             setTimeout(function () {
                 document.getElementById('div').dispatchEvent(new Event('click'));
@@ -287,10 +287,10 @@ border-radius: 5px;
         }
     }
     document.addEventListener('htmx:afterRequest', function (event) {
-        document.body.style.animation = "fadein 1s forwards";
+        document.getElementById('div').style.animation = "fadein 1s forwards";
         console.log("Received, fading in")
     })
-    setInterval(fadeout, 15000)
+    setInterval(fadeout, 10000)
 
 	document.getElementById("reveal").addEventListener("click", redirectReveal);
     document.getElementById("cad").addEventListener("click", redirectCad);
