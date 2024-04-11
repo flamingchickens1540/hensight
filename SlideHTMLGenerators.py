@@ -33,7 +33,7 @@ def chicken_notes(toggle):
 
 def chicken_weight(toggle):
     if toggle:
-        return '<h4>The heaviest chicken was 22lbs! That is</h4><h3>88 lbs</h3><h4>less than the weight of our robot!</h4>'
+        return '<h4>The heaviest chicken was 22lbs! That is</h4><h3>93 lbs</h3><h4>less than the weight of our robot!</h4>'
     else:
         return 'bad'
 
@@ -147,17 +147,19 @@ def global_travel(toggle):
     else: return 'bad'
 def event_alliance_score(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h4>At this event, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
+        return f'<h4>In this divison, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
     else: return 'bad'
 def global_amplified_speaker(toggle):
     if toggle:
-        return f'<h4>Throughout the world</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_amplified_speaker_notes"]))}</h2><h4>notes have been scored in an amplified speaker</h4>'
+        return f'<h4>This season there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_amplified_speaker_notes"]))}</h2><h4>notes scored in an amplified speaker</h4>'
     else: return 'bad'
 def compare_auto_notes(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h4>At this event there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
+        return f'<h4>In this divison there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
 def global_trap_notes(toggle):
     if toggle: return f'<h4>There has been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_trap_notes"]))}'
     else: return 'bad'
 def easter_egg():
     return '<h4>You found the secret slide!</h4><h3>Good job!</h3>'
+def melody_rp(toggle):
+    if toggle: return f'<h4>The melody ranking point has been awared</h4><h3>{round(hensightStats.hensight_stats["global_melody_percentage"])}%</h3><h4>of matches the season</h4>'
