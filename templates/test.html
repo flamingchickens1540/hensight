@@ -22,7 +22,7 @@
         }
         else {
             toggle = !toggle
-            $(".poppup").removeClass("show")
+            $(".popup").removeClass("show")
             $(".popup").addClass("hide")
             console.log('added hide')
         }
@@ -186,21 +186,19 @@
         border-color: #404040 transparent transparent transparent;
     }
         .show {
-        visibility: visible;
-        animation: popup_fadeIn 1s;
+        animation: popup_fadeIn 1s forwards;
     }
     .hide {
-        visibility: hidden;
-        animation: popup_fadeOut 1s;
+        animation: popup_fadeOut 1s forwards;
     }
     @keyframes popup_fadeIn {
         0% {opacity: 0;}
-        50% {transform: translateY(50); opacity: 1;}
-        100% {transform: translateY(0);}
+        50% {transform: translateY(-50px); opacity: 1;}
+        100% {transform: translateY(0px);}
     }
     @keyframes popup_fadeOut {
-        50% {transform: translateY(50);}
-        100% {transform: translateY(0); opacity: 0;}
+        50% {transform: translateY(-50px);}
+        100% {transform: translateY(0px); opacity: 0;}
     }
     .popup {
         position: absolute;
@@ -212,7 +210,7 @@
     </style>
     
 </head>
-<body style="background-color: #1C1C1C;" onclick="clickme()" id="body">
+<body style="background-color: #1C1C1C;" onclick="clickme(), openFullscreen()" id="body">
     <center>
         
         <h6 class="popup">Click me!</h6>

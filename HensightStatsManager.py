@@ -146,12 +146,13 @@ class HensightStatsManager:
                     global_distance_traveled = global_distance_traveled + match_data.totalDistanceTraveled
                     global_red_alliance_score = global_red_alliance_score + match_data.redScore
                     global_blue_alliance_score = global_blue_alliance_score + match_data.blueScore
-                    if match_data.melodyRP != 0:
-                        global_melody_rp = global_melody_rp + 1
-                    if match_data.ensembleRP != 0:
-                        global_ensemble_rp = global_ensemble_rp + 1
-                    global_rp = global_rp + match_data.totalRP
-                    global_co_op = global_co_op + match_data.coop
+                    # print(match_data.matchKey)
+                    # if match_data.melodyRP != 0:
+                    #     global_melody_rp = global_melody_rp + 1
+                    # if match_data.ensembleRP != 0:
+                    #     global_ensemble_rp = global_ensemble_rp + 1
+                    # global_rp = global_rp + match_data.totalRP
+                    # global_co_op = global_co_op + match_data.coop
 
 
 
