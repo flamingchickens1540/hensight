@@ -29,19 +29,8 @@ function incrementSeconds() {
         idle_secconds = 0;
         console.log('yay');
     }
-    else if (idle_secconds == 1) {
-        console.log('reseting popup')
-        $(".popup").removeClass("show")
-        $(".popup").addClass("hide")
-    }
-    else if (idle_secconds == 2) {
-        console.log('reseting popup')
-        $(".popup").removeClass("show")
-        $(".popup").addClass("hide")
-    }
 }
 var cancel = setInterval(incrementSeconds, 1000);
-$(".popup").addClass("hide")
 window.addEventListener('touchstart', function() {
   idle_secconds = 0
   $(".popup").removeClass("show")
@@ -182,7 +171,7 @@ window.addEventListener('touchstart', function() {
 	width: calc(100% - 3rem);
 	display: grid;
   grid-template-areas:
-    'menu main right';
+    'header menu main right';
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;
@@ -190,6 +179,10 @@ window.addEventListener('touchstart', function() {
 	margin-right: 4rem;
     overflow: hidden;
 }
+#slides { grid-area: menu; }
+#reveal { grid-area: main; }
+#cad { grid-area: right; }
+#autos {grid-area: header;}
 h6{
 color: #FFFFFF;
 background-color: #404040;
@@ -217,27 +210,26 @@ border-radius: 5px;
         border-color: #404040 transparent transparent transparent;
     }
     .show {
-        visibility: visible;
-        animation: popup_fadeIn 1s;
+        animation: popup_fadeIn 1s forwards;
     }
     .hide {
-        visibility: hidden;
-        animation: popup_fadeOut 1s;
+        animation: popup_fadeOut 1s forwards;
     }
     @keyframes popup_fadeIn {
-        0% {opacity: 0;}
-        50% {transform: translateY(50); opacity: 1;}
-        100% {transform: translateY(0);}
+        0% {opacity: 0; transform: scale(0.5);}
+        50% {transform: scale(1.75); opacity: 0.85;}
+        100% {transform: scale(1); opacity: 0.85;}
     }
     @keyframes popup_fadeOut {
-        50% {transform: translateY(50);}
-        100% {transform: translateY(0); opacity: 0;}
+        50% {transform: scale(1.75)}
+        100% {transform: scale(0.5); opacity: 0;}
     }
     .popup {
+        opacity: 0;
         position: absolute;
         padding: 5%;
         bottom: 10%;
-        left: 20%;
+        left: 27%;
         z-index: 1;
     }
     </style>
@@ -249,6 +241,9 @@ border-radius: 5px;
 </center>
 <center>
 <h6 id="cad">CAD</h6>
+</center>
+<center>
+    <h6 id="autos" onclick="window.location.replace('/autos')">Autos</h6>
 </center>
 <center>
 <h6 id="reveal">Robot Reveal</h6>
@@ -299,12 +294,14 @@ border-radius: 5px;
 
 	document.getElementById("reveal").addEventListener("click", redirectReveal);
     document.getElementById("cad").addEventListener("click", redirectCad);
-
     function redirectCad(){
 	window.location.href = "/cad";
 	}
     function redirectReveal(){
     window.location.href = "/reveal";
+    }
+    function redirectAutos(){
+        window.location.herf = "/autos"
     }
 </script>
 </html>

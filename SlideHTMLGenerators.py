@@ -156,3 +156,8 @@ def global_amplified_speaker(toggle):
 def compare_auto_notes(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>At this event there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
+def global_trap_notes(toggle):
+    if toggle: return f'<h4>There has been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_trap_notes"]))}'
+    else: return 'bad'
+def easter_egg():
+    return '<h4>You found the secret slide!</h4><h3>Good job!</h3>'

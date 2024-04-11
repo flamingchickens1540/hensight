@@ -75,6 +75,9 @@ toggle_list = [True, True, True, True, True, True, True, True, True, True, True,
 def index():
     return render_template('hensight.html')
 
+@app.route("/autos")
+def autos():
+    return render_template('autos.html')
 
 @app.route("/cad")
 def func():
@@ -85,6 +88,9 @@ def func():
 def serve_obj_file():
     return send_file("./static/FriedEgg.glb")
 
+@app.route('/FieldCadSmall')
+def serve_small_file():
+    return send_file("./static/CrescendoFieldSmall.gltf")
 
 @app.route('/OrbitControls.js')
 def serve_obje_file():
@@ -133,6 +139,12 @@ def main():
     #     listindex = 0
     # return html[listindex]
 
+@app.route('/goback')
+def goback():
+    old = old2
+    old2 = old3
+    old3 = easter_egg()
+    return old
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
@@ -157,9 +169,3 @@ def CHICKEN_SPIN():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=True)
     print("hi")
-
-
-
-
-
-
