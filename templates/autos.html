@@ -1,0 +1,186 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    var elem = document.documentElement;
+    function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+    }
+    var idle_secconds = 0
+    function incrementSeconds() {
+        idle_secconds += 1;
+        console.log('idle for:',idle_secconds, 'seccond')
+        if (idle_secconds >= 10) {
+            window.location.replace("/");
+        }
+    }
+    var cancel = setInterval(incrementSeconds, 1000);
+
+    window.addEventListener('touchstart', function() {
+    idle_secconds = 0
+    console.log('reset')
+    });
+	// function ampshow() {
+	// 	console.log('amp function')
+	// 	$("#center, #source").removeClass('show')
+	// 	$("#amp").removeClass('hide')
+	// 	$("#amp").addClass('show')
+	// }
+	// function centershow() {
+	// 	console.log('center function')
+	// 	$("#source, #amp").removeClass('show')
+	// 	$("#center").removeClass('hide')
+	// 	$("#center").addClass('show')
+	// }
+	// function sourceshow() {
+	// 	console.log('source function')
+	// 	$("#center, #amp").removeClass('show')
+	// 	$("#source").removeClass('hide')
+	// 	$("#source").addClass('show')
+	// }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<body style="background-color: #1C1C1C;" onclick="openFullscreen()">
+
+	<video src="static/AmpLanePADEF.mp4" controls id="amp"></video>
+	<video src="" controls id="center"></video>
+	<video src="static/SourceLanePHGF.mp4" controls id="source"></video>
+
+	<!-- <div id="thediv">
+		<center>
+	<h4 id="ampbtn" onclick="ampshow()">Amp Side</h4>
+	</center>
+	<center>
+	<h4 id="centerbtn" onclick="centershow()">Center Side</h4>
+	</center>
+	<center>
+	<h4 id="sourcebtn" onclick="sourceshow()">Source Side</h4>
+	</center>
+	</div> -->
+<div id="theseconddiv">
+	<center>
+<h4 id="slides">Slides</h4>
+</center>
+<center>
+<h4 id="cad">Cad</h4>
+</center>
+<center>
+	<h4 id="autos">Autos</h4>
+	</center>
+<center>
+<h4 id="reveal">Robot Reveal</h4>
+</center>
+</div>
+</body>
+<style>
+	#amp {
+		position: absolute;
+		width: 90%;
+		top: 5%;
+		margin-left: 5%;
+		z-index: 1;
+	}
+	#center {
+		position: absolute;
+		width: 90%;
+		top: 35%;
+		margin-left: 5%;
+		z-index: 1;
+	}
+	#source {
+		position: absolute;
+		width: 90%;
+		top: 65%;
+		margin-left: 5%;
+		z-index: 1;
+	}
+	.hide {
+		animation: fadeOut 1s forwards;
+	}
+	.show {
+		animation: fadeIn 1s forwards;
+	}
+	@keyframes fadeIn {
+		from {opacity: 0;}
+		to {opacity: 1;}
+	}
+	@keyframes fadeOut {
+		form {opacity: 1;}
+		to {opacity: 0;}
+	}
+	
+#ampbtn { grid-area: header; }
+#centerbtn { grid-area: menu; }
+#sourcebtn { grid-area: main; }
+#thediv{
+	display: grid;
+  grid-template-areas:
+    'header menu main';
+	background-color: #1C1C1C;
+	padding: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+	.video {
+		opacity: 0;
+		width: 90%;
+		position: absolute;
+		top: 30%;
+		margin-left: 5%;
+	}
+            body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            height: calc(100vh);
+			overflow: hidden; /* Hide scrollbars */
+        }
+	h4{
+color: #FFFFFF;
+background-color: #404040;
+margin: 0.5rem;
+font-family: Poppins;
+font-size: 3rem;
+border-radius: 5px;
+
+	}
+#slides { grid-area: menu; }
+#reveal { grid-area: main; }
+#cad { grid-area: right; }
+#autos { grid-area: left; }
+#theseconddiv {
+    border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+	position: fixed;
+	bottom: 0;
+	width: calc(100% - 3rem);
+	display: grid;
+  grid-template-areas:
+    'menu main right left';
+	background-color: #1C1C1C;
+	padding: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	margin-right: 4rem;
+    overflow: hidden;
+}
+</style>
+<script>
+    	function redirectSlides(){
+	window.location.href = "/";
+	}
+    function redirectCad(){
+	window.location.href = "/cad";
+	}
+    function redirectReveal(){
+	window.location.href = "/reveal";
+	}
+
+    document.getElementById("slides").addEventListener("click", redirectSlides);
+	document.getElementById("cad").addEventListener("click", redirectCad);
+    document.getElementById("reveal").addEventListener("click", redirectReveal);
+</script>

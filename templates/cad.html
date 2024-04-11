@@ -23,7 +23,7 @@ var cancel = setInterval(incrementSeconds, 1000);
 
 window.addEventListener('touchstart', function() {
   idle_secconds = 0
-  console.log(reset)
+  console.log('reset')
 });
 
 // function isCanvasBlank(canvas) {
@@ -50,7 +50,7 @@ window.addEventListener('touchstart', function() {
 // }
 
 </script>
-<body>
+<body onclick="openFullscreen()">
 	
 <div id="thediv">
 	<center>
@@ -74,6 +74,9 @@ window.addEventListener('touchstart', function() {
 </center>
 <center>
 <h4 id="cad">Cad</h4>
+</center>
+<center>
+	<h4>Autos</h4>
 </center>
 <center>
 <h4 id="reveal">Robot Reveal</h4>
@@ -159,6 +162,7 @@ border-radius: 5px;
 #slides { grid-area: menu; }
 #reveal { grid-area: main; }
 #cad { grid-area: right; }
+#autos {grid-area: header;}
 #thediv{
 	display: grid;
   grid-template-areas:
@@ -175,7 +179,7 @@ border-radius: 5px;
 	width: calc(100% - 3rem);
 	display: grid;
   grid-template-areas:
-    'menu main right';
+    'menu main header right';
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;
