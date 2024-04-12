@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true, true]
-    var idlist = ['eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery','logodvd', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'compare_auto_notes', 'melody_rp']
+    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true]
+    var idlist = ['eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'compare_auto_notes', 'melody_rp']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
             console.log('updating: ', document.getElementById(idlist[i]))
@@ -166,21 +166,20 @@
             <div class="indev"><center><h4>Chicken Eat</h4><button class="switchbutton" id="chickeneat" onclick="setColor('chickeneat', 8)">Toggle</button></center></div>
             <div class="indev"><center><h4>Chicken Cycles</h4><button class="switchbutton" id="cycles" onclick="setColor('cycles', 9)">Toggle</button></center></div>
             <div class="indev"><center><h4>Battery Charge</h4><button class="switchbutton" id="battery" onclick="setColor('battery', 10)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Logo DVD</h4><button class="switchbutton" id="logodvd" onclick="setColor('logodvd', 11)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Total Notes</h4><button class="switchbutton" id="event_total_notes" onclick="setColor('event_total_notes', 12)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Trap Notes</h4><button class="switchbutton" id="event_trap_notes" onclick="setColor('event_trap_notes', 13)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event High Score</h4><button class="switchbutton" id="event_high_score" onclick="setColor('event_high_score', 14)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Spotlight Percent</h4><button class="switchbutton" id="spotlight_percent" onclick="setColor('spotlight_percent', 15)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Total Notes</h4><button class="switchbutton" id="global_total_notes" onclick="setColor('global_total_notes', 16)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global High Score</h4><button class="switchbutton" id="global_high_score" onclick="setColor('global_high_score', 17)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Speaker Notes</h4><button class="switchbutton" id="event_speaker_notes" onclick="setColor('event_speaker_notes', 18)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Amp Notes</h4><button class="switchbutton" id="global_amp_notes" onclick="setColor('global_amp_notes', 19)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Travel</h4><button class="switchbutton" id="event_travel" onclick="setColor('event_travel', 20)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Travel</h4><button class="switchbutton" id="global_travel" onclick="setColor('global_travel', 21)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Event Alliance Score</h4><button class="switchbutton" id="event_alliance_score" onclick="setColor('event_alliance_score', 22)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Amplifed Speaker</h4><button class="switchbutton" id="global_amplified_speaker" onclick="setColor('global_amplified_speaker', 23)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Compare Auto Notes</h4><button class="switchbutton" id="compare_auto_notes" onclick="setColor('compare_auto_notes', 24)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Melody Percentage</h4><button class="switchbutton" id="melody_rp" onclick="setColor('melody_rp', 25)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Total Notes</h4><button class="switchbutton" id="event_total_notes" onclick="setColor('event_total_notes', 11)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Trap Notes</h4><button class="switchbutton" id="event_trap_notes" onclick="setColor('event_trap_notes', 12)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event High Score</h4><button class="switchbutton" id="event_high_score" onclick="setColor('event_high_score', 13)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Spotlight Percent</h4><button class="switchbutton" id="spotlight_percent" onclick="setColor('spotlight_percent', 14)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Total Notes</h4><button class="switchbutton" id="global_total_notes" onclick="setColor('global_total_notes', 15)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global High Score</h4><button class="switchbutton" id="global_high_score" onclick="setColor('global_high_score', 16)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Speaker Notes</h4><button class="switchbutton" id="event_speaker_notes" onclick="setColor('event_speaker_notes', 17)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Amp Notes</h4><button class="switchbutton" id="global_amp_notes" onclick="setColor('global_amp_notes', 18)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Travel</h4><button class="switchbutton" id="event_travel" onclick="setColor('event_travel', 19)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Travel</h4><button class="switchbutton" id="global_travel" onclick="setColor('global_travel', 20)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Alliance Score</h4><button class="switchbutton" id="event_alliance_score" onclick="setColor('event_alliance_score', 21)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Amplifed Speaker</h4><button class="switchbutton" id="global_amplified_speaker" onclick="setColor('global_amplified_speaker', 22)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Compare Auto Notes</h4><button class="switchbutton" id="compare_auto_notes" onclick="setColor('compare_auto_notes', 23)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Melody Percentage</h4><button class="switchbutton" id="melody_rp" onclick="setColor('melody_rp', 24)">Toggle</button></center></div>
         </div>
     </div>
 </body>
