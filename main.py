@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 TBAData = TBAData()
 
-# TBAData.load_events("data.txt")
+TBAData.load_events("data.txt")
 #
 #
 TBAData.load_from_file("data.txt")
@@ -52,11 +52,11 @@ def make_graph() -> list[str]:
                         eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]),
                         chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]),
                         chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]),
-                        battery(toggle_list[10]), logodvd(toggle_list[11]), event_total_notes(toggle_list[12], event_toggle),
-                        event_trap_notes(toggle_list[13], event_toggle), event_high_score(toggle_list[14], event_toggle), spotlight_percent(toggle_list[15], event_toggle),
-                        global_total_notes(toggle_list[16]), global_high_score(toggle_list[17]), event_speaker_notes(toggle_list[18], event_toggle),
-                        global_amp_notes(toggle_list[19]), event_travel(toggle_list[20], event_toggle), global_travel(toggle_list[21]), event_alliance_score(toggle_list[22], event_toggle),
-                        # global_amplified_speaker(toggle_list[23]), compare_auto_notes(toggle_list[24], event_toggle), melody_rp(toggle_list[25])
+                        battery(toggle_list[10]), event_total_notes(toggle_list[11], event_toggle),
+                        event_trap_notes(toggle_list[12], event_toggle), event_high_score(toggle_list[13], event_toggle), spotlight_percent(toggle_list[14], event_toggle),
+                        global_total_notes(toggle_list[15]), global_high_score(toggle_list[16]), event_speaker_notes(toggle_list[17], event_toggle),
+                        global_amp_notes(toggle_list[18]), event_travel(toggle_list[19], event_toggle), global_travel(toggle_list[20]), event_alliance_score(toggle_list[21], event_toggle),
+                        # global_amplified_speaker(toggle_list[22]), compare_auto_notes(toggle_list[23], event_toggle), melody_rp(toggle_list[24])
                      ]
     reallist = []
     for result in listofresults:
@@ -65,7 +65,7 @@ def make_graph() -> list[str]:
     return reallist
 
 event_toggle = True
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, True, True, True, True]
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, True, True, True]
 
 
 @app.route("/")
@@ -164,5 +164,5 @@ def CHICKEN_SPIN():
     return render_template('chickenspin.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=True)
     print("hi")

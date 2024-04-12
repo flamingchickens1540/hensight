@@ -41,7 +41,7 @@ class TBAData:
         eventsDone = 0
         totalEvents = len(self.EVENT_KEYS)
 
-        # match_to_thread = {}
+        match_to_thread = {}
 
         # for eventKey in self.EVENT_KEYS:
         #     print("Requesting Event: " + eventKey)
@@ -135,10 +135,3 @@ class TBAData:
 
     def get_match_data(self, event_key, match_key):
         return self.event_to_match_data[event_key][match_key]
-
-
-
-
-
-
-
