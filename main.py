@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 TBAData = TBAData()
 
-TBAData.load_events("data.txt")
+# TBAData.load_events("data.txt")
 #
 #
 TBAData.load_from_file("data.txt")
@@ -72,15 +72,26 @@ toggle_list = [True, True, True, True, True, True, True, True, True, True, True,
 def index():
     return render_template('hensight.html')
 
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
+
+
 @app.route("/autos")
 def autos():
     return render_template('autos.html')
+@app.route("/autos2")
+def autos2():
+    return render_template('autos2.html')
+
 
 @app.route("/cad")
 def func():
     return render_template('cad.html')
 
-
+@app.route('/AmpLane.json')
+def amplane():
+    return send_file("./static/AmpLanePADEF.traj")
 @app.route('/FriedEgg.glb')
 def serve_obj_file():
     return send_file("./static/FriedEgg.glb")
