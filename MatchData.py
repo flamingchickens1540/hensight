@@ -92,10 +92,6 @@ class MatchData:
             self.totalAmpNotes = 0
             self.totalSpeakerNotes = 0
             self.totalNotes = 0
-            self.ensembleRP = 0
-            self.melodyRP = 0
-            self. totalRP = 0
-            self.coop = 0
         if self.zebraData is not None:
             self.computeDistance()
 
