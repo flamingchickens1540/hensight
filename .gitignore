@@ -1,1 +1,13 @@
 .vscode/
+static/FriedEgg.glb/
+__pycache__/
+data.txt
+static/AmpLanePADEF.traj
+static/asdf.gltf
+static/CrescendoField.gltf
+static/FieldSimon.glb
+static/FieldSmallTwo.glb
+templates/menu.html
+templates/robomenu.html
+comming_soon.html
+misc.html
