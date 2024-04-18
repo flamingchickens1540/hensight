@@ -20,8 +20,6 @@ def getTeamDistance(team):
 
 
 class MatchData:
-    # def __init__(self, autoAmpNotes, autoSpeakerNotes, teleAmpNotes, teleSpeakerNotes, trapNotes, amplifiedSpeakerNotes, numberOfSpotlights, redScore, blueScore, maxScore, totalAmpNotes, totalSpeakerNotes, totalNotes):
-
     def __init__(self, match, zebraData):
         self.matchKey = match.key
         self.scoringData = match
@@ -59,6 +57,27 @@ class MatchData:
             self.totalAmpNotes = self.autoAmpNotes + self.teleAmpNotes
             self.totalSpeakerNotes = self.autoSpeakerNotes + self.teleSpeakerNotes
             self.totalNotes = self.totalAmpNotes + self.totalSpeakerNotes + self.trapNotes
+
+            self.ensembleRP = 0
+            if red['ensembleBonusAchieved']:
+                self.ensembleRP = self.ensembleRP + 1
+            if blue['ensembleBonusAchieved']:
+                self.ensembleRP = self.ensembleRP + 1
+
+            self.melodyRP = 0
+            if red['melodyBonusAchieved']:
+                self.melodyRP = self.melodyRP + 1
+            if blue['melodyBonusAchieved']:
+                self.melodyRP = self.melodyRP + 1
+
+            self.totalRP = red['rp'] + blue['rp']
+
+            self.coop = 0
+            if red['coopNotePlayed']:
+                self.coop = self.coop + 1
+            if blue['coopNotePlayed']:
+                self.coop = self.coop + 1
+
         else:
             self.autoAmpNotes = 0
             self.autoSpeakerNotes = 0
@@ -73,6 +92,12 @@ class MatchData:
             self.totalAmpNotes = 0
             self.totalSpeakerNotes = 0
             self.totalNotes = 0
+            self.ensembleRP = 0
+            self.melodyRP = 0
+            self.totalRP = 0
+            self.coop = 0
+        if self.zebraData is not None:
+            self.computeDistance()
 
     def computeDistance(self):
         if self.zebraData is not None:

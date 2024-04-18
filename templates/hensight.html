@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     var elem = document.documentElement;
     function openFullscreen() {
@@ -11,6 +12,41 @@
         elem.msRequestFullscreen();
     }
     }
+    var idle_secconds = 0;
+function incrementSeconds() {
+    idle_secconds += 1;
+	console.log('idle for:',idle_secconds, 'secconds');
+	if (idle_secconds == 30) {
+        console.log('attempting popup');
+        var popup = document.getElementById("myPopup");
+        $(".popup").removeClass("hide")
+        $(".popup").addClass("show");
+	}
+    else if (idle_secconds >= 35) {
+        console.log('reseting popup');
+        $(".popup").removeClass("show");
+        $(".popup").addClass("hide")
+        idle_secconds = 0;
+        console.log('yay');
+    }
+}
+var cancel = setInterval(incrementSeconds, 1000);
+window.addEventListener('touchstart', function() {
+  idle_secconds = 0
+  $(".popup").removeClass("show")
+  $(".popup").addClass("hide")
+  console.log('--reset--')
+});
+function logo_change() {
+    console.log('change')
+    var a = Math.round(Math.random() * 100)
+    var b = Math.round(Math.random() * 100)
+    var c = Math.round(Math.random() * 100)
+    var color = 'rbg('+a+','+b+','+c+')'
+    document.getElementById('logo').style.backgroundColor = color
+    console.log('this should have worked')
+}
+logo_change()
 </script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +84,26 @@
                 opacity: 1; /* Fully visible */
             }
         }
+        .mediumText {
+            font-size: 50px;
+            font-family: Poppins;
+            color: white;
+        }
+        .mediumTextYellow{
+            font-size: 50px;
+            font-family: Poppins;
+            color: #FFC145;
+        }
+        .mediumText {
+            font-size: 50px;
+            font-family: Poppins;
+            color: white;
+        }
+        .mediumTextYellow{
+            font-size: 50px;
+            font-family: Poppins;
+            color: #FFC145;
+        }
         h4{
             color: white;
             font-size: large;
@@ -65,12 +121,13 @@
         h3{
             color:#FFC145;
             font-size: 18rem;
+            font-size: 18rem;
             margin:0rem;
             font-family: Poppins;
         }
         h2{
             color:#FFC145;
-            font-size: 9rem;
+            font-size: 11rem;
             margin:0rem;
             font-family: Poppins;
         }
@@ -85,14 +142,22 @@
         h5 {
             color: white;
             font-size: 3rem;
+            font-size: 3rem;
             font-family: Poppins;
             margin:0rem;
         }
         h6 {
             color: #FFC145;
             font-size: 5rem;
+            font-size: 5rem;
             font-family: Poppins;
             margin:0rem;
+        }
+        #h7{
+            color:#FFC145;
+            font-size: 15rem;
+            margin:0rem;
+            font-family: Poppins;
         }
         #h7{
             color:#FFC145;
@@ -117,6 +182,9 @@
         width:  calc(100vw - 20px);
         height: 100vh
         }
+        #logo::after {
+            background-color: rgb(a, b, c, 0.5);
+        }
         @keyframes rotation {
             from {
                 transform: rotate(0deg);
@@ -133,9 +201,9 @@
 	position: fixed;
 	bottom: 0;
 	width: calc(100% - 3rem);
-	display: grid;
+	/* display: grid;
   grid-template-areas:
-    'menu main right';
+    'header menu main right'; */
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;
@@ -143,6 +211,10 @@
 	margin-right: 4rem;
     overflow: hidden;
 }
+/* #slides { grid-area: menu; }
+#reveal { grid-area: main; }
+#cad { grid-area: right; }
+#autos {grid-area: header;} */
 h6{
 color: #FFFFFF;
 background-color: #404040;
@@ -159,22 +231,68 @@ border-radius: 5px;
 			left: 10%;
 			z-index: -1;
 		}
+    .popup::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 45px;
+        border-style: solid;
+        border-color: #404040 transparent transparent transparent;
+    }
+    .show {
+        animation: popup_fadeIn 1s forwards;
+    }
+    .hide {
+        animation: popup_fadeOut 1s forwards;
+    }
+    @keyframes popup_fadeIn {
+        0% {opacity: 0;}
+        50% {transform: translateY(-50px); opacity: 0.50;}
+        100% {transform: translateY(0px); opacity: 0.50;}
+    }
+    @keyframes popup_fadeOut {
+        0% {opacity: 0.50;}
+        50% {transform: translateY(-50px)}
+        100% {transform: translateY(0px); opacity: 0;}
+    }
+    .popup {
+        opacity: 0;
+        position: absolute;
+        padding: 5%;
+        bottom: 15%;
+        left: 35%;
+        z-index: 1;
+    }
+    #btn {
+		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        border-width: 6px;
+        border-style: solid;
+		padding: 3rem;
+		width: 60%;
+		color: #FFFFFF;
+		font-family: Poppins;
+		font-size: 3rem;
+		border-radius: 5px;
+	}
     </style>
     
 </head>
 <div id="theseconddiv">
-    <center>
-<h6 id="slides">Slides</h6>
-</center>
-<center>
-<h6 id="cad">Cad</h6>
-</center>
-<center>
-<h6 id="reveal">Robot Reveal</h6>
-</center>
+        <center><h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1></center>
+        <!-- <center><h6 id="slides" onclick="">Slides</h6></center>
+        <center><h6 id="cad" onclick="window.location.href = '/cad'">CAD</h6></center>
+        <center><h6 id="autos" onclick="window.location.href = '/autos2'">Autos</h6></center>
+        <center><h6 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h6></center> -->
 </div>
+<center>
+    <h6 class="popup">Click me!</h6>
+</center>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
+        
+        <div  class="center" id="div" hx-get="/request" hx-trigger="click">
         
         <div  class="center" id="div" hx-get="/request" hx-trigger="click">
             <h3 style="font-size: 10rem;">Hensight</h3>
@@ -193,34 +311,36 @@ border-radius: 5px;
         marquee = document.querySelector('.marquee');
         if (marquee) {
             setTimeout(function () {
-                document.body.style.animation = "fadeout 1s forwards";
+                document.getElementById('div').style.animation = "fadeout 1s forwards";
                 console.log("fading out")
                 setTimeout(function () {
                     document.getElementById('div').dispatchEvent(new Event('click'));
                 }, 1500);
             }, 15000);
         } else {
-            document.body.style.animation = "fadeout 1s forwards";
+            document.getElementById('div').style.animation = "fadeout 1s forwards"
             console.log("fading out")
             setTimeout(function () {
                 document.getElementById('div').dispatchEvent(new Event('click'));
-            }, 1500);
+            }, 1000);
         }
     }
     document.addEventListener('htmx:afterRequest', function (event) {
-        document.body.style.animation = "fadein 1s forwards";
+        document.getElementById('div').style.animation = "fadein 1s forwards";
         console.log("Received, fading in")
     })
-    setInterval(fadeout, 15000)
+    setInterval(fadeout, 10000)
 
 	document.getElementById("reveal").addEventListener("click", redirectReveal);
     document.getElementById("cad").addEventListener("click", redirectCad);
-
     function redirectCad(){
 	window.location.href = "/cad";
 	}
     function redirectReveal(){
     window.location.href = "/reveal";
+    }
+    function redirectAutos(){
+        window.location.herf = "/autos"
     }
 </script>
 </html>
