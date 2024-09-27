@@ -4,6 +4,7 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="common.js"></script>
+<link rel="stylesheet" href="/style.css">
 <script>
     function getTime() {
         let d = new Date
@@ -68,20 +69,6 @@
 
 </body>
 <style>
-    @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    @keyframes fadeOut {
-        form {opacity: 1;}
-        to {opacity: 0;}
-    }
-    .fadeIn {
-        animation: fadeIn 1s forwards;
-    }
-    .fadeOut {
-        animation: fadeOut 1s forwards;
-    }
     #twobtns{
         display: grid;
         grid-template-columns: 2;
@@ -181,13 +168,5 @@
         bottom: 2%;
         left: 50%;
         transform: translate(-50%);
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-        height: calc(100vh);
-        overflow: hidden; /* Hide scrollbars */
     }
 </style>
