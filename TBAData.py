@@ -135,10 +135,3 @@ class TBAData:
 
     def get_match_data(self, event_key, match_key):
         return self.event_to_match_data[event_key][match_key]
-
-
-
-
-
-
-
