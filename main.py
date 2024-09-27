@@ -1,12 +1,9 @@
-from flask import Flask, render_template
-from flask import request
+from flask import Flask, render_template, send_file, request
+import os
 import time
 import random
 import schedule
 import threading
-from flask import Flask, render_template, send_file
-from flask import request
-
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -21,9 +18,9 @@ app = Flask(__name__)
 TBAData = TBAData()
 
 # TBAData.load_events("data.txt")
-#
-#
-TBAData.load_from_file("data.txt")
+
+if os.path.isfile("data.txt"):
+    TBAData.load_from_file("data.txt")
 TBAData.update_current_event_data("data.txt")
 
 # #
