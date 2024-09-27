@@ -2,6 +2,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
 <script src="common.js"></script>
+<link rel="stylesheet" href="/style.css">
 <script>
     let idle_secconds = 0
     function incrementSeconds() {
@@ -84,11 +85,6 @@
 	animation: spinner 2s linear infinite;
 	z-index: 2;
 }
-@keyframes spinner {
-  0% { transform: rotate(0deg); }
-  80% { transform: rotate(315deg); }
-  100% {transform: rotate(360deg);}
-}
 h3 {
 	color: #FFFFFF;
 	font-family: Poppins;
@@ -101,20 +97,6 @@ h3 {
 .load-container-hide{
 	visibility: hidden;
 }
-	        body {
-            margin: 0;
-            padding: 0;
-            animation: fadein 1s forwards; /* Initial fade in */
-            position: relative;
-            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-            height: 100% ;
-			overflow: hidden; /* Hide scrollbars */
-        }
-	html,
-	body {
-		margin: 0;
-	}
-
 	#c {
 		width: 100%;
 		height: calc(100% - 100px);

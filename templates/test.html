@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="common.js"></script>
 <script>
@@ -29,32 +30,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>the things are being tested</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            animation: fadein 1s forwards; /* Initial fade in */
-            position: relative;
-            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-            height: calc(100vh - 20px);
-        }
-        @keyframes fadeout {
-            from {
-                opacity: 1; /* Fully visible */
-            }
-            to {
-                opacity: 0; /* Fully transparent */
-            }
-        }
-    
-        @keyframes fadein {
-            from {
-                opacity: 0; /* Fully transparent */
-            }
-            to {
-                opacity: 1; /* Fully visible */
-            }
-        }
         h4{
             color: white;
             font-size: large;
@@ -124,17 +99,7 @@
 			width:  calc(100vw - 20px);
 			height: 100vh;
         }
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(359deg);
-            }
-        }
-        #spin {
-            animation: rotation 2s infinite linear;
-        }
+
         #theseconddiv {
 			border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
 			position: fixed;

@@ -91,6 +91,9 @@ def func():
 @app.route("/common.js")
 def commonjs():
     return send_file("./templates/common.js")
+@app.route("/style.css")
+def stylecss():
+    return send_file("./templates/style.css")
 @app.route('/AmpLane.json')
 def amplane():
     return send_file("./static/AmpLanePADEF.traj")
