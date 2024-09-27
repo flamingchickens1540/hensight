@@ -2,15 +2,14 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
 <script type="importmap">
-
-	{
-	  "imports": {
-		"three": "https://threejs.org/build/three.module.js",
-		"three/addons/": "https://threejs.org/examples/jsm/",
-		"@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
-	  }
-	}
-	</script>
+{
+    "imports": {
+        "three": "https://threejs.org/build/three.module.js",
+        "three/addons/": "https://threejs.org/examples/jsm/",
+        "@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
+    }
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="common.js"></script>
@@ -109,7 +108,7 @@
 	const aspect = 2; // the canvas default
 	const near = 0.1;
 	const far = 200;
-	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+	let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 	camera.position.set(80, 50, 10);
 
 
@@ -220,8 +219,8 @@
 			// console.log('data_point.samples', data_point.samples)
 			// console.log('data_point.samples[i]', data_point.samples[i])
 			// console.log('data_point.samples[i].heading', data_point.samples[i].heading)
-			var angle = Math.PI / 2 - data_point.samples[i].heading
-			var mag = 0.250825
+			let angle = Math.PI / 2 - data_point.samples[i].heading
+			let mag = 0.250825
 			robotgltf.scene.position.set(data_point.samples[i].x - 8.23 - Math.sin(angle) * mag, 0, data_point.samples[i].y - 4.105656 - Math.cos(angle) * mag)
 			robotgltf.scene.rotation.y = angle
 			i++;

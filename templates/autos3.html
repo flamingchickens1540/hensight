@@ -220,8 +220,8 @@
 			// console.log('data_point.samples', data_point.samples)
 			// console.log('data_point.samples[i]', data_point.samples[i])
 			// console.log('data_point.samples[i].heading', data_point.samples[i].heading)
-			var angle = Math.PI / 2 - data_point.samples[i].heading
-			var mag = 0.250825
+			let angle = Math.PI / 2 - data_point.samples[i].heading
+			let mag = 0.250825
 			robotgltf.scene.position.set(data_point.samples[i].x - 8.23 - Math.sin(angle) * mag, 0, data_point.samples[i].y - 4.105656 - Math.cos(angle) * mag)
 			robotgltf.scene.rotation.y = angle
 			i++;
