@@ -1,52 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="common.js"></script>
 <script>
-    var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+    let idle_secconds = 0;
+    function incrementSeconds() {
+        idle_secconds += 1;
+        console.log('idle for:',idle_secconds, 'secconds');
+        if (idle_secconds == 30) {
+            console.log('attempting popup');
+            var popup = document.getElementById("myPopup");
+            $(".popup").removeClass("hide")
+            $(".popup").addClass("show");
+        }
+        else if (idle_secconds >= 35) {
+            console.log('reseting popup');
+            $(".popup").removeClass("show");
+            $(".popup").addClass("hide")
+            idle_secconds = 0;
+            console.log('yay');
+        }
     }
-    }
-    var idle_secconds = 0;
-function incrementSeconds() {
-    idle_secconds += 1;
-	console.log('idle for:',idle_secconds, 'secconds');
-	if (idle_secconds == 30) {
-        console.log('attempting popup');
-        var popup = document.getElementById("myPopup");
-        $(".popup").removeClass("hide")
-        $(".popup").addClass("show");
-	}
-    else if (idle_secconds >= 35) {
-        console.log('reseting popup');
-        $(".popup").removeClass("show");
+    var cancel = setInterval(incrementSeconds, 1000);
+    window.addEventListener('touchstart', function() {
+        idle_secconds = 0
+        $(".popup").removeClass("show")
         $(".popup").addClass("hide")
-        idle_secconds = 0;
-        console.log('yay');
+        console.log('--reset--')
+    });
+    function logo_change() {
+        console.log('change')
+        var a = Math.round(Math.random() * 100)
+        var b = Math.round(Math.random() * 100)
+        var c = Math.round(Math.random() * 100)
+        var color = 'rbg('+a+','+b+','+c+')'
+        document.getElementById('logo').style.backgroundColor = color
+        console.log('this should have worked')
     }
-}
-var cancel = setInterval(incrementSeconds, 1000);
-window.addEventListener('touchstart', function() {
-  idle_secconds = 0
-  $(".popup").removeClass("show")
-  $(".popup").addClass("hide")
-  console.log('--reset--')
-});
-function logo_change() {
-    console.log('change')
-    var a = Math.round(Math.random() * 100)
-    var b = Math.round(Math.random() * 100)
-    var c = Math.round(Math.random() * 100)
-    var color = 'rbg('+a+','+b+','+c+')'
-    document.getElementById('logo').style.backgroundColor = color
-    console.log('this should have worked')
-}
-logo_change()
+    logo_change()
 </script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">

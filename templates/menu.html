@@ -6,6 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="common.js"></script>
 <script>
     function getTime() {
         var d = new Date
@@ -19,16 +20,6 @@
         document.getElementById('time').innerHTML = time
     }
     setInterval(getTime, 1000)
-    var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-    }
     var idle_secconds = 0
     function incrementSeconds() {
         idle_secconds += 1;

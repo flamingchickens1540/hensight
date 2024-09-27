@@ -72,6 +72,7 @@ def index():
     return render_template('hensight.html')
 
 
+
 @app.route("/autos")
 def autos():
     return render_template('autos.html')
@@ -87,6 +88,9 @@ def autos3():
 def func():
     return render_template('cad.html')
 
+@app.route("/common.js")
+def commonjs():
+    return send_file("./templates/common.js")
 @app.route('/AmpLane.json')
 def amplane():
     return send_file("./static/AmpLanePADEF.traj")

@@ -13,11 +13,12 @@
 	href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="common.js"></script>
 <script type="module">
-	var text = "•Please click one of the above buttons to choose the auto to view<br><br>•Once you are done viewing your auto, please click the reset button before you choose another<br><br>•This feature is in early development if anything doesn't work as intended please report to a 1540 member<br><br>•Please do not click any buttons when loading, or two buttons in quick succession."
-	var toggle1 = false
-	var toggle2 = false
-	var first = true
+	let text = "•Please click one of the above buttons to choose the auto to view<br><br>•Once you are done viewing your auto, please click the reset button before you choose another<br><br>•This feature is in early development if anything doesn't work as intended please report to a 1540 member<br><br>•Please do not click any buttons when loading, or two buttons in quick succession."
+	let toggle1 = false
+	let toggle2 = false
+	let first = true
 	function load_toggle(type) {
 		if (type == 'robot') { toggle1 = true; console.log('got robot') }
 		else if (type == 'field') { toggle2 = true; console.log('got field') }
@@ -31,18 +32,8 @@
 			}
 		}
 	}
-	var elem = document.documentElement;
-	function openFullscreen() {
-		if (elem.requestFullscreen) {
-			elem.requestFullscreen();
-		} else if (elem.webkitRequestFullscreen) { /* Safari */
-			elem.webkitRequestFullscreen();
-		} else if (elem.msRequestFullscreen) { /* IE11 */
-			elem.msRequestFullscreen();
-		}
-	}
 	document.body.addEventListener('click', openFullscreen())
-	var idle_secconds = 0
+	let idle_secconds = 0
 	function incrementSeconds() {
 		idle_secconds += 1;
 		console.log('idle for:', idle_secconds, 'seccond')
@@ -50,7 +41,7 @@
 			window.location.replace("/");
 		}
 	}
-	var cancel = setInterval(incrementSeconds, 1000);
+	let cancel = setInterval(incrementSeconds, 1000);
 
 	window.addEventListener('touchstart', function () {
 		idle_secconds = 0
@@ -118,7 +109,7 @@
 	const aspect = 2; // the canvas default
 	const near = 0.1;
 	const far = 200;
-	var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+	let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 	camera.position.set(80, 50, 10);
 
 
