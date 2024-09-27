@@ -58,45 +58,38 @@
 </script>
 <style>
     #btn {
-		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-        border-width: 6px;
-        border-style: solid;
 		padding: 1rem;
-		width: 60%;
         height: fit-content;
-		color: #FFFFFF;
-		font-family: Poppins;
 		font-size: 2rem;
-		border-radius: 5px;
         position: absolute;
         margin-bottom: 0;
         bottom: 0;
 	}
 	#loading {
-	position: absolute;
-	top: 40%;
-	right: 30%;
-	margin: auto;
-	border: 30px solid #FFC145;
-	border-radius: 50%;
-	border-top: 30px solid #1C1C1C;
-	width: 300px;
-	height: 300px;
-	animation: spinner 2s linear infinite;
-	z-index: 2;
-}
-h3 {
-	color: #FFFFFF;
-	font-family: Poppins;
-	font-size: 3rem;
-	position: absolute;
-	top: 45%;
-	right: 35%;
-	z-index: 1;
-}
-.load-container-hide{
-	visibility: hidden;
-}
+        position: absolute;
+        top: 40%;
+        right: 30%;
+        margin: auto;
+        border: 30px solid #FFC145;
+        border-radius: 50%;
+        border-top: 30px solid #1C1C1C;
+        width: 300px;
+        height: 300px;
+        animation: spinner 2s linear infinite;
+        z-index: 2;
+    }
+    h3 {
+        color: #FFFFFF;
+        font-family: Poppins;
+        font-size: 3rem;
+        position: absolute;
+        top: 45%;
+        right: 35%;
+        z-index: 1;
+    }
+    .load-container-hide{
+        visibility: hidden;
+    }
 	#c {
 		width: 100%;
 		height: calc(100% - 100px);
@@ -106,47 +99,47 @@ h3 {
 		position: absolute;
 	}
 	h4{
-color: #FFFFFF;
-background-color: #404040;
-margin: 0.5rem;
-font-family: Poppins;
-font-size: 3rem;
-border-radius: 5px;
+        color: #FFFFFF;
+        background-color: #404040;
+        margin: 0.5rem;
+        font-family: Poppins;
+        font-size: 3rem;
+        border-radius: 5px;
 	}
-#shooter { grid-area: header; }
-#tramp { grid-area: menu; }
-#intake { grid-area: main; }
-#reset { grid-area: right; }
-/* #slides { grid-area: menu; }
-#reveal { grid-area: main; }
-#cad { grid-area: right; }
-#autos {grid-area: header;} */
-#thediv{
-	display: grid;
-  grid-template-areas:
-    'header menu main right';
-	background-color: #1C1C1C;
-	padding: 1rem;
-	padding-top: 2rem;
-	padding-bottom: 2rem;
-}
-#theseconddiv {
-	border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
-	position: absolute;
-    height: fit-content;
-	bottom: 0%;
-	width: calc(100% - 3rem);
-	/* display: grid;
-  grid-template-areas:
-    'menu main header right'; */
-	background-color: #1C1C1C;
-	padding: 2%;
-    font-size: 1rem;
-	padding-top: 2rem;
-	/* padding-bottom: 2rem; */
-	margin-right: 4rem;
-    overflow: hidden;
-}
+    #shooter { grid-area: header; }
+    #tramp { grid-area: menu; }
+    #intake { grid-area: main; }
+    #reset { grid-area: right; }
+    /* #slides { grid-area: menu; }
+    #reveal { grid-area: main; }
+    #cad { grid-area: right; }
+    #autos {grid-area: header;} */
+    #thediv{
+        display: grid;
+        grid-template-areas:
+        'header menu main right';
+        background-color: #1C1C1C;
+        padding: 1rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    #theseconddiv {
+        border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+        position: absolute;
+        height: fit-content;
+        bottom: 0%;
+        width: calc(100% - 3rem);
+        /* display: grid;
+        grid-template-areas:
+        'menu main header right'; */
+        background-color: #1C1C1C;
+        padding: 2%;
+        font-size: 1rem;
+        padding-top: 2rem;
+        /* padding-bottom: 2rem; */
+        margin-right: 4rem;
+        overflow: hidden;
+    }
 </style>
 <script src="https://unpkg.com/tween.js@16.6.0/src/Tween.js"></script>
 
