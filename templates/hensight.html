@@ -21,7 +21,7 @@
             console.log('yay');
         }
     }
-    var cancel = setInterval(incrementSeconds, 1000);
+    let cancel = setInterval(incrementSeconds, 1000);
     window.addEventListener('touchstart', function() {
         idle_secconds = 0
         $(".popup").removeClass("show")
@@ -30,10 +30,10 @@
     });
     function logo_change() {
         console.log('change')
-        var a = Math.round(Math.random() * 100)
-        var b = Math.round(Math.random() * 100)
-        var c = Math.round(Math.random() * 100)
-        var color = 'rbg('+a+','+b+','+c+')'
+        let a = Math.round(Math.random() * 100)
+        let b = Math.round(Math.random() * 100)
+        let c = Math.round(Math.random() * 100)
+        let color = 'rbg('+a+','+b+','+c+')'
         document.getElementById('logo').style.backgroundColor = color
         console.log('this should have worked')
     }
