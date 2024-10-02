@@ -7,6 +7,11 @@ body {
   font-family: Poppins;
 }
 
+:root {
+  --round: 0.5rem;
+  --big-round: 1rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: #FFC145;
 }
@@ -16,6 +21,7 @@ body {
   padding: 0.5rem;
   border: none !important;
   animation: fadein 1s forwards;
+  min-height: 100vh;
 }
 
 body::before {
@@ -37,7 +43,7 @@ body::before {
   color: #FFFFFF;
   font-family: Poppins;
   font-size: 3rem;
-  border-radius: 5px;
+  border-radius: var(--round);
 }
 
 button#return-main {
@@ -50,7 +56,7 @@ button#return-main {
   color: #FFFFFF;
   font-family: Poppins;
   font-size: 3rem;
-  border-radius: 5px;
+  border-radius: var(--round);
 }
 
 #loading {
@@ -121,6 +127,8 @@ button#return-main {
   grid-template-rows: auto auto;
   grid-template-columns: auto auto;
   grid-gap: 1rem;
+  width: clamp(800px, 75%, 1200px);
+  height: clamp(600px, 55%, 900px);
 }
 
 #quad-grid button {
@@ -130,4 +138,6 @@ button#return-main {
   border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
   border-width: 6px;
   border-style: solid;
+  border-radius: var(--round);
+  padding-block: 1rem;
 }
