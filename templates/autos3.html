@@ -1,380 +1,408 @@
 <script type="importmap">
-
-	{
-	  "imports": {
-		"three": "https://threejs.org/build/three.module.js",
-		"three/addons/": "https://threejs.org/examples/jsm/",
-		"@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
-	  }
-	}
-	</script>
+  {
+    "imports": {
+      "three": "https://threejs.org/build/three.module.js",
+      "three/addons/": "https://threejs.org/examples/jsm/",
+      "@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
+    }
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
 <link
-	href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/style.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/common.js"></script>
 <script type="module">
-	let text = "•Please click one of the above buttons to choose the auto to view<br><br>•Once you are done viewing your auto, please click the reset button before you choose another<br><br>•This feature is in early development if anything doesn't work as intended please report to a 1540 member<br><br>•Please do not click any buttons when loading, or two buttons in quick succession."
-	let toggle1 = false
-	let toggle2 = false
-	let first = true
-	function load_toggle(type) {
-		if (type == 'robot') { toggle1 = true; console.log('got robot') }
-		else if (type == 'field') { toggle2 = true; console.log('got field') }
-		if (toggle1 == true) {
-			if (toggle2 == true) {
-				console.log('finishing...')
-				$('#load-container').addClass('hide')
-				$('#c').removeClass('hide')
-				if (first) { document.getElementById('pain').innerHTML = text; first = !first }
-				console.log('finished')
-			}
-		}
-	}
-	document.body.addEventListener('click', openFullscreen())
-	let idle_secconds = 0
-	function incrementSeconds() {
-		idle_secconds += 1;
-		console.log('idle for:', idle_secconds, 'seccond')
-		if (idle_secconds >= 90) {
-			window.location.replace("/");
-		}
-	}
-	let cancel = setInterval(incrementSeconds, 1000);
+  let text =
+    "•Please click one of the above buttons to choose the auto to view<br><br>•Once you are done viewing your auto, please click the reset button before you choose another<br><br>•This feature is in early development if anything doesn't work as intended please report to a 1540 member<br><br>•Please do not click any buttons when loading, or two buttons in quick succession.";
+  let toggle1 = false;
+  let toggle2 = false;
+  let first = true;
+  function load_toggle(type) {
+    if (type == "robot") {
+      toggle1 = true;
+      console.log("got robot");
+    } else if (type == "field") {
+      toggle2 = true;
+      console.log("got field");
+    }
+    if (toggle1 == true) {
+      if (toggle2 == true) {
+        console.log("finishing...");
+        $("#load-container").addClass("hide");
+        $("#c").removeClass("hide");
+        if (first) {
+          document.getElementById("pain").innerHTML = text;
+          first = !first;
+        }
+        console.log("finished");
+      }
+    }
+  }
+  document.body.addEventListener("click", openFullscreen());
+  let idle_secconds = 0;
+  function incrementSeconds() {
+    idle_secconds += 1;
+    console.log("idle for:", idle_secconds, "seccond");
+    if (idle_secconds >= 90) {
+      window.location.replace("/");
+    }
+  }
+  let cancel = setInterval(incrementSeconds, 1000);
 
-	window.addEventListener('touchstart', function () {
-		idle_secconds = 0
-		console.log('reset')
-	});
-	const Autos = {
-		Source: false,
-		Center: false,
-		Amp: false
-	}
-	function AmpBtn() {
-		console.log('amp btn')
-		$('#load-container').removeClass('hide')
-		document.getElementById('pain').innerHTML = ''
-		Autos.Source = false
-		Autos.Center = false
-		Autos.Amp = true
-		requestAnimationFrame(render)
-	}
-	document.getElementById('amp').addEventListener('click', AmpBtn)
-	function CenterBtn() {
-		console.log('center btn')
-		$('#load-container').removeClass('hide')
-		document.getElementById('pain').innerHTML = ''
-		Autos.Source = false
-		Autos.Amp = false
-		Autos.Center = true
-		requestAnimationFrame(render)
-	}
-	document.getElementById('center').addEventListener('click', CenterBtn)
-	function SourceBtn() {
-		console.log('source btn')
-		$('#load-container').removeClass('hide')
-		document.getElementById('pain').innerHTML = ''
-		Autos.Amp = false
-		Autos.Center = false
-		Autos.Source = true
-		requestAnimationFrame(render)
-	}
-	document.getElementById('source').addEventListener('click', SourceBtn)
-	async function get_files() {
-		console.log('get_files run')
-		const amp_response = await fetch("http://127.0.0.1:5001/AmpLane.json");
-		const amp_data = await amp_response.json();
-		const center_response = await fetch("http://127.0.0.1:5001/CenterLane.json");
-		const center_data = await center_response.json();
-		const source_response = await fetch("http://127.0.0.1:5001/SourceLane.json");
-		const source_data = await source_response.json();
-		const Data = {
-			Amp: amp_data,
-			Center: center_data,
-			Source: source_data,
-		}
-		return Data
-		// else {document.getElementById('pain').innerHTML = 'An Error has occurred! Please report this to a 1540 member.'}
-	}
+  window.addEventListener("touchstart", function () {
+    idle_secconds = 0;
+    console.log("reset");
+  });
+  const Autos = {
+    Source: false,
+    Center: false,
+    Amp: false,
+  };
+  function AmpBtn() {
+    console.log("amp btn");
+    $("#load-container").removeClass("hide");
+    document.getElementById("pain").innerHTML = "";
+    Autos.Source = false;
+    Autos.Center = false;
+    Autos.Amp = true;
+    requestAnimationFrame(render);
+  }
+  document.getElementById("amp").addEventListener("click", AmpBtn);
+  function CenterBtn() {
+    console.log("center btn");
+    $("#load-container").removeClass("hide");
+    document.getElementById("pain").innerHTML = "";
+    Autos.Source = false;
+    Autos.Amp = false;
+    Autos.Center = true;
+    requestAnimationFrame(render);
+  }
+  document.getElementById("center").addEventListener("click", CenterBtn);
+  function SourceBtn() {
+    console.log("source btn");
+    $("#load-container").removeClass("hide");
+    document.getElementById("pain").innerHTML = "";
+    Autos.Amp = false;
+    Autos.Center = false;
+    Autos.Source = true;
+    requestAnimationFrame(render);
+  }
+  document.getElementById("source").addEventListener("click", SourceBtn);
+  async function get_files() {
+    console.log("get_files run");
+    const amp_response = await fetch("http://127.0.0.1:5001/AmpLane.json");
+    const amp_data = await amp_response.json();
+    const center_response = await fetch(
+      "http://127.0.0.1:5001/CenterLane.json",
+    );
+    const center_data = await center_response.json();
+    const source_response = await fetch(
+      "http://127.0.0.1:5001/SourceLane.json",
+    );
+    const source_data = await source_response.json();
+    const Data = {
+      Amp: amp_data,
+      Center: center_data,
+      Source: source_data,
+    };
+    return Data;
+    // else {document.getElementById('pain').innerHTML = 'An Error has occurred! Please report this to a 1540 member.'}
+  }
 
-	import * as THREE from 'three';
-	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-	const canvas = document.querySelector('#c');
-	const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+  import * as THREE from "three";
+  import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+  import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+  const canvas = document.querySelector("#c");
+  const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 
-	const fov = 10;
-	const aspect = 2; // the canvas default
-	const near = 0.1;
-	const far = 200;
-	let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-	camera.position.set(80, 50, 10);
+  const fov = 10;
+  const aspect = 2; // the canvas default
+  const near = 0.1;
+  const far = 200;
+  let camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.set(80, 50, 10);
 
+  const controls = new OrbitControls(camera, canvas);
+  controls.enablePan = false; //paning is bad and dissallowed
+  controls.target.set(0, 0, 0);
+  controls.update();
 
-	const controls = new OrbitControls(camera, canvas);
-	controls.enablePan = false; //paning is bad and dissallowed
-	controls.target.set(0, 0, 0);
-	controls.update();
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color("#1C1C1C");
 
-	const scene = new THREE.Scene();
-	scene.background = new THREE.Color('#1C1C1C');
+  // Add ambient light with a lower intensity
+  const ambientLight = new THREE.AmbientLight(0xffffff, 9);
+  scene.add(ambientLight);
 
-	// Add ambient light with a lower intensity
-	const ambientLight = new THREE.AmbientLight(0xffffff, 9);
-	scene.add(ambientLight);
+  // Add directional light with a higher intensity
+  // const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  // directionalLight.position.set(0, 1, 1); // adjust as needed
+  // scene.add(directionalLight);
+  // const direcionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  // directionalLight.position.set(1, 1, 0); // adjust as needed
+  // scene.add(direcionalLight);
+  // const direcionalLiht = new THREE.DirectionalLight(0xffffff, 2);
+  // directionalLight.position.set(-3, 1, 0); // adjust as needed
+  // scene.add(direcionalLiht);
 
-	// Add directional light with a higher intensity
-	// const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-	// directionalLight.position.set(0, 1, 1); // adjust as needed
-	// scene.add(directionalLight);
-	// const direcionalLight = new THREE.DirectionalLight(0xffffff, 2);
-	// directionalLight.position.set(1, 1, 0); // adjust as needed
-	// scene.add(direcionalLight);
-	// const direcionalLiht = new THREE.DirectionalLight(0xffffff, 2);
-	// directionalLight.position.set(-3, 1, 0); // adjust as needed
-	// scene.add(direcionalLiht);
+  let robotgltf;
 
-	let robotgltf;
+  {
+    // Why is this in a seperate scope? (A scope is just a set of curly brackets.) idk lol
+    const loader = new GLTFLoader();
+    loader.load(
+      "static/FriedEgg.glb",
+      function (gltf) {
+        load_toggle("robot");
+        gltf.scene.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.metalness = 0.6;
+          }
+        });
 
-	{ // Why is this in a seperate scope? (A scope is just a set of curly brackets.) idk lol
-		const loader = new GLTFLoader();
-		loader.load('static/FriedEgg.glb', function (gltf) {
-			load_toggle('robot')
-			gltf.scene.traverse(function (child) {
-				if (child.isMesh) {
-					child.material.metalness = 0.6;
-				}
-			});
+        scene.add(gltf.scene);
 
-			scene.add(gltf.scene);
+        robotgltf = gltf;
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+      },
+    );
+    loader.load(
+      "static/FieldSmallTwo.glb",
+      function (gltf) {
+        load_toggle("field");
+        gltf.scene.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.metalness = 0.7;
+          }
+        });
+        // gltf.scene.rotation.y = Math.PI
+        scene.add(gltf.scene);
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+      },
+    );
+  }
 
-			robotgltf = gltf
-		}, undefined, function (error) {
-			console.error(error);
-		});
-		loader.load('static/FieldSmallTwo.glb', function (gltf) {
-			load_toggle('field')
-			gltf.scene.traverse(function (child) {
-				if (child.isMesh) {
-					child.material.metalness = 0.7;
-				}
-			});
-			// gltf.scene.rotation.y = Math.PI
-			scene.add(gltf.scene);
+  function redirectReveal() {
+    window.location.href = "/reveal";
+  }
+  function redirectSlides() {
+    window.location.href = "/";
+  }
+  function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
 
+    return needResize;
+  }
 
-		}, undefined, function (error) {
-			console.error(error);
-		});
+  let data_point = 0;
+  let Data = 0;
+  let i = 0;
 
-	}
+  async function render() {
+    if (i == 0) {
+      Data = await get_files();
+    }
+    $("#load-container").addClass("hide");
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+    if (Autos.Amp == true) {
+      data_point = Data.Amp;
+    } else if (Autos.Center == true) {
+      data_point = Data.Center;
+    } else if (Autos.Source == true) {
+      data_point = Data.Source;
+    }
+    // console.log(robotgltf, i)
 
-	function redirectReveal() {
-		window.location.href = "/reveal";
-	}
-	function redirectSlides() {
-		window.location.href = "/";
-	}
-	function resizeRendererToDisplaySize(renderer) {
+    // if (Autos.Amp == true) {data_point = Data.AmpData.json()}
+    // else if (Autos.Center == true) {data_point = Data.CenterData}
+    // else if (Autos.Source == true) {data_point = Data.SourceData}
+    // else {console.log('Data not defined!'); document.getElementById('pain').innerHTML = 'An error has occurred! Please report this to a 1540 member'}
+    renderer.render(scene, camera);
+    if (!!robotgltf) {
+      // console.log('data_point.samples', data_point.samples)
+      // console.log('data_point.samples[i]', data_point.samples[i])
+      // console.log('data_point.samples[i].heading', data_point.samples[i].heading)
+      let angle = Math.PI / 2 - data_point.samples[i].heading;
+      let mag = 0.250825;
+      robotgltf.scene.position.set(
+        data_point.samples[i].x - 8.23 - Math.sin(angle) * mag,
+        0,
+        data_point.samples[i].y - 4.105656 - Math.cos(angle) * mag,
+      );
+      robotgltf.scene.rotation.y = angle;
+      i++;
+      i = i % data_point.samples.length;
+    }
+    requestAnimationFrame(render);
+  }
 
-		const canvas = renderer.domElement;
-		const width = canvas.clientWidth;
-		const height = canvas.clientHeight;
-		const needResize = canvas.width !== width || canvas.height !== height;
-		if (needResize) {
-
-			renderer.setSize(width, height, false);
-
-		}
-
-		return needResize;
-
-	}
-
-	let data_point = 0
-	let Data = 0
-	let i = 0;
-
-	async function render() {
-		if (i == 0) {Data = await get_files()}
-		$('#load-container').addClass('hide')
-		if (resizeRendererToDisplaySize(renderer)) {
-
-			const canvas = renderer.domElement;
-			camera.aspect = canvas.clientWidth / canvas.clientHeight;
-			camera.updateProjectionMatrix();
-		}
-		if (Autos.Amp == true) {data_point = Data.Amp}
-		else if (Autos.Center == true) {data_point = Data.Center}
-		else if (Autos.Source == true) {data_point = Data.Source}
-		// console.log(robotgltf, i)
-
-		// if (Autos.Amp == true) {data_point = Data.AmpData.json()}
-		// else if (Autos.Center == true) {data_point = Data.CenterData}
-		// else if (Autos.Source == true) {data_point = Data.SourceData}
-		// else {console.log('Data not defined!'); document.getElementById('pain').innerHTML = 'An error has occurred! Please report this to a 1540 member'}
-		renderer.render(scene, camera);
-		if (!!robotgltf) {
-			// console.log('data_point.samples', data_point.samples)
-			// console.log('data_point.samples[i]', data_point.samples[i])
-			// console.log('data_point.samples[i].heading', data_point.samples[i].heading)
-			let angle = Math.PI / 2 - data_point.samples[i].heading
-			let mag = 0.250825
-			robotgltf.scene.position.set(data_point.samples[i].x - 8.23 - Math.sin(angle) * mag, 0, data_point.samples[i].y - 4.105656 - Math.cos(angle) * mag)
-			robotgltf.scene.rotation.y = angle
-			i++;
-			i = i % data_point.samples.length
-		}
-		requestAnimationFrame(render);
-
-	}
-
-	document.getElementById("slides").addEventListener("click", redirectSlides);
-	document.getElementById("reveal").addEventListener("click", redirectReveal);
+  document.getElementById("slides").addEventListener("click", redirectSlides);
+  document.getElementById("reveal").addEventListener("click", redirectReveal);
 </script>
 
-<body style="background-color: #1C1C1C;">
-		<div id="thediv">
-			<center>
-				<h4 id="amp">Amp Side</h4>
-			</center>
-			<center>
-				<h4 id="center">Center Side</h4>
-			</center>
-			<center>
-				<h4 id="source">Source Side</h4>
-			</center>
-		</div>
-		<div id="thediv2">
-			<center>
-				<h4 id="reset" onclick="window.location.href = '/autos2'">Reset</h4>
-			</center>
-		</div>
+<body style="background-color: #1c1c1c">
+  <div id="thediv">
+    <center>
+      <h4 id="amp">Amp Side</h4>
+    </center>
+    <center>
+      <h4 id="center">Center Side</h4>
+    </center>
+    <center>
+      <h4 id="source">Source Side</h4>
+    </center>
+  </div>
+  <div id="thediv2">
+    <center>
+      <h4 id="reset" onclick="window.location.href = '/autos2'">Reset</h4>
+    </center>
+  </div>
 
-	<canvas id="c" class="hide"></canvas>
-	<h4 id="pain"></h4>
-	<div id="load-container">
-		<div id="loading"></div>
-		<h3>Loading...</h3>
-	</div>
-	<div id="theseconddiv">
-		<!-- <center>
+  <canvas id="c" class="hide"></canvas>
+  <h4 id="pain"></h4>
+  <div id="load-container">
+    <div id="loading"></div>
+    <h3>Loading...</h3>
+  </div>
+  <div id="theseconddiv">
+    <!-- <center>
 			<h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1>
 		</center> -->
-		<center><h4 id="slides" onclick="window.location.href = '/'">Slides</h4></center>
-		<center><h4 id="cad" onclick="window.location.href = '/cad'">CAD</h4></center>
-		<center><h4 id="autos" onclick="">Autos</h4></center>
-		<center><h4 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h4></center>
-	</div>
+    <center>
+      <h4 id="slides" onclick="window.location.href = '/'">Slides</h4>
+    </center>
+    <center>
+      <h4 id="cad" onclick="window.location.href = '/cad'">CAD</h4>
+    </center>
+    <center><h4 id="autos" onclick="">Autos</h4></center>
+    <center>
+      <h4 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h4>
+    </center>
+  </div>
 </body>
 <style>
-	h3 {
-		color: #FFFFFF;
-		font-family: Poppins;
-		font-size: 3rem;
-		position: absolute;
-		top: 45%;
-		right: 35%;
-		z-index: 1;
-	}
+  h3 {
+    color: #ffffff;
+    font-family: Poppins;
+    font-size: 3rem;
+    position: absolute;
+    top: 45%;
+    right: 35%;
+    z-index: 1;
+  }
 
-	#pain {
-		z-index: 300;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 90%;
-		height: fit-content;
-		text-align: center;
-	}
+  #pain {
+    z-index: 300;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: fit-content;
+    text-align: center;
+  }
 
-	#c {
-		width: 100%;
-		height: calc(100% - 100px);
-		display: block;
-		padding: 0rem;
-		background-color: #1C1C1C;
-		position: absolute;
-		z-index: 1;
-	}
+  #c {
+    width: 100%;
+    height: calc(100% - 100px);
+    display: block;
+    padding: 0rem;
+    background-color: #1c1c1c;
+    position: absolute;
+    z-index: 1;
+  }
 
-	h4 {
-		color: #FFFFFF;
-		background-color: #404040;
-		margin: 0.5rem;
-		font-family: Poppins;
-		font-size: 3rem;
-		border-radius: 5px;
-	}
+  h4 {
+    color: #ffffff;
+    background-color: #404040;
+    margin: 0.5rem;
+    font-family: Poppins;
+    font-size: 3rem;
+    border-radius: 5px;
+  }
 
-	#amp {
-		grid-area: header;
-	}
+  #amp {
+    grid-area: header;
+  }
 
-	#center {
-		grid-area: menu;
-	}
+  #center {
+    grid-area: menu;
+  }
 
-	#source {
-		grid-area: main;
-	}
+  #source {
+    grid-area: main;
+  }
 
-	#slides {
-		grid-area: menu;
-	}
+  #slides {
+    grid-area: menu;
+  }
 
-	#reveal {
-		grid-area: main;
-	}
+  #reveal {
+    grid-area: main;
+  }
 
-	#cad {
-		grid-area: right;
-	}
+  #cad {
+    grid-area: right;
+  }
 
-	#autos {
-		grid-area: header;
-	}
+  #autos {
+    grid-area: header;
+  }
 
-	#thediv {
-		display: grid;
-		grid-row-start: 1;
-		grid-template-areas:
-			'header menu main';
-		background-color: #1C1C1C;
-		padding: 1rem;
-		padding-top: 2rem;
-		padding-bottom: 2rem;
-	}
-	#thediv2 {
-		width: fit-content;
-		position: absolute;
-		left: 50%;
-		transform: translate(-50%);
-		z-index: 2;
-	}
-	#reset {
-		padding: 1rem;
-		border-radius: 5%;
-	}
-	#theseconddiv {
-		border-bottom: 0.5rem solid #FFC145;
-		/* Adjust border width as needed */
-		position: fixed;
-		z-index: 200;
-		bottom: 0;
-		width: calc(100% - 3rem);
-		display: grid;
-		grid-template-areas:
-			'menu main header right';
-		background-color: #1C1C1C;
-		padding: 1rem;
-		padding-top: 2rem;
-		padding-bottom: 2rem;
-		margin-right: 4rem;
-		overflow: hidden;
-	}
+  #thediv {
+    display: grid;
+    grid-row-start: 1;
+    grid-template-areas: "header menu main";
+    background-color: #1c1c1c;
+    padding: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  #thediv2 {
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2;
+  }
+  #reset {
+    padding: 1rem;
+    border-radius: 5%;
+  }
+  #theseconddiv {
+    border-bottom: 0.5rem solid #ffc145;
+    /* Adjust border width as needed */
+    position: fixed;
+    z-index: 200;
+    bottom: 0;
+    width: calc(100% - 3rem);
+    display: grid;
+    grid-template-areas: "menu main header right";
+    background-color: #1c1c1c;
+    padding: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-right: 4rem;
+    overflow: hidden;
+  }
 </style>

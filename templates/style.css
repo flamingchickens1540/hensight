@@ -12,8 +12,13 @@ body {
   --big-round: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #FFC145;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ffc145;
 }
 
 body {
@@ -31,16 +36,16 @@ body::before {
   pointer-events: none;
   inset: 0;
   background-color: transparent;
-  border: 0.5rem solid #FFC145;
+  border: 0.5rem solid #ffc145;
 }
 
 #btn {
-  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
   border-width: 6px;
   border-style: solid;
   padding: 3rem;
   width: 60%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Poppins;
   font-size: 3rem;
   border-radius: var(--round);
@@ -48,12 +53,12 @@ body::before {
 
 button#return-main {
   background-color: transparent;
-  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
   border-width: 6px;
   border-style: solid;
   padding: 3rem;
   width: 60%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Poppins;
   font-size: 3rem;
   border-radius: var(--round);
@@ -64,9 +69,9 @@ button#return-main {
   top: 40%;
   right: 30%;
   margin: auto;
-  border: 30px solid #FFC145;
+  border: 30px solid #ffc145;
   border-radius: 50%;
-  border-top: 30px solid #1C1C1C;
+  border-top: 30px solid #1c1c1c;
   width: 300px;
   height: 300px;
   animation: spinner 2s linear infinite;
@@ -77,11 +82,9 @@ button#return-main {
   0% {
     transform: rotate(0deg);
   }
-  
   80% {
     transform: rotate(315deg);
   }
-  
   100% {
     transform: rotate(360deg);
   }
@@ -100,22 +103,32 @@ button#return-main {
   animation: rotation 2s infinite linear;
 }
 
-.hide, .fadeOut {
+.hide,
+.fadeOut {
   animation: fadeOut 1s forwards;
 }
 
-.show, .fadeIn {
+.show,
+.fadeIn {
   animation: fadeIn 1s forwards;
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  form {opacity: 1;}
-  to {opacity: 0;}
+  form {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .blur {
@@ -132,10 +145,10 @@ button#return-main {
 }
 
 #quad-grid button {
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   font-size: 5rem;
-  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
   border-width: 6px;
   border-style: solid;
   border-radius: var(--round);
