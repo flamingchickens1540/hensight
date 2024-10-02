@@ -3,16 +3,38 @@ body {
   margin: 0;
 }
 
+* {
+  font-family: Poppins;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFC145;
+}
+
 body {
+  background-color: #1c1c1c;
   padding: 0;
   position: relative;
   border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-  height: calc(100vh);
+  height: calc(100vh - 1rem);
   overflow: hidden; /* Hide scrollbars */
   animation: fadein 1s forwards; /* Initial fade in */
 }
 
 #btn {
+  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-width: 6px;
+  border-style: solid;
+  padding: 3rem;
+  width: 60%;
+  color: #FFFFFF;
+  font-family: Poppins;
+  font-size: 3rem;
+  border-radius: 5px;
+}
+
+button#return-main {
+  background-color: transparent;
   border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
   border-width: 6px;
   border-style: solid;
@@ -85,4 +107,20 @@ body {
 
 .blur {
   backdrop-filter: blur(10px);
+}
+
+#quad-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-gap: 1rem;
+}
+
+#quad-grid button {
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 5rem;
+  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-width: 6px;
+  border-style: solid;
 }
