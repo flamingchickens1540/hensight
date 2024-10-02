@@ -9,7 +9,7 @@ pip install tba-api-v3client flask schedule
 python main.py
 ```
 
-## Format w/ prettier
+### Format w/ prettier
 
 ```bash
 # Install prettier
