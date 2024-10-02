@@ -37,11 +37,11 @@
 </script>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
     <center><h1 id="title">Hensight</h1></center>
-    <div id="thediv">
-        <div class="inner-div grid col-start-1 row-start-1" onclick="window.location.href = '/'">Statistics</div>
-        <div class="inner-div grid col-start-2 row-start-1" onclick="window.location.href = '/menu/robot'">Our Robot</div>
-        <div class="inner-div grid col-start-1 row-start-2" onclick="window.location.href = '/menu/soon'">Games</div>
-        <div class="inner-div grid col-start-2  row-start-2" onclick="window.location.href = '/menu/misc'">Misc.</div>
+    <div id="quad-grid">
+        <button onclick="window.location.href = '/'">Statistics</button>
+        <button onclick="window.location.href = '/menu/robot'">Our Robot</button>
+        <button onclick="window.location.href = '/menu/soon'">Games</button>
+        <button onclick="window.location.href = '/menu/misc'">Misc.</button>
     </div>
     <center><h1 id="time"></h1></center>
     GIT FEET
@@ -69,9 +69,6 @@
         width: 472px;
         height: 472px;
         line-height: 472px;
-        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-        border-width: 6px;
-        border-style: solid;
     }
     /* .border {
     position: relative;
