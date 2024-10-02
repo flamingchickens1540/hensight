@@ -1,38 +1,38 @@
 <link
-  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
 />
 <link rel="stylesheet" href="/style.css" />
 <script src="/common.js"></script>
 <script>
-  let idle_secconds = 0;
-  function incrementSeconds() {
-    idle_secconds += 1;
-    console.log("idle for:", idle_secconds, "seccond");
-    if (idle_secconds >= 20) {
-      window.location.replace("/");
+    let idle_secconds = 0;
+    function incrementSeconds() {
+        idle_secconds += 1;
+        console.log("idle for:", idle_secconds, "seccond");
+        if (idle_secconds >= 20) {
+            window.location.replace("/");
+        }
     }
-  }
-  let cancel = setInterval(incrementSeconds, 1000);
+    let cancel = setInterval(incrementSeconds, 1000);
 
-  window.addEventListener("touchstart", function () {
-    idle_secconds = 0;
-    console.log("reset");
-  });
+    window.addEventListener("touchstart", function () {
+        idle_secconds = 0;
+        console.log("reset");
+    });
 </script>
 <body>
-  <h1 style="text-align: center; font-size: 10rem">
-    Coming Soon to a Hensight Near You!
-  </h1>
-  <button id="return-main" onclick="window.location.href = '/menu'">
-    Back to Main Menu
-  </button>
+    <h1 style="text-align: center; font-size: 10rem">
+        Coming Soon to a Hensight Near You!
+    </h1>
+    <button id="return-main" onclick="window.location.href = '/menu'">
+        Back to Main Menu
+    </button>
 </body>
 <style>
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-  }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+    }
 </style>
