@@ -1,201 +1,201 @@
 <!doctype html>
 <html lang="en">
-  <link rel="stylesheet" href="/style.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="/common.js"></script>
-  <script>
-    let toggle = true;
-    function clickme() {
-      if (toggle == true) {
-        toggle = !toggle;
-        $(".popup").removeClass("hide");
-        $(".popup").addClass("show");
-        console.log("added show");
-      } else {
-        toggle = !toggle;
-        $(".popup").removeClass("show");
-        $(".popup").addClass("hide");
-        console.log("added hide");
-      }
-    }
-  </script>
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/common.js"></script>
+    <script>
+        let toggle = true;
+        function clickme() {
+            if (toggle == true) {
+                toggle = !toggle;
+                $(".popup").removeClass("hide");
+                $(".popup").addClass("show");
+                console.log("added show");
+            } else {
+                toggle = !toggle;
+                $(".popup").removeClass("show");
+                $(".popup").addClass("hide");
+                console.log("added hide");
+            }
+        }
+    </script>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://unpkg.com/htmx.org@1.9.10"
-      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
-      crossorigin="anonymous"
-    ></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>the things are being tested</title>
-    <style>
-      h4 {
-        color: white;
-        font-size: 4rem;
-        margin: 0rem;
-      }
-      h1 {
-        color: white;
-        font-size: 3rem;
-        margin: 0rem;
-      }
-      h3 {
-        color: #ffc145;
-        font-size: 18rem;
-        margin: 0rem;
-      }
-      h2 {
-        color: #ffc145;
-        font-size: 9rem;
-        margin: 0rem;
-      }
-      .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        width: 100%; /* Set width to 100% */
-      }
-      h5 {
-        color: white;
-        font-size: 3rem;
-        font-family: Poppins;
-        margin: 0rem;
-      }
-      h6 {
-        color: #ffc145;
-        font-size: 5rem;
-        font-family: Poppins;
-        margin: 0rem;
-      }
-      #h7 {
-        color: #ffc145;
-        font-size: 15rem;
-        margin: 0rem;
-        font-family: Poppins;
-      }
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        row-gap: 1rem;
-      }
-      #bigimg {
-        height: 300px;
-        width: 300px;
-      }
-      #smallimg {
-        height: 200px;
-        width: 200px;
-      }
-      .marquee {
-        width: calc(100vw - 20px);
-        height: 100vh;
-      }
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"
+        ></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>the things are being tested</title>
+        <style>
+            h4 {
+                color: white;
+                font-size: 4rem;
+                margin: 0rem;
+            }
+            h1 {
+                color: white;
+                font-size: 3rem;
+                margin: 0rem;
+            }
+            h3 {
+                color: #ffc145;
+                font-size: 18rem;
+                margin: 0rem;
+            }
+            h2 {
+                color: #ffc145;
+                font-size: 9rem;
+                margin: 0rem;
+            }
+            .center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                width: 100%; /* Set width to 100% */
+            }
+            h5 {
+                color: white;
+                font-size: 3rem;
+                font-family: Poppins;
+                margin: 0rem;
+            }
+            h6 {
+                color: #ffc145;
+                font-size: 5rem;
+                font-family: Poppins;
+                margin: 0rem;
+            }
+            #h7 {
+                color: #ffc145;
+                font-size: 15rem;
+                margin: 0rem;
+                font-family: Poppins;
+            }
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                row-gap: 1rem;
+            }
+            #bigimg {
+                height: 300px;
+                width: 300px;
+            }
+            #smallimg {
+                height: 200px;
+                width: 200px;
+            }
+            .marquee {
+                width: calc(100vw - 20px);
+                height: 100vh;
+            }
 
-      #theseconddiv {
-        border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
-        position: fixed;
-        bottom: 0;
-        width: calc(100% - 3rem);
-        display: grid;
-        grid-template-areas: "menu main right";
-        background-color: #1c1c1c;
-        padding: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        margin-right: 4rem;
-        overflow: hidden;
-      }
-      h6 {
-        color: #ffffff;
-        background-color: #404040;
-        margin: 0.5rem;
-        font-family: Poppins;
-        font-size: 3rem;
-        border-radius: 5px;
-      }
-      #msg {
-        color: #262626;
-        font-size: 4rem;
-        position: absolute;
-        top: 50%;
-        left: 10%;
-        z-index: -1;
-      }
-      .popup::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 45px;
-        border-style: solid;
-        border-color: #404040 transparent transparent transparent;
-      }
-      .show {
-        animation: popup_fadeIn 1s forwards;
-      }
-      .hide {
-        animation: popup_fadeOut 1s forwards;
-      }
-      @keyframes popup_fadeIn {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          transform: translateY(-50px);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(0px);
-        }
-      }
-      @keyframes popup_fadeOut {
-        50% {
-          transform: translateY(-50px);
-        }
-        100% {
-          transform: translateY(0px);
-          opacity: 0;
-        }
-      }
-      .popup {
-        position: absolute;
-        padding: 5%;
-        bottom: 10%;
-        left: 20%;
-        z-index: 1;
-      }
-    </style>
-  </head>
-  <body
-    style="background-color: #1c1c1c"
-    onclick="clickme(), openFullscreen()"
-    id="body"
-  >
-    <center>
-      <h6 class="popup">Click me!</h6>
-    </center>
-  </body>
-  <div id="theseconddiv">
-    <center>
-      <h6 id="slides">Slides</h6>
-    </center>
-    <center>
-      <h6 id="cad">Cad</h6>
-    </center>
-    <center>
-      <h6 id="reveal">Robot Reveal</h6>
-    </center>
-  </div>
+            #theseconddiv {
+                border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
+                position: fixed;
+                bottom: 0;
+                width: calc(100% - 3rem);
+                display: grid;
+                grid-template-areas: "menu main right";
+                background-color: #1c1c1c;
+                padding: 1rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+                margin-right: 4rem;
+                overflow: hidden;
+            }
+            h6 {
+                color: #ffffff;
+                background-color: #404040;
+                margin: 0.5rem;
+                font-family: Poppins;
+                font-size: 3rem;
+                border-radius: 5px;
+            }
+            #msg {
+                color: #262626;
+                font-size: 4rem;
+                position: absolute;
+                top: 50%;
+                left: 10%;
+                z-index: -1;
+            }
+            .popup::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 45px;
+                border-style: solid;
+                border-color: #404040 transparent transparent transparent;
+            }
+            .show {
+                animation: popup_fadeIn 1s forwards;
+            }
+            .hide {
+                animation: popup_fadeOut 1s forwards;
+            }
+            @keyframes popup_fadeIn {
+                0% {
+                    opacity: 0;
+                }
+                50% {
+                    transform: translateY(-50px);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+            @keyframes popup_fadeOut {
+                50% {
+                    transform: translateY(-50px);
+                }
+                100% {
+                    transform: translateY(0px);
+                    opacity: 0;
+                }
+            }
+            .popup {
+                position: absolute;
+                padding: 5%;
+                bottom: 10%;
+                left: 20%;
+                z-index: 1;
+            }
+        </style>
+    </head>
+    <body
+        style="background-color: #1c1c1c"
+        onclick="clickme(), openFullscreen()"
+        id="body"
+    >
+        <center>
+            <h6 class="popup">Click me!</h6>
+        </center>
+    </body>
+    <div id="theseconddiv">
+        <center>
+            <h6 id="slides">Slides</h6>
+        </center>
+        <center>
+            <h6 id="cad">Cad</h6>
+        </center>
+        <center>
+            <h6 id="reveal">Robot Reveal</h6>
+        </center>
+    </div>
 
-  <script src="https://unpkg.com/hyperscript"></script>
+    <script src="https://unpkg.com/hyperscript"></script>
 </html>

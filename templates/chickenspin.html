@@ -1,140 +1,144 @@
 <!doctype html>
 <html lang="en">
-  <link rel="stylesheet" href="/style.css" />
-  <script src="/common.js"></script>
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/common.js"></script>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://unpkg.com/htmx.org@1.9.10"
-      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
-      crossorigin="anonymous"
-    ></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CHICKEN GO SPINNNNNNNNNNNNNNNNNN</title>
-    <style>
-      h4 {
-        color: white;
-        font-size: large;
-        font-family: Poppins;
-        font-size: 4rem;
-        font-size: 4rem;
-        margin: 0rem;
-      }
-      h1 {
-        color: white;
-        font-family: Poppins;
-        font-size: 3rem;
-        margin: 0rem;
-      }
-      h3 {
-        color: #ffc145;
-        font-size: 18rem;
-        margin: 0rem;
-        font-family: Poppins;
-      }
-      h2 {
-        color: #ffc145;
-        font-size: 9rem;
-        margin: 0rem;
-        font-family: Poppins;
-      }
-      .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        width: 100%; /* Set width to 100% */
-      }
-      h5 {
-        color: white;
-        font-size: 3rem;
-        font-family: Poppins;
-        margin: 0rem;
-      }
-      h6 {
-        color: #ffc145;
-        font-size: 5rem;
-        font-family: Poppins;
-        margin: 0rem;
-      }
-      #h7 {
-        color: #ffc145;
-        font-size: 15rem;
-        margin: 0rem;
-        font-family: Poppins;
-      }
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto;
-        row-gap: 1rem;
-      }
-      #bigimg {
-        height: 300px;
-        width: 300px;
-      }
-      #smallimg {
-        height: 200px;
-        width: 200px;
-      }
-      .marquee {
-        width: calc(100vw - 20px);
-        height: 100vh;
-      }
-      #theseconddiv {
-        border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
-        position: fixed;
-        bottom: 0;
-        width: calc(100% - 3rem);
-        display: grid;
-        grid-template-areas: "menu main right";
-        background-color: #1c1c1c;
-        padding: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        margin-right: 4rem;
-        overflow: hidden;
-      }
-      h6 {
-        color: #ffffff;
-        background-color: #404040;
-        margin: 0.5rem;
-        font-family: Poppins;
-        font-size: 3rem;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body style="background-color: #1c1c1c" onclick="openFullscreen()" id="body">
-    <center>
-      <marquee
-        class="marquee"
-        behavior="alternate"
-        direction="down"
-        scrollamount="20"
-      >
-        <marquee
-          style="margin-bottom: 0.5rem"
-          behavior="alternate"
-          width="100%"
-          scrollamount="20"
-        >
-          <img
-            width="250px"
-            src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
-            alt="dvd"
-            id="spin"
-          />
-        </marquee>
-      </marquee>
-    </center>
-  </body>
-  <script src="https://unpkg.com/hyperscript"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"
+        ></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CHICKEN GO SPINNNNNNNNNNNNNNNNNN</title>
+        <style>
+            h4 {
+                color: white;
+                font-size: large;
+                font-family: Poppins;
+                font-size: 4rem;
+                font-size: 4rem;
+                margin: 0rem;
+            }
+            h1 {
+                color: white;
+                font-family: Poppins;
+                font-size: 3rem;
+                margin: 0rem;
+            }
+            h3 {
+                color: #ffc145;
+                font-size: 18rem;
+                margin: 0rem;
+                font-family: Poppins;
+            }
+            h2 {
+                color: #ffc145;
+                font-size: 9rem;
+                margin: 0rem;
+                font-family: Poppins;
+            }
+            .center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                width: 100%; /* Set width to 100% */
+            }
+            h5 {
+                color: white;
+                font-size: 3rem;
+                font-family: Poppins;
+                margin: 0rem;
+            }
+            h6 {
+                color: #ffc145;
+                font-size: 5rem;
+                font-family: Poppins;
+                margin: 0rem;
+            }
+            #h7 {
+                color: #ffc145;
+                font-size: 15rem;
+                margin: 0rem;
+                font-family: Poppins;
+            }
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                row-gap: 1rem;
+            }
+            #bigimg {
+                height: 300px;
+                width: 300px;
+            }
+            #smallimg {
+                height: 200px;
+                width: 200px;
+            }
+            .marquee {
+                width: calc(100vw - 20px);
+                height: 100vh;
+            }
+            #theseconddiv {
+                border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
+                position: fixed;
+                bottom: 0;
+                width: calc(100% - 3rem);
+                display: grid;
+                grid-template-areas: "menu main right";
+                background-color: #1c1c1c;
+                padding: 1rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+                margin-right: 4rem;
+                overflow: hidden;
+            }
+            h6 {
+                color: #ffffff;
+                background-color: #404040;
+                margin: 0.5rem;
+                font-family: Poppins;
+                font-size: 3rem;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body
+        style="background-color: #1c1c1c"
+        onclick="openFullscreen()"
+        id="body"
+    >
+        <center>
+            <marquee
+                class="marquee"
+                behavior="alternate"
+                direction="down"
+                scrollamount="20"
+            >
+                <marquee
+                    style="margin-bottom: 0.5rem"
+                    behavior="alternate"
+                    width="100%"
+                    scrollamount="20"
+                >
+                    <img
+                        width="250px"
+                        src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
+                        alt="dvd"
+                        id="spin"
+                    />
+                </marquee>
+            </marquee>
+        </center>
+    </body>
+    <script src="https://unpkg.com/hyperscript"></script>
 </html>

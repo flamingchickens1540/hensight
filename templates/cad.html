@@ -1,377 +1,377 @@
 <link
-  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
 />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
 <script src="/common.js"></script>
 <link rel="stylesheet" href="/style.css" />
 <script>
-  let idle_secconds = 0;
-  function incrementSeconds() {
-    idle_secconds += 1;
-    console.log("idle for:", idle_secconds, "seccond");
-    if (idle_secconds >= 60) {
-      window.location.replace("/");
+    let idle_secconds = 0;
+    function incrementSeconds() {
+        idle_secconds += 1;
+        console.log("idle for:", idle_secconds, "seccond");
+        if (idle_secconds >= 60) {
+            window.location.replace("/");
+        }
     }
-  }
-  let cancel = setInterval(incrementSeconds, 1000);
+    let cancel = setInterval(incrementSeconds, 1000);
 
-  window.addEventListener("touchstart", function () {
-    idle_secconds = 0;
-    console.log("reset");
-  });
+    window.addEventListener("touchstart", function () {
+        idle_secconds = 0;
+        console.log("reset");
+    });
 </script>
 <body onclick="openFullscreen()">
-  <div id="thediv">
-    <center>
-      <h4 id="shooter">Shooter</h4>
-    </center>
-    <center>
-      <h4 id="tramp">Tramp</h4>
-    </center>
-    <center>
-      <h4 id="intake">Intake</h4>
-    </center>
-    <center>
-      <h4 id="reset">Reset</h4>
-    </center>
-  </div>
-  <canvas id="c"></canvas>
-  <div id="load-container">
-    <div id="loading"></div>
-    <h3>Loading...</h3>
-  </div>
-  <div id="theseconddiv">
-    <center>
-      <h1 id="btn" onclick="window.location.href = '/menu'">
-        Return to Main Menu
-      </h1>
-    </center>
-    <!-- <center><h4 id="slides" onclick="window.location.href = '/'">Slides</h4></center>
+    <div id="thediv">
+        <center>
+            <h4 id="shooter">Shooter</h4>
+        </center>
+        <center>
+            <h4 id="tramp">Tramp</h4>
+        </center>
+        <center>
+            <h4 id="intake">Intake</h4>
+        </center>
+        <center>
+            <h4 id="reset">Reset</h4>
+        </center>
+    </div>
+    <canvas id="c"></canvas>
+    <div id="load-container">
+        <div id="loading"></div>
+        <h3>Loading...</h3>
+    </div>
+    <div id="theseconddiv">
+        <center>
+            <h1 id="btn" onclick="window.location.href = '/menu'">
+                Return to Main Menu
+            </h1>
+        </center>
+        <!-- <center><h4 id="slides" onclick="window.location.href = '/'">Slides</h4></center>
         <center><h4 id="cad" onclick="">CAD</h4></center>
         <center><h4 id="autos" onclick="window.location.href = '/autos2'">Autos</h4></center>
         <center><h4 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h4></center> -->
-  </div>
+    </div>
 </body>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://threejs.org/build/three.module.js",
-      "three/addons/": "https://threejs.org/examples/jsm/",
-      "@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
+    {
+        "imports": {
+            "three": "https://threejs.org/build/three.module.js",
+            "three/addons/": "https://threejs.org/examples/jsm/",
+            "@tweenjs/tween.js": "/node_modules/@tweenjs/tween.js/dist/tween.es.js"
+        }
     }
-  }
 </script>
 <style>
-  #btn {
-    padding: 1rem;
-    height: fit-content;
-    font-size: 2rem;
-    position: absolute;
-    margin-bottom: 0;
-    bottom: 0;
-  }
-  #loading {
-    position: absolute;
-    top: 40%;
-    right: 30%;
-    margin: auto;
-    border: 30px solid #ffc145;
-    border-radius: 50%;
-    border-top: 30px solid #1c1c1c;
-    width: 300px;
-    height: 300px;
-    animation: spinner 2s linear infinite;
-    z-index: 2;
-  }
-  h3 {
-    color: #ffffff;
-    font-family: Poppins;
-    font-size: 3rem;
-    position: absolute;
-    top: 45%;
-    right: 35%;
-    z-index: 1;
-  }
-  .load-container-hide {
-    visibility: hidden;
-  }
-  #c {
-    width: 100%;
-    height: calc(100% - 100px);
-    display: block;
-    padding: 0rem;
-    background-color: #1c1c1c;
-    position: absolute;
-  }
-  h4 {
-    color: #ffffff;
-    background-color: #404040;
-    margin: 0.5rem;
-    font-family: Poppins;
-    font-size: 3rem;
-    border-radius: 5px;
-  }
-  #shooter {
-    grid-area: header;
-  }
-  #tramp {
-    grid-area: menu;
-  }
-  #intake {
-    grid-area: main;
-  }
-  #reset {
-    grid-area: right;
-  }
-  /* #slides { grid-area: menu; }
+    #btn {
+        padding: 1rem;
+        height: fit-content;
+        font-size: 2rem;
+        position: absolute;
+        margin-bottom: 0;
+        bottom: 0;
+    }
+    #loading {
+        position: absolute;
+        top: 40%;
+        right: 30%;
+        margin: auto;
+        border: 30px solid #ffc145;
+        border-radius: 50%;
+        border-top: 30px solid #1c1c1c;
+        width: 300px;
+        height: 300px;
+        animation: spinner 2s linear infinite;
+        z-index: 2;
+    }
+    h3 {
+        color: #ffffff;
+        font-family: Poppins;
+        font-size: 3rem;
+        position: absolute;
+        top: 45%;
+        right: 35%;
+        z-index: 1;
+    }
+    .load-container-hide {
+        visibility: hidden;
+    }
+    #c {
+        width: 100%;
+        height: calc(100% - 100px);
+        display: block;
+        padding: 0rem;
+        background-color: #1c1c1c;
+        position: absolute;
+    }
+    h4 {
+        color: #ffffff;
+        background-color: #404040;
+        margin: 0.5rem;
+        font-family: Poppins;
+        font-size: 3rem;
+        border-radius: 5px;
+    }
+    #shooter {
+        grid-area: header;
+    }
+    #tramp {
+        grid-area: menu;
+    }
+    #intake {
+        grid-area: main;
+    }
+    #reset {
+        grid-area: right;
+    }
+    /* #slides { grid-area: menu; }
     #reveal { grid-area: main; }
     #cad { grid-area: right; }
     #autos {grid-area: header;} */
-  #thediv {
-    display: grid;
-    grid-template-areas: "header menu main right";
-    background-color: #1c1c1c;
-    padding: 1rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-  #theseconddiv {
-    border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
-    position: absolute;
-    height: fit-content;
-    bottom: 0%;
-    width: calc(100% - 3rem);
-    /* display: grid;
+    #thediv {
+        display: grid;
+        grid-template-areas: "header menu main right";
+        background-color: #1c1c1c;
+        padding: 1rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    #theseconddiv {
+        border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
+        position: absolute;
+        height: fit-content;
+        bottom: 0%;
+        width: calc(100% - 3rem);
+        /* display: grid;
         grid-template-areas:
         'menu main header right'; */
-    background-color: #1c1c1c;
-    padding: 2%;
-    font-size: 1rem;
-    padding-top: 2rem;
-    /* padding-bottom: 2rem; */
-    margin-right: 4rem;
-    overflow: hidden;
-  }
+        background-color: #1c1c1c;
+        padding: 2%;
+        font-size: 1rem;
+        padding-top: 2rem;
+        /* padding-bottom: 2rem; */
+        margin-right: 4rem;
+        overflow: hidden;
+    }
 </style>
 <script src="https://unpkg.com/tween.js@16.6.0/src/Tween.js"></script>
 
 <script type="module">
-  import * as THREE from "three";
-  import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-  import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-  const canvas = document.querySelector("#c");
-  const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+    const canvas = document.querySelector("#c");
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 
-  const fov = 35;
-  const aspect = 2; // the canvas default
-  const near = 0.1;
-  const far = 100;
-  var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(30, 10, 20);
+    const fov = 35;
+    const aspect = 2; // the canvas default
+    const near = 0.1;
+    const far = 100;
+    var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    camera.position.set(30, 10, 20);
 
-  const controls = new OrbitControls(camera, canvas);
-  controls.enablePan = true;
-  controls.zoomToCursor = true;
-  controls.enableDamping = true;
-  controls.target.set(0, 0, 0);
-  controls.update();
-  controls.maxDistance = 31;
+    const controls = new OrbitControls(camera, canvas);
+    controls.enablePan = true;
+    controls.zoomToCursor = true;
+    controls.enableDamping = true;
+    controls.target.set(0, 0, 0);
+    controls.update();
+    controls.maxDistance = 31;
 
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color("#1C1C1C");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#1C1C1C");
 
-  // Add ambient light with a lower intensity
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-  scene.add(ambientLight);
+    // Add ambient light with a lower intensity
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    scene.add(ambientLight);
 
-  // Add directional light with a higher intensity
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(0, 1, 1); // adjust as needed
-  scene.add(directionalLight);
-  const direcionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(1, 1, 0); // adjust as needed
-  scene.add(direcionalLight);
-  const direcionalLiht = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(-3, 1, 0); // adjust as needed
-  scene.add(direcionalLiht);
+    // Add directional light with a higher intensity
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(0, 1, 1); // adjust as needed
+    scene.add(directionalLight);
+    const direcionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(1, 1, 0); // adjust as needed
+    scene.add(direcionalLight);
+    const direcionalLiht = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(-3, 1, 0); // adjust as needed
+    scene.add(direcionalLiht);
 
-  {
-    const loader = new GLTFLoader();
-    loader.load(
-      "./FriedEgg.glb",
-      function (gltf) {
-        $("#load-container").addClass("load-container-hide");
-        scene.scale.set(10, 10, 10);
-        scene.position.set(0, -1, -3);
+    {
+        const loader = new GLTFLoader();
+        loader.load(
+            "./FriedEgg.glb",
+            function (gltf) {
+                $("#load-container").addClass("load-container-hide");
+                scene.scale.set(10, 10, 10);
+                scene.position.set(0, -1, -3);
 
-        // Set metalness to 0 for all materials in the model
-        gltf.scene.traverse(function (child) {
-          if (child.isMesh) {
-            child.material.metalness = 0.6;
-          }
-        });
+                // Set metalness to 0 for all materials in the model
+                gltf.scene.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.metalness = 0.6;
+                    }
+                });
 
-        scene.add(gltf.scene);
-      },
-      undefined,
-      function (error) {
-        console.error(error);
-      },
-    );
-  }
-
-  function shooterView() {
-    new TWEEN.Tween(camera.position)
-      .to(
-        {
-          x: 10,
-          y: 6,
-          z: -2,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    new TWEEN.Tween(controls.target)
-      .to(
-        {
-          x: 0,
-          y: 2,
-          z: -1,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    camera.updateProjectionMatrix();
-  }
-
-  function trampView() {
-    new TWEEN.Tween(camera.position)
-      .to(
-        {
-          x: 12,
-          y: 7,
-          z: 5,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    new TWEEN.Tween(controls.target)
-      .to(
-        {
-          x: 0,
-          y: 5,
-          z: 3,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    camera.updateProjectionMatrix();
-  }
-
-  function intakeView() {
-    new TWEEN.Tween(camera.position)
-      .to(
-        {
-          x: 0,
-          y: 5,
-          z: 10,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    new TWEEN.Tween(controls.target)
-      .to(
-        {
-          x: 0,
-          y: 0,
-          z: 2,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    camera.updateProjectionMatrix();
-  }
-
-  function resetView() {
-    new TWEEN.Tween(camera.position)
-      .to(
-        {
-          x: 30,
-          y: 10,
-          z: 20,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    new TWEEN.Tween(controls.target)
-      .to(
-        {
-          x: 0,
-          y: 0,
-          z: 0,
-        },
-        2468,
-      )
-      .easing(TWEEN.Easing.Quadratic.InOut)
-      .start();
-    camera.fov = 45;
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-    camera.near = 0.1;
-    camera.far = 100;
-    camera.updateProjectionMatrix();
-  }
-
-  function redirectReveal() {
-    window.location.href = "/reveal";
-  }
-
-  function redirectSlides() {
-    window.location.href = "/";
-  }
-
-  function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
+                scene.add(gltf.scene);
+            },
+            undefined,
+            function (error) {
+                console.error(error);
+            },
+        );
     }
 
-    return needResize;
-  }
-
-  function render() {
-    if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
+    function shooterView() {
+        new TWEEN.Tween(camera.position)
+            .to(
+                {
+                    x: 10,
+                    y: 6,
+                    z: -2,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        new TWEEN.Tween(controls.target)
+            .to(
+                {
+                    x: 0,
+                    y: 2,
+                    z: -1,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        camera.updateProjectionMatrix();
     }
 
-    renderer.render(scene, camera);
+    function trampView() {
+        new TWEEN.Tween(camera.position)
+            .to(
+                {
+                    x: 12,
+                    y: 7,
+                    z: 5,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        new TWEEN.Tween(controls.target)
+            .to(
+                {
+                    x: 0,
+                    y: 5,
+                    z: 3,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        camera.updateProjectionMatrix();
+    }
+
+    function intakeView() {
+        new TWEEN.Tween(camera.position)
+            .to(
+                {
+                    x: 0,
+                    y: 5,
+                    z: 10,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        new TWEEN.Tween(controls.target)
+            .to(
+                {
+                    x: 0,
+                    y: 0,
+                    z: 2,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        camera.updateProjectionMatrix();
+    }
+
+    function resetView() {
+        new TWEEN.Tween(camera.position)
+            .to(
+                {
+                    x: 30,
+                    y: 10,
+                    z: 20,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        new TWEEN.Tween(controls.target)
+            .to(
+                {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                },
+                2468,
+            )
+            .easing(TWEEN.Easing.Quadratic.InOut)
+            .start();
+        camera.fov = 45;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.near = 0.1;
+        camera.far = 100;
+        camera.updateProjectionMatrix();
+    }
+
+    function redirectReveal() {
+        window.location.href = "/reveal";
+    }
+
+    function redirectSlides() {
+        window.location.href = "/";
+    }
+
+    function resizeRendererToDisplaySize(renderer) {
+        const canvas = renderer.domElement;
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        const needResize = canvas.width !== width || canvas.height !== height;
+        if (needResize) {
+            renderer.setSize(width, height, false);
+        }
+
+        return needResize;
+    }
+
+    function render() {
+        if (resizeRendererToDisplaySize(renderer)) {
+            const canvas = renderer.domElement;
+            camera.aspect = canvas.clientWidth / canvas.clientHeight;
+            camera.updateProjectionMatrix();
+        }
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(render);
+        TWEEN.update();
+        controls.update();
+    }
 
     requestAnimationFrame(render);
-    TWEEN.update();
-    controls.update();
-  }
 
-  requestAnimationFrame(render);
-
-  document.getElementById("shooter").addEventListener("click", shooterView);
-  document.getElementById("tramp").addEventListener("click", trampView);
-  document.getElementById("intake").addEventListener("click", intakeView);
-  document.getElementById("reset").addEventListener("click", resetView);
-  document.getElementById("slides").addEventListener("click", redirectSlides);
-  document.getElementById("reveal").addEventListener("click", redirectReveal);
+    document.getElementById("shooter").addEventListener("click", shooterView);
+    document.getElementById("tramp").addEventListener("click", trampView);
+    document.getElementById("intake").addEventListener("click", intakeView);
+    document.getElementById("reset").addEventListener("click", resetView);
+    document.getElementById("slides").addEventListener("click", redirectSlides);
+    document.getElementById("reveal").addEventListener("click", redirectReveal);
 </script>
