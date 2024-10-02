@@ -8,16 +8,14 @@ body {
 }
 
 :root {
+  /* vars */
   --round: 0.5rem;
   --big-round: 1rem;
+  --blur-radius: 10px;
+  --gap: 2rem;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1 {
   color: #ffc145;
 }
 
@@ -135,22 +133,81 @@ button#return-main {
   backdrop-filter: blur(10px);
 }
 
+button {
+  position: relative;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: none;
+  text-align: center;
+  padding: 1rem;
+  font-size: 5rem;
+  border-radius: var(--round);
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
+}
+
+input {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
+  border-width: var(--round);
+  border-style: solid;
+  border-radius: 5%;
+  font-size: 5rem;
+}
+
 #quad-grid {
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: auto auto;
-  grid-gap: 1rem;
+  grid-gap: var(--gap);
   width: clamp(800px, 75%, 1200px);
-  height: clamp(600px, 55%, 900px);
+  aspect-ratio: 1.5;
 }
 
-#quad-grid button {
-  color: #ffffff;
-  text-align: center;
-  font-size: 5rem;
-  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-  border-width: 6px;
-  border-style: solid;
-  border-radius: var(--round);
-  padding-block: 1rem;
+#center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#popup {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  backdrop-filter: blur(var(--blur-radius));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.hidden {
+  display: none !important;
+  z-index: -999 !important;
+}
+
+#two-button-wrapper {
+  gap: var(--gap);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+button#no {
+  background-color: #ff0800;
+}
+
+button#yes {
+  background-color: #12b31d;
 }
