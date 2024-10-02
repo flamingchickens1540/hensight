@@ -13,12 +13,19 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   background-color: #1c1c1c;
-  padding: 0;
-  position: relative;
-  border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-  height: calc(100vh - 1rem);
-  overflow: hidden; /* Hide scrollbars */
-  animation: fadein 1s forwards; /* Initial fade in */
+  padding: 0.5rem;
+  border: none !important;
+  animation: fadein 1s forwards;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  inset: 0;
+  background-color: transparent;
+  border: 0.5rem solid #FFC145;
 }
 
 #btn {
