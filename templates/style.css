@@ -113,8 +113,6 @@ a > button {
 }
 
 button {
-  appearance: button;
-  -moz-appearance: button;
   position: relative;
   background-color: #1c1c1c;
   color: #ffffff;
@@ -207,4 +205,12 @@ button#yes {
 #time,
 #title {
   font-size: 13rem;
+}
+
+.flex-center-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
 }

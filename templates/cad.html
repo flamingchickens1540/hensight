@@ -44,15 +44,7 @@
         <h3>Loading...</h3>
     </div>
     <div id="theseconddiv">
-        <center>
-            <h1 id="btn" onclick="window.location.href = '/menu'">
-                Return to Main Menu
-            </h1>
-        </center>
-        <!-- <center><h4 id="slides" onclick="window.location.href = '/'">Slides</h4></center>
-        <center><h4 id="cad" onclick="">CAD</h4></center>
-        <center><h4 id="autos" onclick="window.location.href = '/autos2'">Autos</h4></center>
-        <center><h4 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h4></center> -->
+        <a href="/menu"><button>Back to Main Menu</button></a>
     </div>
 </body>
 
@@ -140,21 +132,14 @@
         padding-bottom: 2rem;
     }
     #theseconddiv {
-        border-bottom: 0.5rem solid #ffc145; /* Adjust border width as needed */
-        position: absolute;
+        --width: max(800px, 30vw);
+        position: fixed;
         height: fit-content;
-        bottom: 0%;
-        width: calc(100% - 3rem);
-        /* display: grid;
-        grid-template-areas:
-        'menu main header right'; */
-        background-color: #1c1c1c;
-        padding: 2%;
+        bottom: var(--gap);
         font-size: 1rem;
-        padding-top: 2rem;
-        /* padding-bottom: 2rem; */
-        margin-right: 4rem;
-        overflow: hidden;
+        width: var(--width);
+        left: calc(50vw - var(--width)*0.5);
+        right: auto;
     }
 </style>
 <script src="https://unpkg.com/tween.js@16.6.0/src/Tween.js"></script>
