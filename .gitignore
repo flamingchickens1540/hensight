@@ -1,3 +1,4 @@
+.env
 .vscode/
 static/FriedEgg.glb/
 __pycache__/
@@ -7,3 +8,4 @@ static/asdf.gltf
 static/CrescendoField.gltf
 static/FieldSimon.glb
 static/FieldSmallTwo.glb
+nesusTesting.py

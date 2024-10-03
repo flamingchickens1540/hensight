@@ -39,7 +39,7 @@
 </body>
 <style>
 	#btn {
-		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        border-color: #FFC145;
         border-width: 6px;
         border-style: solid;
 		padding: 3rem;
@@ -126,13 +126,14 @@ border-radius: 5px;
 #cad { grid-area: right; }
 #autos { grid-area: left; } */
 #theseconddiv {
-    border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+	border-bottom: 0.5rem solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
 	position: fixed;
 	bottom: 0;
 	width: calc(100% - 3rem);
 	/* display: grid;
   grid-template-areas:
-    'menu main right left'; */
+    'header menu main right'; */
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;

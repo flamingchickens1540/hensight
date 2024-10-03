@@ -50,7 +50,7 @@
 			window.location.replace("/");
 		}
 	}
-	var cancel = setInterval(incrementSeconds, 1000);
+	// var cancel = setInterval(incrementSeconds, 1000);
 
 	window.addEventListener('touchstart', function () {
 		idle_secconds = 0
@@ -280,7 +280,7 @@
 </body>
 <style>
 	#btn {
-		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        border-color: #FFC145;
         border-width: 6px;
         border-style: solid;
 		padding: 3rem;
@@ -334,17 +334,14 @@
 	}
 
 	body {
-		margin: 0;
-		padding: 0;
-		animation: fadein 1s forwards;
-		/* Initial fade in */
-		position: relative;
-		border: 0.5rem solid #FFC145;
-		/* Adjust border width as needed */
-		height: 100%;
-		overflow: hidden;
-		/* Hide scrollbars */
-	}
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+            height: calc(100vh);
+			overflow: hidden; /* Hide scrollbars */
+        }
 
 	html,
 	body {
@@ -431,21 +428,19 @@
 		border-radius: 5%;
 	}
 	#theseconddiv {
-		border-bottom: 0.5rem solid #FFC145;
-		/* Adjust border width as needed */
-		position: fixed;
-		z-index: 200;
-		bottom: 0;
-		width: calc(100% - 3rem);
-		/* display: grid;
-		grid-template-areas:
-			'menu main header right'; */
-
-		background-color: #1C1C1C;
-		padding: 1rem;
-		padding-top: 2rem;
-		padding-bottom: 2rem;
-		margin-right: 4rem;
-		overflow: hidden;
-	}
+	border-bottom: 0.5rem solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+	position: fixed;
+	bottom: 0;
+	width: calc(100% - 3rem);
+	/* display: grid;
+  grid-template-areas:
+    'header menu main right'; */
+	background-color: #1C1C1C;
+	padding: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	margin-right: 4rem;
+    overflow: hidden;
+}
 </style>

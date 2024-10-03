@@ -1,4 +1,7 @@
-<head>    
+<head>  
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+        </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -10,6 +13,7 @@
         var mins = d.getMinutes()
         var sec = d.getSeconds()
         var h = ('00'+hours).slice(-2);
+        if (h > 12) {h -= 12}
         var m = ('00'+mins).slice(-2);
         var s = ('00'+sec).slice(-2);
         var time = h+':'+m+':'+s
@@ -34,7 +38,7 @@
             window.location.replace("/");
         }
     }
-    // var cancel = setInterval(incrementSeconds, 1000);
+    var cancel = setInterval(incrementSeconds, 1000);
 
     window.addEventListener('touchstart', function() {
     idle_secconds = 0
@@ -69,8 +73,8 @@
     <div id="twobtns"><h4 id="yes" onclick="admin()">Confirm</h4><h4 id="no" onclick="popup()">Cancel</h4></div>
     <div id="thediv">
         <div class="inner-div grid col-start-1 row-start-1" onclick="window.location.href = '/menu'">Main Menu</div>
-        <div class="inner-div grid col-start-2 row-start-1" onclick="window.location.href = '/reveal'" style="font-size: 4rem;">Reveal Video</div>
-        <div class="inner-div grid col-start-1 row-start-2" onclick=""></div>
+        <div class="inner-div grid col-start-2 row-start-1" onclick="window.location.href = '/reveal'" style="font-size: 60px;">Reveal Video</div>
+        <div class="inner-div grid col-start-1 row-start-2" onclick="window.location.href = '/pulse_rip_off'" >Team Info</div>
         <div class="inner-div grid col-start-2 row-start-2" onclick="popup()">Admin Key</div>
     </div>
     <center><h1 id="time"></h1></center>
@@ -131,6 +135,7 @@
         font-size: 5rem;
         z-index: 5;
         opacity: 0;
+        border-radius: 5%;
     }
     .blur {
         backdrop-filter: blur(10px);
@@ -150,14 +155,16 @@
             padding: 2%;
             border-radius: 5%;
             color: #FFFFFF;
-            font-family: Poppins;
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
             text-align: center;
             margin: 1rem;
-            font-size: 5rem;
-            width: 472px;
-            height: 472px;
-            line-height: 472px;
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+            font-size: 4rem;
+            width: 450px;
+            height: 450px;
+            line-height: 450px;
+            border-color: #FFC145;
             border-width: 6px;
             border-style: solid;
         }
@@ -170,20 +177,29 @@
 	h4{
 color: #FFFFFF;
 margin: 0.5rem;
-font-family: Poppins;
+font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
 font-size: 3rem;
 border-radius: 5px;
 
 	}
     #title {
         color: #FFC145;
-        font-family: Poppins;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
         font-size: 13rem;
         font-style: bold;
+        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     #time {
         color: #FFC145;
-        font-family: Poppins;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
         font-size: 13rem;
         font-style: bold;
         text-align: center;
@@ -196,7 +212,8 @@ border-radius: 5px;
             margin: 0;
             padding: 0;
             position: relative;
-            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
             height: calc(100vh);
 			overflow: hidden; /* Hide scrollbars */
         }
