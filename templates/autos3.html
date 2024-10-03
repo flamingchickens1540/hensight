@@ -262,12 +262,11 @@
 </script>
 
 <body class="center-col">
-    <div id="thediv">
-        <h4 id="amp">Amp Side</h4>
-        <h4 id="center">Center Side</h4>
-        <h4 id="source">Source Side</h4>
+    <div id="thediv" class="flex-center-row" style="flex-wrap: wrap;">
+        <button id="amp">Amp Side</button>
+        <button id="center">Center Side</button>
+        <button id="source">Source Side</button>
     </div>
-    <h4 id="reset" onclick="window.location.href = '/autos2'">Reset</h4>
 
     <canvas id="c" class="hide"></canvas>
     <h4 id="pain"></h4>
@@ -275,11 +274,12 @@
         <div id="loading"></div>
         <h3>Loading...</h3>
     </div>
-    <div id="theseconddiv">
-        <a href="/"><button>Slides</button></a>
+    <a href="/autos2"><button>Reset</button></a>
+    <div id="theseconddiv" class="flex-center-row">
+        <a id="slides"><button>Slides</button></a>
         <a href="/cad"><button>CAD</button></a>
         <a href="/autos"><button>Autos</button></a>
-        <a href="/reveal"><button>Reveal</button></a>
+        <a id="reveal"><button>Reveal</button></a>
     </div>
 </body>
 <style>
@@ -323,42 +323,9 @@
         border-radius: 5px;
     }
 
-    #amp {
-        grid-area: header;
-    }
-
-    #center {
-        grid-area: menu;
-    }
-
-    #source {
-        grid-area: main;
-    }
-
-    #slides {
-        grid-area: menu;
-    }
-
-    #reveal {
-        grid-area: main;
-    }
-
-    #cad {
-        grid-area: right;
-    }
-
-    #autos {
-        grid-area: header;
-    }
-
     #thediv {
-        display: grid;
-        grid-row-start: 1;
-        grid-template-areas: "header menu main";
-        background-color: #1c1c1c;
         padding: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-block: 2rem;
     }
     #thediv2 {
         width: fit-content;
@@ -366,10 +333,6 @@
         left: 50%;
         transform: translate(-50%);
         z-index: 2;
-    }
-    #reset {
-        padding: 1rem;
-        border-radius: 5%;
     }
     #theseconddiv {
         border-bottom: 0.5rem solid #ffc145;
