@@ -210,11 +210,11 @@
         return needResize;
     }
 
-    let data_point = 0;
-    let Data = 0;
-    let i = 0;
-
     async function render() {
+        let data_point = 0;
+        let Data = 0;
+        let i = 0;
+
         if (i == 0) {
             Data = await get_files();
         }

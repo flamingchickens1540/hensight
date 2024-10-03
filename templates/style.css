@@ -66,44 +66,6 @@ body::before {
   border: 0.5rem solid #ffc145;
 }
 
-#btn {
-  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-  border-width: 6px;
-  border-style: solid;
-  padding: 3rem;
-  width: 60%;
-  color: #ffffff;
-  font-family: Poppins;
-  font-size: 3rem;
-  border-radius: var(--round);
-}
-
-#loading {
-  position: absolute;
-  top: 40%;
-  right: 30%;
-  margin: auto;
-  border: 30px solid #ffc145;
-  border-radius: 50%;
-  border-top: 30px solid #1c1c1c;
-  width: 300px;
-  height: 300px;
-  animation: spinner 2s linear infinite;
-  z-index: 2;
-}
-
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  80% {
-    transform: rotate(315deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -145,12 +107,14 @@ body::before {
   }
 }
 
-.blur {
-  backdrop-filter: blur(10px);
+a > button {
+  width: 100%;
+  height: 100%;
 }
 
-button,
-#return-main {
+button {
+  appearance: button;
+  -moz-appearance: button;
   position: relative;
   background-color: #1c1c1c;
   color: #ffffff;
@@ -180,7 +144,6 @@ input {
 }
 
 button::before,
-#return-main::before,
 #input-wrapper::before {
   content: "";
   position: absolute;
@@ -204,6 +167,7 @@ button::before,
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: var(--gap);
 }
 
 #popup {
