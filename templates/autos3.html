@@ -1,3 +1,4 @@
+<!doctype html>
 <script type="importmap">
     {
         "imports": {
@@ -53,7 +54,7 @@
     }
     let cancel = setInterval(incrementSeconds, 1000);
 
-    window.addEventListener("touchstart", function () {
+    window.addEventListener("touchstart", () => {
         idle_secconds = 0;
         console.log("reset");
     });
@@ -260,23 +261,13 @@
     document.getElementById("reveal").addEventListener("click", redirectReveal);
 </script>
 
-<body style="background-color: #1c1c1c">
+<body class="center-col">
     <div id="thediv">
-        <center>
-            <h4 id="amp">Amp Side</h4>
-        </center>
-        <center>
-            <h4 id="center">Center Side</h4>
-        </center>
-        <center>
-            <h4 id="source">Source Side</h4>
-        </center>
+        <h4 id="amp">Amp Side</h4>
+        <h4 id="center">Center Side</h4>
+        <h4 id="source">Source Side</h4>
     </div>
-    <div id="thediv2">
-        <center>
-            <h4 id="reset" onclick="window.location.href = '/autos2'">Reset</h4>
-        </center>
-    </div>
+    <h4 id="reset" onclick="window.location.href = '/autos2'">Reset</h4>
 
     <canvas id="c" class="hide"></canvas>
     <h4 id="pain"></h4>
@@ -285,21 +276,10 @@
         <h3>Loading...</h3>
     </div>
     <div id="theseconddiv">
-        <!-- <center>
-			<h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1>
-		</center> -->
-        <center>
-            <h4 id="slides" onclick="window.location.href = '/'">Slides</h4>
-        </center>
-        <center>
-            <h4 id="cad" onclick="window.location.href = '/cad'">CAD</h4>
-        </center>
-        <center><h4 id="autos" onclick="">Autos</h4></center>
-        <center>
-            <h4 id="reveal" onclick="window.location.href = '/reveal'">
-                Reveal
-            </h4>
-        </center>
+        <a href="/"><button>Slides</button></a>
+        <a href="/cad"><button>CAD</button></a>
+        <a href="/autos"><button>Autos</button></a>
+        <a href="/reveal"><button>Reveal</button></a>
     </div>
 </body>
 <style>

@@ -1,3 +1,4 @@
+<!doctype html>
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet"
@@ -53,7 +54,7 @@
     }
     let cancel = setInterval(incrementSeconds, 1000);
 
-    window.addEventListener("touchstart", function () {
+    window.addEventListener("touchstart", () => {
         idle_secconds = 0;
         console.log("reset");
     });
@@ -285,15 +286,7 @@
         <h3>Loading...</h3>
     </div>
     <div id="theseconddiv">
-        <center>
-            <h1 id="btn" onclick="window.location.href = '/menu'">
-                Return to Main Menu
-            </h1>
-        </center>
-        <!-- <center><h4 id="slides" onclick="window.location.href = '/'">Slides</h4></center>
-		<center><h4 id="cad" onclick="window.location.href = '/cad'">CAD</h4></center>
-		<center><h4 id="autos" onclick="">Autos</h4></center>
-		<center><h4 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h4></center> -->
+        <a href="/menu"><button>Back to Main Menu</button></a>
     </div>
 </body>
 <style>
