@@ -72,11 +72,11 @@ class MatchData:
 
             self.totalRP = red['rp'] + blue['rp']
 
-            self.coop = 0
-            if red['coopNotePlayed']:
-                self.coop = self.coop + 1
-            if blue['coopNotePlayed']:
-                self.coop = self.coop + 1
+            # self.coop = 0
+            # if red['coopNotePlayed']:
+            #     self.coop = self.coop + 1
+            # if blue['coopNotePlayed']:
+            #     self.coop = self.coop + 1
 
         else:
             self.autoAmpNotes = 0
