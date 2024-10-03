@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="/common.js"></script>
 <script>
-    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true, true, true, true, false, false, false, false, true]
-    var idlist = ['thanks_msg','eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'global_auto_notes', 'current_auto_notes', 'global_tele_notes', 'current_tele_notes', 'event_tele_notes', 'total_rp', 'coop', 'melody_rp', 'ensemble_rp', 'logo_dvd']
+    let toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true, true, true, true, false, false, false, false, true]
+    let idlist = ['thanks_msg','eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'global_auto_notes', 'current_auto_notes', 'global_tele_notes', 'current_tele_notes', 'event_tele_notes', 'total_rp', 'coop', 'melody_rp', 'ensemble_rp', 'logo_dvd']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
             console.log('updating: ', document.getElementById(idlist[i]))
@@ -12,7 +13,7 @@
         }
     }
     function setColor(btn, toggle_number) {
-        var property = document.getElementById(btn);
+        let property = document.getElementById(btn);
         if (!toggle_list[toggle_number]) {
             property.style.backgroundColor = "#12b31d"
             toggle_list[toggle_number] = !toggle_list[toggle_number]
@@ -38,7 +39,7 @@
             referrerPolicy: "no-referrer",
             body: JSON.stringify(toggle_list),
         });
-        }
+    }
     setInterval(update(), 60000)
 </script>
 
@@ -133,19 +134,6 @@
             padding-bottom: 0;
             margin-top: 0;
             margin-bottom: 0;
-        }
-        body{
-            margin: 0;
-            visibility: visible;
-            padding: 0;
-            overflow: hidden;
-            position: relative;
-            border: 10px solid;
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-            /* Adjust border width as needed */
-            height: 100%;
-            width: 98%;
-            overflow-y: auto;
         }
     </style>
 </head>

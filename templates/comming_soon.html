@@ -1,17 +1,9 @@
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script src="/common.js"></script>
 <script>
-        var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-    }
     var idle_secconds = 0
     function incrementSeconds() {
         idle_secconds += 1;
@@ -23,8 +15,8 @@
     var cancel = setInterval(incrementSeconds, 1000);
 
     window.addEventListener('touchstart', function() {
-    idle_secconds = 0
-    console.log('reset')
+        idle_secconds = 0
+        console.log('reset')
     });
 </script>
 <body style="background-color: #1c1c1c;">
@@ -32,16 +24,7 @@
     <div id="button" onclick="window.location.href = '/menu'">Back to Main Menu</div>
 </body>
 <style>
-            body {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            border: 0.5rem solid; /* Adjust border width as needed */
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-            height: calc(100vh);
-			overflow: hidden; /* Hide scrollbars */
-        }
-            #button {
+        #button {
             padding: 2%;
             border-radius: 5%;
             color: #FFFFFF;

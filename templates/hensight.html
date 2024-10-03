@@ -1,52 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/style.css">
+<script src="/common.js"></script>
 <script>
-    var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+    let idle_secconds = 0;
+    function incrementSeconds() {
+        idle_secconds += 1;
+        console.log('idle for:',idle_secconds, 'secconds');
+        if (idle_secconds == 30) {
+            console.log('attempting popup');
+            var popup = document.getElementById("myPopup");
+            $(".popup").removeClass("hide")
+            $(".popup").addClass("show");
+        }
+        else if (idle_secconds >= 35) {
+            console.log('reseting popup');
+            $(".popup").removeClass("show");
+            $(".popup").addClass("hide")
+            idle_secconds = 0;
+            console.log('yay');
+        }
     }
-    }
-    var idle_secconds = 0;
-function incrementSeconds() {
-    idle_secconds += 1;
-	console.log('idle for:',idle_secconds, 'secconds');
-	if (idle_secconds == 30) {
-        console.log('attempting popup');
-        var popup = document.getElementById("myPopup");
-        $(".popup").removeClass("hide")
-        $(".popup").addClass("show");
-	}
-    else if (idle_secconds >= 35) {
-        console.log('reseting popup');
-        $(".popup").removeClass("show");
+    let cancel = setInterval(incrementSeconds, 1000);
+    window.addEventListener('touchstart', function() {
+        idle_secconds = 0
+        $(".popup").removeClass("show")
         $(".popup").addClass("hide")
-        idle_secconds = 0;
-        console.log('yay');
+        console.log('--reset--')
+    });
+    function logo_change() {
+        console.log('change')
+        let a = Math.round(Math.random() * 100)
+        let b = Math.round(Math.random() * 100)
+        let c = Math.round(Math.random() * 100)
+        let color = 'rbg('+a+','+b+','+c+')'
+        document.getElementById('logo').style.backgroundColor = color
+        console.log('this should have worked')
     }
-}
-// var cancel = setInterval(incrementSeconds, 1000);
-window.addEventListener('touchstart', function() {
-  idle_secconds = 0
-  $(".popup").removeClass("show")
-  $(".popup").addClass("hide")
-  console.log('--reset--')
-});
-function logo_change() {
-    console.log('change')
-    var a = Math.round(Math.random() * 100)
-    var b = Math.round(Math.random() * 100)
-    var c = Math.round(Math.random() * 100)
-    var color = 'rbg('+a+','+b+','+c+')'
-    document.getElementById('logo').style.backgroundColor = color
-    console.log('this should have worked')
-}
-logo_change()
+    logo_change()
 </script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,33 +50,6 @@ logo_change()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Holy Hen has Aquired Sight</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            animation: fadein 1s forwards; /* Initial fade in */
-            position: relative;
-            border: 0.5rem solid; /* Adjust border width as needed */
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-            height: calc(100vh - 20px);
-        }
-        @keyframes fadeout {
-            from {
-                opacity: 1; /* Fully visible */
-            }
-            to {
-                opacity: 0; /* Fully transparent */
-            }
-        }
-    
-        @keyframes fadein {
-            from {
-                opacity: 0; /* Fully transparent */
-            }
-            to {
-                opacity: 1; /* Fully visible */
-            }
-        }
         .mediumText {
             font-size: 50px;
             font-family: Poppins;
@@ -166,9 +131,9 @@ logo_change()
             font-family: Poppins;
         }
         .grid-container {
-                display: grid;
-                grid-template-columns: auto auto auto;
-                row-gap: 1rem;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            row-gap: 1rem;
         }
         #bigimg {
             height: 300px;
@@ -179,50 +144,38 @@ logo_change()
             width: 200px;
         }
         .marquee{
-        width:  calc(100vw - 20px);
-        height: 100vh
+            width:  calc(100vw - 20px);
+            height: 100vh
         }
         #logo::after {
             background-color: rgb(a, b, c, 0.5);
         }
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(359deg);
-            }
-        }
-        #spin {
-            animation: rotation 2s infinite linear;
-        }
         #theseconddiv {
-	border-bottom: 0.5rem solid; /* Adjust border width as needed */
-    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-	position: fixed;
-	bottom: 0;
-	width: calc(100% - 3rem);
-	/* display: grid;
-  grid-template-areas:
-    'header menu main right'; */
-	background-color: #1C1C1C;
-	padding: 1rem;
-	padding-top: 2rem;
-	padding-bottom: 2rem;
-	margin-right: 4rem;
-    overflow: hidden;
-}
+            border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 3rem);
+            /* display: grid;
+          grid-template-areas:
+            'header menu main right'; */
+            background-color: #1C1C1C;
+            padding: 1rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            margin-right: 4rem;
+            overflow: hidden;
+        }
 /* #slides { grid-area: menu; }
 #reveal { grid-area: main; }
 #cad { grid-area: right; }
 #autos {grid-area: header;} */
-h6{
-color: #FFFFFF;
-background-color: #404040;
-margin: 0.5rem;
-font-family: Poppins;
-font-size: 3rem;
-border-radius: 5px;
+    h6{
+        color: #FFFFFF;
+        background-color: #404040;
+        margin: 0.5rem;
+        font-family: Poppins;
+        font-size: 3rem;
+        border-radius: 5px;
 	}
     #msg{
 			color: #262626;
@@ -242,22 +195,6 @@ border-radius: 5px;
         border-style: solid;
         border-color: #404040 transparent transparent transparent;
     }
-    .show {
-        animation: popup_fadeIn 1s forwards;
-    }
-    .hide {
-        animation: popup_fadeOut 1s forwards;
-    }
-    @keyframes popup_fadeIn {
-        0% {opacity: 0;}
-        50% {transform: translateY(-50px); opacity: 0.50;}
-        100% {transform: translateY(0px); opacity: 0.50;}
-    }
-    @keyframes popup_fadeOut {
-        0% {opacity: 0.50;}
-        50% {transform: translateY(-50px)}
-        100% {transform: translateY(0px); opacity: 0;}
-    }
     .popup {
         opacity: 0;
         position: absolute;
@@ -266,23 +203,7 @@ border-radius: 5px;
         left: 35%;
         z-index: 1;
     }
-    #btn {
-        border: 5px solid #F6B14B;
-		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-		padding: 3rem;
-		width: 60%;
-		color: #FFFFFF;
-		font-family: Poppins;
-		font-size: 3rem;
-		border-radius: 5px;
-	}
-    /* #title {
-        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-        background-clip: text;
-        color: transparent;
-    } */
-    </style>
-    
+</style>
 </head>
 <div id="theseconddiv">
         <center><h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1></center>
