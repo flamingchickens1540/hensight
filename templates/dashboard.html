@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
     <script src="/common.js"></script>
+    <link rel="stylesheet" href="/style.css" />
     <script>
         let toggle_list = [
             true,
@@ -121,54 +122,13 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
         />
-        <script
-            src="https://unpkg.com/htmx.org@1.9.10"
-            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
-            crossorigin="anonymous"
-        ></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Hensight Dashboard</title>
         <style>
-            h1 {
-                color: white;
-                font-size: large;
-                font-family: Poppins;
-                font-size: 5rem;
-                margin: 1rem;
-            }
-
-            h3 {
-                color: #ffc145;
-                font-size: 19rem;
-                margin: 0rem;
-                font-family: Poppins;
-            }
-
-            h2 {
-                color: #ffc145;
-                font-size: 10rem;
-                margin: 0rem;
-                font-family: Poppins;
-            }
-
             h4 {
-                color: white;
-                font-family: Poppins;
                 font-size: 2rem;
                 margin: 1rem;
-            }
-
-            p {
-                color: white;
-                font-family: Poppins;
-                font-size: 1rem;
-                margin: 0rem;
-                padding-bottom: 0;
-                padding-top: 2%;
-            }
-            #title {
-                color: #ffc145;
             }
 
             .grid-container {
@@ -179,455 +139,446 @@
 
             .switchbutton {
                 background-color: #12b31d;
-                font-family: Poppins;
                 color: #ffff;
             }
 
             button {
-                border: none;
                 color: white;
                 padding: 2.5%;
                 font-size: large;
-                border-radius: 5%;
                 transition: 100ms;
-                margin-bottom: 1%;
             }
 
-            button:hover {
-                padding: 3.5%;
-                margin-bottom: -1%;
+            button::before {
+                display: none !important;
             }
 
-            #bigdiv {
-                margin-top: -2%;
+            #title-thingy {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
             }
-            .indev {
-                padding-top: 0;
-                padding-bottom: 0;
-                margin-top: 0;
-                margin-bottom: 0;
+
+            #title-thingy img {
+                aspect-ratio: 1;
             }
         </style>
     </head>
 
-    <body style="background-color: #1c1c1c" onload="update()">
-        <div id="maindiv">
-            <div class="grid-container" onclick="update()">
+    <body
+        class="center-col"
+        style="justify-content: flex-start"
+        onload="update()"
+    >
+        <div id="title-thingy" onclick="update()">
+            <img
+                src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif"
+                alt=""
+            />
+            <h3 style="font-size: 5rem">Hensight Dashboard</h3>
+            <img
+                src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif"
+                alt=""
+            />
+        </div>
+        <div class="grid-container" id="bigdiv">
+            <div class="indev">
                 <center>
-                    <img
-                        src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif"
-                        alt=""
-                        style="padding-left: 50%"
-                    />
-                </center>
-                <center><h1 id="title">Hensight Dashboard</h1></center>
-                <center>
-                    <img
-                        src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif"
-                        alt=""
-                        style="padding-right: 50%"
-                    />
+                    <h4>Thanks Message</h4>
+                    <button
+                        class="switchbutton"
+                        id="thanks_msg"
+                        onclick="setColor('thanks_msg', 0)"
+                    >
+                        Toggle
+                    </button>
                 </center>
             </div>
-            <div class="grid-container" id="bigdiv">
-                <div class="indev">
-                    <center>
-                        <h4>Thanks Message</h4>
-                        <button
-                            class="switchbutton"
-                            id="thanks_msg"
-                            onclick="setColor('thanks_msg', 0)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Eggs in match</h4>
-                        <button
-                            class="switchbutton"
-                            id="eggs_match"
-                            onclick="setColor('eggs_match', 1)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Feathers</h4>
-                        <button
-                            class="switchbutton"
-                            id="feathers"
-                            onclick="setColor('feathers', 2)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Chicken Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="chickenotes"
-                            onclick="setColor('chickenotes', 3)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Chicken Weight</h4>
-                        <button
-                            class="switchbutton"
-                            id="weight"
-                            onclick="setColor('weight', 4)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Eggs in season</h4>
-                        <button
-                            class="switchbutton"
-                            id="eggs_season"
-                            onclick="setColor('eggs_season', 5)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Robo Name</h4>
-                        <button
-                            class="switchbutton"
-                            id="roboname"
-                            onclick="setColor('roboname', 6)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Chicken Noise</h4>
-                        <button
-                            class="switchbutton"
-                            id="chickenoise"
-                            onclick="setColor('chickenoise', 7)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Chicken Eat</h4>
-                        <button
-                            class="switchbutton"
-                            id="chickeneat"
-                            onclick="setColor('chickeneat', 8)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Chicken Cycles</h4>
-                        <button
-                            class="switchbutton"
-                            id="cycles"
-                            onclick="setColor('cycles', 9)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Battery Charge</h4>
-                        <button
-                            class="switchbutton"
-                            id="battery"
-                            onclick="setColor('battery', 10)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Total Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_total_notes"
-                            onclick="setColor('event_total_notes', 11)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Trap Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_trap_notes"
-                            onclick="setColor('event_trap_notes', 12)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event High Score</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_high_score"
-                            onclick="setColor('event_high_score', 13)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Spotlight Percent</h4>
-                        <button
-                            class="switchbutton"
-                            id="spotlight_percent"
-                            onclick="setColor('spotlight_percent', 14)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Total Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_total_notes"
-                            onclick="setColor('global_total_notes', 15)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global High Score</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_high_score"
-                            onclick="setColor('global_high_score', 16)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Speaker Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_speaker_notes"
-                            onclick="setColor('event_speaker_notes', 17)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Amp Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_amp_notes"
-                            onclick="setColor('global_amp_notes', 18)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Travel</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_travel"
-                            onclick="setColor('event_travel', 19)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Travel</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_travel"
-                            onclick="setColor('global_travel', 20)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Alliance Score</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_alliance_score"
-                            onclick="setColor('event_alliance_score', 21)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Amplifed Speaker</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_amplified_speaker"
-                            onclick="setColor('global_amplified_speaker', 22)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Auto Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_auto_notes"
-                            onclick="setColor('global_auto_notes', 23)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Current Auto Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="current_auto_notes"
-                            onclick="setColor('current_auto_notes', 24)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Global Tele Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="global_tele_notes"
-                            onclick="setColor('global_tele_notes', 25)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Current Tele Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="current_tele_notes"
-                            onclick="setColor('current_tele_notes', 26)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Event Tele Notes</h4>
-                        <button
-                            class="switchbutton"
-                            id="event_tele_notes"
-                            onclick="setColor('event_tele_notes', 27)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Total RP</h4>
-                        <button
-                            class="switchbutton"
-                            id="total_rp"
-                            onclick="setColor('total_rp', 28)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Co-op Percentage</h4>
-                        <button
-                            class="switchbutton"
-                            id="coop"
-                            onclick="setColor('coop', 29)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Melody RP Percentage</h4>
-                        <button
-                            class="switchbutton"
-                            id="melody_rp"
-                            onclick="setColor('melody_rp', 30)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Ensemble RP Percentage</h4>
-                        <button
-                            class="switchbutton"
-                            id="ensemble_rp"
-                            onclick="setColor('ensemble_rp', 31)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
-                <div class="indev">
-                    <center>
-                        <h4>Logo DVD</h4>
-                        <button
-                            class="switchbutton"
-                            id="logo_dvd"
-                            onclick="setColor('logo_dvd', 32)"
-                        >
-                            Toggle
-                        </button>
-                    </center>
-                </div>
+            <div class="indev">
+                <center>
+                    <h4>Eggs in match</h4>
+                    <button
+                        class="switchbutton"
+                        id="eggs_match"
+                        onclick="setColor('eggs_match', 1)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Feathers</h4>
+                    <button
+                        class="switchbutton"
+                        id="feathers"
+                        onclick="setColor('feathers', 2)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Chicken Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="chickenotes"
+                        onclick="setColor('chickenotes', 3)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Chicken Weight</h4>
+                    <button
+                        class="switchbutton"
+                        id="weight"
+                        onclick="setColor('weight', 4)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Eggs in season</h4>
+                    <button
+                        class="switchbutton"
+                        id="eggs_season"
+                        onclick="setColor('eggs_season', 5)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Robo Name</h4>
+                    <button
+                        class="switchbutton"
+                        id="roboname"
+                        onclick="setColor('roboname', 6)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Chicken Noise</h4>
+                    <button
+                        class="switchbutton"
+                        id="chickenoise"
+                        onclick="setColor('chickenoise', 7)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Chicken Eat</h4>
+                    <button
+                        class="switchbutton"
+                        id="chickeneat"
+                        onclick="setColor('chickeneat', 8)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Chicken Cycles</h4>
+                    <button
+                        class="switchbutton"
+                        id="cycles"
+                        onclick="setColor('cycles', 9)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Battery Charge</h4>
+                    <button
+                        class="switchbutton"
+                        id="battery"
+                        onclick="setColor('battery', 10)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Total Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_total_notes"
+                        onclick="setColor('event_total_notes', 11)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Trap Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_trap_notes"
+                        onclick="setColor('event_trap_notes', 12)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event High Score</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_high_score"
+                        onclick="setColor('event_high_score', 13)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Spotlight Percent</h4>
+                    <button
+                        class="switchbutton"
+                        id="spotlight_percent"
+                        onclick="setColor('spotlight_percent', 14)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Total Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_total_notes"
+                        onclick="setColor('global_total_notes', 15)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global High Score</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_high_score"
+                        onclick="setColor('global_high_score', 16)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Speaker Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_speaker_notes"
+                        onclick="setColor('event_speaker_notes', 17)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Amp Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_amp_notes"
+                        onclick="setColor('global_amp_notes', 18)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Travel</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_travel"
+                        onclick="setColor('event_travel', 19)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Travel</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_travel"
+                        onclick="setColor('global_travel', 20)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Alliance Score</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_alliance_score"
+                        onclick="setColor('event_alliance_score', 21)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Amplifed Speaker</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_amplified_speaker"
+                        onclick="setColor('global_amplified_speaker', 22)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Auto Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_auto_notes"
+                        onclick="setColor('global_auto_notes', 23)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Current Auto Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="current_auto_notes"
+                        onclick="setColor('current_auto_notes', 24)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Global Tele Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="global_tele_notes"
+                        onclick="setColor('global_tele_notes', 25)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Current Tele Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="current_tele_notes"
+                        onclick="setColor('current_tele_notes', 26)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Event Tele Notes</h4>
+                    <button
+                        class="switchbutton"
+                        id="event_tele_notes"
+                        onclick="setColor('event_tele_notes', 27)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Total RP</h4>
+                    <button
+                        class="switchbutton"
+                        id="total_rp"
+                        onclick="setColor('total_rp', 28)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Co-op Percentage</h4>
+                    <button
+                        class="switchbutton"
+                        id="coop"
+                        onclick="setColor('coop', 29)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Melody RP Percentage</h4>
+                    <button
+                        class="switchbutton"
+                        id="melody_rp"
+                        onclick="setColor('melody_rp', 30)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Ensemble RP Percentage</h4>
+                    <button
+                        class="switchbutton"
+                        id="ensemble_rp"
+                        onclick="setColor('ensemble_rp', 31)"
+                    >
+                        Toggle
+                    </button>
+                </center>
+            </div>
+            <div class="indev">
+                <center>
+                    <h4>Logo DVD</h4>
+                    <button
+                        class="switchbutton"
+                        id="logo_dvd"
+                        onclick="setColor('logo_dvd', 32)"
+                    >
+                        Toggle
+                    </button>
+                </center>
             </div>
         </div>
     </body>
-    <script src="https://unpkg.com/hyperscript"></script>
 </html>
