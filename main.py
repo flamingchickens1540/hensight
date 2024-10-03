@@ -6,7 +6,8 @@ import schedule
 import threading
 from flask import Flask, render_template, send_file
 from flask import request
-
+from nexusData import nexusData
+from statbotData import statbot
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -23,8 +24,8 @@ TBAData = TBAData()
 # TBAData.load_events("data.txt")
 #
 #
-TBAData.load_from_file("data.txt")
 TBAData.update_current_event_data("data.txt")
+TBAData.load_from_file("data.txt")
 
 # #
 hensightStats = HensightStatsManager(TBAData)
@@ -66,13 +67,34 @@ def make_graph() -> list[str]:
     return reallist
 
 event_toggle = True
-current_toggle = True
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, False, True, True, True, False, True, True, True, True, True, True, True, False, False, False, False, False, True]
+current_toggle = False
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, False, True, True, True, False, False, True, True, True, True, True, True, False, False, False, False, False, True]
+# i = 0
+# print('--- start')
+# for v in toggle_list:
+#     print('loop')
+#     toggle_list[i] = not v
+#     i+=1
+# print('--- finish')
 
 
 @app.route("/")
 def index():
     return render_template('hensight.html')
+
+@app.route('/pulse_rip_off')
+def pulseRipOff():
+    return render_template('pulsemain.html')
+@app.route('/pulse_schedule')
+def pulseSchedule():
+    return render_template('pulse_schedule.html')
+@app.route("/getnexusdata")
+def getNextMatch():
+    return nexusData()
+@app.route("/getstatbotdata")
+def getStatBotData():
+    return statbot()
+
 
 
 @app.route("/autos")
@@ -143,6 +165,10 @@ def main():
     #     listindex = 0
     # return html[listindex]
 
+@app.route('/jsonrequest')
+def jsonRequest():
+    return [main()]
+
 @app.route('/goback')
 def goback():
     old = old2
@@ -182,5 +208,11 @@ def misc():
 @app.route('/menu/soon')
 def soon():
     return render_template('comming_soon.html')
+@app.route('/menu/games')
+def games():
+    return render_template('games.html')
+@app.route('/crossy')
+def crossy():
+    return render_template('crossy.html')
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', port=3000, debug=True, use_reloader=False)

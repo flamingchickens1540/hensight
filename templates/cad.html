@@ -69,7 +69,7 @@ window.addEventListener('touchstart', function() {
 </script>
 <style>
     #btn {
-		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        border-color: #FFC145;
         border-width: 6px;
         border-style: solid;
 		padding: 1rem;
@@ -113,13 +113,13 @@ h3 {
 .load-container-hide{
 	visibility: hidden;
 }
-	        body {
+body {
             margin: 0;
             padding: 0;
-            animation: fadein 1s forwards; /* Initial fade in */
             position: relative;
-            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
-            height: 100% ;
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+            height: calc(100vh);
 			overflow: hidden; /* Hide scrollbars */
         }
 	html,
@@ -134,6 +134,7 @@ h3 {
 		padding: 0rem;
 		background-color: #1C1C1C;
 		position: absolute;
+        /* z-index: -10; */
 	}
 	h4{
 color: #FFFFFF;
@@ -161,21 +162,21 @@ border-radius: 5px;
 	padding-bottom: 2rem;
 }
 #theseconddiv {
-	border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
-	position: absolute;
-    height: fit-content;
-	bottom: 0%;
+	border-bottom: 0.5rem solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+	position: fixed;
+	bottom: 0;
 	width: calc(100% - 3rem);
 	/* display: grid;
   grid-template-areas:
-    'menu main header right'; */
+    'header menu main right'; */
 	background-color: #1C1C1C;
-	padding: 2%;
-    font-size: 1rem;
+	padding: 1rem;
 	padding-top: 2rem;
-	/* padding-bottom: 2rem; */
+	padding-bottom: 2rem;
 	margin-right: 4rem;
     overflow: hidden;
+    z-index: 10;
 }
 </style>
 <script src="https://unpkg.com/tween.js@16.6.0/src/Tween.js"></script>
