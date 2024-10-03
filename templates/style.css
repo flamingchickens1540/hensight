@@ -15,16 +15,45 @@ body {
   --gap: 2rem;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   color: #ffc145;
+  margin-block: 0.5rem;
+}
+
+h4,
+h5,
+h6 {
+  color: white;
+  margin-block: 0.25rem;
+}
+
+h1 {
+  font-size: 20rem;
+}
+h2 {
+  font-size: 11rem;
+}
+h3 {
+  font-size: 11rem;
+}
+h4 {
+  font-size: 4rem;
+}
+h5 {
+  font-size: 3rem;
+}
+h6 {
+  font-size: 3rem;
 }
 
 body {
   background-color: #1c1c1c;
-  padding: 0.5rem;
+  padding: var(--gap);
   border: none !important;
   animation: fadein 1s forwards;
-  min-height: 100vh;
+  min-height: calc(100vh - 2 * var(--gap));
 }
 
 body::before {
@@ -38,19 +67,6 @@ body::before {
 }
 
 #btn {
-  border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-  border-width: 6px;
-  border-style: solid;
-  padding: 3rem;
-  width: 60%;
-  color: #ffffff;
-  font-family: Poppins;
-  font-size: 3rem;
-  border-radius: var(--round);
-}
-
-button#return-main {
-  background-color: transparent;
   border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
   border-width: 6px;
   border-style: solid;
@@ -133,7 +149,8 @@ button#return-main {
   backdrop-filter: blur(10px);
 }
 
-button {
+button,
+#return-main {
   position: relative;
   background-color: #1c1c1c;
   color: #ffffff;
@@ -142,6 +159,7 @@ button {
   padding: 1rem;
   font-size: 5rem;
   border-radius: var(--round);
+  text-decoration: none;
 }
 
 input {
@@ -162,6 +180,7 @@ input {
 }
 
 button::before,
+#return-main::before,
 #input-wrapper::before {
   content: "";
   position: absolute;
@@ -180,7 +199,7 @@ button::before,
   aspect-ratio: 1.5;
 }
 
-#center-col {
+.center-col {
   display: flex;
   flex-direction: column;
   align-items: center;
