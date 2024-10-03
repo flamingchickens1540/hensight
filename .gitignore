@@ -1,5 +1,6 @@
 .env
 .vscode/
+..bfg-report/
 static/FriedEgg.glb/
 __pycache__/
 data.txt

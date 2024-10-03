@@ -1,0 +1,88 @@
+html,
+body {
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  position: relative;
+  border: 0.5rem solid #FFC145; /* Adjust border width as needed */
+  height: calc(100vh);
+  overflow: hidden; /* Hide scrollbars */
+  animation: fadein 1s forwards; /* Initial fade in */
+}
+
+#btn {
+  border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+  border-width: 6px;
+  border-style: solid;
+  padding: 3rem;
+  width: 60%;
+  color: #FFFFFF;
+  font-family: Poppins;
+  font-size: 3rem;
+  border-radius: 5px;
+}
+
+#loading {
+  position: absolute;
+  top: 40%;
+  right: 30%;
+  margin: auto;
+  border: 30px solid #FFC145;
+  border-radius: 50%;
+  border-top: 30px solid #1C1C1C;
+  width: 300px;
+  height: 300px;
+  animation: spinner 2s linear infinite;
+  z-index: 2;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  80% {
+    transform: rotate(315deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+#spin {
+  animation: rotation 2s infinite linear;
+}
+
+.hide, .fadeOut {
+  animation: fadeOut 1s forwards;
+}
+
+.show, .fadeIn {
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeOut {
+  form {opacity: 1;}
+  to {opacity: 0;}
+}
+
+.blur {
+  backdrop-filter: blur(10px);
+}

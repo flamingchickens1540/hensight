@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-    }
-</script>
+<link rel="stylesheet" href="/style.css">
+<script src="/common.js"></script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -22,32 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHICKEN GO SPINNNNNNNNNNNNNNNNNN</title>
     <style>
-            body {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            border: 0.5rem solid; /* Adjust border width as needed */
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-            height: calc(100vh);
-			overflow: hidden; /* Hide scrollbars */
-        }
-        @keyframes fadeout {
-            from {
-                opacity: 1; /* Fully visible */
-            }
-            to {
-                opacity: 0; /* Fully transparent */
-            }
-        }
-    
-        @keyframes fadein {
-            from {
-                opacity: 0; /* Fully transparent */
-            }
-            to {
-                opacity: 1; /* Fully visible */
-            }
-        }
         h4{
             color: white;
             font-size: large;
@@ -75,12 +39,12 @@
             font-family: Poppins;
         }
         .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        width: 100%; /* Set width to 100% */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 100%; /* Set width to 100% */
         }
         h5 {
             color: white;
@@ -101,9 +65,9 @@
             font-family: Poppins;
         }
         .grid-container {
-                display: grid;
-                grid-template-columns: auto auto auto;
-                row-gap: 1rem;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            row-gap: 1rem;
         }
         #bigimg {
             height: 300px;
@@ -114,45 +78,33 @@
             width: 200px;
         }
         .marquee{
-        width:  calc(100vw - 20px);
-        height: 100vh
-        }
-        @keyframes rotation {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(359deg);
-            }
-        }
-        #spin {
-            animation: rotation 2s infinite linear;
+            width:  calc(100vw - 20px);
+            height: 100vh
         }
         #theseconddiv {
-	border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
-	position: fixed;
-	bottom: 0;
-	width: calc(100% - 3rem);
-	display: grid;
-  grid-template-areas:
-    'menu main right';
-	background-color: #1C1C1C;
-	padding: 1rem;
-	padding-top: 2rem;
-	padding-bottom: 2rem;
-	margin-right: 4rem;
-    overflow: hidden;
-}
-h6{
-color: #FFFFFF;
-background-color: #404040;
-margin: 0.5rem;
-font-family: Poppins;
-font-size: 3rem;
-border-radius: 5px;
-	}
+            border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            position: fixed;
+            bottom: 0;
+            width: calc(100% - 3rem);
+            display: grid;
+            grid-template-areas:
+                'menu main right';
+            background-color: #1C1C1C;
+            padding: 1rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            margin-right: 4rem;
+            overflow: hidden;
+        }
+        h6{
+            color: #FFFFFF;
+            background-color: #404040;
+            margin: 0.5rem;
+            font-family: Poppins;
+            font-size: 3rem;
+            border-radius: 5px;
+        }
     </style>
-    
 </head>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" id="body">
     <center>
