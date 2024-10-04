@@ -25,8 +25,8 @@ class TBAData:
             self.event_api_instance = tbaapiv3client.EventApi(api_client)
 
         # Set constants
-        self.AT_EVENT_KEY = "2024gal"
-        self.CURRENT_EVENT_KEYS = ["2024arc", "2024cmptx", "2024cur", "2024dal", "2024gal", "2024hop", "2024johnson", "2024milstein", "2024new"]
+        self.AT_EVENT_KEY = "2024cc"
+        self.CURRENT_EVENT_KEYS = ["2024cc"]
         self.CURRENT_YEAR_KEY = "2024"
         self.EVENT_KEYS = self.event_api_instance.get_events_by_year_keys(int(self.CURRENT_YEAR_KEY))
         # Initialize Fields
@@ -127,7 +127,7 @@ class TBAData:
         self.at_event_data = self.event_to_match_data[self.AT_EVENT_KEY]
 
         print("Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds")
-        print(self.event_to_match_data["2024pncmp"])
+        # print(self.event_to_match_data["2024pncmp"])
         print("Writing to File...")
         self.write_to_file(file)
         print("Writing to File Complete")

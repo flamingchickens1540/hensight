@@ -50,26 +50,19 @@
 
     const myTeam = '1000'
 
-    async function getNexusData() {
-        const response = await fetch('/getnexusdata')
+    async function getRankings() {
+        const response = await fetch('/getranking')
         let data = await response.json()
-        console.log('Nexus data')
-        console.log(data)
-        let upmatches = data[4]
+        console.log('rankings')
+        // console.log(data)
         let html = ''
-        for (let i = 0; i<upmatches.length; i++) {
-            console.log(upmatches[i])
-            if (data[4] != ''){html += upmatches[i]['label']+": "+upmatches[i]['status']} else {upmatch.innerHTML = 'Team '+myTeam+' does not have any upcomming matches'}
+        for (i = 0; i<data.length; i++) {
+            // console.log('data[i]'+data[i])
+            html += data[i]
             html += '<br>'
         }
-        upmatch.innerHTML = html
-        nextMatch = upmatches[0]
-        let nextColor = 'ERROR'
-        for (let i = 0; i<nextMatch['blueTeams'].length; i++) {
-            if (nextMatch['blueTeams'][i] == myTeam) {nextColor = 'blue'}
-            else if (nextMatch['redTeams'][i] == myTeam) {nextColor = 'red'}
-        }
-        nextup.innerHTML = 'Your next match is '+nextMatch['label']+' and is '+nextMatch['status']+'<br>You will be wearing the '+nextColor+' bumbers'+'<br>Blue Alliance: '+nextMatch['blueTeams']+'<br>Red Teams: '+nextMatch['redTeams']}
+        rank.innerHTML = html
+    }
     //  async function getStatBotData() {
     //     console.log('Stat bot data')
     //     const response = await fetch('/getstatbotdata')
@@ -77,7 +70,7 @@
     //     stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
 
     //  }
-    getNexusData()
+    getRankings()
     // getStatBotData()
     // getFunFact()
     setInterval(everySeccond, 1000)
@@ -87,7 +80,7 @@
     }
     setInterval(every30s, 30000)
     function every30s() {
-        getNexusData()
+        getRankings()
         // getStatBotData()
     }
 
@@ -95,8 +88,8 @@
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
     <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
     <div id="thediv">
-        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch">Loading...</div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="rank">Loading...</div>
+        <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
         <div class="inner-div grid col-start-1  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_schedule'">Schedule</div>
         <div class="inner-div grid col-start-2  row-start-3" style="font-size: 2rem;">Play Offs</div>
         <div class="inner-div grid col-start-3  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_rip_off'">Main</div>

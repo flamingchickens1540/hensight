@@ -8,6 +8,7 @@ from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import nexusData
 from statbotData import getTeam
+from tbaPulseData import getRankings
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -24,8 +25,8 @@ TBAData = TBAData()
 # TBAData.load_events("data.txt")
 #
 #
+TBAData.update_current_event_data("data.txt")
 TBAData.load_from_file("data.txt")
-# TBAData.update_current_event_data("data.txt")
 
 # #
 hensightStats = HensightStatsManager(TBAData)
@@ -89,6 +90,9 @@ def getNextMatch():
 @app.route("/getstatbotdata")
 def getStatBotData():
     return getTeam()
+@app.route("/getranking")
+def getRanking():
+    return getRankings()
 
 
 
@@ -190,5 +194,5 @@ def CHICKEN_SPIN():
     return render_template('chickenspin.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
     print("hi")
