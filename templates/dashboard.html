@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true]
-    var idlist = ['eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'compare_auto_notes', 'melody_rp']
+    var toggle_list = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, true, true, true, true, false, false, false, false, true]
+    var idlist = ['thanks_msg','eggs_match', 'feathers', 'chickenotes','weight','eggs_season','roboname', 'chickenoise', 'chickeneat', 'cycles', 'battery', 'event_total_notes', 'event_trap_notes', 'event_high_score', 'spotlight_percent', 'global_total_notes', 'global_high_score', 'event_speaker_notes', 'global_amp_notes', 'event_travel', 'global_travel', 'event_alliance_score', 'global_amplified_speaker', 'global_auto_notes', 'current_auto_notes', 'global_tele_notes', 'current_tele_notes', 'event_tele_notes', 'total_rp', 'coop', 'melody_rp', 'ensemble_rp', 'logo_dvd']
     function updateColors(){
         for (let i = 0; i < idlist.length; i++) {
             console.log('updating: ', document.getElementById(idlist[i]))
@@ -21,6 +21,7 @@
             property.style.backgroundColor = "#ff0800"
             toggle_list[toggle_number] = !toggle_list[toggle_number]
         }
+        update()
     }
     async function update() {
         console.log("update")
@@ -139,7 +140,8 @@
             padding: 0;
             overflow: hidden;
             position: relative;
-            border: 10px solid #FFC145;
+            border: 10px solid;
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
             /* Adjust border width as needed */
             height: 100%;
             width: 98%;
@@ -156,6 +158,7 @@
             <center><img src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif" alt=""style="padding-right: 50%;"></center>
         </div>
         <div class="grid-container" id="bigdiv">
+            <div class="indev"><center><h4>Thanks Message</h4><button class="switchbutton" id="thanks_msg" onclick="setColor('thanks_msg', 0)">Toggle</button></center></div>
             <div class="indev"><center><h4>Eggs in match</h4><button class="switchbutton" id="eggs_match" onclick="setColor('eggs_match', 1)">Toggle</button></center></div>
             <div class="indev"><center><h4>Feathers</h4><button class="switchbutton" id="feathers" onclick="setColor('feathers', 2)">Toggle</button></center></div>
             <div class="indev"><center><h4>Chicken Notes</h4><button class="switchbutton" id="chickenotes" onclick="setColor('chickenotes', 3)">Toggle</button></center></div>
@@ -178,8 +181,16 @@
             <div class="indev"><center><h4>Global Travel</h4><button class="switchbutton" id="global_travel" onclick="setColor('global_travel', 20)">Toggle</button></center></div>
             <div class="indev"><center><h4>Event Alliance Score</h4><button class="switchbutton" id="event_alliance_score" onclick="setColor('event_alliance_score', 21)">Toggle</button></center></div>
             <div class="indev"><center><h4>Global Amplifed Speaker</h4><button class="switchbutton" id="global_amplified_speaker" onclick="setColor('global_amplified_speaker', 22)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Compare Auto Notes</h4><button class="switchbutton" id="compare_auto_notes" onclick="setColor('compare_auto_notes', 23)">Toggle</button></center></div>
-            <div class="indev"><center><h4>Global Melody Percentage</h4><button class="switchbutton" id="melody_rp" onclick="setColor('melody_rp', 24)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Auto Notes</h4><button class="switchbutton" id="global_auto_notes" onclick="setColor('global_auto_notes', 23)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Current Auto Notes</h4><button class="switchbutton" id="current_auto_notes" onclick="setColor('current_auto_notes', 24)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Global Tele Notes</h4><button class="switchbutton" id="global_tele_notes" onclick="setColor('global_tele_notes', 25)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Current Tele Notes</h4><button class="switchbutton" id="current_tele_notes" onclick="setColor('current_tele_notes', 26)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Event Tele Notes</h4><button class="switchbutton" id="event_tele_notes" onclick="setColor('event_tele_notes', 27)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Total RP</h4><button class="switchbutton" id="total_rp" onclick="setColor('total_rp', 28)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Co-op Percentage</h4><button class="switchbutton" id="coop" onclick="setColor('coop', 29)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Melody RP Percentage</h4><button class="switchbutton" id="melody_rp" onclick="setColor('melody_rp', 30)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Ensemble RP Percentage</h4><button class="switchbutton" id="ensemble_rp" onclick="setColor('ensemble_rp', 31)">Toggle</button></center></div>
+            <div class="indev"><center><h4>Logo DVD</h4><button class="switchbutton" id="logo_dvd" onclick="setColor('logo_dvd', 32)">Toggle</button></center></div>
         </div>
     </div>
 </body>

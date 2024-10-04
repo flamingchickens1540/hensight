@@ -93,15 +93,19 @@
         <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup"></div>
         <div class="inner-div grid col-start-1 col-end-4 row-start-3" id="announcements">There are currently no announcements</div>
         <div class="inner-div grid col-start-1 col-end-4 row-start-4" id="requests">There are currently no part requests</div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-5" id="stats"></div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-5" id="stats">Loading...</div>
         <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <div class="inner-div grid col-start-1  row-start-6" style="font-size: 2rem;" onclick="window.location.href = '/pulse_schedule'">Schedule</div>
-        <div class="inner-div grid col-start-2  row-start-6" style="font-size: 2rem;">Play Offs</div>
-        <div class="inner-div grid col-start-3  row-start-6" style="font-size: 2rem;" onclick="window.location.href = '/pulse_ranking'">Ranking</div>
+        <div class="inner-div btn grid col-start-1  row-start-6" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
+        <div class="inner-div btn border grid col-start-2  row-start-6" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-6" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
 
     </div>
 </body>
 <style>
+    .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
     h2 {
         font-size:13rem;
         color: #FFC145;
@@ -134,8 +138,11 @@
             transform: translate(-50%);
             grid-gap: 2%;
         }
+        .btn {
+            width: 80%;
+        }
         .inner-div {
-            padding: 5%;
+            padding: 2%;
             border-radius: 5px;
             color: #FFFFFF;
             font-family: "Poppins", sans-serif;
@@ -143,7 +150,7 @@
             font-style: normal;
             text-align: center;
             margin: auto;
-            font-size: 2.5rem;
+            font-size: 3rem;
             width: 100%;
             height: fit-content;
             border-color: #FFC145;

@@ -49,6 +49,7 @@
     });
 
     const myTeam = '1000' // TESTING! change to 1540 before using at events
+    const eventKey = '2024cc'
 
     async function getNexusData() {
         const response = await fetch('/getnexusdata')
@@ -57,10 +58,16 @@
         console.log(data)
         let upmatches = data[4]
         let html = ''
-        for (let i = 0; i<upmatches.length; i++) {
-            console.log(upmatches[i])
-            if (data[4] != ''){html += upmatches[i]['label']+": "+upmatches[i]['status']} else {upmatch.innerHTML = 'Team '+myTeam+' does not have any upcomming matches'}
-            html += '<br>'
+        if (upmatches.length == 0) {
+            html = myTeam+' does not have any upcoming matches'
+            nextup.innerHTML = myTeam+' does not have any upcoming matches'
+        }
+        else {
+            for (let i = 0; i<upmatches.length; i++) {
+                // console.log(upmatches[i])
+                if (data[4] != ''){html += upmatches[i]['label']+": "+upmatches[i]['status']} else {upmatch.innerHTML = 'Team '+myTeam+' does not have any upcomming matches'}
+                html += '<br>'
+            }
         }
         upmatch.innerHTML = html
         nextMatch = upmatches[0]
@@ -69,8 +76,20 @@
             if (nextMatch['blueTeams'][i] == myTeam) {nextColor = 'blue'}
             else if (nextMatch['redTeams'][i] == myTeam) {nextColor = 'red'}
         }
-        nextup.innerHTML = 'Your next match is '+nextMatch['label']+' and is '+nextMatch['status']+'<br>You will be wearing the '+nextColor+' bumbers'+'<br>Blue Alliance: '+nextMatch['blueTeams']+'<br>Red Teams: '+nextMatch['redTeams']}
-    //  async function getStatBotData() {
+        if (nextColor == 'blue') colorhtml = '<div id="bluebumper">You will be wearing the '+nextColor+' bumbers</div>'
+        else if (nextColor = 'red') colorhtml = '<div id="redbumper">You will be wearing the '+nextColor+' bumbers</div>'
+
+        nextup.innerHTML = 'Your next match is '+nextMatch['label']+' and is '+nextMatch['status']+colorhtml+'Blue Alliance: '+nextMatch['blueTeams']+'<br>Red Teams: '+nextMatch['redTeams']}
+    
+    async function getPrediction() {
+        const response = await fetch('/getprediction')
+        let data = await response.json()
+        matchPrediction = data['match_predictions']
+        console.log('predection')
+        // console.log(matchPrediction)
+        console.log(nextMatch)
+    }
+        //  async function getStatBotData() {
     //     console.log('Stat bot data')
     //     const response = await fetch('/getstatbotdata')
     //     let data = await response.json()
@@ -78,6 +97,7 @@
 
     //  }
     getNexusData()
+    getPrediction()
     // getStatBotData()
     // getFunFact()
     setInterval(everySeccond, 1000)
@@ -88,6 +108,7 @@
     setInterval(every30s, 30000)
     function every30s() {
         getNexusData()
+        getPrediction()
         // getStatBotData()
     }
 
@@ -97,12 +118,30 @@
     <div id="thediv">
         <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch">Loading...</div>
         <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div>
-        <div class="inner-div grid col-start-1  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_rip_off'">Main</div>
-        <div class="inner-div grid col-start-2  row-start-3" style="font-size: 2rem;">Play Offs</div>
-        <div class="inner-div grid col-start-3  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_ranking'">Ranking</div>
+        <div class="inner-div btn grid col-start-1  row-start-3" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
+        <div class="inner-div btn border grid col-start-2  row-start-3" onclick="window.location.href='/menu'" style="font-size: 2.5rem;">Main menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-3" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
     </div>
 </body>
 <style>
+    .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
+    #bluebumper {
+        color: white;
+        text-shadow: -5px 5px 0 blue,
+                      5px 5px 0 blue,
+                      5px -5px 0 blue,
+                      -5px -5px 0 blue;
+    }
+    #redbumper {
+        color: white;
+        text-shadow: -5px 5px 0 red,
+                      5px 5px 0 red,
+                      5px -5px 0 red,
+                      -5px -5px 0 red;
+    }
     h2 {
         font-size:13rem;
         color: #FFC145;
@@ -125,6 +164,7 @@
             display: grid;
             grid-template-columns: 4;
             grid-template-rows: 7;
+            grid-gap: 2%;
             width: 95%;
             height: 95%;
             position: absolute;
@@ -133,6 +173,9 @@
             top: 7%;
             left: 50%;
             transform: translate(-50%);
+        }
+        .btn {
+            width: 80%;
         }
         .inner-div {
             padding: 2%;

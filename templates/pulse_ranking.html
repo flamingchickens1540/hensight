@@ -90,12 +90,16 @@
     <div id="thediv">
         <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="rank">Loading...</div>
         <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
-        <div class="inner-div grid col-start-1  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_schedule'">Schedule</div>
-        <div class="inner-div grid col-start-2  row-start-3" style="font-size: 2rem;">Play Offs</div>
-        <div class="inner-div grid col-start-3  row-start-3" style="font-size: 2rem;" onclick="window.location.href = '/pulse_rip_off'">Main</div>
+        <div class="inner-div btn grid col-start-1  row-start-2" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
+        <div class="inner-div btn border grid col-start-2  row-start-2" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-2" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
     </div>
 </body>
 <style>
+        .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
     h2 {
         font-size:13rem;
         color: #FFC145;
@@ -116,8 +120,7 @@
         }
         #thediv {
             display: grid;
-            grid-template-columns: 4;
-            grid-template-rows: 7;
+            grid-gap: 2%;
             width: 95%;
             height: 95%;
             position: absolute;
@@ -126,6 +129,9 @@
             top: 7%;
             left: 50%;
             transform: translate(-50%);
+        }
+        .btn {
+            width: 80%;
         }
         .inner-div {
             padding: 2%;
