@@ -1,36 +1,20 @@
-<head>  
+<head>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
-        </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+    </style>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
+        rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/common.js"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    function getTime() {
-        var d = new Date
-        var hours = d.getHours()   
-        var mins = d.getMinutes()
-        var sec = d.getSeconds()
-        var h = ('00'+hours).slice(-2);
-        if (h > 12) {h -= 12}
-        var m = ('00'+mins).slice(-2);
-        var s = ('00'+sec).slice(-2);
-        var time = h+':'+m+':'+s
-        document.getElementById('time').innerHTML = time
-    }
-    var elem = document.documentElement;
-    function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    }
-    }
-    var idle_secconds = 0
-    var fact_secconds = 0
+    let idle_secconds = 0;
+    let fact_secconds = 0;
     function incrementSeconds() {
-        idle_secconds++
+        idle_secconds++;
         // fact_secconds++
         // console.log('idle for:',idle_secconds, 'seccond')
         // console.log('fact secconds: ',fact_secconds)
@@ -43,9 +27,9 @@
         // }
     }
 
-    window.addEventListener('touchstart', function() {
-    idle_secconds = 0
-    console.log('reset')
+    window.addEventListener("touchstart", () => {
+        idle_secconds = 0;
+        console.log("reset");
     });
 
     const myTeam = '1000' // TESTING! change to 1540 before using at events
@@ -90,6 +74,7 @@
         console.log(nextMatch)
     }
         //  async function getStatBotData() {
+    //  async function getStatBotData() {
     //     console.log('Stat bot data')
     //     const response = await fetch('/getstatbotdata')
     //     let data = await response.json()
@@ -100,10 +85,10 @@
     getPrediction()
     // getStatBotData()
     // getFunFact()
-    setInterval(everySeccond, 1000)
+    setInterval(everySeccond, 1000);
     function everySeccond() {
-        incrementSeconds()
-        getTime()
+        incrementSeconds();
+        getTime();
     }
     setInterval(every30s, 30000)
     function every30s() {
@@ -111,10 +96,16 @@
         getPrediction()
         // getStatBotData()
     }
-
 </script>
-<body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
-    <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
+<body
+    style="background-color: #1c1c1c"
+    onclick="openFullscreen()"
+    onload="getTime()"
+>
+    <div id="header">
+        <h1 id="title" class="row-start-1 col-start-1">Hensight</h1>
+        <h1 id="time" class="row-start-1 col-start-2"></h1>
+    </div>
     <div id="thediv">
         <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch">Loading...</div>
         <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div>
@@ -143,12 +134,12 @@
                       -5px -5px 0 red;
     }
     h2 {
-        font-size:13rem;
-        color: #FFC145;
+        font-size: 13rem;
+        color: #ffc145;
     }
     h3 {
         font-size: 13rem;
-        color: #FFC145;
+        color: #ffc145;
     }
 
             body {
@@ -199,33 +190,33 @@
             height: 475px;
             background: linear-gradient(to right, red, )
         } */
-	h4{
-color: #FFFFFF;
-margin: 0.5rem;
-font-family: "Poppins", sans-serif;
-font-weight: 700;
-font-style: normal;
-font-size: 3rem;
-border-radius: 5px;
-	}
+    h4 {
+        color: #ffffff;
+        margin: 0.5rem;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 3rem;
+        border-radius: 5px;
+    }
     #header {
         display: grid;
         grid-template-columns: 2;
         grid-template-rows: 1;
     }
     #title {
-        background-color: #FFC145;
+        background-color: #ffc145;
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 5rem;
-        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848);
+        background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
         background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: auto;
     }
     #time {
-        color: #FFC145;
+        color: #ffc145;
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         font-style: normal;
