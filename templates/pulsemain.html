@@ -1,8 +1,11 @@
-<head>  
+<head>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
-        </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+    </style>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
+        rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -21,16 +24,17 @@
     }
     var elem = document.documentElement;
     function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        }
     }
-    }
-    var idle_secconds = 0
-    var fact_secconds = 0
+    var idle_secconds = 0;
+    var fact_secconds = 0;
     function incrementSeconds() {
-        idle_secconds++
+        idle_secconds++;
         // fact_secconds++
         // console.log('idle for:',idle_secconds, 'seccond')
         // console.log('fact secconds: ',fact_secconds)
@@ -43,51 +47,77 @@
         // }
     }
 
-    window.addEventListener('touchstart', function() {
-    idle_secconds = 0
-    console.log('reset')
+    window.addEventListener("touchstart", function () {
+        idle_secconds = 0;
+        console.log("reset");
     });
 
     async function getNexusData() {
-        const response = await fetch('/getnexusdata')
-        let data = await response.json()
-        console.log('Nexus data')
-        upmatch.innerHTML = data[0]
-        if (data[1] != '') {announcements.innerHTML = data[1]} else {announcements.innerHTML = 'There are no announcements at this time'}
-        if (data[2] != '') {requests.innerHTML = data[2]} else {requests.innerHTML = 'There are no part requests at this time'}
-        if (data[3] != '') {nextup.innerHTML = 'Now Queuing: '+data[3]} else {nextup.innerHTML = 'There are currently no matches queuing'}
-     }
-     async function getStatBotData() {
-        console.log('Stat bot data')
-        const response = await fetch('/getstatbotdata')
-        let data = await response.json()
-        stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
-
-     }
-     async function getFunFact() {
-        console.log('fun fact')
-        const response = await fetch('/jsonrequest')
-        let data = await response.json()
-        if (data[0].length > 500) {console.log('too long: '+data[0].length)}
-        else {fact.innerHTML = data[0]}
-     }
-    getNexusData()
-    getStatBotData()
+        const response = await fetch("/getnexusdata");
+        let data = await response.json();
+        console.log("Nexus data");
+        upmatch.innerHTML = data[0];
+        if (data[1] != "") {
+            announcements.innerHTML = data[1];
+        } else {
+            announcements.innerHTML = "There are no announcements at this time";
+        }
+        if (data[2] != "") {
+            requests.innerHTML = data[2];
+        } else {
+            requests.innerHTML = "There are no part requests at this time";
+        }
+        if (data[3] != "") {
+            nextup.innerHTML = "Now Queuing: " + data[3];
+        } else {
+            nextup.innerHTML = "There are currently no matches queuing";
+        }
+    }
+    async function getStatBotData() {
+        console.log("Stat bot data");
+        const response = await fetch("/getstatbotdata");
+        let data = await response.json();
+        stats.innerHTML =
+            "Total EPA: " +
+            data[0] +
+            " | Wins: " +
+            data[1] +
+            " | Losses: " +
+            data[2];
+    }
+    async function getFunFact() {
+        console.log("fun fact");
+        const response = await fetch("/jsonrequest");
+        let data = await response.json();
+        if (data[0].length > 500) {
+            console.log("too long: " + data[0].length);
+        } else {
+            fact.innerHTML = data[0];
+        }
+    }
+    getNexusData();
+    getStatBotData();
     // getFunFact()
-    setInterval(everySeccond, 1000)
+    setInterval(everySeccond, 1000);
     function everySeccond() {
-        incrementSeconds()
-        getTime()
+        incrementSeconds();
+        getTime();
     }
     setInterval(every30s, 30000)
     function every30s() {
         getNexusData()
         getStatBotData()
     }
-
 </script>
-<body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
-    <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
+<body
+    style="background-color: #1c1c1c"
+    onclick="openFullscreen()"
+    onload="getTime()"
+>
+    <div id="header">
+        <h1 id="title" class="row-start-1 col-start-1">Hensight</h1>
+        <h1 id="time" class="row-start-1 col-start-2"></h1>
+    </div>
     <div id="thediv">
         <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch"></div>
         <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup"></div>
@@ -107,14 +137,13 @@
         border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
     }
     h2 {
-        font-size:13rem;
-        color: #FFC145;
+        font-size: 13rem;
+        color: #ffc145;
     }
     h3 {
         font-size: 13rem;
-        color: #FFC145;
+        color: #ffc145;
     }
-
             body {
             margin: 0;
             padding: 0;
@@ -163,33 +192,33 @@
             height: 475px;
             background: linear-gradient(to right, red, )
         } */
-	h4{
-color: #FFFFFF;
-margin: 0.5rem;
-font-family: "Poppins", sans-serif;
-font-weight: 700;
-font-style: normal;
-font-size: 3rem;
-border-radius: 5px;
-	}
+    h4 {
+        color: #ffffff;
+        margin: 0.5rem;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 3rem;
+        border-radius: 5px;
+    }
     #header {
         display: grid;
         grid-template-columns: 2;
         grid-template-rows: 1;
     }
     #title {
-        background-color: #FFC145;
+        background-color: #ffc145;
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 5rem;
-        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848);
+        background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
         background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: auto;
     }
     #time {
-        color: #FFC145;
+        color: #ffc145;
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         font-style: normal;
