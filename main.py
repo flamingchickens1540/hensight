@@ -6,7 +6,8 @@ import schedule
 import threading
 from flask import Flask, render_template, send_file
 from flask import request
-
+from nexusData import nexusData
+from statbotData import getTeam
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -35,7 +36,7 @@ def update_this_event():
     TBAData.update_current_event_data("data.txt")
     print("---update finished---")
 
-# schedule.every(5).minutes.do(update_this_event)
+# schedule.every(3).minutes.do(update_this_event)
 
 def loop():
     # print("-fnc run-")
@@ -72,9 +73,23 @@ toggle_list = [True, True, True, True, True, True, True, True, True, True, True,
 def index():
     return render_template('hensight.html')
 
-@app.route('/menu')
-def menu():
-    return render_template('menu.html')
+@app.route('/pulse_rip_off')
+def pulseRipOff():
+    return render_template('pulsemain.html')
+@app.route('/pulse_schedule')
+def pulseSchedule():
+    return render_template('pulse_schedule.html')
+@app.route('/pulse_ranking')
+def pulseRanking():
+    return render_template('pulse_ranking.html')
+
+@app.route("/getnexusdata")
+def getNextMatch():
+    return nexusData()
+@app.route("/getstatbotdata")
+def getStatBotData():
+    return getTeam()
+
 
 
 @app.route("/autos")
