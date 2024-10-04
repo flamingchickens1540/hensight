@@ -1,0 +1,192 @@
+<head>  
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+        </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function getTime() {
+        var d = new Date
+        var hours = d.getHours()   
+        var mins = d.getMinutes()
+        var sec = d.getSeconds()
+        var h = ('00'+hours).slice(-2);
+        if (h > 12) {h -= 12}
+        var m = ('00'+mins).slice(-2);
+        var s = ('00'+sec).slice(-2);
+        var time = h+':'+m+':'+s
+        document.getElementById('time').innerHTML = time
+    }
+    var elem = document.documentElement;
+    function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    }
+    }
+    var idle_secconds = 0
+    var fact_secconds = 0
+    function incrementSeconds() {
+        idle_secconds++
+        // fact_secconds++
+        // console.log('idle for:',idle_secconds, 'seccond')
+        // console.log('fact secconds: ',fact_secconds)
+        if (idle_secconds >= 120) {
+            // window.location.href = "/";
+        }
+        // if (fact_secconds >= 10) {
+        //     fact_secconds = 0
+        //     getFunFact()
+        // }
+    }
+
+    window.addEventListener('touchstart', function() {
+    idle_secconds = 0
+    console.log('reset')
+    });
+
+    const myTeam = '1000'
+
+    async function getRankings() {
+        const response = await fetch('/getranking')
+        let data = await response.json()
+        console.log('rankings')
+        // console.log(data)
+        let html = ''
+        for (i = 0; i<data.length; i++) {
+            // console.log('data[i]'+data[i])
+            html += data[i]
+            html += '<br>'
+        }
+        rank.innerHTML = html
+    }
+    //  async function getStatBotData() {
+    //     console.log('Stat bot data')
+    //     const response = await fetch('/getstatbotdata')
+    //     let data = await response.json()
+    //     stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
+
+    //  }
+    getRankings()
+    // getStatBotData()
+    // getFunFact()
+    setInterval(everySeccond, 1000)
+    function everySeccond() {
+        incrementSeconds()
+        getTime()
+    }
+    setInterval(every30s, 30000)
+    function every30s() {
+        getRankings()
+        // getStatBotData()
+    }
+
+</script>
+<body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
+    <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
+    <div id="thediv">
+        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="rank">Loading...</div>
+        <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
+        <div class="inner-div btn grid col-start-1  row-start-2" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
+        <div class="inner-div btn border grid col-start-2  row-start-2" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-2" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
+    </div>
+</body>
+<style>
+        .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
+    h2 {
+        font-size:13rem;
+        color: #FFC145;
+    }
+    h3 {
+        font-size: 13rem;
+        color: #FFC145;
+    }
+
+            body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+            height: calc(100vh);
+			overflow: hidden; /* Hide scrollbars */
+        }
+        #thediv {
+            display: grid;
+            grid-gap: 2%;
+            width: 95%;
+            height: 95%;
+            position: absolute;
+            padding: 1%;
+            margin: auto;
+            top: 7%;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        .btn {
+            width: 80%;
+        }
+        .inner-div {
+            padding: 2%;
+            border-radius: 5px;
+            color: #FFFFFF;
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            text-align: center;
+            margin: auto;
+            font-size: 3rem;
+            width: 100%;
+            height: fit-content;
+            border-color: #FFC145;
+            border-width: 6px;
+            border-style: solid;
+        }
+        /* .border {
+            position: relative;
+            width: 475px;
+            height: 475px;
+            background: linear-gradient(to right, red, )
+        } */
+	h4{
+color: #FFFFFF;
+margin: 0.5rem;
+font-family: "Poppins", sans-serif;
+font-weight: 700;
+font-style: normal;
+font-size: 3rem;
+border-radius: 5px;
+	}
+    #header {
+        display: grid;
+        grid-template-columns: 2;
+        grid-template-rows: 1;
+    }
+    #title {
+        background-color: #FFC145;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 5rem;
+        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: auto;
+    }
+    #time {
+        color: #FFC145;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 5rem;
+        text-align: center;
+        margin: auto;
+    }
+</style>

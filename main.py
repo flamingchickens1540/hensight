@@ -1,13 +1,14 @@
-from flask import Flask, render_template, send_file, request
-import os
-import time
+from flask import Flask, render_template
+from flask import request
+# import time
 import random
 import schedule
 import threading
 from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import nexusData
-from statbotData import statbot
+from statbotData import getTeam
+from tbaPulseData import getRankings, getPrediction
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -22,9 +23,8 @@ app = Flask(__name__)
 TBAData = TBAData()
 
 # TBAData.load_events("data.txt")
-
-if os.path.isfile("data.txt"):
-    TBAData.load_from_file("data.txt")
+#
+#
 TBAData.update_current_event_data("data.txt")
 TBAData.load_from_file("data.txt")
 
@@ -37,7 +37,7 @@ def update_this_event():
     TBAData.update_current_event_data("data.txt")
     print("---update finished---")
 
-schedule.every(3).minutes.do(update_this_event)
+# schedule.every(3).minutes.do(update_this_event)
 
 def loop():
     # print("-fnc run-")
@@ -51,16 +51,15 @@ b.start()
 def make_graph() -> list[str]:
 
     listofresults = [
-        thank_msg(toggle_list[0]), eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]),
-        chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]),
-        chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]),
-        battery(toggle_list[10]), event_total_notes(toggle_list[11], event_toggle),
-        event_trap_notes(toggle_list[12], event_toggle), event_high_score(toggle_list[13], event_toggle), spotlight_percent(toggle_list[14], event_toggle),
-        global_total_notes(toggle_list[15]), global_high_score(toggle_list[16]), event_speaker_notes(toggle_list[17], event_toggle),
-        global_amp_notes(toggle_list[18]), event_travel(toggle_list[19], event_toggle), global_travel(toggle_list[20]), event_alliance_score(toggle_list[21], event_toggle),global_amplified_speaker(toggle_list[22]), global_auto_notes(toggle_list[23]),
-        current_auto_notes(toggle_list[24], current_toggle), global_tele_notes(toggle_list[25]), current_tele_notes(toggle_list[26], current_toggle), event_tele_notes(toggle_list[27], event_toggle),
-        total_rp(toggle_list[28]), coop(toggle_list[29]), global_melody_rp(toggle_list[30]), global_ensemble_rp(toggle_list[31]), logodvd(toggle_list[32])
-    ]
+                        eggs_in_match(toggle_list[1]), feather_message(toggle_list[2]), chicken_notes(toggle_list[3]),
+                        chicken_weight(toggle_list[4]), eggs_in_season(toggle_list[5], True), robo_name(toggle_list[6]),
+                        chicken_noise(toggle_list[7]), chicken_eat(toggle_list[8]), chicken_cycles(toggle_list[9]),
+                        battery(toggle_list[10]), event_total_notes(toggle_list[11], event_toggle),
+                        event_trap_notes(toggle_list[12], event_toggle), event_high_score(toggle_list[13], event_toggle), spotlight_percent(toggle_list[14], event_toggle),
+                        global_total_notes(toggle_list[15]), global_high_score(toggle_list[16]), event_speaker_notes(toggle_list[17], event_toggle),
+                        global_amp_notes(toggle_list[18]), event_travel(toggle_list[19], event_toggle), global_travel(toggle_list[20]), event_alliance_score(toggle_list[21], event_toggle),
+                        # global_amplified_speaker(toggle_list[22]), compare_auto_notes(toggle_list[23], event_toggle), melody_rp(toggle_list[24])
+                     ]
     reallist = []
     for result in listofresults:
         if result != "bad":
@@ -68,15 +67,7 @@ def make_graph() -> list[str]:
     return reallist
 
 event_toggle = True
-current_toggle = False
-toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, False, True, True, True, False, False, True, True, True, True, True, True, False, False, False, False, False, True]
-# i = 0
-# print('--- start')
-# for v in toggle_list:
-#     print('loop')
-#     toggle_list[i] = not v
-#     i+=1
-# print('--- finish')
+toggle_list = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, True, False, True, True, True, True]
 
 
 @app.route("/")
@@ -89,13 +80,22 @@ def pulseRipOff():
 @app.route('/pulse_schedule')
 def pulseSchedule():
     return render_template('pulse_schedule.html')
+@app.route('/pulse_ranking')
+def pulseRanking():
+    return render_template('pulse_ranking.html')
+
 @app.route("/getnexusdata")
 def getNextMatch():
     return nexusData()
 @app.route("/getstatbotdata")
 def getStatBotData():
-    return statbot()
-
+    return getTeam()
+@app.route("/getranking")
+def getRanking():
+    return getRankings()
+@app.route("/getprediction")
+def prediction():
+    return getPrediction()
 
 
 @app.route("/autos")
@@ -223,4 +223,5 @@ def games():
 def crossy():
     return render_template('crossy.html')
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
+    print("hi")

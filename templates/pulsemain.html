@@ -11,16 +11,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     function getTime() {
-        var d = new Date();
-        var hours = d.getHours();
-        var mins = d.getMinutes();
-        var sec = d.getSeconds();
-        var h = ("00" + hours).slice(-2);
-        // if (h > 12) {h -= 12}
-        var m = ("00" + mins).slice(-2);
-        var s = ("00" + sec).slice(-2);
-        var time = h + ":" + m + ":" + s;
-        document.getElementById("time").innerHTML = time;
+        var d = new Date
+        var hours = d.getHours()   
+        var mins = d.getMinutes()
+        var sec = d.getSeconds()
+        var h = ('00'+hours).slice(-2);
+        if (h > 12) {h -= 12}
+        var m = ('00'+mins).slice(-2);
+        var s = ('00'+sec).slice(-2);
+        var time = h+':'+m+':'+s
+        document.getElementById('time').innerHTML = time
     }
     var elem = document.documentElement;
     function openFullscreen() {
@@ -103,10 +103,10 @@
         incrementSeconds();
         getTime();
     }
-    setInterval(everyMin, 60000);
-    function everyMin() {
-        getNexusData();
-        getStatBotData();
+    setInterval(every30s, 30000)
+    function every30s() {
+        getNexusData()
+        getStatBotData()
     }
 </script>
 <body
@@ -119,55 +119,23 @@
         <h1 id="time" class="row-start-1 col-start-2"></h1>
     </div>
     <div id="thediv">
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-1"
-            id="upmatch"
-        ></div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-2"
-            id="nextup"
-        ></div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-3"
-            id="announcements"
-        >
-            There are currently no announcements
-        </div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-4"
-            id="requests"
-        >
-            There are currently no part requests
-        </div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-5"
-            id="stats"
-        ></div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch"></div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup"></div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-3" id="announcements">There are currently no announcements</div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-4" id="requests">There are currently no part requests</div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-5" id="stats">Loading...</div>
         <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <div
-            class="inner-div grid col-start-1 row-start-6"
-            style="font-size: 2rem"
-            onclick="window.location.href = '/pulse_schedule'"
-        >
-            Schedule
-        </div>
-        <div
-            class="inner-div grid col-start-2 row-start-6"
-            style="font-size: 2rem"
-            onclick="window.location.href = '/pulse_schedule'"
-        >
-            Play Offs
-        </div>
-        <div
-            class="inner-div grid col-start-3 row-start-6"
-            style="font-size: 2rem"
-            onclick="window.location.href = '/pulse_schedule'"
-        >
-            Ranking
-        </div>
+        <div class="inner-div btn grid col-start-1  row-start-6" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
+        <div class="inner-div btn border grid col-start-2  row-start-6" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-6" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
+
     </div>
 </body>
 <style>
+    .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
     h2 {
         font-size: 13rem;
         color: #ffc145;
@@ -176,47 +144,49 @@
         font-size: 13rem;
         color: #ffc145;
     }
-
-    body {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-        height: calc(100vh);
-        overflow: hidden; /* Hide scrollbars */
-    }
-    #thediv {
-        display: grid;
-        grid-template-columns: 3;
-        grid-template-rows: 6;
-        width: 95%;
-        height: 95%;
-        position: absolute;
-        padding: 1%;
-        margin: auto;
-        top: 7%;
-        left: 50%;
-        transform: translate(-50%);
-        grid-gap: 2%;
-    }
-    .inner-div {
-        padding: 5%;
-        border-radius: 5px;
-        color: #ffffff;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        text-align: center;
-        margin: auto;
-        font-size: 2.5rem;
-        width: 100%;
-        height: fit-content;
-        border-color: #ffc145;
-        border-width: 6px;
-        border-style: solid;
-    }
-    /* .border {
+            body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+            height: calc(100vh);
+			overflow: hidden; /* Hide scrollbars */
+        }
+        #thediv {
+            display: grid;
+            grid-template-columns: 3;
+            grid-template-rows: 6;
+            width: 95%;
+            height: 95%;
+            position: absolute;
+            padding: 1%;
+            margin: auto;
+            top: 7%;
+            left: 50%;
+            transform: translate(-50%);
+            grid-gap: 2%;
+        }
+        .btn {
+            width: 80%;
+        }
+        .inner-div {
+            padding: 2%;
+            border-radius: 5px;
+            color: #FFFFFF;
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            text-align: center;
+            margin: auto;
+            font-size: 3rem;
+            width: 100%;
+            height: fit-content;
+            border-color: #FFC145;
+            border-width: 6px;
+            border-style: solid;
+        }
+        /* .border {
             position: relative;
             width: 475px;
             height: 475px;
