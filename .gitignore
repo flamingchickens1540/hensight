@@ -3,6 +3,7 @@
 ..bfg-report/
 static/FriedEgg.glb/
 __pycache__/
+node_modules/
 data.txt
 static/AmpLanePADEF.traj
 static/asdf.gltf
