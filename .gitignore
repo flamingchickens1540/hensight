@@ -1,6 +1,7 @@
 .env
 .vscode/
 ..bfg-report/
+**/.DS_Store
 static/FriedEgg.glb/
 __pycache__/
 node_modules/
