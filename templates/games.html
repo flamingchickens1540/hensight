@@ -1,134 +1,155 @@
-<head>  
+<head>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
-        </style> 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+    </style>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
+        rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     function getTime() {
-        var d = new Date
-        var hours = d.getHours()
-        var mins = d.getMinutes()
-        var sec = d.getSeconds()
-        var h = ('00'+hours).slice(-2);
-        if (h > 12) {h -= 12}
-        var m = ('00'+mins).slice(-2);
-        var s = ('00'+sec).slice(-2);
-        var time = h+':'+m+':'+s
-        document.getElementById('time').innerHTML = time
+        var d = new Date();
+        var hours = d.getHours();
+        var mins = d.getMinutes();
+        var sec = d.getSeconds();
+        var h = ("00" + hours).slice(-2);
+        if (h > 12) {
+            h -= 12;
+        }
+        var m = ("00" + mins).slice(-2);
+        var s = ("00" + sec).slice(-2);
+        var time = h + ":" + m + ":" + s;
+        document.getElementById("time").innerHTML = time;
     }
-    setInterval(getTime, 1000)
+    setInterval(getTime, 1000);
     var elem = document.documentElement;
     function openFullscreen() {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE11 */
+            elem.msRequestFullscreen();
+        }
     }
-    }
-    var idle_secconds = 0
+    var idle_secconds = 0;
     function incrementSeconds() {
         idle_secconds += 1;
-        console.log('idle for:',idle_secconds, 'seccond')
+        console.log("idle for:", idle_secconds, "seccond");
         if (idle_secconds >= 30) {
             window.location.replace("/");
         }
     }
     var cancel = setInterval(incrementSeconds, 1000);
 
-    window.addEventListener('touchstart', function() {
-    idle_secconds = 0
-    console.log('reset')
+    window.addEventListener("touchstart", function () {
+        idle_secconds = 0;
+        console.log("reset");
     });
 </script>
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-<body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
+    rel="stylesheet"
+/>
+<body
+    style="background-color: #1c1c1c"
+    onclick="openFullscreen()"
+    onload="getTime()"
+>
     <center><h1 id="title">Hensight</h1></center>
     <div id="thediv">
-        <div class="inner-div grid col-start-1 row-start-1" onclick="window.location.href = '/menu'">Main Menu</div>
-        <div class="inner-div grid col-start-2 row-start-1" onclick="window.location.href = '/crossy'">Crossy FIRST</div>
+        <div
+            class="inner-div grid col-start-1 row-start-1"
+            onclick="window.location.href = '/menu'"
+        >
+            Main Menu
+        </div>
+        <div
+            class="inner-div grid col-start-2 row-start-1"
+            onclick="window.location.href = '/crossy'"
+        >
+            Crossy FIRST
+        </div>
         <div class="inner-div grid col-start-1 row-start-2" onclick=""></div>
         <div class="inner-div grid col-start-2 row-start-2" onclick=""></div>
     </div>
     <center><h1 id="time"></h1></center>
-
 </body>
 <style>
     body {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    border: 0.5rem solid; /* Adjust border width as needed */
-    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-    height: calc(100vh);
-    overflow: hidden; /* Hide scrollbars */
-}
-#thediv {
-    display: grid;
-    grid-template-columns: 2;
-    grid-template-rows: 2;
-    max-width: fit-content;
-    max-height: fit-content;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.inner-div {
-    padding: 2%;
-    border-radius: 5%;
-    color: #FFFFFF;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    text-align: center;
-    margin: 1rem;
-    font-size: 4rem;
-    width: 450px;
-    height: 450px;
-    line-height: 450px;
-    border-color: #FFC145;
-    border-width: 6px;
-    border-style: solid;
-}
-/* .border {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
+        height: calc(100vh);
+        overflow: hidden; /* Hide scrollbars */
+    }
+    #thediv {
+        display: grid;
+        grid-template-columns: 2;
+        grid-template-rows: 2;
+        max-width: fit-content;
+        max-height: fit-content;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .inner-div {
+        padding: 2%;
+        border-radius: 5%;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        text-align: center;
+        margin: 1rem;
+        font-size: 4rem;
+        width: 450px;
+        height: 450px;
+        line-height: 450px;
+        border-color: #ffc145;
+        border-width: 6px;
+        border-style: solid;
+    }
+    /* .border {
     position: relative;
     width: 475px;
     height: 475px;
     background: linear-gradient(to right, red, )
 } */
-h4{
-color: #FFFFFF;
-margin: 0.5rem;
-font-family: "Poppins", sans-serif;
-font-weight: 700;
-font-style: normal;
-font-size: 3rem;
-border-radius: 5px;
-}
-#title {
-color: #FFC145;
-font-family: "Poppins", sans-serif;
-font-weight: 700;
-font-style: normal;
-font-size: 13rem;
-}
-#time {
-color: #FFC145;
-font-family: "Poppins", sans-serif;
-font-weight: 700;
-font-style: normal;
-font-size: 13rem;
-text-align: center;
-position: absolute;
-bottom: 2%;
-left: 50%;
-transform: translate(-50%);
-}
+    h4 {
+        color: #ffffff;
+        margin: 0.5rem;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 3rem;
+        border-radius: 5px;
+    }
+    #title {
+        color: #ffc145;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 13rem;
+    }
+    #time {
+        color: #ffc145;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 13rem;
+        text-align: center;
+        position: absolute;
+        bottom: 2%;
+        left: 50%;
+        transform: translate(-50%);
+    }
 </style>
