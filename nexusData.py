@@ -4,7 +4,7 @@ import sys
 import time
 
 
-event_key = "demo8771"
+event_key = "demo8771" # TESTING! change to the event key before using at events
 url = "https://frc.nexus/api/v1/event/" + event_key
 
 headers = {"Nexus-Api-Key": "***REMOVED***"}

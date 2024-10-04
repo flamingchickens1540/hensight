@@ -151,7 +151,7 @@ class HensightStatsManager:
                     if match_data.ensembleRP != 0:
                         global_ensemble_rp = global_ensemble_rp + 1
                     global_rp = global_rp + match_data.totalRP
-                    global_co_op = global_co_op + match_data.coop
+                    # global_co_op = global_co_op + match_data.coop
 
 
 
@@ -177,7 +177,7 @@ class HensightStatsManager:
             if match_data.ensembleRP != 0:
                 event_ensemble_rp = event_ensemble_rp + 1
             event_rp = event_rp + match_data.totalRP
-            event_co_op = event_co_op + match_data.coop
+            # event_co_op = event_co_op + match_data.coop
 
         for matches in self.current_events_data:
             if type(matches) != MatchData:
@@ -203,7 +203,7 @@ class HensightStatsManager:
                     if match_data.ensembleRP != 0:
                         current_ensemble_rp = current_ensemble_rp + 1
                     current_rp = current_rp + match_data.totalRP
-                    current_co_op = current_co_op + match_data.coop
+                    # current_co_op = current_co_op + match_data.coop
 
 
 
@@ -224,9 +224,9 @@ class HensightStatsManager:
         self.hensight_stats["current_spotlight_notes"] = current_spotlight_notes
         self.hensight_stats["event_spotlight_notes"] = event_spotlight_notes
         self.hensight_stats["global_spotlight_note_percentage"] = global_spotlight_notes / (6 * global_number_of_matches)
-        if current_number_of_matches is not 0:
+        if current_number_of_matches != 0:
             self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
-        if (event_number_of_matches is not 0):
+        if (event_number_of_matches != 0):
             self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
         self.hensight_stats["global_speaker_notes"] = global_speaker_notes
         self.hensight_stats["current_speaker_notes"] = current_speaker_notes
