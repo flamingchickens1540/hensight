@@ -13,7 +13,7 @@
         var mins = d.getMinutes()
         var sec = d.getSeconds()
         var h = ('00'+hours).slice(-2);
-        // if (h > 12) {h -= 12}
+        if (h > 12) {h -= 12}
         var m = ('00'+mins).slice(-2);
         var s = ('00'+sec).slice(-2);
         var time = h+':'+m+':'+s
