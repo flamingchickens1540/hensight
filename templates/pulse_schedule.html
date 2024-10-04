@@ -7,32 +7,12 @@
         rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/common.js"></script>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    function getTime() {
-        var d = new Date();
-        var hours = d.getHours();
-        var mins = d.getMinutes();
-        var sec = d.getSeconds();
-        var h = ("00" + hours).slice(-2);
-        // if (h > 12) {h -= 12}
-        var m = ("00" + mins).slice(-2);
-        var s = ("00" + sec).slice(-2);
-        var time = h + ":" + m + ":" + s;
-        document.getElementById("time").innerHTML = time;
-    }
-    var elem = document.documentElement;
-    function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            /* Safari */
-            elem.webkitRequestFullscreen();
-        }
-    }
-    var idle_secconds = 0;
-    var fact_secconds = 0;
+    let idle_secconds = 0;
+    let fact_secconds = 0;
     function incrementSeconds() {
         idle_secconds++;
         // fact_secconds++
@@ -47,7 +27,7 @@
         // }
     }
 
-    window.addEventListener("touchstart", function () {
+    window.addEventListener("touchstart", () => {
         idle_secconds = 0;
         console.log("reset");
     });
