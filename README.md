@@ -5,7 +5,7 @@ Hensight is a display platform used to display FRC team data on a portable scree
 ## Usage
 
 ```bash
-pip install tba-api-v3client flask schedule numpy statbotics
+pip install tba-api-v3client flask schedule numpy statbotics tbapy
 python main.py
 ```
 

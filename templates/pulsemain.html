@@ -2,39 +2,13 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
     </style>
-    <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
-        rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/common.js"></script>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    function getTime() {
-        var d = new Date();
-        var hours = d.getHours();
-        var mins = d.getMinutes();
-        var sec = d.getSeconds();
-        var h = ("00" + hours).slice(-2);
-        if (h > 12) {
-            h -= 12;
-        }
-        var m = ("00" + mins).slice(-2);
-        var s = ("00" + sec).slice(-2);
-        var time = h + ":" + m + ":" + s;
-        document.getElementById("time").innerHTML = time;
-    }
-    var elem = document.documentElement;
-    function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            /* Safari */
-            elem.webkitRequestFullscreen();
-        }
-    }
-    var idle_secconds = 0;
-    var fact_secconds = 0;
+    let idle_secconds = 0;
+    let fact_secconds = 0;
     function incrementSeconds() {
         idle_secconds++;
         // fact_secconds++
@@ -49,7 +23,7 @@
         // }
     }
 
-    window.addEventListener("touchstart", function () {
+    window.addEventListener("touchstart", () => {
         idle_secconds = 0;
         console.log("reset");
     });
@@ -111,159 +85,60 @@
         getStatBotData();
     }
 </script>
-<body
-    style="background-color: #1c1c1c"
-    onclick="openFullscreen()"
-    onload="getTime()"
->
-    <div id="header">
-        <h1 id="title" class="row-start-1 col-start-1">Hensight</h1>
-        <h1 id="time" class="row-start-1 col-start-2"></h1>
-    </div>
-    <div id="thediv">
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-1"
-            id="upmatch"
-        ></div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-2"
-            id="nextup"
-        ></div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-3"
-            id="announcements"
-        >
-            There are currently no announcements
-        </div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-4"
-            id="requests"
-        >
-            There are currently no part requests
-        </div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-5"
-            id="stats"
-        >
-            Loading...
-        </div>
-        <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <div
-            class="inner-div btn grid col-start-1 row-start-6"
-            onclick="window.location.href = '/pulse_schedule'"
-            style="font-size: 2.5rem"
-        >
-            Schedule
-        </div>
-        <div
-            class="inner-div btn border grid col-start-2 row-start-6"
-            onclick="window.location.href = '/menu'"
-            style="font-size: 2.5rem"
-        >
-            Main Menu
-        </div>
-        <div
-            class="inner-div btn grid col-start-3 row-start-6"
-            onclick="window.location.href = '/pulse_ranking'"
-            style="font-size: 2.5rem"
-        >
-            Ranking
-        </div>
-    </div>
-</body>
 <style>
-    .border {
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
+    #main-info-thingy {
+        justify-items: space-between;
+        flex-grow: 10;
+        padding-block: var(--gap);
     }
-    h2 {
-        font-size: 13rem;
-        color: #ffc145;
-    }
-    h3 {
-        font-size: 13rem;
-        color: #ffc145;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-        height: calc(100vh);
-        overflow: hidden; /* Hide scrollbars */
-    }
-    #thediv {
-        display: grid;
-        grid-template-columns: 3;
-        grid-template-rows: 6;
-        width: 95%;
-        height: 95%;
-        position: absolute;
-        padding: 1%;
-        margin: auto;
-        top: 7%;
-        left: 50%;
-        transform: translate(-50%);
-        grid-gap: 2%;
-    }
-    .btn {
-        width: 80%;
-    }
-    .inner-div {
-        padding: 2%;
-        border-radius: 5px;
-        color: #ffffff;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        text-align: center;
-        margin: auto;
+    button {
         font-size: 3rem;
+        font-weight: 700;
         width: 100%;
-        height: fit-content;
-        border-color: #ffc145;
-        border-width: 6px;
-        border-style: solid;
     }
-    /* .border {
-            position: relative;
-            width: 475px;
-            height: 475px;
-            background: linear-gradient(to right, red, )
-        } */
-    h4 {
-        color: #ffffff;
-        margin: 0.5rem;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 3rem;
-        border-radius: 5px;
+    h1 {
+        font-size: 5rem !important;
     }
     #header {
-        display: grid;
-        grid-template-columns: 2;
-        grid-template-rows: 1;
+        justify-content: space-around;
+        width: 100%;
     }
-    #title {
-        background-color: #ffc145;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: auto;
+    footer {
+        width: 100%;
+        justify-content: space-between !important;
     }
-    #time {
-        color: #ffc145;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        text-align: center;
-        margin: auto;
+    footer a {
+        height: fit-content;
+        flex-grow: 1;
+    }
+    footer > a:not(#main-menu) > button::before,
+    #main-info-thingy > button::before {
+        background-image: none;
+        background: #ffc145;
     }
 </style>
+<body onclick="openFullscreen()" onload="getTime()" class="center-col">
+    <div id="header" class="flex-row-auto">
+        <h1 id="title">Hensight</h1>
+        <h1 id="time"></h1>
+    </div>
+    <div id="main-info-thingy" class="center-col">
+        <button id="upmatch"></button>
+        <button id="nextup"></button>
+        <button id="announcements">There are currently no announcements</button>
+        <button id="requests">There are currently no part requests</button>
+        <button id="stats">Loading...</button>
+        <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
+        <footer class="flex-row-auto">
+            <a href="/pulse_schedule" style="font-size: 2.5rem"
+                ><button>Schedule</button></a
+            >
+            <a id="main-menu" href="/menu" style="font-size: 2.5rem"
+                ><button>Main Menu</button></a
+            >
+            <a href="/pulse_ranking" style="font-size: 2.5rem"
+                ><button>Ranking</button></a
+            >
+        </footer>
+    </div>
+</body>
