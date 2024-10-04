@@ -32,48 +32,76 @@
         console.log("reset");
     });
 
-    const myTeam = '1000' // TESTING! change to 1540 before using at events
-    const eventKey = '2024cc'
+    const myTeam = "1000"; // TESTING! change to 1540 before using at events
+    const eventKey = "2024cc";
 
     async function getNexusData() {
-        const response = await fetch('/getnexusdata')
-        let data = await response.json()
-        console.log('Nexus data')
-        console.log(data)
-        let upmatches = data[4]
-        let html = ''
+        const response = await fetch("/getnexusdata");
+        let data = await response.json();
+        console.log("Nexus data");
+        console.log(data);
+        let upmatches = data[4];
+        let html = "";
         if (upmatches.length == 0) {
-            html = myTeam+' does not have any upcoming matches'
-            nextup.innerHTML = myTeam+' does not have any upcoming matches'
-        }
-        else {
-            for (let i = 0; i<upmatches.length; i++) {
+            html = myTeam + " does not have any upcoming matches";
+            nextup.innerHTML = myTeam + " does not have any upcoming matches";
+        } else {
+            for (let i = 0; i < upmatches.length; i++) {
                 // console.log(upmatches[i])
-                if (data[4] != ''){html += upmatches[i]['label']+": "+upmatches[i]['status']} else {upmatch.innerHTML = 'Team '+myTeam+' does not have any upcomming matches'}
-                html += '<br>'
+                if (data[4] != "") {
+                    html +=
+                        upmatches[i]["label"] + ": " + upmatches[i]["status"];
+                } else {
+                    upmatch.innerHTML =
+                        "Team " +
+                        myTeam +
+                        " does not have any upcomming matches";
+                }
+                html += "<br>";
             }
         }
-        upmatch.innerHTML = html
-        nextMatch = upmatches[0]
-        let nextColor = 'ERROR'
-        for (let i = 0; i<nextMatch['blueTeams'].length; i++) {
-            if (nextMatch['blueTeams'][i] == myTeam) {nextColor = 'blue'}
-            else if (nextMatch['redTeams'][i] == myTeam) {nextColor = 'red'}
+        upmatch.innerHTML = html;
+        nextMatch = upmatches[0];
+        let nextColor = "ERROR";
+        for (let i = 0; i < nextMatch["blueTeams"].length; i++) {
+            if (nextMatch["blueTeams"][i] == myTeam) {
+                nextColor = "blue";
+            } else if (nextMatch["redTeams"][i] == myTeam) {
+                nextColor = "red";
+            }
         }
-        if (nextColor == 'blue') colorhtml = '<div id="bluebumper">You will be wearing the '+nextColor+' bumbers</div>'
-        else if (nextColor = 'red') colorhtml = '<div id="redbumper">You will be wearing the '+nextColor+' bumbers</div>'
+        if (nextColor == "blue")
+            colorhtml =
+                '<div id="bluebumper">You will be wearing the ' +
+                nextColor +
+                " bumbers</div>";
+        else if ((nextColor = "red"))
+            colorhtml =
+                '<div id="redbumper">You will be wearing the ' +
+                nextColor +
+                " bumbers</div>";
 
-        nextup.innerHTML = 'Your next match is '+nextMatch['label']+' and is '+nextMatch['status']+colorhtml+'Blue Alliance: '+nextMatch['blueTeams']+'<br>Red Teams: '+nextMatch['redTeams']}
-    
-    async function getPrediction() {
-        const response = await fetch('/getprediction')
-        let data = await response.json()
-        matchPrediction = data['match_predictions']
-        console.log('predection')
-        // console.log(matchPrediction)
-        console.log(nextMatch)
+        nextup.innerHTML =
+            "Your next match is " +
+            nextMatch["label"] +
+            " and is " +
+            nextMatch["status"] +
+            colorhtml +
+            "Blue Alliance: " +
+            nextMatch["blueTeams"] +
+            "<br>Red Teams: " +
+            nextMatch["redTeams"];
     }
-        //  async function getStatBotData() {
+
+    async function getPrediction() {
+        const response = await fetch("/getprediction");
+        let data = await response.json();
+        matchPrediction = data["match_predictions"];
+        console.log("predection");
+        // console.log(matchPrediction)
+        console.log(nextMatch);
+    }
+    //  async function getStatBotData() {
     //  async function getStatBotData() {
     //     console.log('Stat bot data')
     //     const response = await fetch('/getstatbotdata')
@@ -81,8 +109,8 @@
     //     stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
 
     //  }
-    getNexusData()
-    getPrediction()
+    getNexusData();
+    getPrediction();
     // getStatBotData()
     // getFunFact()
     setInterval(everySeccond, 1000);
@@ -90,10 +118,10 @@
         incrementSeconds();
         getTime();
     }
-    setInterval(every30s, 30000)
+    setInterval(every30s, 30000);
     function every30s() {
-        getNexusData()
-        getPrediction()
+        getNexusData();
+        getPrediction();
         // getStatBotData()
     }
 </script>
@@ -107,31 +135,61 @@
         <h1 id="time" class="row-start-1 col-start-2"></h1>
     </div>
     <div id="thediv">
-        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch">Loading...</div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div>
-        <div class="inner-div btn grid col-start-1  row-start-3" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
-        <div class="inner-div btn border grid col-start-2  row-start-3" onclick="window.location.href='/menu'" style="font-size: 2.5rem;">Main menu</div>
-        <div class="inner-div btn grid col-start-3  row-start-3" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
+        <div
+            class="inner-div grid col-start-1 col-end-4 row-start-1"
+            id="upmatch"
+        >
+            Loading...
+        </div>
+        <div
+            class="inner-div grid col-start-1 col-end-4 row-start-2"
+            id="nextup"
+        >
+            Loading...
+        </div>
+        <div
+            class="inner-div btn grid col-start-1 row-start-3"
+            onclick="window.location.href = '/pulse_rip_off'"
+            style="font-size: 2.5rem"
+        >
+            Main
+        </div>
+        <div
+            class="inner-div btn border grid col-start-2 row-start-3"
+            onclick="window.location.href='/menu'"
+            style="font-size: 2.5rem"
+        >
+            Main menu
+        </div>
+        <div
+            class="inner-div btn grid col-start-3 row-start-3"
+            onclick="window.location.href = '/pulse_ranking'"
+            style="font-size: 2.5rem"
+        >
+            Ranking
+        </div>
     </div>
 </body>
 <style>
     .border {
         border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
     }
     #bluebumper {
         color: white;
-        text-shadow: -5px 5px 0 blue,
-                      5px 5px 0 blue,
-                      5px -5px 0 blue,
-                      -5px -5px 0 blue;
+        text-shadow:
+            -5px 5px 0 blue,
+            5px 5px 0 blue,
+            5px -5px 0 blue,
+            -5px -5px 0 blue;
     }
     #redbumper {
         color: white;
-        text-shadow: -5px 5px 0 red,
-                      5px 5px 0 red,
-                      5px -5px 0 red,
-                      -5px -5px 0 red;
+        text-shadow:
+            -5px 5px 0 red,
+            5px 5px 0 red,
+            5px -5px 0 red,
+            -5px -5px 0 red;
     }
     h2 {
         font-size: 13rem;
@@ -142,49 +200,49 @@
         color: #ffc145;
     }
 
-            body {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            border: 0.5rem solid; /* Adjust border width as needed */
-            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
-            height: calc(100vh);
-			overflow: hidden; /* Hide scrollbars */
-        }
-        #thediv {
-            display: grid;
-            grid-template-columns: 4;
-            grid-template-rows: 7;
-            grid-gap: 2%;
-            width: 95%;
-            height: 95%;
-            position: absolute;
-            padding: 1%;
-            margin: auto;
-            top: 7%;
-            left: 50%;
-            transform: translate(-50%);
-        }
-        .btn {
-            width: 80%;
-        }
-        .inner-div {
-            padding: 2%;
-            border-radius: 5px;
-            color: #FFFFFF;
-            font-family: "Poppins", sans-serif;
-            font-weight: 700;
-            font-style: normal;
-            text-align: center;
-            margin: auto;
-            font-size: 3rem;
-            width: 100%;
-            height: fit-content;
-            border-color: #FFC145;
-            border-width: 6px;
-            border-style: solid;
-        }
-        /* .border {
+    body {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
+        height: calc(100vh);
+        overflow: hidden; /* Hide scrollbars */
+    }
+    #thediv {
+        display: grid;
+        grid-template-columns: 4;
+        grid-template-rows: 7;
+        grid-gap: 2%;
+        width: 95%;
+        height: 95%;
+        position: absolute;
+        padding: 1%;
+        margin: auto;
+        top: 7%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .btn {
+        width: 80%;
+    }
+    .inner-div {
+        padding: 2%;
+        border-radius: 5px;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        text-align: center;
+        margin: auto;
+        font-size: 3rem;
+        width: 100%;
+        height: fit-content;
+        border-color: #ffc145;
+        border-width: 6px;
+        border-style: solid;
+    }
+    /* .border {
             position: relative;
             width: 475px;
             height: 475px;
