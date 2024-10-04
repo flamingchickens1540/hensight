@@ -19,7 +19,7 @@ def eggs_in_match(toggle):
 
 def feather_message(toggle):
     if toggle:
-        return "<h4>There are as many people that do FIRST as feathers on </h4><h2>10/2</h2><h4>chickens!</h4>"
+        return "<h4>There are as many people that do FIRST as feathers on </h4><h2>Ten and Half chickens!</h2>"
     else:
         return 'bad'
 
@@ -60,7 +60,7 @@ def robo_name(toggle):
 
 
 def chicken_foul():
-    return "<h4>However, in the whimsical scenario where we decide to replace the robot on the field with a live chicken, a cascade of unforeseen consequences would likely unfold. Picture this: amidst the high-stakes game, the unsuspecting chicken, blissfully unaware of the intricate rules governing the match, would likely become the unwitting perpetrator of an array of tech fouls. The referee, undoubtedly perplexed by the surreal turn of events, might find themselves compelled to brandish a red card, signaling not only an expulsion from the game but also drawing attention to the peculiar nature of the infringement.</h4>"
+    return "<h1 style='font-size:3rem;'>However, in the whimsical scenario where we decide to replace the robot on the field with a live chicken, a cascade of unforeseen consequences would likely unfold. Picture this: amidst the high-stakes game, the unsuspecting chicken, blissfully unaware of the intricate rules governing the match, would likely become the unwitting perpetrator of an array of tech fouls. The referee, undoubtedly perplexed by the surreal turn of events, might find themselves compelled to brandish a red card, signaling not only an expulsion from the game but also drawing attention to the peculiar nature of the infringement.</h1>"
 
 
 def chicken_noise(toggle):
@@ -93,16 +93,12 @@ def battery(toggle):
 
 def logodvd(toggle):
     if toggle:
-        return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20" id="logo" onbounce="logo_change()"><marquee style="margin-bottom: 12rem" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin" onbounce="logo_change()"></marquee></marquee><p id="msg">inside my head rn</p>'
+        return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20" id="logo"><marquee style="margin-bottom: 160px" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee><p id="msg">inside of my head rn</p>'
     else:
         return 'bad'
-
-
-################################################################
-
 def event_total_notes(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h4>There have been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["event_total_notes"]))}</h3><h4>notes scored at this event</h4>'
+        return f'<h4>There has been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["event_total_notes"]))}</h3><h4>notes scored at this event</h4>'
     else:
         return 'bad'
 def event_trap_notes(toggle, event_toggle):
@@ -110,69 +106,14 @@ def event_trap_notes(toggle, event_toggle):
         return f'<h4>Teams have scored</h4><h3>{round(hensightStats.hensight_stats["event_trap_notes"])}</h3><h4>notes in the trap at this event</h4>'
     else:
         return 'bad'
-
-
-def current_high_score(toggle, current_toggle):
-    if toggle and current_toggle:
-        return f'<h4>The high score at worlds is</h4><h3>{round(hensightStats.hensight_stats["current_high_score"])}</h3><h4>points! (good job)</h4>'
-    else:
-        return 'bad'
 def event_high_score(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>The high score at this event is</h4><h3>{round(hensightStats.hensight_stats["event_high_score"])}</h3><h4>points! (good job)</h4>'
     else:
         return 'bad'
-
-def global_auto_notes(toggle):
-    if toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes in auto this year</h4>'
-    else:
-        return 'bad'
-
-def current_auto_notes(toggle, current_toggle):
-    if toggle and current_toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["current_auto_notes"]))}</h2><h4>notes in auto at worlds</h4>'
-    else:
-        return 'bad'
-
-def event_auto_notes(toggle, event_toggle):
-    if toggle and event_toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes in auto at this event</h4>'
-    else:
-        return 'bad'
-
-def global_tele_notes(toggle):
-    if toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_tele_notes"]))}</h2><h4>notes in tele this year</h4>'
-    else:
-        return 'bad'
-
-def current_tele_notes(toggle, current_toggle):
-    if toggle and current_toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["current_tele_notes"]))}</h2><h4>notes in tele at worlds</h4>'
-    else:
-        return 'bad'
-
-def event_tele_notes(toggle, event_toggle):
-    if toggle and event_toggle:
-        return f'<h4>Teams have scored </h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_tele_notes"]))}</h2><h4>notes in tele at this event</h4>'
-    else:
-        return 'bad'
-
-def total_rp(toggle):
-    if toggle:
-        return f'<h4>Teams have recieved</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_rp"]))}</h3><h4>RP this year<h4>'
-    else:
-        return 'bad'
-
-def coop(toggle):
-    if toggle:
-        return f'<h4>Aliances have coopertitioned in </h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_co_op"], 2))}%</h3><h4> of matches this year<h4>'
-    else:
-        return 'bad'
 def spotlight_percent(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h1>At this event human players hit</h1><h3>{round(hensightStats.hensight_stats["event_spotlight_note_percentage"], 2)}%<h3><h1>of high notes </h1>'
+        return f'<h1>At this competition</h1><h3>{round(hensightStats.hensight_stats["event_spotlight_note_percentage"], 2)}%<h3><h1>of robotics have been spotlit</h1><div></div><h1>In the world</h1><h3>{round(hensightStats.hensight_stats["global_spotlight_note_percentage"], 2)}%</h3><h1>of robots have been spotlit</h1>'
     else:
         return 'bad'
 def global_total_notes(toggle):
@@ -202,36 +143,11 @@ def event_travel(toggle, event_toggle):
         return 'bad'
 def global_travel(toggle):
     if toggle:
-        feet = hensightStats.hensight_stats["global_distance_traveled"]
-        if feet > 5280: 
-            distance = feet / 5280
-            unit = 'mi'
-        else: 
-            distance = feet
-            unit = 'ft'
-        return f'<h4>All the robots in the world have traveled</h4><h2>{"{:,}".format(round(distance))}{unit}</h2><h4>in total :O</h4>'
-    else:
-        return 'bad'
-def global_moon(toggle):
-    if toggle:
-        feet = round(hensightStats.hensight_stats["global_distance_traveled"])
-        percent = feet / 1261392000
-        rounded = round(percent, 4)
-        return f'<h4>All the robots in the world have traveled </h4><h2>{rounded}%</h2><h4> of the way to the moon'
+        return f'<h4>All the robotcs in the world have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
     else: return 'bad'
-def global_melody_rp(toggle):
-    if toggle:
-        return f'<h4>The Melody RP was achieved in </h4><h3>{hensightStats.hensight_stats["global_melody_rp"]}%</h3><h4>of matches this year</h4>'
-    else:
-        return 'bad'
-def global_ensemble_rp(toggle):
-    if toggle:
-        return f'<h4>The Ensemble RP was achieved in </h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_ensemble_rp"], 5))}%</h3><h4>of matches this year</h4>'
-    else:
-        return 'bad'
 def event_alliance_score(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h4>At this event, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
+        return f'<h4>In this divison, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
     else: return 'bad'
 def global_amplified_speaker(toggle):
     if toggle:
@@ -239,9 +155,12 @@ def global_amplified_speaker(toggle):
     else: return 'bad'
 def compare_auto_notes(toggle, event_toggle):
     if toggle and event_toggle:
-        return f'<h4>At this event there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
+        return f'<h4>In this divison there have been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_auto_notes"]))}</h2><h4>notes scored in auto</h4><h4>In the world there has been</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_auto_notes"]))}</h2><h4>notes scored during auto</h4>'
 def global_trap_notes(toggle):
     if toggle: return f'<h4>There has been</h4><h3>{"{:,}".format(round(hensightStats.hensight_stats["global_trap_notes"]))}'
     else: return 'bad'
 def easter_egg():
     return '<h4>You found the secret slide!</h4><h3>Good job!</h3>'
+# def melody_rp(toggle):
+#     if toggle: return f'<h4>The melody ranking point has been awared</h4><h3>{round(hensightStats.hensight_stats["global_melody_percentage"])}%</h3><h4>of matches the season</h4>'
+#     else: return 'bad'

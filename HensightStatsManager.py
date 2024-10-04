@@ -57,13 +57,13 @@ class HensightStatsManager:
             "current_blue_alliance_score": 0,
             "event_blue_alliance_score": 0,
 
-            "global_melody_rp": 0,
-            "current_melody_rp": 0,
-            "event_melody_rp": 0,
+            "global_melody_percentage": 0,
+            "current_melody_percentage": 0,
+            "event_melody_percentage": 0,
 
-            "global_ensemble_rp": 0,
-            "current_ensemble_rp": 0,
-            "event_ensemble_rp": 0,
+            "global_ensemble_percentage": 0,
+            "current_ensemble_percentage": 0,
+            "event_ensemble_percentage": 0,
 
             "global_rp": 0,
             "current_rp": 0,
@@ -224,9 +224,9 @@ class HensightStatsManager:
         self.hensight_stats["current_spotlight_notes"] = current_spotlight_notes
         self.hensight_stats["event_spotlight_notes"] = event_spotlight_notes
         self.hensight_stats["global_spotlight_note_percentage"] = global_spotlight_notes / (6 * global_number_of_matches)
-        if current_number_of_matches is not 0:
+        if current_number_of_matches != 0:
             self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
-        if (event_number_of_matches is not 0):
+        if (event_number_of_matches != 0):
             self.hensight_stats["event_spotlight_note_percentage"] = event_spotlight_notes / (6 * event_number_of_matches)
         self.hensight_stats["global_speaker_notes"] = global_speaker_notes
         self.hensight_stats["current_speaker_notes"] = current_speaker_notes
