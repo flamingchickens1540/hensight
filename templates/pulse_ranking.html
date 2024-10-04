@@ -48,31 +48,30 @@
     console.log('reset')
     });
 
-    async function getNexusData() {
-        const response = await fetch('/getnexusdata')
-        let data = await response.json()
-        console.log('Nexus data')
-        upmatch.innerHTML = data[0]
-        if (data[1] != '') {announcements.innerHTML = data[1]} else {announcements.innerHTML = 'There are no announcements at this time'}
-        if (data[2] != '') {requests.innerHTML = data[2]} else {requests.innerHTML = 'There are no part requests at this time'}
-        if (data[3] != '') {nextup.innerHTML = 'Now Queuing: '+data[3]} else {nextup.innerHTML = 'There are currently no matches queuing'}
-     }
-     async function getStatBotData() {
-        console.log('Stat bot data')
-        const response = await fetch('/getstatbotdata')
-        let data = await response.json()
-        stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
+    const myTeam = '1000'
 
-     }
-     async function getFunFact() {
-        console.log('fun fact')
-        const response = await fetch('/jsonrequest')
+    async function getRankings() {
+        const response = await fetch('/getranking')
         let data = await response.json()
-        if (data[0].length > 500) {console.log('too long: '+data[0].length)}
-        else {fact.innerHTML = data[0]}
-     }
-    getNexusData()
-    getStatBotData()
+        console.log('rankings')
+        // console.log(data)
+        let html = ''
+        for (i = 0; i<data.length; i++) {
+            // console.log('data[i]'+data[i])
+            html += data[i]
+            html += '<br>'
+        }
+        rank.innerHTML = html
+    }
+    //  async function getStatBotData() {
+    //     console.log('Stat bot data')
+    //     const response = await fetch('/getstatbotdata')
+    //     let data = await response.json()
+    //     stats.innerHTML = 'Total EPA: '+data[0]+' | Wins: '+data[1]+' | Losses: '+data[2]
+
+    //  }
+    getRankings()
+    // getStatBotData()
     // getFunFact()
     setInterval(everySeccond, 1000)
     function everySeccond() {
@@ -81,28 +80,23 @@
     }
     setInterval(every30s, 30000)
     function every30s() {
-        getNexusData()
-        getStatBotData()
+        getRankings()
+        // getStatBotData()
     }
 
 </script>
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
     <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
     <div id="thediv">
-        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch"></div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup"></div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-3" id="announcements">There are currently no announcements</div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-4" id="requests">There are currently no part requests</div>
-        <div class="inner-div grid col-start-1 col-end-4 row-start-5" id="stats">Loading...</div>
-        <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <div class="inner-div btn grid col-start-1  row-start-6" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
-        <div class="inner-div btn border grid col-start-2  row-start-6" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
-        <div class="inner-div btn grid col-start-3  row-start-6" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
-
+        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="rank">Loading...</div>
+        <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
+        <div class="inner-div btn grid col-start-1  row-start-2" onclick="window.location.href = '/pulse_schedule'" style="font-size: 2.5rem;">Schedule</div>
+        <div class="inner-div btn border grid col-start-2  row-start-2" onclick="window.location.href = '/menu'" style="font-size: 2.5rem;">Main Menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-2" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
     </div>
 </body>
 <style>
-    .border {
+        .border {
         border: 0.5rem solid; /* Adjust border width as needed */
         border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
     }
@@ -126,8 +120,7 @@
         }
         #thediv {
             display: grid;
-            grid-template-columns: 3;
-            grid-template-rows: 6;
+            grid-gap: 2%;
             width: 95%;
             height: 95%;
             position: absolute;
@@ -136,7 +129,6 @@
             top: 7%;
             left: 50%;
             transform: translate(-50%);
-            grid-gap: 2%;
         }
         .btn {
             width: 80%;

@@ -13,7 +13,7 @@
         var mins = d.getMinutes()
         var sec = d.getSeconds()
         var h = ('00'+hours).slice(-2);
-        // if (h > 12) {h -= 12}
+        if (h > 12) {h -= 12}
         var m = ('00'+mins).slice(-2);
         var s = ('00'+sec).slice(-2);
         var time = h+':'+m+':'+s
@@ -48,15 +48,48 @@
     console.log('reset')
     });
 
+    const myTeam = '1000' // TESTING! change to 1540 before using at events
+    const eventKey = '2024cc'
+
     async function getNexusData() {
         const response = await fetch('/getnexusdata')
         let data = await response.json()
         console.log('Nexus data')
         console.log(data)
         let upmatches = data[4]
-        if (data[4] != ''){upmatch.innerHTML = data[4[0['label']]]+": "+data[4[0['status']]]} else {upmatch.innerHTML = 'Team 1540 does not have any upcomming matches'}
-     }
-    //  async function getStatBotData() {
+        let html = ''
+        if (upmatches.length == 0) {
+            html = myTeam+' does not have any upcoming matches'
+            nextup.innerHTML = myTeam+' does not have any upcoming matches'
+        }
+        else {
+            for (let i = 0; i<upmatches.length; i++) {
+                // console.log(upmatches[i])
+                if (data[4] != ''){html += upmatches[i]['label']+": "+upmatches[i]['status']} else {upmatch.innerHTML = 'Team '+myTeam+' does not have any upcomming matches'}
+                html += '<br>'
+            }
+        }
+        upmatch.innerHTML = html
+        nextMatch = upmatches[0]
+        let nextColor = 'ERROR'
+        for (let i = 0; i<nextMatch['blueTeams'].length; i++) {
+            if (nextMatch['blueTeams'][i] == myTeam) {nextColor = 'blue'}
+            else if (nextMatch['redTeams'][i] == myTeam) {nextColor = 'red'}
+        }
+        if (nextColor == 'blue') colorhtml = '<div id="bluebumper">You will be wearing the '+nextColor+' bumbers</div>'
+        else if (nextColor = 'red') colorhtml = '<div id="redbumper">You will be wearing the '+nextColor+' bumbers</div>'
+
+        nextup.innerHTML = 'Your next match is '+nextMatch['label']+' and is '+nextMatch['status']+colorhtml+'Blue Alliance: '+nextMatch['blueTeams']+'<br>Red Teams: '+nextMatch['redTeams']}
+    
+    async function getPrediction() {
+        const response = await fetch('/getprediction')
+        let data = await response.json()
+        matchPrediction = data['match_predictions']
+        console.log('predection')
+        // console.log(matchPrediction)
+        console.log(nextMatch)
+    }
+        //  async function getStatBotData() {
     //     console.log('Stat bot data')
     //     const response = await fetch('/getstatbotdata')
     //     let data = await response.json()
@@ -64,6 +97,7 @@
 
     //  }
     getNexusData()
+    getPrediction()
     // getStatBotData()
     // getFunFact()
     setInterval(everySeccond, 1000)
@@ -71,9 +105,10 @@
         incrementSeconds()
         getTime()
     }
-    setInterval(everyMin, 60000)
-    function everyMin() {
+    setInterval(every30s, 30000)
+    function every30s() {
         getNexusData()
+        getPrediction()
         // getStatBotData()
     }
 
@@ -81,16 +116,32 @@
 <body style="background-color: #1C1C1C;" onclick="openFullscreen()" onload="getTime()">
     <div id="header"><h1 id="title" class="row-start-1 col-start-1">Hensight</h1><h1 id="time" class="row-start-1 col-start-2"></h1></div>
     <div id="thediv">
-        <div class="inner-div grid col-start-1 col-end-5 row-start-1" id="upmatch"></div>
-        <div class="inner-div grid col-start-1 col-end-5 row-start-2" id="nextup"></div>
-        <div class="inner-div grid col-start-1 col-end-5 row-start-3" id="announcements">There are currently no announcements</div>
-        <div class="inner-div grid col-start-1 col-end-5 row-start-4" id="requests">There are currently no part requests</div>
-        <div class="inner-div grid col-start-1 col-end-5 row-start-5" id="stats"></div>
-        <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <div class="inner-div grid col-start-1  row-start-7">Schedule</div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="upmatch">Loading...</div>
+        <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div>
+        <div class="inner-div btn grid col-start-1  row-start-3" onclick="window.location.href = '/pulse_rip_off'" style="font-size: 2.5rem;">Main</div>
+        <div class="inner-div btn border grid col-start-2  row-start-3" onclick="window.location.href='/menu'" style="font-size: 2.5rem;">Main menu</div>
+        <div class="inner-div btn grid col-start-3  row-start-3" onclick="window.location.href = '/pulse_ranking'" style="font-size: 2.5rem;">Ranking</div>
     </div>
 </body>
 <style>
+    .border {
+        border: 0.5rem solid; /* Adjust border width as needed */
+        border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+    }
+    #bluebumper {
+        color: white;
+        text-shadow: -5px 5px 0 blue,
+                      5px 5px 0 blue,
+                      5px -5px 0 blue,
+                      -5px -5px 0 blue;
+    }
+    #redbumper {
+        color: white;
+        text-shadow: -5px 5px 0 red,
+                      5px 5px 0 red,
+                      5px -5px 0 red,
+                      -5px -5px 0 red;
+    }
     h2 {
         font-size:13rem;
         color: #FFC145;
@@ -113,6 +164,7 @@
             display: grid;
             grid-template-columns: 4;
             grid-template-rows: 7;
+            grid-gap: 2%;
             width: 95%;
             height: 95%;
             position: absolute;
@@ -121,6 +173,9 @@
             top: 7%;
             left: 50%;
             transform: translate(-50%);
+        }
+        .btn {
+            width: 80%;
         }
         .inner-div {
             padding: 2%;
@@ -131,7 +186,7 @@
             font-style: normal;
             text-align: center;
             margin: auto;
-            font-size: 2.5rem;
+            font-size: 3rem;
             width: 100%;
             height: fit-content;
             border-color: #FFC145;
