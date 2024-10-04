@@ -16,13 +16,13 @@
 function incrementSeconds() {
     idle_secconds += 1;
 	console.log('idle for:',idle_secconds, 'secconds');
-	if (idle_secconds == 60) {
+	if (idle_secconds == 30) {
         console.log('attempting popup');
         var popup = document.getElementById("myPopup");
         $(".popup").removeClass("hide")
         $(".popup").addClass("show");
 	}
-    else if (idle_secconds >= 65) {
+    else if (idle_secconds >= 35) {
         console.log('reseting popup');
         $(".popup").removeClass("show");
         $(".popup").addClass("hide")
@@ -30,13 +30,23 @@ function incrementSeconds() {
         console.log('yay');
     }
 }
-var cancel = setInterval(incrementSeconds, 1000);
+// var cancel = setInterval(incrementSeconds, 1000);
 window.addEventListener('touchstart', function() {
   idle_secconds = 0
   $(".popup").removeClass("show")
   $(".popup").addClass("hide")
   console.log('--reset--')
 });
+function logo_change() {
+    console.log('change')
+    var a = Math.round(Math.random() * 100)
+    var b = Math.round(Math.random() * 100)
+    var c = Math.round(Math.random() * 100)
+    var color = 'rbg('+a+','+b+','+c+')'
+    document.getElementById('logo').style.backgroundColor = color
+    console.log('this should have worked')
+}
+logo_change()
 </script>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +64,8 @@ window.addEventListener('touchstart', function() {
             overflow: hidden;
             animation: fadein 1s forwards; /* Initial fade in */
             position: relative;
-            border: 0.5rem solid #FFC145; /* Adjust border width as needed */
+            border: 0.5rem solid; /* Adjust border width as needed */
+            border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
             height: calc(100vh - 20px);
         }
         @keyframes fadeout {
@@ -99,7 +110,6 @@ window.addEventListener('touchstart', function() {
             font-size: large;
             font-family: Poppins;
             font-size: 4rem;
-            font-size: 4rem;
             margin:0rem
         }
         h1{
@@ -111,13 +121,12 @@ window.addEventListener('touchstart', function() {
         h3{
             color:#FFC145;
             font-size: 18rem;
-            font-size: 18rem;
             margin:0rem;
             font-family: Poppins;
         }
         h2{
             color:#FFC145;
-            font-size: 11rem;
+            font-size: 10rem;
             margin:0rem;
             font-family: Poppins;
         }
@@ -125,7 +134,7 @@ window.addEventListener('touchstart', function() {
         position: absolute;
         top: 50%;
         left: 50%;
-        -ms-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -20%);
         transform: translate(-50%, -50%);
         width: 100%; /* Set width to 100% */
         }
@@ -172,6 +181,9 @@ window.addEventListener('touchstart', function() {
         width:  calc(100vw - 20px);
         height: 100vh
         }
+        #logo::after {
+            background-color: rgb(a, b, c, 0.5);
+        }
         @keyframes rotation {
             from {
                 transform: rotate(0deg);
@@ -184,13 +196,14 @@ window.addEventListener('touchstart', function() {
             animation: rotation 2s infinite linear;
         }
         #theseconddiv {
-	border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+	border-bottom: 0.5rem solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
 	position: fixed;
 	bottom: 0;
 	width: calc(100% - 3rem);
-	display: grid;
+	/* display: grid;
   grid-template-areas:
-    'header menu main right';
+    'header menu main right'; */
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;
@@ -198,10 +211,10 @@ window.addEventListener('touchstart', function() {
 	margin-right: 4rem;
     overflow: hidden;
 }
-#slides { grid-area: menu; }
+/* #slides { grid-area: menu; }
 #reveal { grid-area: main; }
 #cad { grid-area: right; }
-#autos {grid-area: header;}
+#autos {grid-area: header;} */
 h6{
 color: #FFFFFF;
 background-color: #404040;
@@ -236,11 +249,11 @@ border-radius: 5px;
     }
     @keyframes popup_fadeIn {
         0% {opacity: 0;}
-        50% {transform: translateY(-50px); opacity: 0.85;}
-        100% {transform: translateY(0px); opacity: 0.85;}
+        50% {transform: translateY(-50px); opacity: 0.50;}
+        100% {transform: translateY(0px); opacity: 0.50;}
     }
     @keyframes popup_fadeOut {
-        0% {opacity: 0.85;}
+        0% {opacity: 0.50;}
         50% {transform: translateY(-50px)}
         100% {transform: translateY(0px); opacity: 0;}
     }
@@ -248,26 +261,34 @@ border-radius: 5px;
         opacity: 0;
         position: absolute;
         padding: 5%;
-        bottom: 10%;
-        left: 27%;
+        bottom: 15%;
+        left: 35%;
         z-index: 1;
     }
+    #btn {
+        border: 5px solid #F6B14B;
+		border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+		padding: 3rem;
+		width: 60%;
+		color: #FFFFFF;
+		font-family: Poppins;
+		font-size: 3rem;
+		border-radius: 5px;
+	}
+    /* #title {
+        background-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
+        background-clip: text;
+        color: transparent;
+    } */
     </style>
     
 </head>
 <div id="theseconddiv">
-    <center>
-<h6 id="slides">Slides</h6>
-</center>
-<center>
-<h6 id="cad">CAD</h6>
-</center>
-<center>
-    <h6 id="autos" onclick="window.location.replace('/autos')">Autos</h6>
-</center>
-<center>
-<h6 id="reveal">Robot Reveal</h6>
-</center>
+        <center><h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1></center>
+        <!-- <center><h6 id="slides" onclick="">Slides</h6></center>
+        <center><h6 id="cad" onclick="window.location.href = '/cad'">CAD</h6></center>
+        <center><h6 id="autos" onclick="window.location.href = '/autos2'">Autos</h6></center>
+        <center><h6 id="reveal" onclick="window.location.href = '/reveal'">Reveal</h6></center> -->
 </div>
 <center>
     <h6 class="popup">Click me!</h6>
@@ -278,7 +299,7 @@ border-radius: 5px;
         <div  class="center" id="div" hx-get="/request" hx-trigger="click">
         
         <div  class="center" id="div" hx-get="/request" hx-trigger="click">
-            <h3 style="font-size: 10rem;">Hensight</h3>
+            <h3 style="font-size: 10rem;" id="title">Hensight</h3>
             <img style="width: 20rem; margin:5rem" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="">
         </div>
         

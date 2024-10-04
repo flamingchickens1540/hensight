@@ -22,7 +22,7 @@ def nexusData():
   print("Successfully got live event status")
 
   # Get information about a specific team's next match.
-  my_team_number = "1000"
+  my_team_number = "1000" #TESTING! change to 1540 before using at events
   my_matches = filter(lambda m: my_team_number in m.get('redTeams', []) + m.get('blueTeams', []), data['matches'])
   my_next_match = next(filter(lambda m: not m['status'] == 'On field', my_matches), None)
   pulseData = []
@@ -72,7 +72,6 @@ def nexusData():
   if my_upcomming_matches == []: my_upcomming_matches = ''
   pulseData.append(my_upcomming_matches)
   
-  print(data['matches'][0])
   # print(pulseData)
   return pulseData
 

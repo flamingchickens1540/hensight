@@ -8,7 +8,7 @@ from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import nexusData
 from statbotData import getTeam
-from tbaPulseData import getRankings
+from tbaPulseData import getRankings, getPrediction
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -93,7 +93,9 @@ def getStatBotData():
 @app.route("/getranking")
 def getRanking():
     return getRankings()
-
+@app.route("/getprediction")
+def prediction():
+    return getPrediction()
 
 
 @app.route("/autos")
@@ -102,15 +104,31 @@ def autos():
 @app.route("/autos2")
 def autos2():
     return render_template('autos2.html')
+@app.route("/autos3")
+def autos3():
+    return render_template('autos3.html')
 
 
 @app.route("/cad")
 def func():
     return render_template('cad.html')
 
+
+@app.route("/common.js")
+def commonjs():
+    return send_file("./templates/common.js")
+@app.route("/style.css")
+def stylecss():
+    return send_file("./templates/style.css")
 @app.route('/AmpLane.json')
 def amplane():
     return send_file("./static/AmpLanePADEF.traj")
+@app.route('/SourceLane.json')
+def sourcelane():
+    return send_file("./static/SourceLanePHGF.traj")
+@app.route('/CenterLane.json')
+def centerlane():
+    return send_file("./static/CenterLanePDEABC.traj")
 @app.route('/FriedEgg.glb')
 def serve_obj_file():
     return send_file("./static/FriedEgg.glb")
@@ -148,23 +166,16 @@ def main():
         old = choice
         return choice
     else:
-        if old != thank_msg(True) and old2 != thank_msg(True) and old3 != thank_msg(True):
-            # print('\n\nchoice:',thank_msg(True),'\nold:',old,'\nold2:',old2,'old3:',old3,'\n\n')
-            old3 = old2
-            old2 = old
-            old = thank_msg(True)
-            return thank_msg(True)
-        else:
-            # print('\n\nchoice:',robo_name(True),'\nold:',old,'\nold2:',old2,'old3:',old3,'\n\n')
-            old3 = old2
-            old2 = old
-            old = logodvd(True)
-            return logodvd(True)
+        return main()
     # if len(html)-1 > listindex:
     #     listindex +=1
     # else:
     #     listindex = 0
     # return html[listindex]
+
+@app.route('/jsonrequest')
+def jsonRequest():
+    return [main()]
 
 @app.route('/goback')
 def goback():
@@ -193,6 +204,24 @@ def test_html():
 def CHICKEN_SPIN():
     return render_template('chickenspin.html')
 
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
+@app.route('/menu/robot')
+def robo():
+    return render_template('robomenu.html')
+@app.route('/menu/misc')
+def misc():
+    return render_template('misc.html')
+@app.route('/menu/soon')
+def soon():
+    return render_template('comming_soon.html')
+@app.route('/menu/games')
+def games():
+    return render_template('games.html')
+@app.route('/crossy')
+def crossy():
+    return render_template('crossy.html')
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
     print("hi")

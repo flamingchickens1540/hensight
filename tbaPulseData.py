@@ -16,4 +16,7 @@ def getRankings():
     # print(top10)
     return top10
         
-getRankings()
+def getPrediction():        
+    prediction = tba.event_predictions(event_key)
+    # print(prediction)
+    return prediction

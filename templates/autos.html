@@ -33,38 +33,40 @@
 	<video src="static/SourceLanePHGF.mp4" controls id="source"></video>
 <div id="theseconddiv">
 	<center>
-<h4 id="slides">Slides</h4>
-</center>
-<center>
-<h4 id="cad">Cad</h4>
-</center>
-<center>
-	<h4 id="autos">Autos</h4>
+		<h1 id="btn" onclick="window.location.href = '/menu'">Return to Main Menu</h1>
 	</center>
-<center>
-<h4 id="reveal">Robot Reveal</h4>
-</center>
 </div>
 </body>
 <style>
+	#btn {
+        border-color: #FFC145;
+        border-width: 6px;
+        border-style: solid;
+		padding: 3rem;
+		width: 60%;
+		color: #FFFFFF;
+		font-family: Poppins;
+		font-size: 3rem;
+		border-radius: 5px;
+	}
 	#amp {
 		position: absolute;
 		width: 90%;
-		top: 5%;
+		top: 3%;
 		margin-left: 5%;
 		z-index: 1;
 	}
 	#center {
 		position: absolute;
 		width: 90%;
-		top: 35%;
+		top: 30%;
 		margin-left: 5%;
 		z-index: 1;
 	}
 	#source {
 		position: absolute;
 		width: 90%;
-		top: 65%;
+		top: 57%;
 		margin-left: 5%;
 		z-index: 1;
 	}
@@ -83,9 +85,9 @@
 		to {opacity: 0;}
 	}
 	
-#ampbtn { grid-area: header; }
+/* #ampbtn { grid-area: header; }
 #centerbtn { grid-area: menu; }
-#sourcebtn { grid-area: main; }
+#sourcebtn { grid-area: main; } */
 #thediv{
 	display: grid;
   grid-template-areas:
@@ -119,18 +121,19 @@ font-size: 3rem;
 border-radius: 5px;
 
 	}
-#slides { grid-area: menu; }
+/* #slides { grid-area: menu; }
 #reveal { grid-area: main; }
 #cad { grid-area: right; }
-#autos { grid-area: left; }
+#autos { grid-area: left; } */
 #theseconddiv {
-    border-bottom: 0.5rem solid #FFC145; /* Adjust border width as needed */
+	border-bottom: 0.5rem solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to bottom right, #F6B14B, #FF4848) 30;
 	position: fixed;
 	bottom: 0;
 	width: calc(100% - 3rem);
-	display: grid;
+	/* display: grid;
   grid-template-areas:
-    'menu main right left';
+    'header menu main right'; */
 	background-color: #1C1C1C;
 	padding: 1rem;
 	padding-top: 2rem;
