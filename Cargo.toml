@@ -14,3 +14,4 @@ tower = { version = "0.5.1", features = ["util"] }
 tower-http = { version = "0.6.1", features = ["fs", "trace"] }
 tba-openapi-rust = { path = "./tba-openapi-rust" }
 chrono = "0.4.38"
+rand = "0.8.5"
