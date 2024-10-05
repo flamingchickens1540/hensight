@@ -1,7 +1,7 @@
 import tbapy
 
 key = 'Ab5I0k9SHkYT1FC4Yh5T2lpnjsewAsHNRUnoRLcnk7vueOW4VeNWf2NMBzfGsDeN'
-event_key = '2024cc' #TESTING! change to your event key when using at events
+event_key = '2024orgg' #TESTING! change to your event key when using at events
 
 tba = tbapy.TBA(key)
 
@@ -20,3 +20,5 @@ def getPrediction():
     prediction = tba.event_predictions(event_key)
     # print(prediction)
     return prediction
+
+getRankings()

@@ -30,20 +30,23 @@
         console.log("reset");
     });
 
-    const myTeam = "1000";
+    const myTeam = "1540";
 
     async function getRankings() {
         const response = await fetch("/getranking");
         let data = await response.json();
         console.log("rankings");
-        // console.log(data)
+        console.log(data)
         let html = "";
-        for (i = 0; i < data.length; i++) {
-            // console.log('data[i]'+data[i])
-            html += "<p>";
-            html += data[i];
-            html += "</p>";
+        if (data.length != 0) {
+            for (i = 0; i < data.length; i++) {
+                // console.log('data[i]'+data[i])
+                html += "<p>";
+                html += data[i];
+                html += "</p>";
+            }
         }
+        else html = 'No rankings yet'
         rank.innerHTML = html;
     }
     //  async function getStatBotData() {

@@ -57,13 +57,13 @@ class HensightStatsManager:
             "current_blue_alliance_score": 0,
             "event_blue_alliance_score": 0,
 
-            "global_melody_percentage": 0,
-            "current_melody_percentage": 0,
-            "event_melody_percentage": 0,
+            # "global_melody_percentage": 0,
+            # "current_melody_percentage": 0,
+            # "event_melody_percentage": 0,
 
-            "global_ensemble_percentage": 0,
-            "current_ensemble_percentage": 0,
-            "event_ensemble_percentage": 0,
+            # "global_ensemble_percentage": 0,
+            # "current_ensemble_percentage": 0,
+            # "event_ensemble_percentage": 0,
 
             "global_rp": 0,
             "current_rp": 0,
@@ -113,12 +113,12 @@ class HensightStatsManager:
         global_number_of_matches = 0
         current_number_of_matches = 0
         event_number_of_matches = 0
-        global_melody_rp = 0
-        current_melody_rp = 0
-        event_melody_rp = 0
-        global_ensemble_rp = 0
-        current_ensemble_rp = 0
-        event_ensemble_rp = 0
+        # global_melody_rp = 0
+        # current_melody_rp = 0
+        # event_melody_rp = 0
+        # global_ensemble_rp = 0
+        # current_ensemble_rp = 0
+        # event_ensemble_rp = 0
         global_rp = 0
         current_rp = 0
         event_rp = 0
@@ -146,11 +146,11 @@ class HensightStatsManager:
                     global_distance_traveled = global_distance_traveled + match_data.totalDistanceTraveled
                     global_red_alliance_score = global_red_alliance_score + match_data.redScore
                     global_blue_alliance_score = global_blue_alliance_score + match_data.blueScore
-                    if match_data.melodyRP != 0:
-                        global_melody_rp = global_melody_rp + 1
-                    if match_data.ensembleRP != 0:
-                        global_ensemble_rp = global_ensemble_rp + 1
-                    global_rp = global_rp + match_data.totalRP
+                    # if match_data.melodyRP != 0:
+                        # global_melody_rp = global_melody_rp + 1
+                    # if match_data.ensembleRP != 0:
+                        # global_ensemble_rp = global_ensemble_rp + 1
+                    # global_rp = global_rp + match_data.totalRP
                     # global_co_op = global_co_op + match_data.coop
 
 
@@ -172,11 +172,11 @@ class HensightStatsManager:
             event_distance_traveled = event_distance_traveled + match_data.totalDistanceTraveled
             event_red_alliance_score = event_red_alliance_score + match_data.redScore
             event_blue_alliance_score = event_blue_alliance_score + match_data.blueScore
-            if match_data.melodyRP != 0:
-                event_melody_rp = event_melody_rp + 1
-            if match_data.ensembleRP != 0:
-                event_ensemble_rp = event_ensemble_rp + 1
-            event_rp = event_rp + match_data.totalRP
+            # if match_data.melodyRP != 0:
+                # event_melody_rp = event_melody_rp + 1
+            # if match_data.ensembleRP != 0:
+                # event_ensemble_rp = event_ensemble_rp + 1
+            # event_rp = event_rp + match_data.totalRP
             # event_co_op = event_co_op + match_data.coop
 
         for matches in self.current_events_data:
@@ -198,11 +198,11 @@ class HensightStatsManager:
                     current_distance_traveled = current_distance_traveled + match_data.totalDistanceTraveled
                     current_red_alliance_score = current_red_alliance_score + match_data.redScore
                     current_blue_alliance_score = current_blue_alliance_score + match_data.blueScore
-                    if match_data.melodyRP != 0:
-                        current_melody_rp = current_melody_rp + 1
-                    if match_data.ensembleRP != 0:
-                        current_ensemble_rp = current_ensemble_rp + 1
-                    current_rp = current_rp + match_data.totalRP
+                    # if match_data.melodyRP != 0:
+                        # current_melody_rp = current_melody_rp + 1
+                    # if match_data.ensembleRP != 0:
+                        # current_ensemble_rp = current_ensemble_rp + 1
+                    # current_rp = current_rp + match_data.totalRP
                     # current_co_op = current_co_op + match_data.coop
 
 

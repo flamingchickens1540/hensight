@@ -37,7 +37,7 @@ def update_this_event():
     TBAData.update_current_event_data("data.txt")
     print("---update finished---")
 
-# schedule.every(3).minutes.do(update_this_event)
+schedule.every(3).minutes.do(update_this_event)
 
 def loop():
     # print("-fnc run-")

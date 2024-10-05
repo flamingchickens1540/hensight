@@ -30,65 +30,71 @@
         console.log("reset");
     });
 
-    const myTeam = "1000"; // TESTING! change to 1540 before using at events
-    const eventKey = "2024cc";
+    const myTeam = "1540"; // TESTING! change to 1540 before using at events
+    const eventKey = "2024orwi2";
 
     async function getNexusData() {
         const response = await fetch("/getnexusdata");
         let data = await response.json();
         console.log("Nexus data");
         console.log(data);
-        let upmatches = data[4];
-        let html = "";
-        if (upmatches.length == 0) {
-            html = myTeam + " does not have any upcoming matches";
-            nextup.innerHTML = myTeam + " does not have any upcoming matches";
-        } else {
-            for (let i = 0; i < upmatches.length; i++) {
-                // console.log(upmatches[i])
-                if (data[4] != "") {
-                    html +=
-                        upmatches[i]["label"] + ": " + upmatches[i]["status"];
-                } else {
-                    upmatch.innerHTML =
-                        "Team " +
-                        myTeam +
-                        " does not have any upcomming matches";
+        if (data[1] != 'No nexus at this event :(') {
+            let upmatches = data[4];
+            let html = "";
+            if (upmatches.length == 0) {
+                html = myTeam + " does not have any upcoming matches";
+                nextup.innerHTML = myTeam + " does not have any upcoming matches";
+            } else {
+                for (let i = 0; i < upmatches.length; i++) {
+                    // console.log(upmatches[i])
+                    if (data[4] != "") {
+                        html +=
+                            upmatches[i]["label"] + ": " + upmatches[i]["status"];
+                    } else {
+                        upmatch.innerHTML =
+                            "Team " +
+                            myTeam +
+                            " does not have any upcomming matches";
+                    }
+                    html += "<br>";
                 }
-                html += "<br>";
             }
-        }
-        upmatch.innerHTML = html;
-        nextMatch = upmatches[0];
-        let nextColor = "ERROR";
-        for (let i = 0; i < nextMatch["blueTeams"].length; i++) {
-            if (nextMatch["blueTeams"][i] == myTeam) {
-                nextColor = "blue";
-            } else if (nextMatch["redTeams"][i] == myTeam) {
-                nextColor = "red";
+            upmatch.innerHTML = html;
+            nextMatch = upmatches[0];
+            let nextColor = "ERROR";
+            for (let i = 0; i < nextMatch["blueTeams"].length; i++) {
+                if (nextMatch["blueTeams"][i] == myTeam) {
+                    nextColor = "blue";
+                } else if (nextMatch["redTeams"][i] == myTeam) {
+                    nextColor = "red";
+                }
             }
-        }
-        if (nextColor == "blue")
-            colorhtml =
-                '<div id="bluebumper">You will be wearing the ' +
-                nextColor +
-                " bumbers</div>";
-        else if ((nextColor = "red"))
-            colorhtml =
-                '<div id="redbumper">You will be wearing the ' +
-                nextColor +
-                " bumbers</div>";
+            if (nextColor == "blue")
+                colorhtml =
+                    '<div id="bluebumper">You will be wearing the ' +
+                    nextColor +
+                    " bumbers</div>";
+            else if ((nextColor = "red"))
+                colorhtml =
+                    '<div id="redbumper">You will be wearing the ' +
+                    nextColor +
+                    " bumbers</div>";
 
-        nextup.innerHTML =
-            "Your next match is " +
-            nextMatch["label"] +
-            " and is " +
-            nextMatch["status"] +
-            colorhtml +
-            "Blue Alliance: " +
-            nextMatch["blueTeams"] +
-            "<br>Red Teams: " +
-            nextMatch["redTeams"];
+            nextup.innerHTML =
+                "Your next match is " +
+                nextMatch["label"] +
+                " and is " +
+                nextMatch["status"] +
+                colorhtml +
+                "Blue Alliance: " +
+                nextMatch["blueTeams"] +
+                "<br>Red Teams: " +
+                nextMatch["redTeams"];
+        }
+        else {
+            upmatch.innerHTML = data[0]
+            nextup.innerHTML = data[0]
+        }
     }
 
     async function getPrediction() {
