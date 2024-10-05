@@ -19,7 +19,7 @@ def eggs_in_match(toggle):
 
 def feather_message(toggle):
     if toggle:
-        return "<h4>There are as many people that do FIRST as feathers on </h4><h2>Ten and Half chickens!</h2>"
+        return "<h4>There are as many people that do FIRST as feathers on </h4><h2>10 1/2</h2><h4>chickens!</h4>"
     else:
         return 'bad'
 
@@ -112,9 +112,9 @@ def event_high_score(toggle, event_toggle):
     else:
         return 'bad'
 def spotlight_percent(toggle, event_toggle):
-    if toggle and event_toggle:
-        return f'<h1>At this competition</h1><h3>{round(hensightStats.hensight_stats["event_spotlight_note_percentage"], 2)}%<h3><h1>of robotics have been spotlit</h1><div></div><h1>In the world</h1><h3>{round(hensightStats.hensight_stats["global_spotlight_note_percentage"], 2)}%</h3><h1>of robots have been spotlit</h1>'
-    else:
+    # if toggle and event_toggle:
+    #     return f'<h1>At this competition</h1><h3>{round(hensightStats.hensight_stats["event_spotlight_note_percentage"], 2)}%<h3><h1>of robotics have been spotlit</h1><div></div><h1>In the world</h1><h3>{round(hensightStats.hensight_stats["global_spotlight_note_percentage"], 2)}%</h3><h1>of robots have been spotlit</h1>'
+    # else:
         return 'bad'
 def global_total_notes(toggle):
     if toggle:
@@ -137,14 +137,15 @@ def global_amp_notes(toggle):
     else:
         return 'bad'
 def event_travel(toggle, event_toggle):
-    if toggle and event_toggle:
-        return f'<h4>Robots at this event have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
-    else:
+    # if toggle and event_toggle:
+    #     return f'<h4>Robots at this event have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
+    # else:
         return 'bad'
 def global_travel(toggle):
-    if toggle:
-        return f'<h4>All the robotcs in the world have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
-    else: return 'bad'
+    # if toggle:
+    #     return f'<h4>All the robotcs in the world have traveled</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["global_distance_traveled"]))}ft</h2><h4>in total :O</h4>'
+    # else: 
+        return 'bad'
 def event_alliance_score(toggle, event_toggle):
     if toggle and event_toggle:
         return f'<h4>In this divison, the blue alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_blue_alliance_score"]))}</h2><h4>points combined</h4><h4>While the red alliance has scored</h4><h2>{"{:,}".format(round(hensightStats.hensight_stats["event_red_alliance_score"]))}</h2><h4>points combined</h4>'
