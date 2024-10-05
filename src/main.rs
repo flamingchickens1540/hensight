@@ -1,6 +1,7 @@
 use axum::Json;
 use axum::{routing::get, Router};
 use dotenv::dotenv;
+use fix_fn::fix_fn;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::env;
@@ -47,6 +48,13 @@ async fn main() {
         |_| Some("<h5>A chicken running on a hamster wheel would take</h5><h3 style=\"font-size:13rem;\">5 hours</h3><h5>to generate enough power for a ES 17-12 battery</h5>"),
         |_| Some("<marquee class=\"marquee\" behavior=\"alternate\" direction=\"down\"scrollamount=\"20\" id=\"logo\"><marquee style=\"margin-bottom: 160px\" behavior=\"alternate\" width=\"100%\" scrollamount=\"20\"><img width=\"250px\" src=\"https://avatars.githubusercontent.com/u/5280254?s=200&v=4\" alt=\"dvd\" id=\"spin\"></marquee></marquee><p id=\"msg\">inside of my head rn</p>"),
     ];
+
+    let get_slide = fix_fn!(|get_slide| -> String {
+        match slides.choose(&mut thread_rng()).unwrap()(1) {
+            Some(slide) => String::from(slide),
+            None => get_slide(),
+        }
+    });
 
     let app = Router::new()
         .route_service("/", ServeFile::new("templates/hensight.html"))
@@ -101,10 +109,7 @@ async fn main() {
                 .await,
             )),
         )
-        .route_service(
-            "/request",
-            get(slides.choose(&mut thread_rng()).unwrap()(1).unwrap()),
-        );
+        .route_service("/request", get(get_slide()));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3010")
         .await
