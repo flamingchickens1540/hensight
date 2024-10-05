@@ -72,6 +72,11 @@
             <h1 id="title">Hensight</h1>
             <h1 id="time"></h1>
         </header>
+        <img
+            style="width: calc(100% - 8rem)"
+            src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
+            alt="flaming chickens logo"
+        />
         <footer class="center-col">
             <a href="/pulse_schedule"><button>Schedule</button></a>
             <a href="/menu"><button>Main Menu</button></a>
@@ -93,6 +98,7 @@
         justify-content: center !important;
     }
 
+    footer,
     footer a {
         width: 100%;
         button {
@@ -113,19 +119,15 @@
         background-image: none;
         background: #ffc145;
     }
-    footer a {
-        flex-grow: 10;
-        & button {
-            font-size: 3rem;
-        }
-    }
+
     #rank {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-        min-width: calc(2rem + 1200px)
-    }
-    #rank p {
-        margin: 0px;
-        font-size: 4rem;
+        min-width: calc(2rem + 1200px);
+
+        p {
+            margin: 0px;
+            font-size: 4rem;
+        }
     }
 </style>
