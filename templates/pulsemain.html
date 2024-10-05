@@ -86,59 +86,62 @@
         getStatBotData();
     }
 </script>
-<style>
-    #main-info-thingy {
-        justify-items: space-between;
-        flex-grow: 10;
-        padding-block: var(--gap);
-    }
-    button {
-        font-size: 3rem;
-        font-weight: 700;
-        width: 100%;
-    }
-    h1 {
-        font-size: 5rem !important;
-    }
-    #header {
-        justify-content: space-around;
-        width: 100%;
-    }
-    footer {
-        width: 100%;
-        justify-content: space-between !important;
-    }
-    footer a {
-        flex-grow: 1;
-    }
-    footer > a:not(#main-menu) > button::before,
-    #main-info-thingy > button::before {
-        background-image: none;
-        background: #ffc145;
-    }
-</style>
-<body onclick="openFullscreen()" onload="getTime()" class="center-col">
-    <div id="header" class="flex-row-auto">
-        <h1 id="title">Hensight</h1>
-        <h1 id="time"></h1>
-    </div>
-    <div id="main-info-thingy" class="center-col">
+<body onclick="openFullscreen()" onload="getTime()">
+    <nav class="pulse-sidebar">
+        <header class="center-col">
+            <h1 id="title">Hensight</h1>
+            <h1 id="time"></h1>
+        </header>
+        <img
+            style="width: calc(100% - 8rem)"
+            src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
+            alt="flaming chickens logo"
+        />
+        <footer class="center-col">
+            <a href="/pulse_schedule"><button>Schedule</button></a>
+            <a href="/menu"><button>Main Menu</button></a>
+            <a href="/pulse_ranking"><button>Ranking</button></a>
+        </footer>
+    </nav>
+    <main class="center-col">
         <button id="upmatch"></button>
         <button id="nextup"></button>
         <button id="announcements">There are currently no announcements</button>
         <button id="requests">There are currently no part requests</button>
         <button id="stats">Loading...</button>
         <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-        <footer class="flex-row-auto">
-            <a href="/pulse_schedule" style="font-size: 2.5rem"
-                ><button>Schedule</button></a
-            >
-            <a id="main-menu" href="/menu" style="font-size: 2.5rem"
-                ><button>Main Menu</button></a
-            >
-            <a href="/pulse_ranking" style="font-size: 2.5rem"
-                ><button>Ranking</button></a
-            >
-        </footer>
-    </div>
+    </main>
 </body>
+<style>
+    body {
+        display: flex;
+    }
+
+    main {
+        flex-grow: 1;
+        justify-content: center !important;
+    }
+
+    footer,
+    footer a {
+        width: 100%;
+        button {
+            font-size: 3rem;
+        }
+    }
+
+    #title,
+    #time {
+        font-weight: 700;
+        font-style: normal;
+        font-size: 5rem;
+        text-align: center;
+        margin: auto;
+    }
+
+    main button {
+        font-size: 3rem;
+        font-weight: 700;
+        width: 80%;
+    }
+</style>

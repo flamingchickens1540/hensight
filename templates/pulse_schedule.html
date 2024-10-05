@@ -122,15 +122,17 @@
         // getStatBotData()
     }
 </script>
-<body
-    onclick="openFullscreen()"
-    onload="getTime()"
->
+<body onclick="openFullscreen()" onload="getTime()">
     <nav class="pulse-sidebar">
         <header class="center-col">
             <h1 id="title">Hensight</h1>
             <h1 id="time"></h1>
         </header>
+        <img
+            style="width: calc(100% - 8rem)"
+            src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
+            alt="flaming chickens logo"
+        />
         <footer class="center-col">
             <a href="/pulse_schedule"><button>Schedule</button></a>
             <a href="/menu"><button>Main Menu</button></a>
@@ -142,7 +144,6 @@
         <button id="upmatch">Loading...</button>
         <button id="nextup">Loading...</button>
     </main>
-
 </body>
 <style>
     body {
@@ -154,6 +155,7 @@
         justify-content: center !important;
     }
 
+    footer,
     footer a {
         width: 100%;
         button {
