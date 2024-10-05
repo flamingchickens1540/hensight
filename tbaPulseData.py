@@ -11,7 +11,7 @@ def getRankings():
     top10 = []
     
     for i in rankings['rankings']:
-        if i['rank'] > 15: break
+        if i['rank'] > 20: break
         top10.append('Rank '+str(i['rank'])+': '+str(i['team_key']))
     # print(top10)
     return top10
