@@ -151,13 +151,13 @@ button::before,
   background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
 }
 
-#quad-grid {
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto auto;
-  grid-gap: var(--gap);
-  width: clamp(800px, 75%, 1200px);
-  aspect-ratio: 1.5;
+.flex-row-auto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--gap);
 }
 
 .center-col {
@@ -212,5 +212,20 @@ button#yes {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: var(--gap);
+}
+
+a:has(> button) {
+  width: fit-content;
+  height: fit-content;
+}
+
+.pulse-sidebar {
+  height: inherit;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--gap);
 }
