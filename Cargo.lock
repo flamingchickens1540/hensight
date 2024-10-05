@@ -284,6 +284,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8c02a5121d4ea3eb16a80748c74f5549a5665e4c21333c6098f283870fbdea6"
 
 [[package]]
+name = "fix_fn"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "380f193e13417258cee0f6f750a1be449bfaa476874985fd6690be580086f7f1"
+
+[[package]]
 name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -407,6 +413,7 @@ dependencies = [
  "axum",
  "chrono",
  "dotenv",
+ "fix_fn",
  "rand",
  "reqwest",
  "serde",
@@ -415,6 +422,7 @@ dependencies = [
  "tokio",
  "tower",
  "tower-http",
+ "use",
 ]
 
 [[package]]
@@ -1550,6 +1558,12 @@ dependencies = [
  "idna",
  "percent-encoding",
 ]
+
+[[package]]
+name = "use"
+version = "0.0.1-pre.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f916b8b6102de89f9999988ddc8e9bd0f119a8344e06bb19b0b03fb655769035"
 
 [[package]]
 name = "uuid"
