@@ -2,12 +2,9 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
     </style>
-    <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
-        rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="/common.js"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -126,55 +123,59 @@
     }
 </script>
 <body
-    style="background-color: #1c1c1c"
     onclick="openFullscreen()"
     onload="getTime()"
 >
-    <div id="header">
-        <h1 id="title" class="row-start-1 col-start-1">Hensight</h1>
-        <h1 id="time" class="row-start-1 col-start-2"></h1>
-    </div>
-    <div id="thediv">
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-1"
-            id="upmatch"
-        >
-            Loading...
-        </div>
-        <div
-            class="inner-div grid col-start-1 col-end-4 row-start-2"
-            id="nextup"
-        >
-            Loading...
-        </div>
-        <div
-            class="inner-div btn grid col-start-1 row-start-3"
-            onclick="window.location.href = '/pulse_rip_off'"
-            style="font-size: 2.5rem"
-        >
-            Main
-        </div>
-        <div
-            class="inner-div btn border grid col-start-2 row-start-3"
-            onclick="window.location.href='/menu'"
-            style="font-size: 2.5rem"
-        >
-            Main menu
-        </div>
-        <div
-            class="inner-div btn grid col-start-3 row-start-3"
-            onclick="window.location.href = '/pulse_ranking'"
-            style="font-size: 2.5rem"
-        >
-            Ranking
-        </div>
-    </div>
+    <nav class="pulse-sidebar">
+        <header class="center-col">
+            <h1 id="title">Hensight</h1>
+            <h1 id="time"></h1>
+        </header>
+        <footer class="center-col">
+            <a href="/pulse_schedule"><button>Schedule</button></a>
+            <a href="/menu"><button>Main Menu</button></a>
+            <a href="/pulse_rip_off"><button>Main</button></a>
+        </footer>
+    </nav>
+
+    <main class="center-col">
+        <button id="upmatch">Loading...</button>
+        <button id="nextup">Loading...</button>
+    </main>
+
 </body>
 <style>
-    .border {
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
+    body {
+        display: flex;
     }
+
+    main {
+        flex-grow: 1;
+        justify-content: center !important;
+    }
+
+    footer a {
+        width: 100%;
+        button {
+            font-size: 3rem;
+        }
+    }
+
+    #title,
+    #time {
+        font-weight: 700;
+        font-style: normal;
+        font-size: 5rem;
+        text-align: center;
+        margin: auto;
+    }
+
+    #upmatch,
+    #nextup {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
     #bluebumper {
         color: white;
         text-shadow:
@@ -190,96 +191,5 @@
             5px 5px 0 red,
             5px -5px 0 red,
             -5px -5px 0 red;
-    }
-    h2 {
-        font-size: 13rem;
-        color: #ffc145;
-    }
-    h3 {
-        font-size: 13rem;
-        color: #ffc145;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-        height: calc(100vh);
-        overflow: hidden; /* Hide scrollbars */
-    }
-    #thediv {
-        display: grid;
-        grid-template-columns: 4;
-        grid-template-rows: 7;
-        grid-gap: 2%;
-        width: 95%;
-        height: 95%;
-        position: absolute;
-        padding: 1%;
-        margin: auto;
-        top: 7%;
-        left: 50%;
-        transform: translate(-50%);
-    }
-    .btn {
-        width: 80%;
-    }
-    .inner-div {
-        padding: 2%;
-        border-radius: 5px;
-        color: #ffffff;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        text-align: center;
-        margin: auto;
-        font-size: 3rem;
-        width: 100%;
-        height: fit-content;
-        border-color: #ffc145;
-        border-width: 6px;
-        border-style: solid;
-    }
-    /* .border {
-            position: relative;
-            width: 475px;
-            height: 475px;
-            background: linear-gradient(to right, red, )
-        } */
-    h4 {
-        color: #ffffff;
-        margin: 0.5rem;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 3rem;
-        border-radius: 5px;
-    }
-    #header {
-        display: grid;
-        grid-template-columns: 2;
-        grid-template-rows: 1;
-    }
-    #title {
-        background-color: #ffc145;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: auto;
-    }
-    #time {
-        color: #ffc145;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        text-align: center;
-        margin: auto;
     }
 </style>
