@@ -1,0 +1,16 @@
+[package]
+name = "hensight"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.7", features = ["json"] }
+dotenv = "0.15.0"
+reqwest = { version = "0.12.8", features = ["json"] }
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
+tokio = { version = "1.40.0", features = ["full"] }
+tower = { version = "0.5.1", features = ["util"] }
+tower-http = { version = "0.6.1", features = ["fs", "trace"] }
+tba-openapi-rust = { path = "./tba-openapi-rust" }
+chrono = "0.4.38"
