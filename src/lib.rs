@@ -60,14 +60,11 @@ pub async fn get_pulse_data(
         })
         .collect();
 
-    let my_next_match = match myUpcomingMatches.len() {
-        1.. => Some(myUpcomingMatches[0].clone()),
-        0 => None,
-    };
-
     let matchInfo: String;
-    match my_next_match {
-        Some(nexus_match) => {
+    match myUpcomingMatches.len() {
+        1.. => {
+            let nexus_match = &myUpcomingMatches[0];
+
             let queue_time = (Local
                 .timestamp_opt(
                     nexus_match
@@ -102,7 +99,7 @@ pub async fn get_pulse_data(
                 team_number, nexus_match.label, formated_time
             );
         }
-        None => {
+        0 => {
             matchInfo = format!(
                 "Team {} doesn't have any future matches scheduled yet",
                 team_number
