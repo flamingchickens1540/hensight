@@ -30,7 +30,7 @@ def nexusData():
     my_next_match = next(
         filter(lambda m: not m["status"] == "On field", my_matches), None
     )
-    pulseData = []
+    pulseData = {}
     announcements = []
     partRequests = []
     matchInfo = ""
@@ -66,7 +66,7 @@ def nexusData():
             my_team_number
         )
 
-    pulseData.append(matchInfo)
+    pulseData["matchInfo"] = matchInfo
 
     # Get announcements and parts requests.
     # print(data['announcements'])
@@ -74,7 +74,7 @@ def nexusData():
         announcements.append(
             "Event announcement: {}".format(announcement["announcement"])
         )
-    pulseData.append(announcements)
+    pulseData["announcements"] = announcements
 
     for parts_request in data["partsRequests"]:
         partRequests.append(
@@ -82,12 +82,10 @@ def nexusData():
                 parts_request["requestedByTeam"], parts_request["parts"]
             )
         )
-    pulseData.append(partRequests)
+    pulseData["partRequest"] = partRequests
 
     if "nowQueuing" in data:
-        pulseData.append(data["nowQueuing"])
-    else:
-        pulseData.append("")
+        pulseData["nowQueuing"] = data["nowQueuing"]
 
     my_upcomming_matches = []
     for i in data["matches"]:
@@ -97,7 +95,7 @@ def nexusData():
             my_upcomming_matches.append(i)
     if my_upcomming_matches == []:
         my_upcomming_matches = ""
-    pulseData.append(my_upcomming_matches)
+    pulseData["myUpcommingMatches"] = my_upcomming_matches
 
     # print(pulseData)
     return pulseData
