@@ -214,3 +214,18 @@ button#yes {
   justify-content: center;
   gap: var(--gap);
 }
+
+a:has(> button) {
+  width: fit-content;
+  height: fit-content;
+}
+
+.pulse-sidebar {
+  height: inherit;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+}
