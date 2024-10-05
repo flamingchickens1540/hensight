@@ -2,39 +2,14 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
     </style>
-    <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
-        rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/common.js"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    function getTime() {
-        var d = new Date();
-        var hours = d.getHours();
-        var mins = d.getMinutes();
-        var sec = d.getSeconds();
-        var h = ("00" + hours).slice(-2);
-        if (h > 12) {
-            h -= 12;
-        }
-        var m = ("00" + mins).slice(-2);
-        var s = ("00" + sec).slice(-2);
-        var time = h + ":" + m + ":" + s;
-        document.getElementById("time").innerHTML = time;
-    }
-    var elem = document.documentElement;
-    function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            /* Safari */
-            elem.webkitRequestFullscreen();
-        }
-    }
-    var idle_secconds = 0;
-    var fact_secconds = 0;
+    let idle_secconds = 0;
+    let fact_secconds = 0;
     function incrementSeconds() {
         idle_secconds++;
         // fact_secconds++
@@ -49,7 +24,7 @@
         // }
     }
 
-    window.addEventListener("touchstart", function () {
+    window.addEventListener("touchstart", () => {
         idle_secconds = 0;
         console.log("reset");
     });
@@ -64,8 +39,9 @@
         let html = "";
         for (i = 0; i < data.length; i++) {
             // console.log('data[i]'+data[i])
+            html += "<p>";
             html += data[i];
-            html += "<br>";
+            html += "</p>";
         }
         rank.innerHTML = html;
     }
@@ -90,135 +66,66 @@
         // getStatBotData()
     }
 </script>
-<body
-    style="background-color: #1c1c1c"
-    onclick="openFullscreen()"
-    onload="getTime()"
->
-    <div id="header">
-        <h1 id="title" class="row-start-1 col-start-1">Hensight</h1>
-        <h1 id="time" class="row-start-1 col-start-2"></h1>
-    </div>
-    <div id="thediv">
-        <div class="inner-div grid col-start-1 col-end-4 row-start-1" id="rank">
-            Loading...
-        </div>
-        <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
-        <div
-            class="inner-div btn grid col-start-1 row-start-2"
-            onclick="window.location.href = '/pulse_schedule'"
-            style="font-size: 2.5rem"
-        >
-            Schedule
-        </div>
-        <div
-            class="inner-div btn border grid col-start-2 row-start-2"
-            onclick="window.location.href = '/menu'"
-            style="font-size: 2.5rem"
-        >
-            Main Menu
-        </div>
-        <div
-            class="inner-div btn grid col-start-3 row-start-2"
-            onclick="window.location.href = '/pulse_rip_off'"
-            style="font-size: 2.5rem"
-        >
-            Main
-        </div>
-    </div>
+<body onclick="openFullscreen()" onload="getTime()">
+    <nav class="pulse-sidebar">
+        <header class="center-col">
+            <h1 id="title">Hensight</h1>
+            <h1 id="time"></h1>
+        </header>
+        <footer class="center-col">
+            <a href="/pulse_schedule"><button>Schedule</button></a>
+            <a href="/menu"><button>Main Menu</button></a>
+            <a href="/pulse_rip_off"><button>Main</button></a>
+        </footer>
+    </nav>
+    <main class="center-col">
+        <button id="rank">Loading...</button>
+    </main>
+    <!-- <div class="inner-div grid col-start-1 col-end-4 row-start-2" id="nextup">Loading...</div> -->
 </body>
 <style>
-    .border {
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-    }
-    h2 {
-        font-size: 13rem;
-        color: #ffc145;
-    }
-    h3 {
-        font-size: 13rem;
-        color: #ffc145;
+    body {
+        display: flex;
     }
 
-    body {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        border: 0.5rem solid; /* Adjust border width as needed */
-        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 30;
-        height: calc(100vh);
-        overflow: hidden; /* Hide scrollbars */
+    main {
+        flex-grow: 1;
+        justify-content: center !important;
     }
-    #thediv {
-        display: grid;
-        grid-gap: 2%;
-        width: 95%;
-        height: 95%;
-        position: absolute;
-        padding: 1%;
-        margin: auto;
-        top: 7%;
-        left: 50%;
-        transform: translate(-50%);
-    }
-    .btn {
-        width: 80%;
-    }
-    .inner-div {
-        padding: 2%;
-        border-radius: 5px;
-        color: #ffffff;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        text-align: center;
-        margin: auto;
-        font-size: 3rem;
+
+    footer a {
         width: 100%;
-        height: fit-content;
-        border-color: #ffc145;
-        border-width: 6px;
-        border-style: solid;
+        button {
+            font-size: 3rem;
+        }
     }
-    /* .border {
-            position: relative;
-            width: 475px;
-            height: 475px;
-            background: linear-gradient(to right, red, )
-        } */
-    h4 {
-        color: #ffffff;
-        margin: 0.5rem;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 3rem;
-        border-radius: 5px;
-    }
-    #header {
-        display: grid;
-        grid-template-columns: 2;
-        grid-template-rows: 1;
-    }
-    #title {
-        background-color: #ffc145;
-        font-family: "Poppins", sans-serif;
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        background-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: auto;
-    }
+
+    #title,
     #time {
-        color: #ffc145;
-        font-family: "Poppins", sans-serif;
         font-weight: 700;
         font-style: normal;
         font-size: 5rem;
         text-align: center;
         margin: auto;
+    }
+
+    button#rank::before {
+        background-image: none;
+        background: #ffc145;
+    }
+    footer a {
+        flex-grow: 10;
+        & button {
+            font-size: 3rem;
+        }
+    }
+    #rank {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+        min-width: calc(2rem + 1200px)
+    }
+    #rank p {
+        margin: 0px;
+        font-size: 4rem;
     }
 </style>
