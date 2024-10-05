@@ -31,6 +31,7 @@ async fn main() {
         get_team(&tba_config, "frc1540", None).await.unwrap()
     );
 
+    // closure so tba_api can be used by them in the future
     let slides = vec![
         |_| Some("<h4>Team 1540 Thanks</h4><h3>YOU</h3><h4>for joining us in our pits!</h4>"),
         |_| {
