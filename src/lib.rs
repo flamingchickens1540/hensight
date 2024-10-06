@@ -2,6 +2,7 @@ use chrono::{Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
 use serde_json;
+use std::ops::Deref;
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
@@ -64,9 +65,12 @@ pub async fn get_pulse_data(
         .matches
         .into_iter()
         .filter(|m| {
-            [m.redTeams.clone().unwrap(), m.blueTeams.clone().unwrap()]
-                .concat()
-                .contains(&team_number.to_string())
+            [
+                m.redTeams.as_ref().unwrap().deref(),
+                m.blueTeams.as_ref().unwrap().deref(),
+            ]
+            .concat()
+            .contains(&team_number.to_string())
                 && m.status != "On field"
         })
         .collect();
