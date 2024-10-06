@@ -14,19 +14,16 @@ async fn main() {
     let mut tba_config = Configuration::new();
     tba_config.api_key = Some(ApiKey {
         prefix: None,
-        key: env::var("TBA_API_KEY").expect("TBA_API_KEY must be set in .env"),
+        key: env::var("TBA_API_KEY").expect("TBA_API_KEY must be set"),
     });
 
     let reqwest_client = reqwest::Client::new();
-    let nexus_api_key: String =
-        env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set in .env");
+    let nexus_api_key: String = env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set");
     let event_key: String = env::var("EVENT_KEY").expect("EVENT_KEY must be set");
-    let team_number: u32 = match env::var("TEAM_NUMBER") {
-        Ok(number) => number
-            .parse::<u32>()
-            .expect("TEAM_NUMBER must be an unsigned int"),
-        Err(_) => 1540,
-    };
+    let team_number: u32 = env::var("TEAM_NUMBER")
+        .expect("TEAM_NUMBER must be set")
+        .parse::<u32>()
+        .expect("TEAM_NUMBER must be an unsigned int");
 
     #[rustfmt::skip]
     let slides = vec![

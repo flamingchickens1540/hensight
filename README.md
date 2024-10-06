@@ -14,12 +14,10 @@ python main.py
 ### Rust backend
 
 ```bash
-# with all required env vars set in .env
+# with env vars set in .env
 cargo run
-# setting EVENT_KEY inline
+# setting EVENT_KEY inline (overrides value in .env)
 EVENT_KEY="2024cc" cargo run
-# setting TEAM_NUMBER inline (optional, defaults to 1540)
-TEAM_NUMBER="1540" cargo run
 ```
 
 ### Format
