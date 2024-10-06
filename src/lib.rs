@@ -1,5 +1,6 @@
 use chrono::{Local, TimeZone};
 use model::PulseData;
+use rand::{seq::SliceRandom, thread_rng};
 use serde_json;
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
@@ -8,7 +9,17 @@ use tba_openapi_rust::{
 
 mod model;
 
-use crate::model::{NexusEventStatus, NexusMatch};
+pub use crate::model::{NexusEventStatus, NexusMatch, SlideData};
+
+pub fn get_slide<'a>(
+    slides: &'a Vec<impl Fn(&SlideData) -> Option<&'a str>>,
+    slide_data: SlideData,
+) -> String {
+    match slides.choose(&mut thread_rng()).unwrap()(&slide_data) {
+        Some(slide) => String::from(slide),
+        None => get_slide(slides, slide_data),
+    }
+}
 
 pub async fn get_event_predictions(
     config: &Configuration,
