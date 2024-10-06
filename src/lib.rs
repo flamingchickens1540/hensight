@@ -48,7 +48,7 @@ pub async fn get_event_rankings(
 pub async fn get_pulse_data(
     client: reqwest::Client,
     nexus_api_key: &str,
-    team_number: u32,
+    team_number: &u32,
     event_key: &str,
 ) -> PulseData {
     let data = client
