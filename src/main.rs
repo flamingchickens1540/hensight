@@ -18,10 +18,15 @@ async fn main() {
     });
 
     let reqwest_client = reqwest::Client::new();
-
-    let event_key = "2024cc";
-
-    let team_number = 1540;
+    let nexus_api_key: String =
+        env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set in .env");
+    let event_key: String = env::var("EVENT_KEY").expect("EVENT_KEY must be set");
+    let team_number: u32 = match env::var("TEAM_NUMBER") {
+        Ok(number) => number
+            .parse::<u32>()
+            .expect("TEAM_NUMBER must be an unsigned int"),
+        Err(_) => 1540,
+    };
 
     #[rustfmt::skip]
     let slides = vec![
@@ -74,22 +79,16 @@ async fn main() {
         )
         .route_service(
             "/getrankings",
-            get(Json(get_event_rankings(&tba_config, event_key, 20).await)),
+            get(Json(get_event_rankings(&tba_config, &event_key, 20).await)),
         )
         .route_service(
             "/getprediction",
-            get(Json(get_event_predictions(&tba_config, event_key).await)),
+            get(Json(get_event_predictions(&tba_config, &event_key).await)),
         )
         .route_service(
             "/getnexusdata",
             get(Json(
-                get_pulse_data(
-                    reqwest_client,
-                    &env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set in .env"),
-                    team_number,
-                    event_key,
-                )
-                .await,
+                get_pulse_data(reqwest_client, &nexus_api_key, &team_number, &event_key).await,
             )),
         )
         .route_service("/request", get(get_slide(&slides, SlideData {})));
