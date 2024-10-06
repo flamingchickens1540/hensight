@@ -2,10 +2,7 @@ use axum::Json;
 use axum::{routing::get, Router};
 use dotenv::dotenv;
 use std::env;
-use tba_openapi_rust::apis::{
-    configuration::{ApiKey, Configuration},
-    team_api::get_team,
-};
+use tba_openapi_rust::apis::configuration::{ApiKey, Configuration};
 use tokio;
 use tower_http::services::ServeFile;
 
@@ -24,10 +21,7 @@ async fn main() {
 
     let event_key = "2024cc";
 
-    println!(
-        "{:?}",
-        get_team(&tba_config, "frc1540", None).await.unwrap()
-    );
+    let team_number = 1540;
 
     #[rustfmt::skip]
     let slides = vec![
@@ -92,7 +86,7 @@ async fn main() {
                 get_pulse_data(
                     reqwest_client,
                     &env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set in .env"),
-                    1540,
+                    team_number,
                     event_key,
                 )
                 .await,
