@@ -56,11 +56,11 @@
         let data = await response.json();
         stats.innerHTML =
             "Total EPA: " +
-            data[0] +
+            data["epa_total"] +
             " | Wins: " +
-            data[1] +
+            data["wins"] +
             " | Losses: " +
-            data[2];
+            data["losses"];
     }
     async function getFunFact() {
         console.log("fun fact");
