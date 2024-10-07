@@ -1,4 +1,4 @@
-use chrono::{Local, TimeZone};
+use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
 use serde_json;
@@ -10,7 +10,7 @@ use tba_openapi_rust::{
 
 mod model;
 
-pub use model::{NexusEventStatus, NexusMatch, SlideData};
+pub use model::{NexusEventStatus, NexusMatch, SlideData, StatboticsReturn, StatboticsTeamYear};
 
 pub fn get_slide<'a>(
     slides: &'a Vec<impl Fn(&SlideData) -> Option<&'a str>>,
@@ -20,6 +20,28 @@ pub fn get_slide<'a>(
         Some(slide) => String::from(slide),
         None => get_slide(slides, slide_data),
     }
+}
+
+pub async fn get_statbotics_data(client: reqwest::Client, team_number: &u32) -> StatboticsReturn {
+    let data = client
+        .get(format!(
+            "https://api.statbotics.io/v3/team_year/{}/{}",
+            team_number,
+            chrono::Utc::now().year()
+        ))
+        .header("accept", "application/json")
+        .send()
+        .await
+        .unwrap()
+        .json::<StatboticsTeamYear>()
+        .await
+        .unwrap();
+
+    return StatboticsReturn {
+        epa_total: data.epa.total_points.mean,
+        wins: data.record.season.wins,
+        losses: data.record.season.losses,
+    };
 }
 
 pub async fn get_event_predictions(
@@ -105,8 +127,8 @@ pub async fn get_pulse_data(
                 60..3600 => {
                     formated_time = format!("and will be queue in {} minute(s)", queue_time / 60)
                 }
-                1..60 => formated_time = format!("and will queue in {} seccound(s)", queue_time),
-                _ => formated_time = "is queueing NOW".to_string(),
+                30..60 => formated_time = format!("and will queue in {} seccound(s)", queue_time),
+                ..30 => formated_time = "is queueing NOW".to_string(),
             }
             println!("{:?}", queue_time);
             matchInfo = format!(
