@@ -5,6 +5,7 @@
 **/.DS_Store
 static/FriedEgg.glb/
 __pycache__/
+/target
 node_modules/
 data.txt
 static/AmpLanePADEF.traj
