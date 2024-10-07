@@ -90,6 +90,7 @@ async fn main() {
         )
         .route_service("/request", get(get_slide(&slides, SlideData {})));
 
+    println!("Running on http://127.0.0.1:3010");
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3010")
         .await
         .unwrap();
