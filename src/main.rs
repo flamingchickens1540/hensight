@@ -6,7 +6,10 @@ use tba_openapi_rust::apis::configuration::{ApiKey, Configuration};
 use tokio;
 use tower_http::services::ServeFile;
 
-use hensight::{get_event_predictions, get_event_rankings, get_pulse_data, get_slide, SlideData};
+use hensight::{
+    get_event_predictions, get_event_rankings, get_pulse_data, get_slide, get_statbotics_data,
+    SlideData,
+};
 
 #[tokio::main]
 async fn main() {
@@ -17,7 +20,6 @@ async fn main() {
         key: env::var("TBA_API_KEY").expect("TBA_API_KEY must be set"),
     });
 
-    let reqwest_client = reqwest::Client::new();
     let nexus_api_key: String = env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set");
     let event_key: String = env::var("EVENT_KEY").expect("EVENT_KEY must be set");
     let team_number: u32 = env::var("TEAM_NUMBER")
@@ -85,10 +87,22 @@ async fn main() {
         .route_service(
             "/getnexusdata",
             get(Json(
-                get_pulse_data(reqwest_client, &nexus_api_key, &team_number, &event_key).await,
+                get_pulse_data(
+                    reqwest::Client::new(),
+                    &nexus_api_key,
+                    &team_number,
+                    &event_key,
+                )
+                .await,
             )),
         )
-        .route_service("/request", get(get_slide(&slides, SlideData {})));
+        .route_service("/request", get(get_slide(&slides, SlideData {})))
+        .route_service(
+            "/getstatbotdata",
+            get(Json(
+                get_statbotics_data(reqwest::Client::new(), &team_number).await,
+            )),
+        );
 
     println!("Running on http://127.0.0.1:3010");
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3010")
