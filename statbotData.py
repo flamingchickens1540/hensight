@@ -8,7 +8,11 @@ def getTeam():
     sb = statbotics.Statbotics()
     data = sb.get_team_year(myTeam, currentYear)
     print("Successfully got team data")
-    importantData = [data["epa_end"], data["wins"], data["losses"]]
+    importantData = {
+        "epa_total": data["epa_end"],
+        "wins": data["wins"],
+        "losses": data["losses"],
+    }
     # print(importantData)
     return importantData
 
