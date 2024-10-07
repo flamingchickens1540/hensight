@@ -10,7 +10,7 @@ use tba_openapi_rust::{
 
 mod model;
 
-pub use crate::model::{NexusEventStatus, NexusMatch, SlideData};
+pub use model::{NexusEventStatus, NexusMatch, SlideData};
 
 pub fn get_slide<'a>(
     slides: &'a Vec<impl Fn(&SlideData) -> Option<&'a str>>,
