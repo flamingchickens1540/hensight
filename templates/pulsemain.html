@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 <script>
     let idle_secconds = 0;
     let fact_secconds = 0;
@@ -32,16 +32,16 @@
     async function getNexusData() {
         const response = await fetch("/getnexusdata");
         let data = await response.json();
+        console.log(data)
         console.log("Nexus data");
         upmatch.innerHTML = data["matchInfo"];
-        announcements.innerHTML = (data["announcements"] != "")
+        announcements.innerHTML = (data["announcements"].length > 0)
             ? data["announcements"]
             : "There are no announcements at this time";
-        requests.innerHTML = (data["partRequest"] != "") 
-            ? data["partRequest"]
+        requests.innerHTML = (data["partsRequests"].length > 0) 
+            ? data["partsRequests"][0]
             : "There are no part requests at this time";
-        console.log(data["nowQueuing"])
-        nextup.innerHTML = (data["nowQueuing"] != "")
+        nextup.innerHTML = (data["nowQueuing"] != null)
             ? "Now Queuing: " + data["nowQueuing"]
             : "There are currently no matches queuing";
     }

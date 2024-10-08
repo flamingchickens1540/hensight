@@ -83,7 +83,7 @@ pub async fn get_pulse_data(
         .await
         .unwrap();
 
-    let myUpcomingMatches: Vec<NexusMatch> = data
+    let myUpcommingMatches: Vec<NexusMatch> = data
         .matches
         .into_iter()
         .filter(|m| {
@@ -98,9 +98,9 @@ pub async fn get_pulse_data(
         .collect();
 
     let matchInfo: String;
-    match myUpcomingMatches.len() {
+    match myUpcommingMatches.len() {
         1.. => {
-            let nexus_match = &myUpcomingMatches[0];
+            let nexus_match = &myUpcommingMatches[0];
 
             let queue_time = (Local
                 .timestamp_opt(
@@ -156,7 +156,7 @@ pub async fn get_pulse_data(
             .iter()
             .map(|a| format!("Event announcement: {}", a.announcement))
             .collect(),
-        myUpcomingMatches,
+        myUpcommingMatches,
         nowQueuing: data.nowQueuing,
     };
 }
