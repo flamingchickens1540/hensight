@@ -87,12 +87,14 @@ pub async fn get_pulse_data(
         .matches
         .into_iter()
         .filter(|m| {
-            [
-                m.redTeams.as_ref().unwrap().deref(),
-                m.blueTeams.as_ref().unwrap().deref(),
-            ]
-            .concat()
-            .contains(&team_number.to_string())
+            (m.redTeams
+                .as_ref()
+                .unwrap()
+                .contains(&team_number.to_string())
+                || m.blueTeams
+                    .as_ref()
+                    .unwrap()
+                    .contains(&team_number.to_string()))
                 && m.status != "On field"
         })
         .collect();
