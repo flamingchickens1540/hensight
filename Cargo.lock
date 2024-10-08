@@ -1292,6 +1292,7 @@ dependencies = [
 [[package]]
 name = "tba-openapi-rust"
 version = "3.9.5"
+source = "git+https://github.com/awwpotato/tba-openapi-rust#b2765a0e77d3f81dba931a39800dc8e49366b37b"
 dependencies = [
  "reqwest",
  "serde",
