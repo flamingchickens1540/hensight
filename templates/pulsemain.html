@@ -35,15 +35,15 @@
         console.log("Nexus data");
         upmatch.innerHTML = data["matchInfo"];
         announcements.innerHTML = (data["announcements"] != "")
-            ? data["announcements"];
+            ? data["announcements"]
             : "There are no announcements at this time";
         requests.innerHTML = (data["partRequest"] != "") 
-            ? data["partRequest"}
+            ? data["partRequest"]
             : "There are no part requests at this time";
-        nextup.innerHTML = (data["nowQuening"] != "")
-            ? "Now Queuing: " + data["nowQuening"];
+        console.log(data["nowQueuing"])
+        nextup.innerHTML = (data["nowQueuing"] != "")
+            ? "Now Queuing: " + data["nowQueuing"]
             : "There are currently no matches queuing";
-        }
     }
     async function getStatBotData() {
         console.log("Stat bot data");
