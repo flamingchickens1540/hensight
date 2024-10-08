@@ -103,7 +103,7 @@ pub struct StatboticsRecordDetails {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct StatboticsEpa {
     pub total_points: StatboticsPoints,
-    pub unitless: u32,
+    pub unitless: f32,
     pub conf: Vec<f64>,
     pub breakdown: StatboticsEpaBreakdown,
     pub stats: StatboticsEpaStats,
