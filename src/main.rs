@@ -64,6 +64,10 @@ async fn main() {
             "/pulse_schedule",
             ServeFile::new("templates/pulse_schedule.html"),
         )
+        .route_service(
+            "/pulse_ranking",
+            ServeFile::new("templates/pulse_schedule.html"),
+        )
         .route_service("/style.css", ServeFile::new("templates/style.css"))
         .route_service("/common.js", ServeFile::new("templates/common.js"))
         .route_service("/AmpLane.json", ServeFile::new("static/AmpLanePHGF.traj"))

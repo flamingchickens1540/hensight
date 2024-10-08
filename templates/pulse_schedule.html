@@ -61,7 +61,9 @@
             }
         }
         upmatch.innerHTML = html;
-        nextMatch = upmatches[0];
+        nextMatch = (upmatches.length > 0)
+            ? upmatches[0]
+            : "No upcomming matches";
         let nextColor = "ERROR";
         for (let i = 0; i < nextMatch["blueTeams"].length; i++) {
             if (nextMatch["blueTeams"][i] == myTeam) {

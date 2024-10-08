@@ -51,7 +51,7 @@ pub struct PulseData {
     pub announcements: Vec<String>,
     pub partsRequests: Vec<String>,
     pub nowQueuing: Option<String>,
-    pub myUpcomingMatches: Vec<NexusMatch>,
+    pub myUpcommingMatches: Vec<NexusMatch>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
