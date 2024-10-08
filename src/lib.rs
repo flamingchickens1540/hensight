@@ -1,8 +1,6 @@
 use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
-use serde_json;
-use std::ops::Deref;
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
@@ -37,18 +35,18 @@ pub async fn get_statbotics_data(client: reqwest::Client, team_number: &u32) -> 
         .await
         .unwrap();
 
-    return StatboticsReturn {
+    StatboticsReturn {
         epa_total: data.epa.total_points.mean,
         wins: data.record.season.wins,
         losses: data.record.season.losses,
-    };
+    }
 }
 
 pub async fn get_event_predictions(
     config: &Configuration,
     event_key: &str,
 ) -> serde_json::value::Value {
-    event_api::get_event_predictions(&config, event_key, None)
+    event_api::get_event_predictions(config, event_key, None)
         .await
         .unwrap()
 }
@@ -99,8 +97,7 @@ pub async fn get_pulse_data(
         })
         .collect();
 
-    let matchInfo: String;
-    match myUpcommingMatches.len() {
+    let matchInfo: String = match myUpcommingMatches.len() {
         1.. => {
             let nexus_match = &myUpcommingMatches[0];
 
@@ -121,30 +118,29 @@ pub async fn get_pulse_data(
                 - Local::now())
             .num_seconds();
 
-            let formated_time: String;
-            match &queue_time {
+            let formated_time: String = match &queue_time {
                 3600.. => {
-                    formated_time = format!("and will queue in {} hour(s)", queue_time / 3600)
+                    format!("and will queue in {} hour(s)", queue_time / 3600)
                 }
                 60..3600 => {
-                    formated_time = format!("and will be queue in {} minute(s)", queue_time / 60)
+                    format!("and will be queue in {} minute(s)", queue_time / 60)
                 }
-                30..60 => formated_time = format!("and will queue in {} seccound(s)", queue_time),
-                ..30 => formated_time = "is queueing NOW".to_string(),
-            }
+                30..60 => format!("and will queue in {} seccound(s)", queue_time),
+                ..30 => "is queueing NOW".to_string(),
+            };
             println!("{:?}", queue_time);
-            matchInfo = format!(
+            format!(
                 "Team {}'s next match is {} {}",
                 team_number, nexus_match.label, formated_time
-            );
+            )
         }
         0 => {
-            matchInfo = format!(
+            format!(
                 "Team {} doesn't have any future matches scheduled yet",
                 team_number
             )
         }
-    }
+    };
 
     return PulseData {
         matchInfo,

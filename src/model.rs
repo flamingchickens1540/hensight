@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use serde_json;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct SlideData {}
