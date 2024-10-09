@@ -9,6 +9,7 @@ from flask import request
 from nexusData import nexusData
 from statbotData import getTeam
 from tbaPulseData import getRankings, getPrediction
+from triva import getQuestion
 
 from HensightStatsManager import HensightStatsManager
 from SlideHTMLGenerators import *
@@ -37,7 +38,7 @@ def update_this_event():
     TBAData.update_current_event_data("data.txt")
     print("---update finished---")
 
-schedule.every(3).minutes.do(update_this_event)
+# schedule.every(3).minutes.do(update_this_event)
 
 def loop():
     # print("-fnc run-")
@@ -222,6 +223,16 @@ def games():
 @app.route('/crossy')
 def crossy():
     return render_template('crossy.html')
+
+
+@app.route('/triva')
+def triva():
+    return render_template('triva.html')
+@app.route('/getqna')
+def getQNA():
+    return getQuestion()
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
     print("hi")

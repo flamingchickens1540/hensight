@@ -58,23 +58,23 @@ class MatchData:
             self.totalSpeakerNotes = self.autoSpeakerNotes + self.teleSpeakerNotes
             self.totalNotes = self.totalAmpNotes + self.totalSpeakerNotes + self.trapNotes
 
-            self.ensembleRP = 0
-            if red['ensembleBonusAchieved']:
-                self.ensembleRP = self.ensembleRP + 1
-            if blue['ensembleBonusAchieved']:
-                self.ensembleRP = self.ensembleRP + 1
+            # self.ensembleRP = 0
+            # if red['ensembleBonusAchieved']:
+            #     self.ensembleRP = self.ensembleRP + 1
+            # if blue['ensembleBonusAchieved']:
+            #     self.ensembleRP = self.ensembleRP + 1
 
-            self.melodyRP = 0
-            if red['melodyBonusAchieved']:
-                self.melodyRP = self.melodyRP + 1
-            if blue['melodyBonusAchieved']:
-                self.melodyRP = self.melodyRP + 1
+            # self.melodyRP = 0
+            # if red['melodyBonusAchieved']:
+            #     self.melodyRP = self.melodyRP + 1
+            # if blue['melodyBonusAchieved']:
+            #     self.melodyRP = self.melodyRP + 1
 
             self.totalRP = red['rp'] + blue['rp']
 
             # self.coop = 0
             # if red['coopNotePlayed']:
-            #     self.coop = self.coop + 1
+            #     self.coop = self.coop + 1o
             # if blue['coopNotePlayed']:
             #     self.coop = self.coop + 1
 

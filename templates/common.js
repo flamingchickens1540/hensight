@@ -16,6 +16,7 @@ function getTime() {
     let hours = d.getHours();
     let mins = d.getMinutes();
     let sec = d.getSeconds();
+    if (hours > 12) hours -= 12
     let h = ("00" + hours).slice(-2);
     let m = ("00" + mins).slice(-2);
     let s = ("00" + sec).slice(-2);
