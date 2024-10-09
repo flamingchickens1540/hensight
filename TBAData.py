@@ -14,8 +14,8 @@ class TBAData:
         configuration = tbaapiv3client.Configuration(
             host="https://www.thebluealliance.com/api/v3",
             api_key={
-                'X-TBA-Auth-Key': 'PpRS8F8YPmF2flKXvPY9S9HhzFypvmDRHR8zzBPCotpZLpsftS8rvZCdWhYB7zXN'
-            }
+                "X-TBA-Auth-Key": "PpRS8F8YPmF2flKXvPY9S9HhzFypvmDRHR8zzBPCotpZLpsftS8rvZCdWhYB7zXN"
+            },
         )
 
         # Get API instances
@@ -28,7 +28,9 @@ class TBAData:
         self.AT_EVENT_KEY = "2024orgg"
         self.CURRENT_EVENT_KEYS = ["2024orgg"]
         self.CURRENT_YEAR_KEY = "2024"
-        self.EVENT_KEYS = self.event_api_instance.get_events_by_year_keys(int(self.CURRENT_YEAR_KEY))
+        self.EVENT_KEYS = self.event_api_instance.get_events_by_year_keys(
+            int(self.CURRENT_YEAR_KEY)
+        )
         # Initialize Fields
         self.event_to_match_data = {}
         self.current_event_data = []
@@ -67,7 +69,9 @@ class TBAData:
             matches = self.get_event_matches(eventKey)
             self.event_to_match_data[eventKey] = {}
             for match in matches:
-                self.event_to_match_data[eventKey][match.key] = MatchData(match, self.match_api_instance.get_match_zebra(match.key))
+                self.event_to_match_data[eventKey][match.key] = MatchData(
+                    match, self.match_api_instance.get_match_zebra(match.key)
+                )
             eventsDone = eventsDone + 1
             print(eventsDone / totalEvents * 100, "% of Events Requested")
             print("--------------------------------------------------------")
@@ -75,17 +79,23 @@ class TBAData:
         currentTime = time.time()
         eventsDone = 0
         for eventKey in self.EVENT_KEYS:
-            print('Loading Event: ' + eventKey)
+            print("Loading Event: " + eventKey)
             self.event_to_match_data[eventKey] = {}
             for match in self.get_event_matches(eventKey):
-                self.event_to_match_data[eventKey][match.key] = MatchData(match, match_to_thread[match.key].get())
+                self.event_to_match_data[eventKey][match.key] = MatchData(
+                    match, match_to_thread[match.key].get()
+                )
             eventsDone = eventsDone + 1
             print(eventsDone / totalEvents * 100, "% of Events Loaded")
-        self.current_event_data = [self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS]
+        self.current_event_data = [
+            self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS
+        ]
 
         self.at_event_data = self.event_to_match_data[self.AT_EVENT_KEY]
 
-        print("Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds")
+        print(
+            "Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds"
+        )
         print("Writing to File...")
         self.write_to_file(file)
         print("Writing to File Complete")
@@ -93,7 +103,6 @@ class TBAData:
     def get_event_matches(self, event_key):
         matches = self.matches_api_instance.get_event_matches(event_key)
         return matches
-
 
     def write_to_file(self, file):
         dataFile = open(file, "wb")
@@ -107,9 +116,15 @@ class TBAData:
         dataFile = open(file, "rb")
         self.event_to_match_data = pickle.load(dataFile)
         dataFile.close()
-        self.current_event_data = [self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS]
+        self.current_event_data = [
+            self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS
+        ]
         self.at_event_data = self.event_to_match_data[self.AT_EVENT_KEY]
-        print("Loading Data From File Complete Took: " + str(time.time() - currentTime) + " Seconds")
+        print(
+            "Loading Data From File Complete Took: "
+            + str(time.time() - currentTime)
+            + " Seconds"
+        )
 
     def update_current_event_data(self, file):
         print("Updating Data...")
@@ -122,23 +137,24 @@ class TBAData:
                 self.event_to_match_data[eventKey][match.key] = MatchData(match, None)
             eventsDone = eventsDone + 1
             print(eventsDone / totalEvents * 100, "% of Events Loaded")
-        self.current_event_data = [self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS]
+        self.current_event_data = [
+            self.event_to_match_data[key] for key in self.CURRENT_EVENT_KEYS
+        ]
 
         self.at_event_data = self.event_to_match_data[self.AT_EVENT_KEY]
 
-        print("Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds")
+        print(
+            "Loading Event Matches Took: " + str(time.time() - currentTime) + " Seconds"
+        )
         # print(self.event_to_match_data["2024pncmp"])
         print("Writing to File...")
         self.write_to_file(file)
         print("Writing to File Complete")
-        print("Updated Current Event Data(took " + str(time.time() - currentTime) + " Seconds)")
+        print(
+            "Updated Current Event Data(took "
+            + str(time.time() - currentTime)
+            + " Seconds)"
+        )
 
     def get_match_data(self, event_key, match_key):
         return self.event_to_match_data[event_key][match_key]
-
-
-
-
-
-
-

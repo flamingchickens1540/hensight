@@ -9,12 +9,22 @@ def getTeamDistance(team):
     i = 0
     while i < len(teamX) - 1:
         nextIndex = i + 1
-        while nextIndex + 1 < len(teamX) - 1 and (teamX[i] is None or teamY[i] is None or teamX[nextIndex] is None or
-                                                  teamY[nextIndex] is None):
+        while nextIndex + 1 < len(teamX) - 1 and (
+            teamX[i] is None
+            or teamY[i] is None
+            or teamX[nextIndex] is None
+            or teamY[nextIndex] is None
+        ):
             nextIndex = nextIndex + 1
-        if not (teamX[i] is None or teamY[i] is None or teamX[nextIndex] is None or
-                teamY[nextIndex] is None):
-            teamDistance = teamDistance + np.hypot(teamX[nextIndex] - teamX[i], teamY[nextIndex] - teamY[i])
+        if not (
+            teamX[i] is None
+            or teamY[i] is None
+            or teamX[nextIndex] is None
+            or teamY[nextIndex] is None
+        ):
+            teamDistance = teamDistance + np.hypot(
+                teamX[nextIndex] - teamX[i], teamY[nextIndex] - teamY[i]
+            )
         i = nextIndex
     return teamDistance
 
@@ -27,50 +37,60 @@ class MatchData:
         self.zebraData = zebraData
         self.totalDistanceTraveled = 0
         if scoreBreakdown is not None:
-            red = scoreBreakdown['red']
-            blue = scoreBreakdown['blue']
-            self.autoAmpNotes = red['autoAmpNoteCount'] + blue['autoAmpNoteCount']
-            self.autoSpeakerNotes = red['autoSpeakerNoteCount'] + blue['autoSpeakerNoteCount']
-            self.teleAmpNotes = red['teleopAmpNoteCount'] + blue['teleopAmpNoteCount']
-            self.teleSpeakerNotes = red['teleopSpeakerNoteCount'] + blue['teleopSpeakerNoteCount']
-            self.trapNotes = (red['endGameNoteInTrapPoints'] / 5) + (blue['endGameNoteInTrapPoints'] / 5)
-            self.amplifiedSpeakerNotes = red['teleopSpeakerNoteAmplifiedCount'] + blue[
-                'teleopSpeakerNoteAmplifiedCount']
+            red = scoreBreakdown["red"]
+            blue = scoreBreakdown["blue"]
+            self.autoAmpNotes = red["autoAmpNoteCount"] + blue["autoAmpNoteCount"]
+            self.autoSpeakerNotes = (
+                red["autoSpeakerNoteCount"] + blue["autoSpeakerNoteCount"]
+            )
+            self.teleAmpNotes = red["teleopAmpNoteCount"] + blue["teleopAmpNoteCount"]
+            self.teleSpeakerNotes = (
+                red["teleopSpeakerNoteCount"] + blue["teleopSpeakerNoteCount"]
+            )
+            self.trapNotes = (red["endGameNoteInTrapPoints"] / 5) + (
+                blue["endGameNoteInTrapPoints"] / 5
+            )
+            self.amplifiedSpeakerNotes = (
+                red["teleopSpeakerNoteAmplifiedCount"]
+                + blue["teleopSpeakerNoteAmplifiedCount"]
+            )
             self.numberOfSpotlights = 0
-            if red['micCenterStage']:
+            if red["micCenterStage"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
-            if red['micStageLeft']:
+            if red["micStageLeft"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
-            if red['micStageRight']:
+            if red["micStageRight"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
-            if blue['micCenterStage']:
+            if blue["micCenterStage"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
-            if blue['micStageLeft']:
+            if blue["micStageLeft"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
-            if blue['micStageRight']:
+            if blue["micStageRight"]:
                 self.numberOfSpotlights = self.numberOfSpotlights + 1
 
-            self.redScore = red['totalPoints']
-            self.blueScore = blue['totalPoints']
+            self.redScore = red["totalPoints"]
+            self.blueScore = blue["totalPoints"]
             self.maxScore = max(self.redScore, self.blueScore)
 
             self.totalAmpNotes = self.autoAmpNotes + self.teleAmpNotes
             self.totalSpeakerNotes = self.autoSpeakerNotes + self.teleSpeakerNotes
-            self.totalNotes = self.totalAmpNotes + self.totalSpeakerNotes + self.trapNotes
+            self.totalNotes = (
+                self.totalAmpNotes + self.totalSpeakerNotes + self.trapNotes
+            )
 
             # self.ensembleRP = 0
-            # if red['ensembleBonusAchieved']:
+            # if red["ensembleBonusAchieved"]:
             #     self.ensembleRP = self.ensembleRP + 1
-            # if blue['ensembleBonusAchieved']:
+            # if blue["ensembleBonusAchieved"]:
             #     self.ensembleRP = self.ensembleRP + 1
 
             # self.melodyRP = 0
-            # if red['melodyBonusAchieved']:
+            # if red["melodyBonusAchieved"]:
             #     self.melodyRP = self.melodyRP + 1
-            # if blue['melodyBonusAchieved']:
+            # if blue["melodyBonusAchieved"]:
             #     self.melodyRP = self.melodyRP + 1
 
-            self.totalRP = red['rp'] + blue['rp']
+            self.totalRP = red["rp"] + blue["rp"]
 
             # self.coop = 0
             # if red['coopNotePlayed']:
@@ -106,7 +126,13 @@ class MatchData:
             team5Zebra = self.zebraData.alliances.red[1]
             team6Zebra = self.zebraData.alliances.red[2]
 
-            self.totalDistanceTraveled = getTeamDistance(team1Zebra) + getTeamDistance(team2Zebra) + getTeamDistance(
-                team3Zebra) + getTeamDistance(team4Zebra) + getTeamDistance(team5Zebra) + getTeamDistance(team6Zebra)
+            self.totalDistanceTraveled = (
+                getTeamDistance(team1Zebra)
+                + getTeamDistance(team2Zebra)
+                + getTeamDistance(team3Zebra)
+                + getTeamDistance(team4Zebra)
+                + getTeamDistance(team5Zebra)
+                + getTeamDistance(team6Zebra)
+            )
         else:
             self.totalDistanceTraveled = 0

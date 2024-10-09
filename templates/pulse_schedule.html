@@ -39,7 +39,7 @@
         console.log("Nexus data");
         console.log(data);
         if (data[1] != 'No nexus at this event :(') {
-            let upmatches = data[4];
+            let upmatches = data["myUpcommingMatches"];
             let html = "";
             if (upmatches.length == 0) {
                 html = myTeam + " does not have any upcoming matches";
@@ -47,7 +47,10 @@
             } else {
                 for (let i = 0; i < upmatches.length; i++) {
                     // console.log(upmatches[i])
-                    if (data[4] != "") {
+                    if (
+                    data["myUpcommingMatches"] !== undefined && 
+                    data["myUpcommingMatches"].length > 0 
+                ) {
                         html +=
                             upmatches[i]["label"] + ": " + upmatches[i]["status"];
                     } else {
