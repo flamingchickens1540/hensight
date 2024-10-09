@@ -97,49 +97,45 @@ pub async fn get_pulse_data(
         })
         .collect();
 
-    let matchInfo: String = match myUpcommingMatches.len() {
-        1.. => {
-            let nexus_match = &myUpcommingMatches[0];
-
-            let queue_time = (Local
-                .timestamp_opt(
-                    nexus_match
-                        .times
-                        .get("estimatedQueueTime")
-                        .unwrap()
-                        .as_number()
-                        .unwrap()
-                        .as_i64()
-                        .unwrap()
-                        / 1000,
-                    0,
-                )
-                .unwrap()
-                - Local::now())
-            .num_seconds();
-
-            let formated_time: String = match &queue_time {
-                3600.. => {
-                    format!("and will queue in {} hour(s)", queue_time / 3600)
-                }
-                60..3600 => {
-                    format!("and will be queue in {} minute(s)", queue_time / 60)
-                }
-                30..60 => format!("and will queue in {} seccound(s)", queue_time),
-                ..30 => "is queueing NOW".to_string(),
-            };
-            println!("{:?}", queue_time);
-            format!(
-                "Team {}'s next match is {} {}",
-                team_number, nexus_match.label, formated_time
+    let matchInfo: String = if !myUpcommingMatches.is_empty() {
+        let nexus_match = &myUpcommingMatches[0];
+        let queue_time = (Local
+            .timestamp_opt(
+                nexus_match
+                    .times
+                    .get("estimatedQueueTime")
+                    .unwrap()
+                    .as_number()
+                    .unwrap()
+                    .as_i64()
+                    .unwrap()
+                    / 1000,
+                0,
             )
-        }
-        0 => {
-            format!(
-                "Team {} doesn't have any future matches scheduled yet",
-                team_number
-            )
-        }
+            .unwrap()
+            - Local::now())
+        .num_seconds();
+
+        let formated_time: String = match &queue_time {
+            3600.. => {
+                format!("and will queue in {} hour(s)", queue_time / 3600)
+            }
+            60..3600 => {
+                format!("and will be queue in {} minute(s)", queue_time / 60)
+            }
+            30..60 => format!("and will queue in {} seccound(s)", queue_time),
+            ..30 => "is queueing NOW".to_string(),
+        };
+        println!("{:?}", queue_time);
+        format!(
+            "Team {}'s next match is {} {}",
+            team_number, nexus_match.label, formated_time
+        )
+    } else {
+        format!(
+            "Team {} doesn't have any future matches scheduled yet",
+            team_number
+        )
     };
 
     return PulseData {
