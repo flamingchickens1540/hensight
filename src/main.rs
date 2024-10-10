@@ -21,10 +21,10 @@ async fn main() {
 
     let nexus_api_key: String = env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set");
     let event_key: String = env::var("EVENT_KEY").expect("EVENT_KEY must be set");
-    let team_number: u32 = env::var("TEAM_NUMBER")
-        .expect("TEAM_NUMBER must be set")
-        .parse::<u32>()
-        .expect("TEAM_NUMBER must be an unsigned int");
+    let team_key: u16 = env::var("TEAM_KEY")
+        .expect("team_key must be set")
+        .parse::<u16>()
+        .expect("team_key must be an unsigned int");
 
     #[rustfmt::skip]
     let slides = vec![
@@ -70,6 +70,7 @@ async fn main() {
         .route_service("/style.css", ServeFile::new("templates/style.css"))
         .route_service("/common.js", ServeFile::new("templates/common.js"))
         .route_service("/AmpLane.json", ServeFile::new("static/AmpLanePHGF.traj"))
+        .route_service("/SourceLane.json", ServeFile::new("static/SourceLanePHGF.traj"))
         .route_service(
             "/CenterLane.json",
             ServeFile::new("static/CenterLanePDEABC.traj"),
@@ -93,7 +94,7 @@ async fn main() {
                 get_pulse_data(
                     reqwest::Client::new(),
                     &nexus_api_key,
-                    &team_number,
+                    &team_key,
                     &event_key,
                 )
                 .await,
@@ -103,7 +104,7 @@ async fn main() {
         .route_service(
             "/getstatbotdata",
             get(Json(
-                get_statbotics_data(reqwest::Client::new(), &team_number).await,
+                get_statbotics_data(reqwest::Client::new(), &team_key, &event_key).await,
             )),
         );
 
