@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
+
 use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
@@ -20,7 +23,11 @@ pub fn get_slide<'a>(
     }
 }
 
-pub async fn get_statbotics_data(client: reqwest::Client, team_key: &u16, event_key: &str) -> StatboticsReturn {
+pub async fn get_statbotics_data(
+    client: reqwest::Client,
+    team_key: &u16,
+    event_key: &str,
+) -> StatboticsReturn {
     let data = client
         .get(format!(
             "https://api.statbotics.io/v3/team_year/{}/{}",
@@ -87,10 +94,7 @@ pub async fn get_pulse_data(
         .matches
         .into_iter()
         .filter(|m| {
-            (m.redTeams
-                .as_ref()
-                .unwrap()
-                .contains(&team_key.to_string())
+            (m.redTeams.as_ref().unwrap().contains(&team_key.to_string())
                 || m.blueTeams
                     .as_ref()
                     .unwrap()

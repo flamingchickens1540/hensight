@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
+
 use axum::Json;
 use axum::{routing::get, Router};
 use dotenv::dotenv;
@@ -70,7 +73,10 @@ async fn main() {
         .route_service("/style.css", ServeFile::new("templates/style.css"))
         .route_service("/common.js", ServeFile::new("templates/common.js"))
         .route_service("/AmpLane.json", ServeFile::new("static/AmpLanePHGF.traj"))
-        .route_service("/SourceLane.json", ServeFile::new("static/SourceLanePHGF.traj"))
+        .route_service(
+            "/SourceLane.json",
+            ServeFile::new("static/SourceLanePHGF.traj"),
+        )
         .route_service(
             "/CenterLane.json",
             ServeFile::new("static/CenterLanePDEABC.traj"),
