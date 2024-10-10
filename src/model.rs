@@ -46,6 +46,8 @@ pub struct NexusEventStatus {
 #[allow(non_snake_case)]
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct PulseData {
+    pub teamKey: u16,
+    pub eventKey: String,
     pub matchInfo: String,
     pub announcements: Vec<String>,
     pub partsRequests: Vec<String>,
@@ -55,6 +57,8 @@ pub struct PulseData {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct StatboticsReturn {
+    pub team_key: u16,
+    pub event_key: String,
     pub epa_total: f64,
     pub wins: u32,
     pub losses: u32,

@@ -20,11 +20,11 @@ pub fn get_slide<'a>(
     }
 }
 
-pub async fn get_statbotics_data(client: reqwest::Client, team_number: &u32) -> StatboticsReturn {
+pub async fn get_statbotics_data(client: reqwest::Client, team_key: &u16, event_key: &str) -> StatboticsReturn {
     let data = client
         .get(format!(
             "https://api.statbotics.io/v3/team_year/{}/{}",
-            team_number,
+            team_key,
             chrono::Utc::now().year()
         ))
         .header("accept", "application/json")
@@ -36,6 +36,8 @@ pub async fn get_statbotics_data(client: reqwest::Client, team_number: &u32) -> 
         .unwrap();
 
     StatboticsReturn {
+        team_key: team_key.clone(),
+        event_key: event_key.to_string(),
         epa_total: data.epa.total_points.mean,
         wins: data.record.season.wins,
         losses: data.record.season.losses,
@@ -68,7 +70,7 @@ pub async fn get_event_rankings(
 pub async fn get_pulse_data(
     client: reqwest::Client,
     nexus_api_key: &str,
-    team_number: &u32,
+    team_key: &u16,
     event_key: &str,
 ) -> PulseData {
     let data = client
@@ -88,11 +90,11 @@ pub async fn get_pulse_data(
             (m.redTeams
                 .as_ref()
                 .unwrap()
-                .contains(&team_number.to_string())
+                .contains(&team_key.to_string())
                 || m.blueTeams
                     .as_ref()
                     .unwrap()
-                    .contains(&team_number.to_string()))
+                    .contains(&team_key.to_string()))
                 && m.status != "On field"
         })
         .collect();
@@ -129,16 +131,18 @@ pub async fn get_pulse_data(
         println!("{:?}", queue_time);
         format!(
             "Team {}'s next match is {} {}",
-            team_number, nexus_match.label, formated_time
+            team_key, nexus_match.label, formated_time
         )
     } else {
         format!(
             "Team {} doesn't have any future matches scheduled yet",
-            team_number
+            team_key
         )
     };
 
     return PulseData {
+        teamKey: team_key.clone(),
+        eventKey: event_key.to_string(),
         matchInfo,
         partsRequests: data
             .partsRequests
