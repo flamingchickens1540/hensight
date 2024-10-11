@@ -133,7 +133,6 @@ pub async fn get_pulse_data(
             30..60 => format!("and will queue in {} second(s)", queue_time),
             ..30 => "is queueing NOW".to_string(),
         };
-        println!("{:?}", queue_time);
         format!(
             "Team {}'s next match is {} {}",
             team_key, nexus_match.label, formated_time
