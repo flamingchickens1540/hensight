@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
 
+use rayon::prelude::*;
 use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
@@ -92,7 +93,7 @@ pub async fn get_pulse_data(
 
     let myUpcommingMatches: Vec<NexusMatch> = data
         .matches
-        .into_iter()
+        .into_par_iter()
         .filter(|m| {
             (m.redTeams.as_ref().unwrap().contains(&team_key.to_string())
                 || m.blueTeams
@@ -150,12 +151,12 @@ pub async fn get_pulse_data(
         matchInfo,
         partsRequests: data
             .partsRequests
-            .iter()
+            .par_iter()
             .map(|pr| format!("Part request for team {}: {}", pr.requestedByTeam, pr.parts))
             .collect(),
         announcements: data
             .announcements
-            .iter()
+            .par_iter()
             .map(|a| format!("Event announcement: {}", a.announcement))
             .collect(),
         myUpcommingMatches,
