@@ -43,7 +43,7 @@ pub async fn get_statbotics_data(
         .unwrap();
 
     StatboticsReturn {
-        team_key: team_key.clone(),
+        team_key: *team_key,
         event_key: event_key.to_string(),
         epa_total: data.epa.total_points.mean,
         wins: data.record.season.wins,
@@ -145,7 +145,7 @@ pub async fn get_pulse_data(
     };
 
     return PulseData {
-        teamKey: team_key.clone(),
+        teamKey: *team_key,
         eventKey: event_key.to_string(),
         matchInfo,
         partsRequests: data
