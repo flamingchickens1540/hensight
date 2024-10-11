@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 <script>
     let idle_secconds = 0;
     let fact_secconds = 0;
@@ -32,8 +31,6 @@
     async function getNexusData() {
         const response = await fetch("/getnexusdata");
         let data = await response.json();
-        console.log(data)
-        console.log("Nexus data");
         upmatch.innerHTML = data["matchInfo"];
         announcements.innerHTML = (data["announcements"].length > 0)
             ? data["announcements"]

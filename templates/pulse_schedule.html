@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 <script>
     let idle_secconds = 0;
     let fact_secconds = 0;
@@ -27,34 +26,20 @@
 
     window.addEventListener("touchstart", () => {
         idle_secconds = 0;
-        console.log("reset");
     });
 
     async function getNexusData() {
         const response = await fetch("/getnexusdata");
         let data = await response.json();
-        console.log("Nexus data");
-        console.log(data);
         let upmatches = data["myUpcommingMatches"];
         let html = "";
-        if (upmatches.length == 0) {
+        if (upmatches.length == 0 || upmatches == undefined) {
             html = data.team_key + " does not have any upcoming matches";
             nextup.innerHTML = data.team_key + " does not have any upcoming matches";
         } else {
             for (let i = 0; i < upmatches.length; i++) {
-                // console.log(upmatches[i])
-                if (
-                    data["myUpcommingMatches"] !== undefined && 
-                    data["myUpcommingMatches"].length > 0 
-                ) {
-                    html +=
-                        upmatches[i]["label"] + ": " + upmatches[i]["status"];
-                } else {
-                    upmatch.innerHTML =
-                        "Team " +
-                        data.team_key +
-                        " does not have any upcomming matches";
-                }
+                html +=
+                    upmatches[i]["label"] + ": " + upmatches[i]["status"];
                 html += "<br>";
             }
         }
