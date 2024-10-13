@@ -82,7 +82,7 @@ def nexusData():
                 parts_request["requestedByTeam"], parts_request["parts"]
             )
         )
-    pulseData["partRequest"] = partRequests
+    pulseData["partsRequests"] = partRequests
 
     if "nowQueuing" in data:
         pulseData["nowQueuing"] = data["nowQueuing"]
