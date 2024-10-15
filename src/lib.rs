@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
 
-use rayon::prelude::*;
 use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
+use rayon::prelude::*;
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
@@ -144,7 +144,7 @@ pub async fn get_pulse_data(
         )
     };
 
-    return PulseData {
+    PulseData {
         teamKey: *team_key,
         eventKey: event_key.to_string(),
         matchInfo,
@@ -160,5 +160,5 @@ pub async fn get_pulse_data(
             .collect(),
         myUpcommingMatches,
         nowQueuing: data.nowQueuing,
-    };
+    }
 }
