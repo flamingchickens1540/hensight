@@ -4,7 +4,6 @@
 use chrono::{Datelike, Local, TimeZone};
 use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
-use rayon::prelude::*;
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
@@ -93,7 +92,7 @@ pub async fn get_pulse_data(
 
     let myUpcommingMatches: Vec<NexusMatch> = data
         .matches
-        .into_par_iter()
+        .into_iter()
         .filter(|m| {
             (m.redTeams.as_ref().unwrap().contains(&team_key.to_string())
                 || m.blueTeams
@@ -150,12 +149,12 @@ pub async fn get_pulse_data(
         matchInfo,
         partsRequests: data
             .partsRequests
-            .par_iter()
+            .iter()
             .map(|pr| format!("Part request for team {}: {}", pr.requestedByTeam, pr.parts))
             .collect(),
         announcements: data
             .announcements
-            .par_iter()
+            .iter()
             .map(|a| format!("Event announcement: {}", a.announcement))
             .collect(),
         myUpcommingMatches,
