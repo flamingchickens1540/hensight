@@ -2,16 +2,15 @@
 // SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
 
 use chrono::{Datelike, Local, TimeZone};
-use model::PulseData;
 use rand::{seq::SliceRandom, thread_rng};
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
 };
 
-mod model;
-
-pub use model::{NexusEventStatus, NexusMatch, SlideData, StatboticsReturn, StatboticsTeamYear};
+pub use crate::model::{
+    NexusEventStatus, NexusMatch, PulseData, SlideData, StatboticsReturn, StatboticsTeamYear,
+};
 
 pub fn get_slide<'a>(
     slides: &'a Vec<impl Fn(&SlideData) -> Option<&'a str>>,
