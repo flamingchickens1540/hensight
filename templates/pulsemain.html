@@ -32,15 +32,18 @@
         const response = await fetch("/getnexusdata");
         let data = await response.json();
         upmatch.innerHTML = data["matchInfo"];
-        announcements.innerHTML = (data["announcements"].length > 0)
-            ? data["announcements"]
-            : "There are no announcements at this time";
-        requests.innerHTML = (data["partsRequests"].length > 0) 
-            ? data["partsRequests"][0]
-            : "There are no part requests at this time";
-        nextup.innerHTML = (data["nowQueuing"] != null)
-            ? "Now Queuing: " + data["nowQueuing"]
-            : "There are currently no matches queuing";
+        announcements.innerHTML =
+            data["announcements"].length > 0
+                ? data["announcements"]
+                : "There are no announcements at this time";
+        requests.innerHTML =
+            data["partsRequests"].length > 0
+                ? data["partsRequests"][0]
+                : "There are no part requests at this time";
+        nextup.innerHTML =
+            data["nowQueuing"] != null
+                ? "Now Queuing: " + data["nowQueuing"]
+                : "There are currently no matches queuing";
     }
     async function getStatBotData() {
         console.log("Stat bot data");
