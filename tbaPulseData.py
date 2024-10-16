@@ -1,6 +1,7 @@
 import tbapy
 
-***REMOVED***
+# TODO get api from .env
+key = ""
 event_key = "2024cc"  # TESTING! change to your event key when using at events
 
 tba = tbapy.TBA(key)
