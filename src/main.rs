@@ -30,9 +30,9 @@ async fn main() {
     let nexus_api_key: String = env::var("NEXUS_API_KEY").expect("NEXUS_API_KEY must be set");
     let event_key: String = env::var("EVENT_KEY").expect("EVENT_KEY must be set");
     let team_key: u16 = env::var("TEAM_KEY")
-        .expect("team_key must be set")
+        .expect("TEAM_KEY must be set")
         .parse::<u16>()
-        .expect("team_key must be an unsigned int");
+        .expect("TEAM_KEY must be an unsigned int");
 
     #[rustfmt::skip]
     let slides = vec![
