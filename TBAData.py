@@ -14,7 +14,7 @@ class TBAData:
         configuration = tbaapiv3client.Configuration(
             host="https://www.thebluealliance.com/api/v3",
             api_key={
-                "X-TBA-Auth-Key": "***REMOVED***"
+***REMOVED***
             },
         )
 

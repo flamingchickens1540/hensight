@@ -8,9 +8,14 @@ use std::env;
 use tba_openapi_rust::apis::configuration::{ApiKey, Configuration};
 use tower_http::services::ServeFile;
 
-use hensight::{
-    get_event_predictions, get_event_rankings, get_pulse_data, get_slide, get_statbotics_data,
-    SlideData,
+mod model;
+mod query;
+
+use crate::{
+    model::SlideData,
+    query::{
+        get_event_predictions, get_event_rankings, get_pulse_data, get_slide, get_statbotics_data,
+    },
 };
 
 #[tokio::main]
