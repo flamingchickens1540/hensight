@@ -121,19 +121,20 @@ pub async fn get_pulse_data(
             - Local::now())
         .num_seconds();
 
-        let formated_time: String = match &queue_time {
-            3600.. => {
-                format!("and will queue in {} hour(s)", queue_time / 3600)
-            }
-            60..3600 => {
-                format!("and will be queue in {} minute(s)", queue_time / 60)
-            }
-            30..60 => format!("and will queue in {} second(s)", queue_time),
-            ..30 => "is queueing NOW".to_string(),
-        };
         format!(
             "Team {}'s next match is {} {}",
-            team_key, nexus_match.label, formated_time
+            team_key,
+            nexus_match.label,
+            match &queue_time {
+                3600.. => {
+                    format!("and will queue in {} hour(s)", queue_time / 3600)
+                }
+                60..3600 => {
+                    format!("and will be queue in {} minute(s)", queue_time / 60)
+                }
+                30..60 => format!("and will queue in {} second(s)", queue_time),
+                ..30 => "is queueing NOW".to_string(),
+            }
         )
     } else {
         format!(
