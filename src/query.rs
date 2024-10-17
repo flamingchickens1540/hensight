@@ -130,7 +130,7 @@ pub async fn get_pulse_data(
                     format!("and will queue in {} hour(s)", queue_time / 3600)
                 }
                 60..3600 => {
-                    format!("and will be queue in {} minute(s)", queue_time / 60)
+                    format!("and will queue in {} minute(s)", queue_time / 60)
                 }
                 30..60 => format!("and will queue in {} second(s)", queue_time),
                 ..30 => "is queueing NOW".to_string(),
