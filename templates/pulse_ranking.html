@@ -30,8 +30,6 @@
     async function getRankings() {
         const response = await fetch("/getranking");
         let data = await response.json();
-        console.log("rankings");
-        // console.log(data)
         let html = "";
         for (i = 0; i < data.length; i++) {
             // console.log('data[i]'+data[i])
