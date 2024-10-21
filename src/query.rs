@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: 2024 Finnegan Dion-Kuhn
 
+use axum::{http::StatusCode, Json};
 use chrono::{Datelike, Local, TimeZone};
 use rand::{seq::SliceRandom, thread_rng};
 use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
 };
+use tracing::{error, instrument, Level};
 
 pub use crate::model::{
     NexusEventStatus, NexusMatch, PulseData, SlideData, StatboticsReturn, StatboticsTeamYear,
@@ -78,8 +80,8 @@ pub async fn get_pulse_data(
     nexus_api_key: &str,
     team_key: &u16,
     event_key: &str,
-) -> PulseData {
-    let data = client
+) -> Result<Json<PulseData>, StatusCode> {
+    let data: NexusEventStatus = match client
         .get(format!("https://frc.nexus/api/v1/event/{}", event_key))
         .header("Nexus-Api-Key", nexus_api_key)
         .send()
@@ -87,7 +89,13 @@ pub async fn get_pulse_data(
         .unwrap()
         .json::<NexusEventStatus>()
         .await
-        .unwrap();
+    {
+        Ok(d) => d,
+        Err(e) => {
+            error!("could not get nexus data: {}", e.to_string());
+            return Err(StatusCode::NO_CONTENT);
+        }
+    };
 
     let myUpcommingMatches: Vec<NexusMatch> = data
         .matches
@@ -143,7 +151,7 @@ pub async fn get_pulse_data(
         )
     };
 
-    PulseData {
+    Ok(Json(PulseData {
         teamKey: *team_key,
         eventKey: event_key.to_string(),
         matchInfo,
@@ -159,5 +167,5 @@ pub async fn get_pulse_data(
             .collect(),
         myUpcommingMatches,
         nowQueuing: data.nowQueuing,
-    }
+    }))
 }

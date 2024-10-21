@@ -7,6 +7,7 @@ use dotenv::dotenv;
 use std::env;
 use tba_openapi_rust::apis::configuration::{ApiKey, Configuration};
 use tower_http::services::ServeFile;
+use tracing_subscriber::FmtSubscriber;
 
 mod model;
 mod query;
@@ -21,6 +22,8 @@ use crate::{
 #[tokio::main]
 async fn main() {
     dotenv().ok();
+    tracing::subscriber::set_global_default(FmtSubscriber::default()).unwrap();
+
     let mut tba_config = Configuration::new();
     tba_config.api_key = Some(ApiKey {
         prefix: None,
@@ -101,15 +104,13 @@ async fn main() {
         )
         .route_service(
             "/getnexusdata",
-            get(Json(
-                get_pulse_data(
-                    reqwest::Client::new(),
-                    &nexus_api_key,
-                    &team_key,
-                    &event_key,
-                )
-                .await,
-            )),
+            get(get_pulse_data(
+                reqwest::Client::new(),
+                &nexus_api_key,
+                &team_key,
+                &event_key,
+            )
+            .await),
         )
         .route_service("/request", get(get_slide(&slides, SlideData {})))
         .route_service(
