@@ -8,7 +8,7 @@ use tba_openapi_rust::{
     apis::{configuration::Configuration, event_api},
     models::event_ranking_rankings_inner::EventRankingRankingsInner,
 };
-use tracing::{error, instrument, Level};
+use tracing::error;
 
 pub use crate::model::{
     NexusEventStatus, NexusMatch, PulseData, SlideData, StatboticsReturn, StatboticsTeamYear,
