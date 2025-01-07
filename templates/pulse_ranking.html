@@ -17,7 +17,7 @@
         // console.log('idle for:',idle_secconds, 'seccond')
         // console.log('fact secconds: ',fact_secconds)
         if (idle_secconds >= 60) {
-            window.location.href = "/";
+            // window.location.href = "/";
         }
         // if (fact_secconds >= 10) {
         //     fact_secconds = 0
@@ -41,9 +41,16 @@
         if (data.length != 0) {
             for (i = 0; i < data.length; i++) {
                 // console.log('data[i]'+data[i])
-                html += "<p>";
-                html += data[i];
-                html += "</p>";
+                if (data[i].includes(myTeam)) {
+                    html += "<h1>";
+                    html += data[i];
+                    html += "</h1>";
+                }
+                else {
+                    html += "<p>";
+                    html += data[i];
+                    html += "</p>";
+                }
             }
         }
         else html = 'No rankings yet'
@@ -132,6 +139,11 @@
         p {
             margin: 0px;
             font-size: 4rem;
+        }
+        h1 {
+            margin: 0px;
+            font-size: 4rem;
+            color: #ffc145;
         }
     }
 </style>

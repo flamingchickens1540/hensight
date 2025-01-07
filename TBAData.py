@@ -25,8 +25,8 @@ class TBAData:
             self.event_api_instance = tbaapiv3client.EventApi(api_client)
 
         # Set constants
-        self.AT_EVENT_KEY = "2024orgg"
-        self.CURRENT_EVENT_KEYS = ["2024orgg"]
+        self.AT_EVENT_KEY = "2024gal"
+        self.CURRENT_EVENT_KEYS = ["2024gal"]
         self.CURRENT_YEAR_KEY = "2024"
         self.EVENT_KEYS = self.event_api_instance.get_events_by_year_keys(
             int(self.CURRENT_YEAR_KEY)

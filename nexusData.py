@@ -4,7 +4,7 @@ import sys
 import time
 
 
-event_key = "2024orwi2" # TESTING! change to the event key before using at events
+event_key = "2024orore" # TESTING! change to the event key before using at events
 url = "https://frc.nexus/api/v1/event/" + event_key
 
 headers = {"Nexus-Api-Key": "gckINf2G_dswez0anwAsTTGQ9Cc"}
@@ -19,11 +19,11 @@ def nexusData():
         pulseData = []
     for i in range(5):
       pulseData.append('No nexus at this event :(')
-    return pulseData
+      return pulseData
 
-  else:
-    data = response.json()
-    print("Successfully got live event status")
+    else:
+      data = response.json()
+      print("Successfully got live event status")
 
       # Get information about a specific team's next match.
       my_team_number = "1540"  # TESTING! change to 1540 before using at events
