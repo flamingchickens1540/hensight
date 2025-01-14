@@ -1,12 +1,11 @@
 import statbotics
+from main import year, my_team_key
 
-myTeam = 1540
-currentYear = 2024
 
 
 def getTeam():
     sb = statbotics.Statbotics()
-    data = sb.get_team_year(myTeam, currentYear)
+    data = sb.get_team_year(my_team_key, year)
     print("Successfully got team data")
     importantData = {
         "epa_total": data["epa_end"],

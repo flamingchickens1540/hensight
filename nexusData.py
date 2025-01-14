@@ -1,16 +1,16 @@
-import datetime
-import requests
-import sys
-import time
+import requests, os, time
+from typing import Final
+from dotenv import load_dotenv
+from main import current_event_key, my_team_key
+
+load_dotenv()
+api: Final[str] = os.getenv("nexus")
+url = f"https://frc.nexus/api/v1/event/{current_event_key}"
+
+headers = {"Nexus-Api-Key": api}
 
 
-event_key = "2024orore" # TESTING! change to the event key before using at events
-url = "https://frc.nexus/api/v1/event/" + event_key
-
-headers = {"Nexus-Api-Key": "gckINf2G_dswez0anwAsTTGQ9Cc"}
-
-
-def nexusData():
+def getNexusData():
     # print('--- FILE RUN')
     response = requests.get(url, headers=headers)
     if not response.ok:
@@ -26,9 +26,8 @@ def nexusData():
       print("Successfully got live event status")
 
       # Get information about a specific team's next match.
-      my_team_number = "1540"  # TESTING! change to 1540 before using at events
       my_matches = filter(
-        lambda m: my_team_number in m.get("redTeams", []) + m.get("blueTeams", []),
+        lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
         data["matches"],
     )
       my_next_match = next(
@@ -63,12 +62,10 @@ def nexusData():
           else:
             formated_time = "is queueing NOW"
           # print('--- formated time: ',formated_time)
-          matchInfo = f"Team {my_team_number}'s next match is {my_next_match['label']} {formated_time}"  # .format(my_team_number, my_next_match['label'], datetime.datetime.fromtimestamp(estimated_queue_time/100).strftime('%H:%M:%S'))
+          matchInfo = f"Team {my_team_key}'s next match is {my_next_match['label']} {formated_time}"  # .format(my_team_key, my_next_match['label'], datetime.datetime.fromtimestamp(estimated_queue_time/100).strftime('%H:%M:%S'))
           # print('--- match infO; ',matchInfo)
       else:
-          matchInfo = "Team {} doesn't have any future matches scheduled yet".format(
-            my_team_number
-        )
+          matchInfo = f"Team {my_team_key} doesn't have any future matches scheduled yet"
 
     pulseData["matchInfo"] = matchInfo
 
@@ -95,7 +92,7 @@ def nexusData():
     for i in data["matches"]:
         if i["status"] == "On field":
             continue
-        if my_team_number in i["redTeams"] or my_team_number in i["blueTeams"]:
+        if my_team_key in i["redTeams"] or my_team_key in i["blueTeams"]:
             my_upcomming_matches.append(i)
     if my_upcomming_matches == []:
         my_upcomming_matches = ""

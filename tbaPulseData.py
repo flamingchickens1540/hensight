@@ -1,7 +1,11 @@
 import tbapy
+import os
+from typing import Final
+from dotenv import load_dotenv
+from main import event_key
 
-key = "Ab5I0k9SHkYT1FC4Yh5T2lpnjsewAsHNRUnoRLcnk7vueOW4VeNWf2NMBzfGsDeN"
-event_key = "2024cc"  # TESTING! change to your event key when using at events
+load_dotenv()
+key: Final[str] = os.getenv("tba")
 
 tba = tbapy.TBA(key)
 

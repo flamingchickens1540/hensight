@@ -7,11 +7,13 @@ static/FriedEgg.glb/
 __pycache__/
 /target
 node_modules/
-data.txt
 static/AmpLanePADEF.traj
 static/asdf.gltf
 static/CrescendoField.gltf
 static/FieldSimon.glb
 static/FieldSmallTwo.glb
 nesusTesting.py
-data.txt
+data.json
+keys.json
+progress.txt
+testing.py
