@@ -1,5 +1,7 @@
 import statbotics
-from main import year, my_team_key
+# from main import year, my_team_key
+year = 2024
+my_team_key = 1540
 
 
 

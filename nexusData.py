@@ -1,7 +1,9 @@
 import requests, os, time
 from typing import Final
 from dotenv import load_dotenv
-from main import current_event_key, my_team_key
+# from main import current_event_key, my_team_key
+current_event_key = 'demo5603'
+my_team_key = '1540'
 
 load_dotenv()
 api: Final[str] = os.getenv("nexus")
@@ -17,9 +19,9 @@ def getNexusData():
         error_message = response.text
         print("Error getting live event status: {}".format(error_message))
         pulseData = []
-    for i in range(5):
-      pulseData.append('No nexus at this event :(')
-      return pulseData
+        for i in range(5):
+            pulseData.append('No nexus at this event :(')
+        return pulseData
 
     else:
       data = response.json()
@@ -102,4 +104,4 @@ def getNexusData():
     return pulseData
 
 
-nexusData()
+getNexusData()

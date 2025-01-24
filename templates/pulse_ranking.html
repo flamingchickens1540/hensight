@@ -31,6 +31,7 @@
     });
 
     const myTeam = "1540";
+    const myTeam2 = "1844";
 
     async function getRankings() {
         const response = await fetch("/getranking");
@@ -41,7 +42,7 @@
         if (data.length != 0) {
             for (i = 0; i < data.length; i++) {
                 // console.log('data[i]'+data[i])
-                if (data[i].includes(myTeam)) {
+                if (data[i].includes(myTeam) || data[i].includes(myTeam2)) {
                     html += "<h1>";
                     html += data[i];
                     html += "</h1>";

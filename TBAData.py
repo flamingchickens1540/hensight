@@ -25,17 +25,19 @@ def load_events(genKeys=False, shouldProgress=False):
         file.close()
     print('Done\n-- Writing Match Data')
     progress = bytes(0)
+    type = 'w'
     if shouldProgress:
         file = open('progress.txt', 'rb')
         record_progress = file.read()
         file.close()
+        type = 'a'
     else: record_progress = bytes(0)
     for i in progressBar(keys, prefix='Progress: ', suffix='Complete'):
         if progress < record_progress and shouldProgress:
             progress+=bytes(1)
             continue
         data[i] = tba.match(key=i)
-        with open('data.json', 'w', encoding='utf-8') as file:
+        with open('data.json', type, encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
         file.close()
         progress +=bytes(1)
@@ -58,10 +60,10 @@ def get_match(key):
     data = get_matches()
     return data[key]
 
+
 genKeys = False
 progress = False
 for i in sys.argv:
     if i == '-k':genKeys = True
     elif i == '-p': progress = True
-
-load_events(genKeys, progress)
+# load_events(genKeys, progress)

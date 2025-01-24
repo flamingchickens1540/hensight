@@ -1,15 +1,6 @@
-from flask import Flask, render_template
-from flask import request
 import random
 from flask import Flask, render_template, send_file
 from flask import request
-
-from nexusData import getNexusData
-from statbotData import getTeam
-from tbaPulseData import getRankings, getPrediction
-from triva import getQuestion
-
-
 #---------------------------------#
 
 current_event_key = "2024cc"
@@ -17,10 +8,15 @@ my_team_key= "frc1540"
 year = "2024"
 
 #---------------------------------#
+from nexusData import getNexusData
+from statbotData import getTeam
+from tbaPulseData import getRankings, getPrediction
+from triva import getQuestion
+from SlideHTMLGenerators import *
 
 
 listindex = 0
-old, old2, old3 = ""
+old, old2, old3 = "", "", ""
 app = Flask(__name__)
 
 # TBAData = TBAData()
