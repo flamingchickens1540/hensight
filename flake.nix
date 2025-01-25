@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
@@ -9,11 +8,9 @@
     {
       self,
       nixpkgs,
-      flake-utils,
       rust-overlay,
-      systems,
     }:
-    flake-utils.lib.eachSystem (import systems) (
+    nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
       system:
       let
         overlays = [ (import rust-overlay) ];
