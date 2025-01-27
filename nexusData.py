@@ -1,9 +1,9 @@
-import requests, os, time
+import requests, os, time, datetime
 from typing import Final
 from dotenv import load_dotenv
 # from main import current_event_key, my_team_key
 current_event_key = 'demo5603'
-my_team_key = '1540'
+my_team_key = '100'
 
 load_dotenv()
 api: Final[str] = os.getenv("nexus")
@@ -18,89 +18,108 @@ def getNexusData():
     if not response.ok:
         error_message = response.text
         print("Error getting live event status: {}".format(error_message))
-        pulseData = []
-        for i in range(5):
-            pulseData.append('No nexus at this event :(')
+        pulseData = {}
+        pulseData["queueTime"] = 'No nexus at this event :('
         return pulseData
 
     else:
-      data = response.json()
-      print("Successfully got live event status")
+        data = response.json()
+        pulseData = {}
+        print("Successfully got live event status")
 
       # Get information about a specific team's next match.
-      my_matches = filter(
-        lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
+        my_matches = filter(
+            lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
         data["matches"],
-    )
-      my_next_match = next(
-        filter(lambda m: not m["status"] == "On field", my_matches), None
-    )
-      pulseData = {}
-      announcements = []
-      partRequests = []
-      matchInfo = ""
-      formated_time = ""
-      # print(data['dataAsOfTime'])
-      if my_next_match:
-          estimated_queue_time = my_next_match["times"].get("estimatedQueueTime", None)
-          # print('queue time:',estimated_queue_time/1000)
-          time_until_queue = round(estimated_queue_time / 1000 - time.time())
-          # print('current time:',round(time.time()))
-          # print('time untill queue: ',time_until_queue)
-          if time_until_queue > 60 and time_until_queue < 3600:
-              formated_time = (
-                "and will queue in " + str(round(time_until_queue / 60)) + " minutes"
-            )
-          elif time_until_queue > 3600 and time_until_queue:
-              formated_time = (
-                "and will queue in "
-                + str(round(time_until_queue / 3600, 1))
-                + " hour(s)"
-            )
-          elif time_until_queue < 60 and time_until_queue > 0:
-            formated_time = (
-                "and will queue in " + str(round(time_until_queue)) + " secconds"
-            )
-          else:
-            formated_time = "is queueing NOW"
-          # print('--- formated time: ',formated_time)
-          matchInfo = f"Team {my_team_key}'s next match is {my_next_match['label']} {formated_time}"  # .format(my_team_key, my_next_match['label'], datetime.datetime.fromtimestamp(estimated_queue_time/100).strftime('%H:%M:%S'))
-          # print('--- match infO; ',matchInfo)
-      else:
-          matchInfo = f"Team {my_team_key} doesn't have any future matches scheduled yet"
-
-    pulseData["matchInfo"] = matchInfo
-
-    # Get announcements and parts requests.
-    # print(data['announcements'])
-    for announcement in data["announcements"]:
-        announcements.append(
-            "Event announcement: {}".format(announcement["announcement"])
         )
-    pulseData["announcements"] = announcements
-
-    for parts_request in data["partsRequests"]:
-        partRequests.append(
-            "Parts request for team {}: {}".format(
-                parts_request["requestedByTeam"], parts_request["parts"]
-            )
+        my_next_match = next(
+            filter(lambda m: not m["status"] == "On field", my_matches), None
         )
-    pulseData["partRequest"] = partRequests
+        
+        #queueing
+        
+        ms = ""
+        status = ""
+        if my_next_match is None:
+            pulseData["color"] = "green"
+            pulseData["queueTime"] = ":D"
+            pulseData["nextMatch"] = "No more matches!"
+        else:
+            if my_next_match["status"] == "Queuing soon":
+                type = "estimatedQueueTime"
+                status = "Queueing In:"
+                color = "green"
+            else: 
+                type = "estimatedOnFieldTime"
+                status = "On Field In:"
+                color = "red"
+            s = round(my_next_match["times"][type] / 1000) - round(time.time())
+            # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
+            hms = str(datetime.timedelta(seconds=s))
+            if type == "estimatedQueueTime" and s <= 300: color = 'yellow'
+            pulseData["queueTime"] = hms[2:]
+            pulseData["color"] = color
+            pulseData["nextMatch"] = f"{my_next_match["label"]} - {status}"
+            
+        #announcements
+            
+        def mySort(item):
+            return int(item["postedTime"])
+        
+        announcements = []
+        if len(data["announcements"]) + len(data["partsRequests"]) <1:
+            for i in range(3):
+                announcements.append({'postedTime': '', 'announcement': 'No Announcements at this time.', 'requestedByTeam': ''})
+            pulseData["announcements"] = announcements
+        elif len(data["announcements"]) + len(data["partsRequests"]) >1 and len(data["announcements"]) + len(data["partsRequests"]) <3:
+            for i in data["announcements"]:
+                i["requestedByTeam"] = "Pit Admin"
+                announcements.append(i)
+            for i in data["partsRequests"]:
+                i["announcement"] = i["parts"]
+                announcements.append(i)
+            announcements.sort(key=mySort, reverse=True)
+            announcements.append({'postedTime': '', 'announcement': "", 'requestedByTeam': ''})
+            pulseData["announcements"] = announcements
+        else:
+            for i in data["announcements"]:
+                i["requestedByTeam"] = "Pit Admin"
+                announcements.append(i)
+            for i in data["partsRequests"]:
+                i["announcement"] = i["parts"]
+                announcements.append(i)
+            announcements.sort(key=mySort, reverse=True)
+            pulseData["announcements"] = announcements
+            
+        #match schedule
+        
+        pulseData["allMatches"] = data["matches"]
+        futureMathces = []
+        for i in data["matches"]:
+            if 'actualOnDeckTime' in i:
+                futureMathces.append(i)
+        pulseData["futureMatches"] = futureMathces
+        
+        #tasks
+        tasks = []
+        if my_next_match != None:
+            tasks.append(
+                {
+                    "task": f"Queue for {my_next_match["label"]}",
+                    "time": f"In {pulseData['queueTime'][:2]} mins"
+                }
+            )
+        else:
+            tasks.append(
+                {
+                    "task": f"No more tasks!",
+                    "time": f":P"
+                }
+            )
+        print(tasks)
+        pulseData["tasks"] = tasks
 
-    if "nowQueuing" in data:
-        pulseData["nowQueuing"] = data["nowQueuing"]
-
-    my_upcomming_matches = []
-    for i in data["matches"]:
-        if i["status"] == "On field":
-            continue
-        if my_team_key in i["redTeams"] or my_team_key in i["blueTeams"]:
-            my_upcomming_matches.append(i)
-    if my_upcomming_matches == []:
-        my_upcomming_matches = ""
-    pulseData["myUpcommingMatches"] = my_upcomming_matches
-
-    # print(pulseData)
+      
     return pulseData
 
 

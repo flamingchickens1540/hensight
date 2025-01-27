@@ -16,10 +16,21 @@ function getTime() {
     let hours = d.getHours();
     let mins = d.getMinutes();
     let sec = d.getSeconds();
-    if (hours > 12) hours -= 12
+    let cycle = ' AM'
+    if (hours > 12){
+        hours -= 12
+        cycle = " PM"
+    }
     let h = ("00" + hours).slice(-2);
     let m = ("00" + mins).slice(-2);
     let s = ("00" + sec).slice(-2);
-    let time = h + ":" + m + ":" + s;
+    let time = h + ":" + m + ":" + s + cycle;
     document.getElementById("time").innerHTML = time;
+}
+
+
+function getColor(value){
+    //value from 0 to 1
+    var hue=((1-value)*120).toString(10);
+    return ["hsl(",hue,",100%,50%)"].join("");
 }

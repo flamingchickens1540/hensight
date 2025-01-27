@@ -63,8 +63,12 @@ def make_graph():
             realList.append(i)
     return realList
 
-
 @app.route("/")
+def landing():
+    return render_template("landing.html")
+
+
+@app.route("/hensight")
 def index():
     return render_template("hensight.html")
 

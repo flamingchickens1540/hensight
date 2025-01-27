@@ -5,46 +5,36 @@
     <script src="/common.js"></script>
     <link rel="stylesheet" href="/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Holy Hen has Aquired Sight</title>
+    <title>The Holy Hen has Acquired Sight</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    let idle_secconds = 0;
-    let fact_secconds = 0;
-    function incrementSeconds() {
-        idle_secconds++;
-        // fact_secconds++
-        console.log('idle for:',idle_secconds, 'seccond')
-        // console.log('fact secconds: ',fact_secconds)
-        if (idle_secconds >= 60) {
-            // window.location.href = "/";
-        }
-        // if (fact_secconds >= 10) {
-        //     fact_secconds = 0
-        //     getFunFact()
-        // }
-    }
-
-    window.addEventListener("touchstart", () => {
-        idle_secconds = 0;
-        console.log("reset");
-    });
-
-    async function getNexusData() {
+    async function getData() {
+        // Nexus
         const response = await fetch("/getnexusdata");
         let data = await response.json();
-        console.log("Nexus data");
-        upmatch.innerHTML = data["matchInfo"];
-        announcements.innerHTML = (data["announcements"] != "")
-            ? data["announcements"]
-            : "There are no announcements at this time";
-        requests.innerHTML = (data["partRequest"] != "") 
-            ? data["partRequest"]
-            : "There are no part requests at this time";
-        console.log(data["nowQueuing"])
-        nextup.innerHTML = (data["nowQueuing"] != "")
-            ? "Now Queuing: " + data["nowQueuing"]
-            : "There are currently no matches queuing";
+        document.getElementById("match").innerHTML = data["nextMatch"]
+        qt = document.getElementById("queuetime")
+        qt.innerHTML = data["queueTime"]
+        if (data["color"] == "green") qt.style.color = "green"
+        else if (data["color"] == "yellow") qt.style.color = "orange"
+        else if (data["color"] == "red") qt.style.color = "red"
+        let ann = data["announcements"]
+        for (let i =0; i < ann.length; i++) {
+            if (i == 3) break
+            let card = String("c"+(i+1))
+            document.getElementById(card+"team").innerHTML = ann[i]["requestedByTeam"]
+            document.getElementById(card+"announcement").innerHTML = ann[i]["announcement"]
+            let time = new Date(ann[i]["postedTime"]).toLocaleTimeString("en-US");
+            document.getElementById(card+"time").innerHTML = time
+            if (ann[i]["postedTime"] == "") document.getElementById(card+"time").innerHTML = ""
+            if (ann[i]["announcement"] == 'No Announcements at this time.' || ann[i]["announcement"] == "") break
+        }
+        document.getElementById("t1task").innerHTML = data["tasks"][0]["task"]
+        document.getElementById("t1time").innerHTML = data["tasks"][0]["time"]
+
+        //TBA
+
     }
     async function getStatBotData() {
         console.log("Stat bot data");
@@ -68,76 +58,164 @@
             fact.innerHTML = data[0];
         }
     }
-    getNexusData();
-    getStatBotData();
+    getData();
+    // getStatBotData();
     // getFunFact()
     setInterval(everySeccond, 1000);
     function everySeccond() {
-        incrementSeconds();
         getTime();
+        getData();
     }
     setInterval(every30s, 30000);
     function every30s() {
-        getNexusData();
-        getStatBotData();
+        // getStatBotData();
     }
 </script>
-<body onclick="openFullscreen()" onload="getTime()">
-    <nav class="pulse-sidebar">
-        <header class="center-col">
-            <h1 id="title">Hensight</h1>
-            <h1 id="time"></h1>
-        </header>
-        <img
-            style="width: calc(100% - 8rem)"
-            src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4"
-            alt="flaming chickens logo"
-        />
-        <footer class="center-col">
-            <a href="/pulse_schedule"><button>Schedule</button></a>
-            <a href="/menu"><button>Main Menu</button></a>
-            <a href="/pulse_ranking"><button>Ranking</button></a>
-        </footer>
-    </nav>
-    <main class="center-col">
-        <button id="upmatch"></button>
-        <button id="nextup"></button>
-        <button id="announcements">There are currently no announcements</button>
-        <button id="requests">There are currently no part requests</button>
-        <button id="stats">Loading...</button>
-        <!-- <div class="inner-div grid col-start-1 col-end-5 row-start-6" id="fact"></div> -->
-    </main>
+<body onclick="openFullscreen()" onload="getTime()" id="body">
+    <div id="big" class="element">
+        live stream
+    </div>
+    <div id="queue" class="element">
+        <h2 id="match" class="inner">Now Queuing (QM3)</h2>
+        <h1 id="queuetime" class="inner">21:32</h1>
+        <h3 id="time" class="inner">3:40 PM</h3>
+    </div>
+    <div id="schedule" class="element">
+        match schedule
+    </div>
+    <div id="tasks" class="element">
+        <div class="task">
+            <h2 class="task" id="t1task">placeholder</h2>
+            <h4 class="time" id="t1time">placeholder</h4>
+        </div>
+        <div class="task">
+            <h2 class="task" id="t2task">placeholder</h2>
+            <h4 class="time" id="t2time">placeholder</h4>
+        </div>
+        <div class="task">
+            <h2 class="task" id="t3task">placeholder</h2>
+            <h4 class="time" id="t3time">placeholder</h4>
+        </div>
+    </div>
+    <div id="announcements" class="element">
+        <div class="card" id="card1">
+            <h3 class="team" id="c1team"></h3>
+            <h2 class="announcement" id="c1announcement"></h2>
+            <h4 class="time" id="c1time"></h4>
+        </div>
+        <div class="card" id="card2">
+            <h3 class="team" id="c2team"></h3>
+            <h2 class="announcement" id="c2announcement"></h2>
+            <h4 class="time" id="c2time"></h4>
+        </div>
+        <div class="card" id="card3">
+            <h3 class="team" id="c3team"></h3>
+            <h2 class="announcement" id="c3announcement"></h2>
+            <h4 class="time" id="c3time"></h4>
+        </div>
+    </div>
+
 </body>
 <style>
+    .card {
+        border: solid 2px #f6b14b;
+        text-align: center;
+        font-size: 1.5rem;
+        display: grid;
+        grid-template-areas: 
+        "a . c"
+        " b b b";
+    }
+    .task {
+        border: solid 2px #f6b14b;
+        text-align: center;
+        font-size: 1.5rem;
+        display: grid;
+        grid-template-areas: 
+        ". . c"
+        " b b b";
+    }
+    .team, .announcement, .time {
+        padding: 0;
+        margin: 0;
+        line-height: 0.5;
+        transform: translateY(50%);
+    }
+    .team {
+        grid-area: a;
+        font-size: 2rem;
+    }
+    .announcement, .task {
+        grid-area: b;
+        font-size: 2.3rem;
+    }
+    .time {
+        font-size: 2rem;
+        grid-area: c;
+    }
+    .element {
+        display: grid;
+        border: solid 5px #f6b14b;
+        color: white;
+    }
+    .inner {
+        padding: 2%;
+        line-height: 0;
+    }
+
+    h1 {
+        color: #f6b14b;
+    }
+    h2 {
+        color: white;
+    }
+    h3 {
+        color: #1c1c1c;
+        -webkit-text-stroke: 2px white;
+    }
+    h4 {
+        color: #4c4c4c;
+    }
     body {
-        display: flex;
+        display: grid;
+        grid-template-areas: 
+        "a a b"
+        "a a b"
+        "c d e";
+        grid-gap: 5px;
+        overflow: hidden;
     }
-
-    main {
-        flex-grow: 1;
-        justify-content: center !important;
+    #big {
+        grid-area: a;
     }
-
-    footer,
-    footer a {
-        width: 100%;
-        button {
+    #queue {
+        grid-area: e;
+        #match {
             font-size: 3rem;
+            line-height: 0;
+            transform: translate(0, 10px);
+        }
+        #time {
+            font-size: 3rem;
+            line-height: 0;
+            transform: translate(0, 5rem);
+        }
+        #queuetime{
+            font-size: 10rem;
+            margin: auto;
+            text-align: center;
         }
     }
-
-    #title,
-    #time {
-        font-weight: 700;
-        font-style: normal;
-        font-size: 5rem;
-        text-align: center;
-        margin: auto;
+    #tasks {
+        grid-area: d;
+        overflow-y: auto;
     }
-
-    main button {
-        font-size: 3rem;
-        font-weight: 700;
-        width: 80%;
+    #announcements {
+        grid-area: c;
+        overflow-y: auto;
+    }
+    #schedule {
+        grid-area: b;
+        overflow-y: auto;
     }
 </style>
