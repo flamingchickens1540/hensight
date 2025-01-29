@@ -60,6 +60,8 @@ def getNexusData():
             pulseData["queueTime"] = hms[2:]
             pulseData["color"] = color
             pulseData["nextMatch"] = f"{my_next_match["label"]} - {status}"
+            if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
+            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "7393B3"
             
         #announcements
             
@@ -91,32 +93,20 @@ def getNexusData():
             announcements.sort(key=mySort, reverse=True)
             pulseData["announcements"] = announcements
             
-        #match schedule
-        
-        pulseData["allMatches"] = data["matches"]
-        futureMathces = []
-        for i in data["matches"]:
-            if 'actualOnDeckTime' in i:
-                futureMathces.append(i)
-        pulseData["futureMatches"] = futureMathces
-        
         #tasks
         tasks = []
-        if my_next_match != None:
-            tasks.append(
-                {
-                    "task": f"Queue for {my_next_match["label"]}",
-                    "time": f"In {pulseData['queueTime'][:2]} mins"
-                }
-            )
-        else:
-            tasks.append(
-                {
-                    "task": f"No more tasks!",
-                    "time": f":P"
-                }
-            )
-        print(tasks)
+        tasks.append(
+            {
+                "task": f"No more tasks!",
+                "time": f":P"
+            }
+        )
+        tasks.append(
+            {
+                "task": "this is another task!",
+                "time": "right now "
+            }
+        )
         pulseData["tasks"] = tasks
 
       

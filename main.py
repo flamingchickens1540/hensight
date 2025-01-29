@@ -10,7 +10,7 @@ year = "2024"
 #---------------------------------#
 from nexusData import getNexusData
 from statbotData import getTeam
-from tbaPulseData import getRankings, getPrediction
+from tbaPulseData import getRankings, getPrediction, getMatchSchedule
 from triva import getQuestion
 from SlideHTMLGenerators import *
 
@@ -87,6 +87,14 @@ def pulseSchedule():
 def pulseRanking():
     return render_template("pulse_ranking.html")
 
+@app.route("/drive-team")
+def driveTeam():
+    return render_template("drive_team.html")
+
+
+@app.route("/tbadata")
+def tbadata():
+    return getMatchSchedule()
 
 @app.route("/getnexusdata")
 def getNextMatch():
