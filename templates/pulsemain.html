@@ -55,7 +55,7 @@
         document.getElementById("tasks").innerHTML = html
 
         await getTBAData()
-
+        await getDriveTeamData()
     }
 
     async function getTBAData() {
@@ -74,6 +74,24 @@
             html = "<h2 style='font-size: 5rem;'>No more matches!</h2>"
         }
         document.getElementById("schedule").innerHTML = html
+    }
+    var popupCount = 0
+    async function getDriveTeamData() {
+        const response = await fetch("/get-drive-team");
+        let data = await response.json();
+        if (data["msg"] != "") {
+            popupCount = 0
+            let popup = document.getElementById("popup")
+            popup.innerHTML = data["msg"]
+            popup.style.visibility = "visible"
+        }
+        wait10s()
+    }
+
+    async function wait10s() {
+        if (popupCount > 10) {
+            document.getElementById("popup").style.visibility = "hidden"
+        }
     }
 
     async function getStatBotData() {
@@ -104,7 +122,8 @@
     setInterval(everySeccond, 1000);
     function everySeccond() {
         getTime();
-        // getData();
+        getData();
+        popupCount +=1
     }
     setInterval(every30s, 30000);
     function every30s() {
@@ -144,9 +163,10 @@
         transform: translate(-50%, -50%);
         border: solid 10px #f6b14b;
         background-color: #1c1c1c;
-        border-radius: 5px;
+        border-radius: 15px;
         color: white;
         font-size: 5rem;
+        visibility: hidden;
     }
     .schedulelement {
         display: grid;

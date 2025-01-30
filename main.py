@@ -91,6 +91,20 @@ def pulseRanking():
 def driveTeam():
     return render_template("drive_team.html")
 
+driveTeamData = ""
+
+@app.route("/post-drive-team", methods=["POST"])
+def postDriveTeam():
+    global driveTeamData
+    driveTeamData = request.json
+    return "hi"
+
+@app.route("/get-drive-team")
+def getDriveTeam():
+    global driveTeamData
+    json = {"msg": driveTeamData}
+    driveTeamData = ""
+    return json
 
 @app.route("/tbadata")
 def tbadata():

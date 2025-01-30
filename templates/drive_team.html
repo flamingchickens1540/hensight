@@ -1,0 +1,50 @@
+<script>
+    async function sendData() {
+        const response = await fetch("http://127.0.0.1:5001/post-drive-team", {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                body: JSON.stringify(document.getElementById("input").value),
+            });
+    }
+</script>
+
+<body>
+    <div id="buttons">
+        <input type="text" id="input">
+        <button onclick="sendData()">Submit</button>
+    </div>
+    
+</body>
+
+<style>
+    body {
+        background-color: #1c1c1c;
+        color: #f6b14b;
+        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848);
+        border: solid 5px;
+    }
+    #buttons {
+        position: absolute;
+        margin: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    button {
+        color: #f6b14b;
+        background: none;
+        border: solid 5px #f6b14b;
+        border-radius: 5px;
+        font-size: 50px;
+    }
+    input {
+        font-size: 50px;
+    }
+</style>

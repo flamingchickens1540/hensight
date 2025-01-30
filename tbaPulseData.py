@@ -43,7 +43,7 @@ def getMatchSchedule():
     allMatches = [format(matches)]
     futureMatches = []
     for i in matches:
-        if "score" not in i["alliances"]["blue"]: futureMatches.append(i)
+        if "score_breakdown" not in i: futureMatches.append(i)
     futureMatches = [format(futureMatches)]
     data = {
         "all": allMatches,
