@@ -10,16 +10,23 @@
       nixpkgs,
       rust-overlay,
     }:
-    nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
-      system:
-      let
-        overlays = [ (import rust-overlay) ];
-        pkgs = import nixpkgs {
-          inherit system overlays;
-        };
-      in
-      {
-        devShells.default = pkgs.mkShell {
+    let
+      inherit (nixpkgs.lib) genAttrs systems;
+      forEachSystem =
+        f:
+        genAttrs systems.flakeExposed (
+          system:
+          f (
+            import nixpkgs {
+              overlays = [ (import rust-overlay) ];
+              inherit system;
+            }
+          )
+        );
+    in
+    {
+      devShells = forEachSystem (pkgs: {
+        default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cargo
             rustfmt
@@ -27,7 +34,9 @@
             rust-analyzer
           ];
         };
-        packages.default = pkgs.rustPlatform.buildRustPackage {
+      });
+      packages = forEachSystem (pkgs: {
+        default = pkgs.rustPlatform.buildRustPackage {
           pname = "hensight";
           version = "0.0.1";
           src = ./.;
@@ -39,6 +48,6 @@
           nativeBuildInputs = [ pkgs.pkg-config ];
           PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
         };
-      }
-    );
+      });
+    };
 }
