@@ -41,25 +41,32 @@ def getNexusData():
         ms = ""
         status = ""
         if my_next_match is None:
-            pulseData["color"] = "green"
+            pulseData["color"] = "#50C878"
             pulseData["queueTime"] = ":D"
             pulseData["nextMatch"] = "No more matches!"
         else:
             if my_next_match["status"] == "Queuing soon":
                 type = "estimatedQueueTime"
                 status = "Queueing In:"
-                color = "green"
+                color = "#50C878"
             else: 
                 type = "estimatedOnFieldTime"
                 status = "On Field In:"
-                color = "red"
+                color = "#D22B2B"
+                
+            label = my_next_match["label"]
+            if "Qualification" in label:
+                label = "QM "+label[14:]
+            elif "Practice" in label:
+                label = "PM"+label[9:]
+            
             s = round(my_next_match["times"][type] / 1000) - round(time.time())
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
-            if type == "estimatedQueueTime" and s <= 300: color = 'yellow'
+            if type == "estimatedQueueTime" and s <= 300: color = '#CC5500'
             pulseData["queueTime"] = hms[2:]
             pulseData["color"] = color
-            pulseData["nextMatch"] = f"{my_next_match["label"]} - {status}"
+            pulseData["nextMatch"] = f"{label} - {status}"
             if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
             elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "7393B3"
             
@@ -68,26 +75,40 @@ def getNexusData():
         def mySort(item):
             return int(item["postedTime"])
         
+        def convert(milliseconds):
+            seconds = milliseconds / 1000
+            seconds = seconds % (24 * 3600)
+            hour = seconds // 3600
+            seconds %= 3600
+            minutes = seconds // 60
+            seconds %= 60
+            
+            return f"{round(hour)}hrs, {round(minutes)}mins, {round(seconds)}s"
+        
         announcements = []
         if len(data["announcements"]) + len(data["partsRequests"]) <1:
             for i in range(3):
-                announcements.append({'postedTime': '', 'announcement': 'No Announcements at this time.', 'requestedByTeam': ''})
+                announcements.append({'time': '', 'announcement': 'No More Announcements', 'requestedByTeam': ''})
             pulseData["announcements"] = announcements
         elif len(data["announcements"]) + len(data["partsRequests"]) >1 and len(data["announcements"]) + len(data["partsRequests"]) <3:
             for i in data["announcements"]:
                 i["requestedByTeam"] = "Pit Admin"
+                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
                 announcements.append(i)
             for i in data["partsRequests"]:
                 i["announcement"] = i["parts"]
+                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
                 announcements.append(i)
             announcements.sort(key=mySort, reverse=True)
-            announcements.append({'postedTime': '', 'announcement': "", 'requestedByTeam': ''})
+            announcements.append({'time': '', 'announcement': "", 'requestedByTeam': ''})
             pulseData["announcements"] = announcements
         else:
             for i in data["announcements"]:
+                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
                 i["requestedByTeam"] = "Pit Admin"
                 announcements.append(i)
             for i in data["partsRequests"]:
+                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
                 i["announcement"] = i["parts"]
                 announcements.append(i)
             announcements.sort(key=mySort, reverse=True)
@@ -99,12 +120,6 @@ def getNexusData():
             {
                 "task": f"No more tasks!",
                 "time": f":P"
-            }
-        )
-        tasks.append(
-            {
-                "task": "this is another task!",
-                "time": "right now "
             }
         )
         pulseData["tasks"] = tasks

@@ -9,6 +9,7 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    var ranking = false;
     async function getData() {
         // Nexus
         const response = await fetch("/getnexusdata");
@@ -17,26 +18,13 @@
         document.getElementById("match").style.color = data["bumperColor"]
         qt = document.getElementById("queuetime")
         qt.innerHTML = data["queueTime"]
-        if (data["color"] == "green") qt.style.color = "green"
-        else if (data["color"] == "yellow") qt.style.color = "orange"
-        else if (data["color"] == "red") qt.style.color = "red"
+        qt.style.color = data["color"]
         let ann = data["announcements"]
-        // for (let i =0; i < ann.length; i++) {
-        //     if (i == 3) break
-        //     let card = String("c"+(i+1))
-        //     document.getElementById(card+"team").innerHTML = ann[i]["requestedByTeam"]
-        //     document.getElementById(card+"announcement").innerHTML = ann[i]["announcement"]
-        //     let time = new Date(ann[i]["postedTime"]).toLocaleTimeString("en-US");
-        //     document.getElementById(card+"time").innerHTML = time
-        //     if (ann[i]["postedTime"] == "") document.getElementById(card+"time").innerHTML = ""
-        //     if (ann[i]["announcement"] == 'No Announcements at this time.' || ann[i]["announcement"] == "") break
-        // }
-
         let html = ""
         for (let i = 0; i < ann.length; i++) {
             let time = ''
-            if (ann[i]["postedTime"] != "") time = new Date(ann[i]["postedTime"]).toLocaleTimeString("en-US");
-            html += '<div class="card"><h3 class="team">'+ann[i]["requestedByTeam"]+'</h3><h2 class="announcement">'+ann[i]["announcement"]+'</h2><h4 class="time">'+time+'</h4></div>'
+            html += '<div class="card"><h4 class="team">'+ann[i]["requestedByTeam"]+'</h4><h2 class="announcement">'+ann[i]["announcement"]+'</h2><h4 class="time">'+ann[i]["time"]+'</h4></div>'
+            if (ann[i]["announcement"] == "No More Announcements") break;
         }
         document.getElementById("announcements").innerHTML = html
 
@@ -44,17 +32,18 @@
         let task = data["tasks"]
         for (let i = 0; i < task.length; i++) {
             let time = task[i]["time"]
-            let color = 'green'
+            let color = '#50C878'
             if (time != ':P') {
-                if (time < 3) color = 'red'
-                else if (time < 5) color = 'yellow'
+                if (time < 3) color = '#D22B2B'
+                else if (time < 5) color = '#CC5500'
                 time = "In "+time+"min(s)"
             }
-            html += '<div class="card"><h3 class="team"></h3><h2 class="announcement">'+task[i]["task"]+'</h2><h4 class="time" style="color: '+color+'">'+time+'</h4></div>'
+            html += '<div class="task"><h2 class="announcement">'+task[i]["task"]+'</h2><h4 class="time" style="color: '+color+'">'+time+'</h4></div>'
         }
         document.getElementById("tasks").innerHTML = html
 
-        await getTBAData()
+        if (!ranking) await getTBAData()
+        else await getRanking()
         await getDriveTeamData()
     }
 
@@ -86,6 +75,19 @@
             popup.style.visibility = "visible"
         }
         wait10s()
+    }
+
+    async function getRanking() {
+        const response = await fetch("/getranking");
+        let data = await response.json();
+        let html = ""
+        if (data.length != 0) {
+            for (i = 0; i < data.length; i++) {
+                html += data[i]
+            }
+        }
+        else html = 'No rankings yet'
+        document.getElementById("schedule").innerHTML = html
     }
 
     async function wait10s() {
@@ -139,7 +141,7 @@
         <h1 id="queuetime" class="inner">21:32</h1>
         <h3 id="time" class="inner">3:40 PM</h3>
     </div>
-    <div id="schedule" class="element">
+    <div id="schedule" class="element" onclick="ranking = !ranking">
         match schedule
     </div>
     <div id="tasks" class="element">
@@ -172,6 +174,8 @@
         display: grid;
         grid-template-rows: repeat(1, minmax(0, 1fr));;
         grid-template-columns: repeat(5, minmax(0, 1fr));;
+        height: fit-content;
+        line-height: 0;
     }
     .blue {
         /* color: #89CFF0; */
@@ -193,17 +197,25 @@
         grid-column: 2 / span 2;
     }
     .card {
-        border: solid 2px #f6b14b;
-        text-align: center;
+        border: solid 4px #f6b14b;
+        border-radius: 10px;
+        margin: auto;
         font-size: 1.5rem;
         display: grid;
         height: 10rem;
         grid-template-areas: 
         "a . c"
         " b b b";
+        height: fit-content;
+        width: 85%;
+        /* padding: 5% 0 5% 0; */
     }
     .task {
-        border: solid 2px #f6b14b;
+        border: solid 4px #f6b14b;
+        border-radius: 10px;
+        margin: auto;
+        width: 85%;
+        height: fit-content;
         text-align: center;
         font-size: 1.5rem;
         display: grid;
@@ -212,27 +224,38 @@
         " b b b";
     }
     .team, .announcement, .time {
-        padding: 0;
+        padding: 5%;
         margin: 0;
-        line-height: 0.5;
-        transform: translateY(50%);
+        /* line-height: 0.5; */
     }
     .team {
         grid-area: a;
-        font-size: 2rem;
+        font-size: 1.5rem;
+        text-align: left;
+        width: 10rem;
+        font-weight: 500;
     }
-    .announcement, .task {
+    .announcement{
         grid-area: b;
         font-size: 2rem;
+        text-align: center;
+        transform: translateY(-15%);
     }
     .time {
-        font-size: 2rem;
+        font-size: 1.5rem;
         grid-area: c;
+        text-align: right;
+        width: 20rem;
+        transform: translate(-10%);
+        font-weight: 500;
     }
     .element {
         display: grid;
-        border: solid 5px #f6b14b;
         color: white;
+        border-image: linear-gradient(to bottom right, #f6b14b, #ff4848) 1;
+        border-radius: 5px; /* this doesn't work */
+        border-width: 4px;
+        border-style: solid;
     }
     .inner {
         padding: 2%;
@@ -295,12 +318,17 @@
     #tasks {
         grid-area: d;
         height: 25rem;
+        width: 25rem;
+        grid-gap: 20px;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     #announcements {
         grid-area: c;
         overflow-y: auto;
+        grid-gap: 20px;
         height: 25rem;
+        width: 37rem;
     }
     #schedule {
         grid-area: b;
