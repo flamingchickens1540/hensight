@@ -1,6 +1,7 @@
 import requests, os, time, datetime
 from typing import Final
 from dotenv import load_dotenv
+from tbaPulseData import getMatches
 # from main import current_event_key, my_team_key
 current_event_key = 'demo5603'
 my_team_key = '100'
@@ -10,6 +11,56 @@ api: Final[str] = os.getenv("nexus")
 url = f"https://frc.nexus/api/v1/event/{current_event_key}"
 
 headers = {"Nexus-Api-Key": api}
+
+
+def genTasks():
+    tasks = []
+    matches = getMatches()
+    matches = list(filter(lambda match : match["comp_level"] == "qm", matches))
+    for match in matches:
+        match["sort"] = match["key"].split("m")[1]
+    matches = sorted(matches, key=lambda el: el["sort"])
+    for index in range(len(matches)):
+        blue = matches[index]["alliances"]["blue"]["team_keys"]
+        red = matches[index]["alliances"]["red"]["team_keys"]
+        myAlliance = "none"
+        for i in blue: 
+            i = i[3:]
+            if my_team_key == i: 
+                myAlliance = blue
+        for i in red: 
+            i = i[3:]
+            if my_team_key == i: 
+                myAlliance = red
+        for i in myAlliance:
+            if my_team_key in i: continue
+            count = 0
+            for j in reversed(matches[:index]):
+                if i in j: 
+                    count+=1
+                if count == 1: 
+                    tasks.append(
+                        {
+                            "task": f"Second Check-in with {i}",
+                            "time": ":P"
+                        }
+                    )
+                elif count == 2:
+                    tasks.append(
+                        {
+                            "task": f"Preliminary Check-in with {i}",
+                            "time": ":P"
+                        }
+                    )
+                    break
+    tasks.append(
+        {
+            "task": "No more tasks!",
+            "time": ":P"
+        }
+    )
+    return tasks
+        
 
 
 def getNexusData():
@@ -25,9 +76,8 @@ def getNexusData():
     else:
         data = response.json()
         pulseData = {}
-        print("Successfully got live event status")
 
-      # Get information about a specific team's next match.
+      # Get information about a specific team's next match.   
         my_matches = filter(
             lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
         data["matches"],
@@ -115,14 +165,7 @@ def getNexusData():
             pulseData["announcements"] = announcements
             
         #tasks
-        tasks = []
-        tasks.append(
-            {
-                "task": f"No more tasks!",
-                "time": f":P"
-            }
-        )
-        pulseData["tasks"] = tasks
+        pulseData["tasks"] = genTasks()
 
       
     return pulseData

@@ -1,7 +1,7 @@
-import tbapy
-import os
+import tbapy, os, time
 from typing import Final
 from dotenv import load_dotenv
+from progress import progressBar
 # from main import event_key
 event_key = '2024cc'
 my_team_key = '1540'
@@ -11,6 +11,9 @@ key: Final[str] = os.getenv("tba")
 
 tba = tbapy.TBA(key)
 
+
+def getMatches():
+    return tba.event_matches(event=event_key, simple=True)
 
 def getRankings():
     rankings = tba.event_rankings(event_key)
@@ -27,27 +30,66 @@ def getRankings():
     # print(top10)
     return top10
 
-def format(matches):
-    list = []
-    for i in matches:
-        blue = i["alliances"]["blue"]["team_keys"]
-        red = i["alliances"]["red"]["team_keys"]
-        for j in range(len(red)):
-            red[j] = red[j][3:]
-            if my_team_key in red[j]: red[j] = f"<strong><u style='color: #EE4B2B;'>{red[j]}</u></strong>"
-        for j in range(len(blue)):
-            blue[j] = blue[j][3:]
-            if my_team_key in blue[j]: blue[j] = f"<strong><u style='color: #89CFF0'>{blue[j]}</u></strong>"
-        list.append(f"<div class='schedulelement'><p style='text-align: right;'>{(i["key"][7:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
-    return list
+def myMatches():
+    matches = tba.event_matches(event=event_key, simple=True)
+    my_matches = []
+    for match in matches:
+        for i in match["alliances"]["blue"]["team_keys"]: 
+            if my_team_key in i: my_matches.append(match)
+        for i in match["alliances"]["red"]["team_keys"]:
+            if my_team_key in i: my_matches.append(match)
+    return my_matches
+
+def myNextMatch():
+    all = myMatches()
+    upcoming = []
+    for i in all:
+        if i["actual_time"] == None: upcoming.append(i)
+    upcoming = filter(lambda match : match["comp_level"] == "qm", upcoming)
+    upcoming = sorted(upcoming, key=lambda el: el["key"].split("m")[1])
+    return upcoming[0]
+    
+    
+
+def myAlliance(match):
+    blue = match["alliances"]["blue"]["team_keys"]
+    red  = match["alliances"]["red"]["team_keys"]
+    for i in blue: 
+        if my_team_key in i: return "blue"
+    for i in red:
+        if my_team_key in i: return "red"
+    return "err"
+
+def format(list):
+    postFormat = []
+    list = filter(lambda match : match["comp_level"] == "qm", list)
+    list = sorted(list, key=lambda el: int(el["key"].split("m")[1]))
+    for match in list:
+        blue = match["alliances"]["blue"]["team_keys"]
+        red  = match["alliances"]["red"]["team_keys"]
+
+        for i in range(len(blue)):
+            blue[i] = blue[i][3:]
+            if my_team_key in blue[i]: blue[i] = f"<strong><u style='color: #89CFF0;'>{blue[i]}</u></strong>" #highlight your teamkey
+            if blue[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]):
+                blue[i] = f"<strong><u>{blue[i]}</u></strong>"
+        for i in range(len(red)): 
+            red[i] = red[i][3:]
+            if my_team_key in red[i]: red[i] = f"<strong><u style='color: #EE4B2B;'>{red[i]}</u></strong>"
+            if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
+                red[i] = f"<strong><u>{red[i]}</u></strong>"
+
+        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match["key"][7:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
+    return postFormat
+    
 
 def getMatchSchedule():
     matches = tba.event_matches(event=event_key, simple=True)
     allMatches = [format(matches)]
     futureMatches = []
     for i in matches:
-        if "score_breakdown" not in i: futureMatches.append(i)
-    futureMatches = [format(futureMatches)]
+        if "winning_alliance" not in i: futureMatches.append(i)
+    if len(futureMatches) > 1: futureMatches = [format(futureMatches)]
     data = {
         "all": allMatches,
         "future": futureMatches
@@ -60,4 +102,4 @@ def getPrediction():
     return prediction
 
 # getMatchSchedule()
-print(tba.event_matches(event=event_key, simple=True)[0])
+# print(tba.event_matches(event=event_key, simple=True)[0])

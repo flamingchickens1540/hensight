@@ -20,7 +20,7 @@
         qt.innerHTML = data["queueTime"]
         qt.style.color = data["color"]
         let ann = data["announcements"]
-        let html = ""
+        let html = "<h1 id='title'>Announcements</h1>"
         for (let i = 0; i < ann.length; i++) {
             let time = ''
             html += '<div class="card"><h4 class="team">'+ann[i]["requestedByTeam"]+'</h4><h2 class="announcement">'+ann[i]["announcement"]+'</h2><h4 class="time">'+ann[i]["time"]+'</h4></div>'
@@ -30,6 +30,7 @@
 
         html = ""
         let task = data["tasks"]
+        console.log(task)
         for (let i = 0; i < task.length; i++) {
             let time = task[i]["time"]
             let color = '#50C878'
@@ -48,13 +49,17 @@
     }
 
     async function getTBAData() {
+        console.log("getTBAData")
         const response = await fetch("/tbadata");
         let data = await response.json();
+        // console.log(data)
         html = ""
         type = "all"
         matches = data[type][0]
+        // console.log(matches.length)
         if (matches.length > 1) {
             for (let i = 0; i < matches.length; i++) {
+                // console.log(matches[i])
                 html += matches[i]
                 html += "<br>"
             }
@@ -96,18 +101,18 @@
         }
     }
 
-    async function getStatBotData() {
-        console.log("Stat bot data");
-        const response = await fetch("/getstatbotdata");
-        let data = await response.json();
-        stats.innerHTML =
-            "Total EPA: " +
-            data["epa_total"] +
-            " | Wins: " +
-            data["wins"] +
-            " | Losses: " +
-            data["losses"];
-    }
+    // async function getStatBotData() {
+    //     console.log("Stat bot data");
+    //     const response = await fetch("/getstatbotdata");
+    //     let data = await response.json();
+    //     stats.innerHTML =
+    //         "Total EPA: " +
+    //         data["epa_total"] +
+    //         " | Wins: " +
+    //         data["wins"] +
+    //         " | Losses: " +
+    //         data["losses"];
+    // }
     async function getFunFact() {
         console.log("fun fact");
         const response = await fetch("/jsonrequest");
@@ -155,6 +160,10 @@
     </div>
 </body>
 <style>
+    #title {
+        font-size: 48px;
+        padding: 10px;
+    }
     #popup {
         z-index: 100;
         width: 75%;
@@ -174,7 +183,7 @@
         display: grid;
         grid-template-rows: repeat(1, minmax(0, 1fr));;
         grid-template-columns: repeat(5, minmax(0, 1fr));;
-        height: fit-content;
+        height: 3rem;
         line-height: 0;
     }
     .blue {
@@ -197,7 +206,7 @@
         grid-column: 2 / span 2;
     }
     .card {
-        border: solid 4px #f6b14b;
+        border: solid 4px white;
         border-radius: 10px;
         margin: auto;
         font-size: 1.5rem;
@@ -211,7 +220,7 @@
         /* padding: 5% 0 5% 0; */
     }
     .task {
-        border: solid 4px #f6b14b;
+        border: solid 4px white;
         border-radius: 10px;
         margin: auto;
         width: 85%;
@@ -224,7 +233,7 @@
         " b b b";
     }
     .team, .announcement, .time {
-        padding: 5%;
+        padding: 2%;
         margin: 0;
         /* line-height: 0.5; */
     }
@@ -239,6 +248,7 @@
         grid-area: b;
         font-size: 2rem;
         text-align: center;
+        color: white;
         transform: translateY(-15%);
     }
     .time {
@@ -303,6 +313,7 @@
             font-size: 3rem;
             line-height: 0;
             transform: translate(0, 10px);
+            height: 2rem;
         }
         #time {
             font-size: 3rem;
@@ -310,7 +321,7 @@
             transform: translate(0, 5rem);
         }
         #queuetime{
-            font-size: 10rem;
+            font-size: 13rem;
             margin: auto;
             text-align: center;
         }

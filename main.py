@@ -9,9 +9,9 @@ year = "2024"
 
 #---------------------------------#
 from nexusData import getNexusData
-from statbotData import getTeam
+# from statbotData import getTeam
 from tbaPulseData import getRankings, getPrediction, getMatchSchedule
-from triva import getQuestion
+# from triva import getQuestion
 from SlideHTMLGenerators import *
 
 
@@ -115,9 +115,9 @@ def getNextMatch():
     return getNexusData()
 
 
-@app.route("/getstatbotdata")
-def getStatBotData():
-    return getTeam()
+# @app.route("/getstatbotdata")
+# def getStatBotData():
+#     return getTeam()
 
 
 @app.route("/getranking")

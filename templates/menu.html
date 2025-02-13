@@ -13,7 +13,7 @@
         idle_secconds += 1;
         console.log("idle for:", idle_secconds, "seccond");
         if (idle_secconds >= 40) {
-            window.location.replace("/");
+            window.location.replace("/hensight");
         }
     }
     let cancel = setInterval(incrementSeconds, 1000);
@@ -27,10 +27,10 @@
     <h1 style="text-align: center; font-size: 10rem;">Hensight</h1>
     <div class="flex-row-auto">
         <a href="/"><button>Statistics</button></a>
-        <a href="/menu/robot">
-            <button>Our Robot</button>
+        <a href="/cad">
+            <button>CAD</button>
         </a>
-        <a href="/pulse_rip_off"><button>Team Info</button></a>
+        <a href="/autos"><button>Autos</button></a>
         <a href="/menu/misc"><button>Misc</button></a>
     </div>
     <h1 style="text-align: center; font-size: 10rem;" id="time"></h1>

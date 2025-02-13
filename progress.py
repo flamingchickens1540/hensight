@@ -1,5 +1,5 @@
 import time, datetime
-def progressBar(iterable, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r", printIterable=False):
+def progressBar(iterable, prefix = 'Progress:', suffix = 'Complete', decimals = 1, length = 100, fill = '█', printEnd = "\r", printIterable=False):
     """
     Call in a loop to create terminal progress bar
     @params:
