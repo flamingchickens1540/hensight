@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 from progress import progressBar
 
 load_dotenv()
-event_key: Final[str] = os.getenv("tba")
-tba = tbapy.TBA(event_key)
-year = '2024'
+api_key: Final[str] = os.getenv("tba")
+tba = tbapy.TBA(api_key)
+year = os.getenv("year")
 
 def load_events(genKeys=False, shouldProgress=False):
     keys = []

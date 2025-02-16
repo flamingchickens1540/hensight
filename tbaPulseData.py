@@ -3,11 +3,11 @@ from typing import Final
 from dotenv import load_dotenv
 from progress import progressBar
 # from main import event_key
-event_key = '2024cc'
-my_team_key = '1540'
 
 load_dotenv()
 key: Final[str] = os.getenv("tba")
+event_key = os.getenv("event_key")
+my_team_key = os.getenv("team_key")
 
 tba = tbapy.TBA(key)
 

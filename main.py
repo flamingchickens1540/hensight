@@ -1,13 +1,6 @@
 import random
 from flask import Flask, render_template, send_file
 from flask import request
-#---------------------------------#
-
-current_event_key = "2024cc"
-my_team_key= "frc1540"
-year = "2024"
-
-#---------------------------------#
 from nexusData import getNexusData
 # from statbotData import getTeam
 from tbaPulseData import getRankings, getPrediction, getMatchSchedule
@@ -50,11 +43,13 @@ app = Flask(__name__)
 
 def make_graph():
     listOfResuts = [
-        eggs_in_season(toggles["eggs_in_season"])
+        eggs_in_season(toggles["eggs_in_season"]),
+        eggs_in_match(toggles["eggs_in_match"])
     ]
     
     toggles = {
-        "eggs_in_season": True
+        "eggs_in_season": True,
+        "eggs_in_match": True
     }
     
     realList = []

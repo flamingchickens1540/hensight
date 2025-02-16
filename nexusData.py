@@ -1,64 +1,101 @@
-import requests, os, time, datetime
+import requests, os, time, datetime, sys
 from typing import Final
 from dotenv import load_dotenv
 from tbaPulseData import getMatches
-# from main import current_event_key, my_team_key
+from progress import progressBar
 current_event_key = 'demo5603'
 my_team_key = '100'
 
 load_dotenv()
+# my_team_key = os.getenv("team_key")
+# current_event_key = os.getenv("event_key")
 api: Final[str] = os.getenv("nexus")
 url = f"https://frc.nexus/api/v1/event/{current_event_key}"
 
 headers = {"Nexus-Api-Key": api}
 
+def getRawData():
+    response = requests.get(url, headers=headers)
+    if not response.ok:
+        error_message = response.text
+        print("Error getting live event status: {}".format(error_message))
+    else: return response.json()
+
+def getNexusMatch(TBAMatch, data):
+    matches = data["matches"]
+    if TBAMatch["comp_level"] == "qm": label = f"Qualification {TBAMatch["key"].split("m")[1]}"
+    elif TBAMatch["comp_level"] == "pm": label = f"Practice {TBAMatch["key"].split("m")[1]}"
+    else: raise NotImplementedError("Only quals and practice works rn :(")
+    for match in matches:
+        if match["label"] == label: 
+            return match
+    raise KeyError("Match Key not found in nexus")
 
 def genTasks():
+    data = getRawData()
+    my_team_key = "1540"
     tasks = []
     matches = getMatches()
     matches = list(filter(lambda match : match["comp_level"] == "qm", matches))
     for match in matches:
         match["sort"] = match["key"].split("m")[1]
     matches = sorted(matches, key=lambda el: el["sort"])
-    for index in range(len(matches)):
+    for index in progressBar(iterable=range(len(matches))):
         blue = matches[index]["alliances"]["blue"]["team_keys"]
         red = matches[index]["alliances"]["red"]["team_keys"]
-        myAlliance = "none"
-        for i in blue: 
-            i = i[3:]
-            if my_team_key == i: 
+        myAlliance = None
+        for i in range(len(blue)): 
+            blue[i] = blue[i][3:]
+            if my_team_key == blue[i]: 
                 myAlliance = blue
-        for i in red: 
-            i = i[3:]
-            if my_team_key == i: 
+        for i in range(len(red)): 
+            red[i] = red[i][3:]
+            if my_team_key == red[i]: 
                 myAlliance = red
+        if myAlliance == None: continue
         for i in myAlliance:
             if my_team_key in i: continue
+            # print("running on "+i)
             count = 0
+            color = ""
             for j in reversed(matches[:index]):
-                if i in j: 
+                # if j["winning_alliance"] != None: continue
+                k = j["alliances"]["red"]["team_keys"]
+                l = j["alliances"]["blue"]["team_keys"]
+                if i in k: 
+                    count+=1
+                elif i in l:
                     count+=1
                 if count == 1: 
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)
+                    if timeUntil < 0 or timeUntil > 20: continue
+                    # print("doing checkin 1 with "+i)
                     tasks.append(
                         {
-                            "task": f"Second Check-in with {i}",
-                            "time": ":P"
+                            "task": f"<h2 class='announcement'>Second Check-in with {i} for QM {match["key"].split("m")[1]}</h2>",
+                            "time": timeUntil
                         }
                     )
-                elif count == 2:
+                    count+=1
+                elif count == 3:
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)
+                    if timeUntil < 0 or timeUntil > 20: continue
+                    # print("doing checkin 2 with "+i)
                     tasks.append(
                         {
-                            "task": f"Preliminary Check-in with {i}",
-                            "time": ":P"
+                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} for QM {match["key"].split("m")[1]}</h2>",
+                            "time": timeUntil
                         }
                     )
                     break
-    tasks.append(
-        {
-            "task": "No more tasks!",
-            "time": ":P"
-        }
-    )
+    if len(tasks) == 0:
+        tasks.append(
+            {
+                "task": "No tasks!",
+                "time": ":P"
+            }
+        )
+    tasks = sorted(tasks, key=lambda el: el["time"])
     return tasks
         
 
@@ -74,6 +111,7 @@ def getNexusData():
         return pulseData
 
     else:
+        my_team_key = "100"
         data = response.json()
         pulseData = {}
 
@@ -118,7 +156,7 @@ def getNexusData():
             pulseData["color"] = color
             pulseData["nextMatch"] = f"{label} - {status}"
             if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
-            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "7393B3"
+            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#7393B3"
             
         #announcements
             
