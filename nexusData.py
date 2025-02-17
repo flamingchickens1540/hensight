@@ -40,7 +40,7 @@ def genTasks():
     for match in matches:
         match["sort"] = match["key"].split("m")[1]
     matches = sorted(matches, key=lambda el: el["sort"])
-    for index in progressBar(iterable=range(len(matches))):
+    for index in range(len(matches)):
         blue = matches[index]["alliances"]["blue"]["team_keys"]
         red = matches[index]["alliances"]["red"]["team_keys"]
         myAlliance = None
@@ -57,33 +57,34 @@ def genTasks():
             if my_team_key in i: continue
             # print("running on "+i)
             count = 0
-            color = ""
             for j in reversed(matches[:index]):
                 # if j["winning_alliance"] != None: continue
                 k = j["alliances"]["red"]["team_keys"]
                 l = j["alliances"]["blue"]["team_keys"]
                 if i in k: 
                     count+=1
+                    print(f"{i} is in {j["key"]} as red")
                 elif i in l:
                     count+=1
+                    print(f"{i} is in {j["key"]} as blue")
                 if count == 1: 
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+7
                     if timeUntil < 0 or timeUntil > 20: continue
                     # print("doing checkin 1 with "+i)
                     tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Second Check-in with {i} for QM {match["key"].split("m")[1]}</h2>",
+                            "task": f"<h2 class='announcement'>Second Check-in with {i} after QM {j["key"].split("m")[1]}</h2>",
                             "time": timeUntil
                         }
                     )
                     count+=1
                 elif count == 3:
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+7
                     if timeUntil < 0 or timeUntil > 20: continue
                     # print("doing checkin 2 with "+i)
                     tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} for QM {match["key"].split("m")[1]}</h2>",
+                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} after QM {j["key"].split("m")[1]}</h2>",
                             "time": timeUntil
                         }
                     )

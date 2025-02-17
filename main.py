@@ -347,6 +347,7 @@ def photo():
         'https://images.squarespace-cdn.com/content/v1/634f81a61fae3d397cfce930/8069cd26-6ea9-417e-8fa2-9ff29a056fe9/DSC_6294.jpg?format=1000w',
         'https://images.squarespace-cdn.com/content/v1/634f81a61fae3d397cfce930/0de83fd5-1a12-40e8-96ae-dfac893d9483/DSC_6303.jpg?format=1000w'
     ]
+    random.shuffle(photos)
     return photos
 
 

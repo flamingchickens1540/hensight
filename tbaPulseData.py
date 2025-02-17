@@ -38,16 +38,19 @@ def myMatches():
             if my_team_key in i: my_matches.append(match)
         for i in match["alliances"]["red"]["team_keys"]:
             if my_team_key in i: my_matches.append(match)
+    my_matches = filter(lambda match : match["comp_level"] == "qm", my_matches)
+    my_matches = sorted(my_matches, key=lambda el: el["key"].split("m")[1])
     return my_matches
 
 def myNextMatch():
     all = myMatches()
     upcoming = []
     for i in all:
-        if i["actual_time"] == None: upcoming.append(i)
+        if "winning_alliance" not in i: upcoming.append(i)
     upcoming = filter(lambda match : match["comp_level"] == "qm", upcoming)
     upcoming = sorted(upcoming, key=lambda el: el["key"].split("m")[1])
-    return upcoming[0]
+    if len(upcoming) > 1: return upcoming[0]
+    else: return all[len(all)-1]
     
     
 

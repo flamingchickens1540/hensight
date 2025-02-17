@@ -4,16 +4,23 @@
         console.log('new photo')
         const response = await fetch("/getphoto")
         let data = await response.json()
-        document.getElementById("photos").innerHTML = "<img src='"+data[index]+"' alt = '' id='photo'></img>"
+        el = document.getElementById("photos")
+        el.classList.remove("fade-in")
+        el.classList.add("fade-out")
+        setTimeout(function(){
+            el.innerHTML = "<img src='"+data[index]+"' alt = '' id='photo'></img>"
+            el.classList.remove("fade-out")
+            el.classList.add("fade-in")
+        }, 1000);
         index++
         if (index >= data.length) index = 0
     }
     getData()
-    setInterval(getData, 5000);
+    setInterval(getData, 4000);
 </script>
 
 <body>
-    <div id="photos" onclick="window.location.href = '/menu'">
+    <div id="photos" class="fade-in" onclick="window.location.href = '/menu'">
         
     </div>
 </body>
@@ -35,5 +42,37 @@
         height: 95%;
         width: auto;
         transform: translate(-50%, -50%);
+    }
+
+    .fade-in {
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 1s;
+    }
+    .fade-out {
+        opacity: 1;
+        animation-name: fadeOutOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 1s;
+    }
+
+    @keyframes fadeInOpacity {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes fadeOutOpacity {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
 </style>
