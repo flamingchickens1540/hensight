@@ -17,7 +17,7 @@ def feather_message(toggle):
 
 def chicken_notes(toggle):
     if toggle:
-        return "<h4>A chicken of the non-flaming variety is expected to score</h4><h3>0</h3><h4>notes during a match!</h4>"
+        return "<h4>A live chicken is expected to score</h4><h3>0</h3><h4>points during a match!</h4>"
     else:
         return "bad"
 
@@ -72,3 +72,27 @@ def logodvd(toggle):
         return '<marquee class="marquee" behavior="alternate" direction="down"scrollamount="20" id="logo"><marquee style="margin-bottom: 160px" behavior="alternate" width="100%" scrollamount="20"><img width="250px" src="https://avatars.githubusercontent.com/u/5280254?s=200&v=4" alt="dvd" id="spin"></marquee></marquee><p id="msg">inside of my head rn</p>'
     else:
         return "bad"
+    
+def trex(toggle):
+    if toggle: return '<h4>Chickens are the closest living relatives to the Tyrannosaurus rex.</h4>'
+    else:return "bad"
+    
+def chicken_count(toggle):
+    if toggle: return '<h4>There are more than </h4><h3>25 billion</h3><h4> chickens in the world, making them the most common bird species.</h4>'
+    else: return "bad"
+
+def chicken_eye(toggle):
+    if toggle: return '<h4>Chickens have </h4><h3>three</h3><h4> eyelids per eye—an upper, lower, and a third transparent one.</h4>'
+    else: return "bad"
+    
+def chicken_breed(toggle):
+    if toggle: return '<h4>There are over </h4><h3>500</h3><h4> different chicken breeds worldwide.</h4>'
+    else: return "bad"
+    
+def egg_time(toggle):
+    if toggle: return '<h4>It takes a hen about </h4><h3>24–26</h3><h4> hours to lay a single egg.</h4>'
+    else: return "bad"
+    
+def egg_pore(toggle):
+    if toggle: return '<h4>The shell of an egg has about </h4><h3>7,000–17,000</h3><h4> tiny pores that allow air and moisture to pass through.</h4>'
+    else: return "bad"

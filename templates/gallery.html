@@ -1,0 +1,39 @@
+<script>
+    var index = 0
+    async function getData() {
+        console.log('new photo')
+        const response = await fetch("/getphoto")
+        let data = await response.json()
+        document.getElementById("photos").innerHTML = "<img src='"+data[index]+"' alt = '' id='photo'></img>"
+        index++
+        if (index >= data.length) index = 0
+    }
+    getData()
+    setInterval(getData, 5000);
+</script>
+
+<body>
+    <div id="photos" onclick="window.location.href = '/menu'">
+        
+    </div>
+</body>
+
+<style>
+    body {
+        background-color: #1c1c1c;
+        border: 7px solid #ffc145;
+    }
+    #photos {
+        overflow-y: auto;
+        width: 95%;
+        height: 95%;
+    }
+    #photo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 95%;
+        width: auto;
+        transform: translate(-50%, -50%);
+    }
+</style>
