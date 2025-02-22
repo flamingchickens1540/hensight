@@ -33,6 +33,7 @@ def getNexusMatch(TBAMatch, data):
 
 def genTasks():
     data = getRawData()
+    # my_team_key = os.getenv("team_key")
     my_team_key = "1540"
     tasks = []
     matches = getMatches()
@@ -63,28 +64,22 @@ def genTasks():
                 l = j["alliances"]["blue"]["team_keys"]
                 if i in k: 
                     count+=1
-                    print(f"{i} is in {j["key"]} as red")
                 elif i in l:
                     count+=1
-                    print(f"{i} is in {j["key"]} as blue")
                 if count == 1: 
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+7
-                    if timeUntil < 0 or timeUntil > 20: continue
-                    # print("doing checkin 1 with "+i)
-                    tasks.append(
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
+                    if timeUntil > 0: tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Second Check-in with {i} after QM {j["key"].split("m")[1]}</h2>",
+                            "task": f"<h2 class='announcement'>Second Check-in with {i} after QM{j["key"].split("m")[1]}</h2>",
                             "time": timeUntil
                         }
                     )
                     count+=1
                 elif count == 3:
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+7
-                    if timeUntil < 0 or timeUntil > 20: continue
-                    # print("doing checkin 2 with "+i)
-                    tasks.append(
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
+                    if timeUntil > 0: tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} after QM {j["key"].split("m")[1]}</h2>",
+                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} after QM{j["key"].split("m")[1]}</h2>",
                             "time": timeUntil
                         }
                     )
@@ -92,7 +87,7 @@ def genTasks():
     if len(tasks) == 0:
         tasks.append(
             {
-                "task": "No tasks!",
+                "task": "<h2 class='announcement' style='font-size: 3rem;'>No tasks!</h2>",
                 "time": ":P"
             }
         )
@@ -157,7 +152,7 @@ def getNexusData():
             pulseData["color"] = color
             pulseData["nextMatch"] = f"{label} - {status}"
             if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
-            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#7393B3"
+            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#6495ED"
             
         #announcements
             
@@ -166,13 +161,19 @@ def getNexusData():
         
         def convert(milliseconds):
             seconds = milliseconds / 1000
+            days = seconds // (24 * 3600)
             seconds = seconds % (24 * 3600)
             hour = seconds // 3600
             seconds %= 3600
             minutes = seconds // 60
             seconds %= 60
             
-            return f"{round(hour)}hrs, {round(minutes)}mins, {round(seconds)}s"
+            string = f"{round(seconds)}s"
+            if minutes != 0: string = f"{round(minutes)}mins"
+            if hour != 0: string = f"{round(hour)}hrs, {string}"
+            if days != 0: string = f"{round(days)} days, {string}"
+            
+            return string
         
         announcements = []
         if len(data["announcements"]) + len(data["partsRequests"]) <1:
@@ -204,7 +205,7 @@ def getNexusData():
             pulseData["announcements"] = announcements
             
         #tasks
-        pulseData["tasks"] = genTasks()
+        # pulseData["tasks"] = genTasks()
 
       
     return pulseData

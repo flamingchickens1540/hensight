@@ -13,7 +13,7 @@ def load_events(genKeys=False, shouldProgress=False):
     data = {}
     print('-- Getting Match Keys')
     if genKeys:
-        for i in progressBar(tba.events(year=year, keys=True), prefix='Progress: ', suffix='Complete', length=75, printIterable=True):
+        for i in progressBar(tba.events(year="2025", keys=True), prefix='Progress: ', suffix='Complete', length=75, printIterable=True):
             for j in tba.event_matches(event=i, keys=True):
                 keys.append(j)
         with open('keys.json', 'w', encoding='utf-8') as file:
@@ -45,10 +45,11 @@ def load_events(genKeys=False, shouldProgress=False):
         file = open('progress.txt', 'wb')
         file.write(record_progress)
         file.close()
-    progress, record_progress = bytes(0)
-    file = open('progress.txt', 'w')
+    progress, record_progress = bytes(0), bytes(0)
+    file = open('progress.txt', 'wb')
     file.write(record_progress)
     file.close()
+    print("Done")
 
 def get_matches():
     with open('data.json', encoding='utf-8') as file:
@@ -59,7 +60,7 @@ def get_matches():
 def get_match(key):
     data = get_matches()
     return data[key]
-
+  
 
 genKeys = False
 progress = False

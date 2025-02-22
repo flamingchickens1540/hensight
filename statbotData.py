@@ -1,7 +1,8 @@
-import statbotics
-# from main import year, my_team_key
-year = 2024
-my_team_key = 1540
+import statbotics, os, dotenv
+
+dotenv.load_dotenv()
+year = os.getenv("year")
+my_team_key = os.getenv("team_key")
 
 
 
