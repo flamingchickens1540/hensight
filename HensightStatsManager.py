@@ -1,6 +1,6 @@
 from TBAData import get_matches
 from progress import progressBar
-import os, dotenv
+import os, dotenv, sys
 
 dotenv.load_dotenv()
 
@@ -27,15 +27,19 @@ def update_stats():
         HensightStats["points_scored"] += match["alliances"]["red"]["score"]
         if match["winning_alliance"] == "blue": HensightStats["blue_win_count"] +=1
         elif match["winning_alliance"] == "red": HensightStats["red_win_count"] +=1
-        for i in match["score_breakdown"].values():
-            HensightStats["auto_points"] += i["autoPoints"]
-            HensightStats["penalty_points"] += i["foulPoints"]
+        try:
+            for i in match["score_breakdown"].values():
+                HensightStats["auto_points"] += i["autoPoints"]
+                HensightStats["penalty_points"] += i["foulPoints"]
+        except AttributeError: pass
         if os.getenv("event_key") not in match["event_key"]: continue
-        for i in match["score_breakdown"].values():
-            HensightStats["event_rp_earned"] += i["rp"]
-            HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
+        try:
+            for i in match["score_breakdown"].values():
+                HensightStats["event_rp_earned"] += i["rp"]
+                HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
+        except AttributeError: pass
     HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(os.getenv("points_last_year"))) * 100, 2)
 
-update_stats()
-print(HensightStats)
+# update_stats()
+# print(HensightStats)

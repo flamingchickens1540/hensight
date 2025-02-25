@@ -33,8 +33,7 @@ def getNexusMatch(TBAMatch, data):
 
 def genTasks():
     data = getRawData()
-    # my_team_key = os.getenv("team_key")
-    my_team_key = "1540"
+    my_team_key = os.getenv("team_key")
     tasks = []
     matches = getMatches()
     matches = list(filter(lambda match : match["comp_level"] == "qm", matches))
@@ -205,7 +204,7 @@ def getNexusData():
             pulseData["announcements"] = announcements
             
         #tasks
-        # pulseData["tasks"] = genTasks()
+        pulseData["tasks"] = genTasks()
 
       
     return pulseData

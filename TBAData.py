@@ -15,7 +15,7 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     if genKeys:
         for i in progressBar(tba.events(year=year, keys=True), prefix='Progress: ', suffix='Complete', length=75, printIterable=True):
             for j in tba.event_matches(event=i, keys=True):
-                keys.append(j)
+                if j != "Error": keys.append(j)
         if write:
             with open('keys.json', 'w', encoding='utf-8') as file:
                 json.dump(keys, file, ensure_ascii=False, indent=4)
