@@ -6,19 +6,20 @@ from progress import progressBar
 load_dotenv()
 api_key: Final[str] = os.getenv("tba")
 tba = tbapy.TBA(api_key)
-year = os.getenv("year")
+thisYear = os.getenv("year")
 
-def load_events(genKeys=False, shouldProgress=False):
+def load_events(year, genKeys=False, write=False, shouldProgress=False):
     keys = []
     data = {}
     print('-- Getting Match Keys')
     if genKeys:
-        for i in progressBar(tba.events(year="2025", keys=True), prefix='Progress: ', suffix='Complete', length=75, printIterable=True):
+        for i in progressBar(tba.events(year=year, keys=True), prefix='Progress: ', suffix='Complete', length=75, printIterable=True):
             for j in tba.event_matches(event=i, keys=True):
                 keys.append(j)
-        with open('keys.json', 'w', encoding='utf-8') as file:
-            json.dump(keys, file, ensure_ascii=False, indent=4)
-        file.close()
+        if write:
+            with open('keys.json', 'w', encoding='utf-8') as file:
+                json.dump(keys, file, ensure_ascii=False, indent=4)
+            file.close()
     else:
         with open('keys.json', encoding='utf-8') as file:
             keys = json.load(file)
@@ -37,18 +38,20 @@ def load_events(genKeys=False, shouldProgress=False):
             progress+=bytes(1)
             continue
         data[i] = tba.match(key=i)
-        with open('data.json', type, encoding='utf-8') as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
-        file.close()
+        if write:
+            with open('data.json', type, encoding='utf-8') as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+            file.close()
         progress +=bytes(1)
         if progress > record_progress: record_progress = progress
         file = open('progress.txt', 'wb')
-        file.write(record_progress)
+        if write: file.write(record_progress)
         file.close()
     progress, record_progress = bytes(0), bytes(0)
     file = open('progress.txt', 'wb')
-    file.write(record_progress)
+    if write: file.write(record_progress)
     file.close()
+    if not write: return data
     print("Done")
 
 def get_matches():
@@ -56,6 +59,14 @@ def get_matches():
         data = json.load(file)
         file.close()
         return data
+
+def printTotalPointsLastYear():
+    data = load_events(year=os.getenv("last_year"), genKeys=True, write=False, shouldProgress=False)
+    points = 0
+    for match in data.values():
+        points += match["alliances"]["blue"]["score"]
+        points += match["alliances"]["red"]["score"]
+    print(points)
 
 def get_match(key):
     data = get_matches()
@@ -67,4 +78,5 @@ progress = False
 for i in sys.argv:
     if i == '-k':genKeys = True
     elif i == '-p': progress = True
-# load_events(genKeys, progress)
+# load_events(genKeys=genKeys, shouldProgress=progress, write=True, year=os.getenv("year"))
+# printTotalPointsLastYear()

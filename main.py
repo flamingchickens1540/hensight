@@ -1,4 +1,4 @@
-import random, os
+import random, os, TBAData, HensightStatsManager
 from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import getNexusData
@@ -7,7 +7,6 @@ from tbaPulseData import getRankings, getPrediction, getMatchSchedule
 # from triva import getQuestion
 from SlideHTMLGenerators import *
 from dotenv import load_dotenv
-import TBAData
 
 
 listindex = -1
@@ -16,13 +15,12 @@ app = Flask(__name__)
 
 load_dotenv()
 photos = os.getenv("photos")
+year = os.getenv("year")
 
-# TBAData.load_events(genKeys=True, shouldProgress=False)
+# TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
+HensightStatsManager.update_stats()
 
-
-
-def make_graph():
-    toggles = {
+toggles = {
         "eggs_in_season": True,
         "eggs_in_match": True,
         "thank_msg": True,
@@ -37,10 +35,16 @@ def make_graph():
         "chicken_eye": True,
         "chicken_breed": True,
         "egg_time": True,
-        "egg_pore": True
+        "egg_pore": True,
+        "points_scored": True,
+        "average_points_permach": True,
+        "penalty_points": True,
+        "auto_points": True,
+        "percent_last_year": True,
+        "matches_played": True
     }
     
-    listOfResuts = [
+listOfResuts = [
         eggs_in_season(toggles["eggs_in_season"]),
         eggs_in_match(toggles["eggs_in_match"]),
         thank_msg(toggles["thank_msg"]),
@@ -54,10 +58,18 @@ def make_graph():
         trex(toggles["trex"]),
         chicken_count(toggles["chicken_count"]),
         egg_time(toggles["egg_time"]),
-        egg_pore(toggles["egg_pore"])
+        egg_pore(toggles["egg_pore"]),
+        points_scored(toggles["points_scored"]),
+        average_points_permatch(toggles["average_points_permach"]),
+        penalty_points(toggles["penalty_points"]),
+        auto_poitns(toggles["auto_points"]),
+        percent_last_year(toggles["percent_last_year"]),
+        matches_played(toggles["matches_played"])
     ]
 
-    
+random.shuffle(listOfResuts)
+
+def make_graph():
     realList = []
     for i in listOfResuts:
         if i != "bad":

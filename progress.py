@@ -20,10 +20,13 @@ def progressBar(iterable, prefix = 'Progress:', suffix = 'Complete', decimals = 
         filledLength = int(length * iteration // total)
         bar = fill * filledLength + '-' * (length - filledLength)
         count = f'{iteration} / {total}'
-        if printIterable: progress = f' | Current Item: {passin[iteration-1]}'
+        if printIterable: progress = f'| Current Item: {passin[iteration-1]}'
         else: progress =''
         timeTaken = datetime.timedelta(seconds=round(time.time() - start_time))
-        print(f'\r{prefix} |{bar}| {percent}% {suffix} ({count}) | {timeTaken}{progress}', end = printEnd)
+        remainingTime = ''
+        try: remainingTime = timeTaken / (float(percent) / 100) - timeTaken
+        except ZeroDivisionError: remainingTime = "Calculating..."
+        print(f'\r{prefix} |{bar}| {percent}% {suffix} ({count}) | {timeTaken} {progress}', end = printEnd)
     # Initial Call
     printProgressBar(0, iterable)
     # Update Progress Bar
