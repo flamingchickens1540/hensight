@@ -1,0 +1,116 @@
+<script>
+    var index = -1
+    var data;
+    var updatedelta = 1;
+    async function getData() {
+        console.log('new photo')
+        const response = await fetch("/getoa")
+        data = await response.json()
+        console.log(data)
+        el = document.getElementById("photos")
+        el.classList.remove("fade-in")
+        el.classList.add("fade-out")
+        setTimeout(function(){
+            el.innerHTML = data[index]
+            el.classList.remove("fade-out")
+            el.classList.add("fade-in")
+        }, 500);
+        index++
+        if (index >= data.length) index = 0
+    }
+    getData()
+    function updatePhoto(updatedelta) {
+        index += updatedelta
+        if (index >= data.length) index = 0
+        else if (index < 0) index = data.length-1
+        el = document.getElementById("photos")
+        el.classList.remove("fade-in")
+        el.classList.add("fade-out")
+        setTimeout(function(){
+            el.innerHTML = data[index]
+            el.classList.remove("fade-out")
+            el.classList.add("fade-in")
+        }, 500);
+    }
+</script>
+
+<body>
+    <div id="photos" class="fade-in" onload="getData()"></div>
+    <a href="/menu"><button id="menu">Back to Main Menu</button></a>
+    <button onclick="updatePhoto(1)" style="right: 25%;">Next</button>
+    <button onclick="updatePhoto(-1)" style="left: 19%;">Previous</button>
+</body>
+
+
+<style>
+    #menu {
+        left: 50%;
+        transform: translate(-50%);
+        font-size: 3rem;
+    }
+    button {
+        position: absolute;
+        bottom: 5%;
+        color: white;
+        border: 5px solid #ffc145;
+        border-radius: 10px;
+        padding: 2rem;
+        font-size: 2rem;
+        background: none;
+    }
+    body {
+        background-color: #1c1c1c;
+        border: 7px solid #ffc145;
+    }
+    #photos {
+        overflow-y: auto;
+        width: auto;
+        height: 80%;
+    }
+    #photo {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        /* height: 95%; */
+        /* width: auto; */
+        transform: translate(-50%, -50%);
+
+        color: white;
+        font-size: 10rem;
+    }
+
+    .fade-in {
+        /* opacity: 1; */
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 500ms;
+        animation-fill-mode: forwards;
+    }
+    .fade-out {
+        /* opacity: 1; */
+        animation-name: fadeOutOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 500ms;
+        animation-fill-mode: forwards;
+        /* animation: fadeOutOpacity 1s timing-function delay iteration-count direction fill-mode; */
+    }
+
+    @keyframes fadeInOpacity {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes fadeOutOpacity {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+</style>

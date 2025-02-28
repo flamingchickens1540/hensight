@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 
 listindex = -1
-old, old2, old3 = "", "", ""
+old = ""
 app = Flask(__name__)
 
 load_dotenv()
@@ -29,7 +29,7 @@ toggles = {
         "chicken_weights": True,
         "chicken_eat": True,
         "battery": True,
-        "logodvd": False,
+        "logodvd": True,
         "trex": True,
         "chicken_count": True,
         "chicken_eye": True,
@@ -209,7 +209,7 @@ def reveal():
 @app.route("/request")
 def main():
     global listindex
-    # global old
+    global old
     # global old2
     # global old3
     html = make_graph()
@@ -228,7 +228,9 @@ def main():
     #     return choice
     # else:
     #     return main()
-    if old == chicken_notes(): return chicken_foul()
+    try: 
+        if old == chicken_notes(True): return chicken_foul()
+    except UnboundLocalError: print('err')
     if len(html)-1 > listindex:
         listindex +=1
     else:
@@ -242,12 +244,12 @@ def jsonRequest():
     return [main()]
 
 
-@app.route("/goback")
-def goback():
-    old = old2
-    old2 = old3
-    old3 = easter_egg()
-    return old
+# @app.route("/goback")
+# def goback():
+#     old = old2
+#     old2 = old3
+#     old3 = easter_egg()
+#     return old
 
 
 @app.route("/dashboard")
@@ -276,6 +278,10 @@ def gallery():
     random.shuffle(photos)
     return render_template("gallery.html")
 
+
+@app.route("/judges")
+def judges():
+    return render_template("judges.html")
 
 @app.route("/menu")
 def menu():
@@ -310,6 +316,19 @@ def crossy():
 def photo():
     return photos
 
+@app.route("/getoa")
+def oa():
+    return [
+        "<img src='https://lh7-rt.googleusercontent.com/docsz/AD_4nXf3F_NHJ0qSP1It-8yYHbzEGsbI6VaAiaZAIjmxPS-5A-w55QU-TfnogFk65S4ZJ5hRIKCpFFiDIgIeTeVtfnbEHzeaoHDkBFrhHUvhxnVO4HV9NmmTlf076nB0sHVU30OkIMkU3w?key=0mowtUxAPVVI1V24GVwCGe5F' alt = '' id='photo'></img>",
+        '<iframe src="https://youtu.be/ys-cbw5E_xA" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="https://youtu.be/BcHkjhUNe_c" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="https://youtu.be/kce5nx2Hk1Y" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="https://youtu.be/a7XLVSBwA48" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="https://youtu.be/H98dzl4HpP0" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="" width="1366px" height="768px" frameborder="0"></iframe>',
+        '<iframe src="" width="1366px" height="768px" frameborder="0"></iframe>',
+    ]
 
 
 
@@ -317,8 +336,8 @@ def photo():
 def triva():
     return render_template('triva.html')
 @app.route('/getqna')
-def getQNA():
-    return getQuestion()
+# def getQNA():
+#     return getQuestion()
 
 
 @app.route("/meanmachine")

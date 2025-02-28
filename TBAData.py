@@ -44,9 +44,10 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
             file.close()
         progress +=bytes(1)
         if progress > record_progress: record_progress = progress
-        file = open('progress.txt', 'wb')
-        if write: file.write(record_progress)
-        file.close()
+        if write:
+            file = open('progress.txt', 'wb')
+            file.write(record_progress)
+            file.close()
     progress, record_progress = bytes(0), bytes(0)
     file = open('progress.txt', 'wb')
     if write: file.write(record_progress)
