@@ -2,8 +2,8 @@
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
     </style>
-    <script src="`{{url_for('pulseRipOff')}}`"></script>
-    <link rel="stylesheet" href="`{{url_for('pulseRipOff')}}`" />
+    <script src="`{{url_for('commonjs')}}`"></script>
+    <link rel="stylesheet" href="`{{url_for('stylecss')}}`"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Holy Hen has Acquired Sight</title>
 </head>
@@ -132,7 +132,6 @@
     // getFunFact()
     setInterval(everySeccond, 1000);
     function everySeccond() {
-        getTime();
         getData();
         popupCount +=1
     }
@@ -141,7 +140,7 @@
         // getStatBotData();
     }
 </script>
-<body onclick="openFullscreen()" onload="getTime()" style="border: none;">
+<body onclick="openFullscreen()" style="border: none;">
     <div id="big" class="element">
         <iframe
             src="https://player.twitch.tv/?channel=FIRSTinspires&parent=127.0.0.1&muted=true"
