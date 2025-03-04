@@ -12,7 +12,7 @@
     var ranking = false;
     async function getData() {
         // Nexus
-        const response = await fetch(`{{url_for('getNexusData')}}`);
+        const response = await fetch(`{{url_for('getNexusMatch')}}`);
         let data = await response.json();
         document.getElementById("match").innerHTML = data["nextMatch"]
         document.getElementById("match").style.color = data["bumperColor"]

@@ -1,9 +1,8 @@
 import os
-
 os.chdir('/home/projects/Hensight/hensight')
 print("current working dir: ", os.getcwd())
 
-import random, os, TBAData, HensightStatsManager
+import random, TBAData, HensightStatsManager
 from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import getNexusData
