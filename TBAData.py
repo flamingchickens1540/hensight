@@ -9,6 +9,7 @@ tba = tbapy.TBA(api_key)
 thisYear = os.getenv("year")
 
 os.chdir('/home/projects/Hensight/hensight')
+print("current working dir: ", os.getcwd())
 
 def load_events(year, genKeys=False, write=False, shouldProgress=False):
     keys = []
@@ -58,7 +59,6 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     print("Done")
 
 def get_matches():
-    print("!-- Current working directory: ", os.getcwd())
     with open('data.json', encoding='utf-8') as file:
         data = json.load(file)
         file.close()
