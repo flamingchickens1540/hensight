@@ -37,21 +37,21 @@
         await getDriveTeamData()
 
         html = "<h1 id='title'>Tasks</h1>"
-        // let task = data["tasks"]
-        // for (let i = 0; i < task.length; i++) {
-        //     let time = task[i]["time"]
-        //     let color = '#50C878'
-        //     if (time != ':P') {
-        //         if (time < 3) color = '#D22B2B'
-        //         else if (time < 5) color = '#CC5500'
-        //         time = "In "+time+"mins"
-        //     }
-        //     else {
-        //         time = ""
-        //     }
-        //     html += '<div class="task">'+task[i]["task"]+'<h4 class="time" style="color: '+color+'">'+time+'</h4></div>'
-        // }
-        // document.getElementById("tasks").innerHTML = html
+        let task = data["tasks"]
+        for (let i = 0; i < task.length; i++) {
+            let time = task[i]["time"]
+            let color = '#50C878'
+            if (time != ':P') {
+                if (time < 3) color = '#D22B2B'
+                else if (time < 5) color = '#CC5500'
+                time = "In "+time+"mins"
+            }
+            else {
+                time = ""
+            }
+            html += '<div class="task">'+task[i]["task"]+'<h4 class="time" style="color: '+color+'">'+time+'</h4></div>'
+        }
+        document.getElementById("tasks").innerHTML = html
 
     }
 
