@@ -25,8 +25,8 @@ def getRankings():
             break
         i["team_key"] = i["team_key"][3:]
         if my_team_key in str(i["team_key"]):
-            i["team_key"] = f"<strong style='color: #f6b14b;'>{i["team_key"]}</strong>"
-        top10.append(f"<p style='font-size: 2rem; line-height:0; height:fit-content;'>Rank {str(i["rank"])}: {str(i["team_key"])}</p>")
+            i["team_key"] = f'<strong style="color: #f6b14b;">{i["team_key"]}</strong>'
+        top10.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content;">Rank {str(i["rank"])}: {str(i["team_key"])}</p>')
     # print(top10)
     return top10
 
@@ -82,7 +82,7 @@ def format(list):
             if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
                 red[i] = f"<strong><u>{red[i]}</u></strong>"
 
-        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match["key"][7:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
+        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][7:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
     return postFormat
     
 
