@@ -41,5 +41,5 @@ def update_stats():
     HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(os.getenv("points_last_year"))) * 100, 2)
 
-# update_stats()
-# print(HensightStats)
+update_stats()
+print(HensightStats)

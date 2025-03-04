@@ -12,7 +12,7 @@
     var ranking = false;
     async function getData() {
         // Nexus
-        const response = await fetch("/getnexusdata");
+        const response = await fetch(`{{url_for('getNexusData')}}`);
         let data = await response.json();
         document.getElementById("match").innerHTML = data["nextMatch"]
         document.getElementById("match").style.color = data["bumperColor"]
@@ -54,7 +54,7 @@
     }
 
     async function getTBAData() {
-        const response = await fetch("/tbadata");
+        const response = await fetch(`{{url_for('tbadata')}}`);
         let data = await response.json();
         // console.log(data)
         html = ""
@@ -75,7 +75,7 @@
     }
     var popupCount = 0
     async function getDriveTeamData() {
-        const response = await fetch("/get-drive-team");
+        const response = await fetch(`{{url_for('getDriveTeam')}}`);
         let data = await response.json();
         if (data["msg"] != "") {
             popupCount = 0
@@ -87,7 +87,7 @@
     }
 
     async function getRanking() {
-        const response = await fetch("/getranking");
+        const response = await fetch(`{{url_for('getRanking')}}`);
         let data = await response.json();
         let html = ""
         if (data.length != 0) {
