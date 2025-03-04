@@ -8,7 +8,6 @@ from tbaPulseData import getRankings, getPrediction, getMatchSchedule
 from SlideHTMLGenerators import *
 from dotenv import load_dotenv
 
-
 listindex = -1
 old = ""
 app = Flask(__name__)
