@@ -8,9 +8,6 @@ api_key: Final[str] = os.getenv("tba")
 tba = tbapy.TBA(api_key)
 thisYear = os.getenv("year")
 
-os.chdir('/home/projects/Hensight/hensight')
-print("current working dir: ", os.getcwd())
-
 def load_events(year, genKeys=False, write=False, shouldProgress=False):
     keys = []
     data = {}
