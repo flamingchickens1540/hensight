@@ -69,7 +69,7 @@ def genTasks():
                     timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
                     if timeUntil > 0: tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Second Check-in with {i} after QM{j["key"].split("m")[1]}</h2>",
+                            "task": f'<h2 class="announcement">Second Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
                             "time": timeUntil
                         }
                     )
@@ -78,7 +78,7 @@ def genTasks():
                     timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
                     if timeUntil > 0: tasks.append(
                         {
-                            "task": f"<h2 class='announcement'>Preliminary Check-in with {i} after QM{j["key"].split("m")[1]}</h2>",
+                            "task": f'<h2 class="announcement">Preliminary Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
                             "time": timeUntil
                         }
                     )
@@ -182,22 +182,22 @@ def getNexusData():
         elif len(data["announcements"]) + len(data["partsRequests"]) >1 and len(data["announcements"]) + len(data["partsRequests"]) <3:
             for i in data["announcements"]:
                 i["requestedByTeam"] = "Pit Admin"
-                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
+                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
                 announcements.append(i)
             for i in data["partsRequests"]:
                 i["announcement"] = i["parts"]
-                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
+                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
                 announcements.append(i)
             announcements.sort(key=mySort, reverse=True)
             announcements.append({'time': '', 'announcement': "", 'requestedByTeam': ''})
             pulseData["announcements"] = announcements
         else:
             for i in data["announcements"]:
-                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
+                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
                 i["requestedByTeam"] = "Pit Admin"
                 announcements.append(i)
             for i in data["partsRequests"]:
-                i["time"] = f"{convert((time.time()*1000) - i["postedTime"])} ago"
+                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
                 i["announcement"] = i["parts"]
                 announcements.append(i)
             announcements.sort(key=mySort, reverse=True)

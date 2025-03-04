@@ -137,7 +137,7 @@ def global_total_notes(toggle):
 
 def global_high_score(toggle):
     if toggle:
-        return f"<h4>The global high score is</h4><h3>{round(hensightStats.hensight_stats["global_high_score"])}</h3><h4>points! That's a lot"
+        return f'<h4>The global high score is</h4><h3>{round(hensightStats.hensight_stats["global_high_score"])}</h3><h4>points! That\'s a lot'
     else:
         return "bad"
 
