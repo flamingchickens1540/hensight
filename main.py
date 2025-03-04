@@ -1,3 +1,8 @@
+import os
+
+os.chdir('/home/projects/Hensight/hensight')
+print("current working dir: ", os.getcwd())
+
 import random, os, TBAData, HensightStatsManager
 from flask import Flask, render_template, send_file
 from flask import request
@@ -11,9 +16,6 @@ from dotenv import load_dotenv
 listindex = -1
 old = ""
 app = Flask(__name__)
-
-os.chdir('/home/projects/Hensight/hensight')
-print("current working dir: ", os.getcwd())
 
 load_dotenv()
 year = os.getenv("year")
