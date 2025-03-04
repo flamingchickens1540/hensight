@@ -56,6 +56,7 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     print("Done")
 
 def get_matches():
+    print("Current working directory: ", os.getcwd())
     with open('data.json', encoding='utf-8') as file:
         data = json.load(file)
         file.close()
