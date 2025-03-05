@@ -145,12 +145,23 @@
 </script>
 <body onclick="openFullscreen()" onload="getTime()" style="border: none;">
     <div id="big" class="element">
-        <iframe
+        <!-- <iframe
             src="https://player.twitch.tv/?channel=FIRSTinspires&parent=127.0.0.1&muted=true"
             height="648px"
             width="1152px"
             style="line-height: 0; display: block; pointer-events: none;">
-        </iframe>
+        </iframe> -->
+        <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
+        <div id="test"></div>
+        <script type="text/javascript">
+        var options = {
+            width: 600,
+            height: 300,
+            channel: "bikeman",
+            parent: ["localhost"]
+        };
+        var player = new Twitch.Player("test", options);
+        </script>
     </div>
     <div id="queue" class="element">
         <h2 id="match" class="inner">Loading...</h2>
