@@ -247,7 +247,9 @@ def main():
     # else:
     #     return main()
     try: 
-        if old == chicken_notes(True): return chicken_foul(True)
+        if old == chicken_notes(True): 
+            old = chicken_foul(True)
+            return chicken_foul(True)
     except UnboundLocalError: print('err')
     if len(html)-1 > listindex:
         listindex +=1
