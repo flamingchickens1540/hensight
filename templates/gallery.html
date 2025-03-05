@@ -2,7 +2,7 @@
     var index = 0
     async function getData() {
         console.log('new photo')
-        const response = await fetch("/getphoto")
+        const response = await fetch("/hensight/getphoto")
         let data = await response.json()
         el = document.getElementById("photos")
         el.classList.remove("fade-in")
