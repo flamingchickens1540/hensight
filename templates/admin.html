@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <script src="/hensight/common.js"></script>
+    <link rel="stylesheet" href="/hensight/style.css" />
+    <script>
+
+    </script>
+
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hensight Dashboard</title>
+        <style>
+            h4 {
+                font-size: 2rem;
+                margin: 1rem;
+            }
+
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                row-gap: 1rem;
+            }
+
+            .switchbutton {
+                background-color: #12b31d;
+                color: #ffff;
+            }
+
+            button {
+                color: white;
+                padding: 2.5%;
+                font-size: large;
+                transition: 100ms;
+            }
+
+            button::before {
+                display: none !important;
+            }
+
+            #title-thingy {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+            }
+
+            #title-thingy img {
+                aspect-ratio: 1;
+            }
+        </style>
+    </head>
+
+    <body
+        class="center-col"
+        style="justify-content: flex-start"
+        onload="update()"
+    >
+        <div id="title-thingy" onclick="update()">
+            <img
+                src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif"
+                alt=""
+            />
+            <h3 style="font-size: 5rem">Hensight Dashboard</h3>
+            <img
+                src="https://cultofthepartyparrot.com/parrots/hd/reverseparrot.gif"
+                alt=""
+            />
+        </div>
+        <div class="grid-container" id="bigdiv">
+            
+        </div>
+    </body>
+</html>
