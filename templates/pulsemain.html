@@ -60,7 +60,7 @@
         let data = await response.json();
         // console.log(data)
         html = ""
-        type = "all"
+        type = "future"
         matches = data[type][0]
         // console.log(matches.length)
         if (matches.length > 1) {
@@ -145,12 +145,6 @@
 </script>
 <body onclick="openFullscreen()" onload="getTime()" style="border: none;">
     <div id="big" class="element">
-        <!-- <iframe
-            src="https://player.twitch.tv/?channel=FIRSTinspires&parent=127.0.0.1&muted=true"
-            height="648px"
-            width="1152px"
-            style="line-height: 0; display: block; pointer-events: none;">
-        </iframe> -->
         <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
         <div id="test" style="pointer-events: none;"></div>
         <script type="text/javascript">
