@@ -135,6 +135,7 @@
     setInterval(everySeccond, 1000);
     function everySeccond() {
         getData();
+        getTime();
         popupCount +=1
     }
     setInterval(every30s, 30000);
@@ -142,7 +143,7 @@
         // getStatBotData();
     }
 </script>
-<body onclick="openFullscreen()" style="border: none;">
+<body onclick="openFullscreen()" onload="getTime()" style="border: none;">
     <div id="big" class="element">
         <iframe
             src="https://player.twitch.tv/?channel=FIRSTinspires&parent=127.0.0.1&muted=true"
