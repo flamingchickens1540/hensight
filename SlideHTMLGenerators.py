@@ -100,7 +100,7 @@ def egg_pore(toggle):
     else: return "bad"
     
 def points_scored(toggle):
-    if toggle: return f'<h4>Throughout the season</h4><h3>{HensightStats["points_scored"]}</h3><h4>points have been scored'
+    if toggle: return f'<h4>Throughout the season</h4><h3>{"{:,}".format(HensightStats["points_scored"])}</h3><h4>points have been scored'
     else: return "bad"
     
 def average_points_permatch(toggle):
@@ -108,19 +108,19 @@ def average_points_permatch(toggle):
     else: return "bad"
     
 def penalty_points(toggle):
-    if toggle: return f'<h4>This season there has been</h4><h3>{HensightStats["penalty_points"]}</h3><h4>foul points awarded</h4>'
+    if toggle: return f'<h4>This season there has been</h4><h3>{"{:,}".format(HensightStats["penalty_points"])}</h3><h4>foul points awarded</h4>'
     else: return "bad"
 
 def auto_poitns(toggle):
-    if toggle: return f'<h4>This season there has been</h4><h3>{HensightStats["auto_points"]}</h3><h4>points scored in auto</h4>'
+    if toggle: return f'<h4>This season there has been</h4><h3>{"{:,}".format(HensightStats["auto_points"])}</h3><h4>points scored in auto</h4>'
     else: return "bad"
 
 def percent_last_year(toggle):
-    if toggle: return f'<h4>We are</h4><h3>{HensightStats["percent_last_year"]}%</h3><h4>of the way to scoring as many points as last year</h4>'
+    if toggle: return f'<h4>We are</h4><h3>{"{:,}".format(HensightStats["percent_last_year"])}%</h3><h4>of the way to scoring as many points as last year</h4>'
     else: return "bad"
 
 def matches_played(toggle):
-    if toggle: return f'<h4>This season</h4><h3>{HensightStats["matches_played"]}</h3><h4>matches have been played</h4>'
+    if toggle: return f'<h4>This season</h4><h3>{"{:,}".format(HensightStats["matches_played"])}</h3><h4>matches have been played</h4>'
     else: return "bad"
 
 def alliance_win_rate(toggle):
@@ -130,11 +130,11 @@ def alliance_win_rate(toggle):
     else: return "bad"
     
 def event_algae_processed(toggle):
-    if toggle: return f'<h4>At this event</h4><h3>{HensightStats["event_algae_processed"]}</h3><h4>algae have been processed</h4>'
+    if toggle: return f'<h4>At this event</h4><h3>{"{:,}".format(HensightStats["event_algae_processed"])}</h3><h4>algae have been processed</h4>'
     else: return "bad"
     
 def event_rp_earned(toggle):
-    if toggle: return f'<h4>At this event</h4><h3>{HensightStats["event_rp_earned"]}</h3><h4>RP have been earned</h4>'
+    if toggle: return f'<h4>At this event</h4><h3>{"{:,}".format(HensightStats["event_rp_earned"])}</h3><h4>RP have been earned</h4>'
     else: return "bad"
 
 

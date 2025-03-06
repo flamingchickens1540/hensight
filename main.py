@@ -44,7 +44,7 @@ toggles = {
         "average_points_permach": True,
         "penalty_points": True,
         "auto_points": True,
-        "percent_last_year": True,
+        "percent_last_year": False, # off because no last year
         "matches_played": True
     }
     
