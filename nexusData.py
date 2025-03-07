@@ -3,12 +3,12 @@ from typing import Final
 from dotenv import load_dotenv
 from tbaPulseData import getMatches
 from progress import progressBar
-current_event_key = 'demo5603'
-my_team_key = '100'
+# current_event_key = 'demo5603'
+# my_team_key = '100'
 
 load_dotenv()
-# my_team_key = os.getenv("team_key")
-# current_event_key = os.getenv("event_key")
+my_team_key = os.getenv("team_key")
+current_event_key = os.getenv("event_key")
 api: Final[str] = os.getenv("nexus")
 url = f"https://frc.nexus/api/v1/event/{current_event_key}"
 
