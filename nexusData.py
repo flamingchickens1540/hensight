@@ -67,7 +67,7 @@ def genTasks():
                     count+=1
                 if count == 1: 
                     timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
-                    if timeUntil > 0 and timeUntil < 30: tasks.append(
+                    if timeUntil > -10 and timeUntil < 30: tasks.append(
                         {
                             "task": f'<h2 class="announcement">Second Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
                             "time": timeUntil
@@ -76,7 +76,7 @@ def genTasks():
                     count+=1
                 elif count == 3:
                     timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
-                    if timeUntil > 0 and timeUntil < 30: tasks.append(
+                    if timeUntil > -10 and timeUntil < 30: tasks.append(
                         {
                             "task": f'<h2 class="announcement">Preliminary Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
                             "time": timeUntil
