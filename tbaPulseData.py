@@ -74,13 +74,13 @@ def format(list):
         for i in range(len(blue)):
             blue[i] = blue[i][3:]
             if my_team_key in blue[i]: blue[i] = f"<strong><u style='color: #89CFF0;'>{blue[i]}</u></strong>" #highlight your teamkey
-            if blue[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]):
-                blue[i] = f"<strong><u>{blue[i]}</u></strong>"
+            # if blue[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]):
+                # blue[i] = f"<strong><u>{blue[i]}</u></strong>"
         for i in range(len(red)): 
             red[i] = red[i][3:]
             if my_team_key in red[i]: red[i] = f"<strong><u style='color: #EE4B2B;'>{red[i]}</u></strong>"
-            if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
-                red[i] = f"<strong><u>{red[i]}</u></strong>"
+            # if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
+                # red[i] = f"<strong><u>{red[i]}</u></strong>"
 
         postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
     return postFormat
