@@ -65,7 +65,7 @@ def myAlliance(match):
 
 def format(list):
     postFormat = []
-    list = filter(lambda match : match["comp_level"] == "qm" or match["comp_level"] == "pm", list)
+    list = filter(lambda match : match["comp_level"] == "qm", list)
     list = sorted(list, key=lambda el: int(el["key"].split("m")[1]))
     for match in list:
         blue = match["alliances"]["blue"]["team_keys"]
@@ -93,7 +93,7 @@ def getMatchSchedule():
     for i in matches:
         if i["winning_alliance"] == "": futureMatches.append(i)
     if len(futureMatches) > 0: futureMatches = format(futureMatches)
-    print(futureMatches[0])
+    # print(futureMatches[0], "\n")
     data = {
         "all": allMatches,
         "future": futureMatches
