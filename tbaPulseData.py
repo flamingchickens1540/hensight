@@ -82,7 +82,7 @@ def format(list):
             if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
                 red[i] = f"<strong><u>{red[i]}</u></strong>"
 
-        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][7:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
+        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][9:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
     return postFormat
     
 
