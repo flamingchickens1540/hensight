@@ -42,4 +42,4 @@ def update_stats():
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(os.getenv("points_last_year"))) * 100, 2)
 
 update_stats()
-print(HensightStats)
+# print(HensightStats)

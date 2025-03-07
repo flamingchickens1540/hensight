@@ -66,7 +66,7 @@ def genTasks():
                 elif i in l:
                     count+=1
                 if count == 1: 
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+10
                     if timeUntil > -10 and timeUntil < 30: tasks.append(
                         {
                             "task": f'<h2 class="announcement">Second Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
@@ -75,7 +75,7 @@ def genTasks():
                     )
                     count+=1
                 elif count == 3:
-                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+5
+                    timeUntil = round(((getNexusMatch(j, data)["times"]["estimatedStartTime"]/1000) - time.time()) / 60)+10
                     if timeUntil > -10 and timeUntil < 30: tasks.append(
                         {
                             "task": f'<h2 class="announcement">Preliminary Check-in with {i} after QM{j["key"].split("m")[1]}</h2>',
@@ -148,6 +148,7 @@ def getNexusData():
             hms = str(datetime.timedelta(seconds=s))
             if type == "estimatedQueueTime" and s <= 300: color = '#CC5500'
             pulseData["queueTime"] = hms[2:]
+            if s < 1: pulseData["queueTime"] = "Now"
             pulseData["color"] = color
             pulseData["nextMatch"] = f"{label} - {status}"
             if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
