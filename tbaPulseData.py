@@ -88,9 +88,8 @@ def format(list):
 
 def getMatchSchedule():
     matches = tba.event_matches(event=event_key, simple=True)
-    allMatches = [format(matches)]
+    allMatches = format(matches)
     futureMatches = []
-    print(matches[0])
     for i in matches:
         if i["winning_alliance"] == "": futureMatches.append(i)
     if len(futureMatches) > 0: futureMatches = [format(futureMatches)]
