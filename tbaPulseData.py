@@ -92,7 +92,7 @@ def getMatchSchedule():
     futureMatches = []
     print(matches[0])
     for i in matches:
-        if "winning_alliance" == "": futureMatches.append(i)
+        if i["winning_alliance"] == "": futureMatches.append(i)
     if len(futureMatches) > 0: futureMatches = [format(futureMatches)]
     data = {
         "all": allMatches,
