@@ -106,7 +106,7 @@ def getNexusData():
         return pulseData
 
     else:
-        my_team_key = "100"
+        my_team_key = "1540"
         data = response.json()
         pulseData = {}
 
