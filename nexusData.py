@@ -8,7 +8,7 @@ from progress import progressBar
 
 load_dotenv()
 my_team_key = os.getenv("team_key")
-current_event_key = os.getenv("event_key")
+current_event_key = "2025orore"
 api: Final[str] = os.getenv("nexus")
 url = f"https://frc.nexus/api/v1/event/{current_event_key}"
 
@@ -29,7 +29,7 @@ def getNexusMatch(TBAMatch, data):
     for match in matches:
         if match["label"] == label: 
             return match
-    raise KeyError("Match Key not found in nexus")
+    raise KeyError(f"Match Key not found in nexus. Key: {label}")
 
 def genTasks():
     data = getRawData()

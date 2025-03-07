@@ -6,7 +6,7 @@ from progress import progressBar
 
 load_dotenv()
 key: Final[str] = os.getenv("tba")
-event_key = os.getenv("event_key")
+event_key = "2025orore"
 my_team_key = os.getenv("team_key")
 
 tba = tbapy.TBA(key)
