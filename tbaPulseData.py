@@ -65,7 +65,7 @@ def myAlliance(match):
 
 def format(list):
     postFormat = []
-    list = filter(lambda match : match["comp_level"] == "qm", list)
+    list = filter(lambda match : match["comp_level"] == "qm" or match["comp_level"] == "pm", list)
     list = sorted(list, key=lambda el: int(el["key"].split("m")[1]))
     for match in list:
         blue = match["alliances"]["blue"]["team_keys"]
