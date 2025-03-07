@@ -60,7 +60,7 @@
         let data = await response.json();
         // console.log(data)
         html = ""
-        type = "future"
+        type = "all"
         matches = data[type][0]
         // console.log(matches.length)
         if (matches && matches.length > 1) {
@@ -151,7 +151,7 @@
         var options = {
             width: 1152,
             height: 648,
-            channel: "Live Stream"
+            channel: "firstinspires"
         };
         var player = new Twitch.Player("test", options);
         </script>
