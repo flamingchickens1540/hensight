@@ -75,6 +75,24 @@
         }
         document.getElementById("schedule").innerHTML = html
     }
+
+    async function getRanking() {
+        const response = await fetch(`{{url_for('getRanking')}}`);
+        let data = await response.json();
+        let html = ""
+        if (data && data.length > 1) {
+            for (let i = 0; i < data.length; i++) {
+                // console.log(data[i])
+                html += data[i]
+                html += "<br>"
+            }
+        }
+        else {
+            html = "<h2 style='font-size: 5rem;'>No rankings rn :3</h2>"
+        }
+        document.getElementById("schedule").innerHTML = html
+    }
+
     var popupCount = 0
     async function getDriveTeamData() {
         const response = await fetch(`{{url_for('getDriveTeam')}}`);
@@ -86,19 +104,6 @@
             popup.style.visibility = "visible"
         }
         wait10s()
-    }
-
-    async function getRanking() {
-        const response = await fetch(`{{url_for('getRanking')}}`);
-        let data = await response.json();
-        let html = ""
-        if (data.length != 0) {
-            for (i = 0; i < data.length; i++) {
-                html += data[i]
-            }
-        }
-        else html = 'No rankings yet'
-        document.getElementById("schedule").innerHTML = html
     }
 
     async function wait10s() {
