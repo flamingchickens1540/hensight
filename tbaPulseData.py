@@ -21,8 +21,6 @@ def getRankings():
     top10 = []
 
     for i in rankings["rankings"]:
-        if i["rank"] > 20:
-            break
         i["team_key"] = i["team_key"][3:]
         if my_team_key in str(i["team_key"]):
             i["team_key"] = f'<strong style="color: #f6b14b;">{i["team_key"]}</strong>'
