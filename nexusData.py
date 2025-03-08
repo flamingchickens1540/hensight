@@ -154,6 +154,10 @@ def getNexusData():
             pulseData["nextMatch"] = f"{label} - {status}"
             if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
             elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#6495ED"
+            if s > 43200:
+                pulseData["color"] = "#50C878"
+                pulseData["queueTime"] = ":D"
+                pulseData["nextMatch"] = "No more matches!"
             
         #announcements
             
