@@ -146,9 +146,9 @@ def getNexusData():
             s = round(my_next_match["times"][type] / 1000) - round(time.time())
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
-            if type == "estimatedQueueTime" and s <= 300: color = '#CC5500'
+            if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
             pulseData["queueTime"] = hms[2:]
-            if s < 1: pulseData["queueTime"] = "Now"
+            if s < 1: pulseData["queueTime"] = "Soon"
             elif s > 3600: pulseData["queueTime"] = "1hr+"
             pulseData["color"] = color
             pulseData["nextMatch"] = f"{label} - {status}"
