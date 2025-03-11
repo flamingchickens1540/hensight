@@ -1,4 +1,4 @@
-import tbapy, os, json, sys
+import tbapy, os, json, sys, vars
 from typing import Final
 from dotenv import load_dotenv
 from progress import progressBar
@@ -6,7 +6,7 @@ from progress import progressBar
 load_dotenv()
 api_key: Final[str] = os.getenv("tba")
 tba = tbapy.TBA(api_key)
-thisYear = os.getenv("year")
+thisYear = vars.year
 
 def load_events(year, genKeys=False, write=False, shouldProgress=False):
     keys = []
@@ -62,7 +62,7 @@ def get_matches():
         return data
 
 def printTotalPointsLastYear():
-    data = load_events(year=os.getenv("last_year"), genKeys=True, write=False, shouldProgress=False)
+    data = load_events(year=vars.last_year, genKeys=True, write=False, shouldProgress=False)
     points = 0
     for match in data.values():
         points += match["alliances"]["blue"]["score"]

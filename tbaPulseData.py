@@ -2,12 +2,13 @@ import tbapy, os, time
 from typing import Final
 from dotenv import load_dotenv
 from progress import progressBar
+import vars
 # from main import event_key
 
 load_dotenv()
 key: Final[str] = os.getenv("tba")
 event_key = "2025orore"
-my_team_key = os.getenv("team_key")
+my_team_key = vars.team_key
 
 tba = tbapy.TBA(key)
 
@@ -64,7 +65,8 @@ def myAlliance(match):
 
 def format(list):
     postFormat = []
-    list = filter(lambda match : match["comp_level"] == "qm", list)
+    if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
+    else: list = filter(lambda match : match["comp_level"] == "qm", list)
     list = sorted(list, key=lambda el: int(el["key"].split("m")[1]))
     for match in list:
         blue = match["alliances"]["blue"]["team_keys"]

@@ -1,4 +1,4 @@
-import requests, os, time, datetime, sys
+import requests, os, time, datetime, sys, vars
 from typing import Final
 from dotenv import load_dotenv
 from tbaPulseData import getMatches
@@ -7,8 +7,8 @@ from progress import progressBar
 # my_team_key = '100'
 
 load_dotenv()
-my_team_key = os.getenv("team_key")
-current_event_key = "2025orore"
+my_team_key = vars.team_key
+current_event_key = vars.event_key
 api: Final[str] = os.getenv("nexus")
 url = f"https://frc.nexus/api/v1/event/{current_event_key}"
 
@@ -33,7 +33,7 @@ def getNexusMatch(TBAMatch, data):
 
 def genTasks():
     data = getRawData()
-    my_team_key = os.getenv("team_key")
+    my_team_key = vars.team_key
     tasks = []
     matches = getMatches()
     matches = list(filter(lambda match : match["comp_level"] == "qm", matches))
@@ -143,7 +143,7 @@ def getNexusData():
             elif "Practice" in label:
                 label = "PM"+label[9:]
             
-            s = round(my_next_match["times"][type] / 1000) - round(time.time())
+            s = round(my_next_match["times"][type] / 1000) - round(time.time()) + offset
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
             if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
