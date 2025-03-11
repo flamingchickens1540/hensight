@@ -143,7 +143,7 @@ def getNexusData():
             elif "Practice" in label:
                 label = "PM"+label[9:]
             
-            s = round(my_next_match["times"][type] / 1000) - round(time.time()) + offset
+            s = round(my_next_match["times"][type] / 1000) - round(time.time()) + vars.offset
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
             if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
