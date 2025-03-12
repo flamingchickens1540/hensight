@@ -1,4 +1,4 @@
-from TBAData import load_events
+from TBAData import *
 import sys, os, dotenv, vars
 
 dotenv.load_dotenv()
@@ -8,4 +8,5 @@ progress = False
 for i in sys.argv:
     if i == '-k':genKeys = True
     elif i == '-p': progress = True
-load_events(genKeys=genKeys, shouldProgress=progress, write=True, year=vars.year)
+# load_events(genKeys=genKeys, shouldProgress=progress, write=True, year=vars.year)
+printTotalPointsLastYear()

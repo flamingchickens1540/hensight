@@ -64,7 +64,8 @@ def get_matches():
 def printTotalPointsLastYear():
     data = load_events(year=vars.last_year, genKeys=True, write=False, shouldProgress=False)
     points = 0
-    for match in data.values():
+    print("-- Finding Points")
+    for match in progressBar(data.values()):
         points += match["alliances"]["blue"]["score"]
         points += match["alliances"]["red"]["score"]
     print(points)
@@ -72,5 +73,3 @@ def printTotalPointsLastYear():
 def get_match(key):
     data = get_matches()
     return data[key]
-
-# printTotalPointsLastYear()
