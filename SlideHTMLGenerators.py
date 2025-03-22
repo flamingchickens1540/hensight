@@ -99,6 +99,9 @@ def egg_pore(toggle):
     if toggle: return '<h4>The shell of an egg has about </h4><h3>7,000–17,000</h3><h4> tiny pores that allow air and moisture to pass through.</h4>'
     else: return "bad"
     
+def chicken_face(toggle):
+    if toggle: return '<h4>Chickens can recognize and remember up to</h4><h3>100</h3><h4>different human faces</h4>'
+    
 def points_scored(toggle):
     if toggle: return f'<h4>Throughout the season</h4><h3>{"{:,}".format(HensightStats["points_scored"])}</h3><h4>points have been scored'
     else: return "bad"

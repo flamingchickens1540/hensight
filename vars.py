@@ -1,6 +1,6 @@
 scheduleMode = "qm"
 offset = 0
-event_key = "2025orore"
+event_key = "2025orwil"
 team_key = "1540"
 year = "2025"
 last_year= "2024"

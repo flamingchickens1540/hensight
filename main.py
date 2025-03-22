@@ -45,7 +45,8 @@ toggles = {
         "penalty_points": True,
         "auto_points": True,
         "percent_last_year": False, # off because no last year
-        "matches_played": True
+        "matches_played": True,
+        "chicken_face": True
     }
     
 listOfResuts = [
@@ -67,7 +68,8 @@ listOfResuts = [
         penalty_points(toggles["penalty_points"]),
         auto_poitns(toggles["auto_points"]),
         percent_last_year(toggles["percent_last_year"]),
-        matches_played(toggles["matches_played"])
+        matches_played(toggles["matches_played"]),
+        chicken_face(toggles["chicken_face"])
     ]
 random.shuffle(listOfResuts)
 
