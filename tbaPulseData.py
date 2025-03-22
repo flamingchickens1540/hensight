@@ -7,7 +7,7 @@ import vars
 
 load_dotenv()
 key: Final[str] = os.getenv("tba")
-event_key = "2025orore"
+event_key = vars.event_key()
 my_team_key = vars.team_key
 
 tba = tbapy.TBA(key)
