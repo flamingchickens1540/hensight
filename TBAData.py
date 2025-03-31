@@ -62,12 +62,12 @@ def update_this_event():
         eventData[key] = tba.match(key)
     with open('data.json', encoding='utf-8') as file:
         data = json.load(file)
-        file.close()
+    file.close()
     for key in eventData:
         data[key] = eventData[key]
     with open('data.json', type, encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent=4)
-        file.close()
+    file.close()
     return eventData
 
 def get_matches():
