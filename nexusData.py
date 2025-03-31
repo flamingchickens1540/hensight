@@ -125,7 +125,7 @@ def getNexusData():
         status = ""
         if my_next_match is None:
             pulseData["color"] = "#50C878"
-            pulseData["queueTime"] = ":D"
+            pulseData["queueTime"] = ":3"
             pulseData["nextMatch"] = "No more matches!"
         else:
             if my_next_match["status"] == "Queuing soon":
@@ -143,7 +143,7 @@ def getNexusData():
             elif "Practice" in label:
                 label = "PM"+label[9:]
             
-            s = round(my_next_match["times"][type] / 1000) - round(time.time()) + vars.offset
+            s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
             if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
@@ -156,7 +156,7 @@ def getNexusData():
             elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#6495ED"
             if s > 43200:
                 pulseData["color"] = "#50C878"
-                pulseData["queueTime"] = ":D"
+                pulseData["queueTime"] = ":3"
                 pulseData["nextMatch"] = "No more matches!"
             
         #announcements

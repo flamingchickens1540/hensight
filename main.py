@@ -2,7 +2,7 @@ import os
 os.chdir('/home/projects/Hensight/hensight')
 # print("current working dir: ", os.getcwd())
 
-import random, TBAData, HensightStatsManager, vars
+import random, TBAData, HensightStatsManager, vars, requests
 from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import getNexusData
@@ -22,6 +22,7 @@ photos = ['https://images.squarespace-cdn.com/content/v1/634f81a61fae3d397cfce93
 channel = 'Match Stream'
 
 # TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
+
 HensightStatsManager.update_stats()
 
 toggles = {
@@ -46,7 +47,10 @@ toggles = {
         "auto_points": True,
         "percent_last_year": False, # off because no last year
         "matches_played": True,
-        "chicken_face": True
+        "chicken_face": True,
+        "alliance_win_rate": True,
+        "event_algae_processed": True,
+        "event_rp_earned": True
     }
     
 listOfResuts = [
@@ -69,7 +73,10 @@ listOfResuts = [
         auto_poitns(toggles["auto_points"]),
         percent_last_year(toggles["percent_last_year"]),
         matches_played(toggles["matches_played"]),
-        chicken_face(toggles["chicken_face"])
+        chicken_face(toggles["chicken_face"]),
+        alliance_win_rate(toggles["alliance_win_rate"]),
+        event_algae_processed(toggles["event_algae_processed"]),
+        event_rp_earned(toggles["event_rp_earned"])
     ]
 random.shuffle(listOfResuts)
 
@@ -87,6 +94,7 @@ def landing():
 
 @app.route("/hensight")
 def index():
+    TBAData.update_this_event()
     return render_template("hensight.html")
 
 @app.route("/admin")
@@ -337,6 +345,15 @@ def crossy():
 @app.route("/getphoto")
 def photo():
     return photos
+
+@app.route("/oapage")
+def oapage():
+    return render_template("oa.html")
+
+@app.route("/webscrape")
+def webscrape():
+    response = requests.get("https://www.chiefdelphi.com/t/team-1540-flaming-chickens-2025-build-thread/476227")
+    return response.text
 
 @app.route("/getoa")
 def oa():

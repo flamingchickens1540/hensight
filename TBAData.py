@@ -54,6 +54,21 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     file.close()
     if not write: return data
     print("Done")
+    
+def update_this_event():
+    keys = tba.event_matches(vars.event_key, keys=True)
+    eventData = {}
+    for key in keys:
+        eventData[key] = tba.match(key)
+    with open('data.json', encoding='utf-8') as file:
+        data = json.load(file)
+        file.close()
+    for key in eventData:
+        data[key] = eventData[key]
+    with open('data.json', type, encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
+        file.close()
+    return eventData
 
 def get_matches():
     with open('data.json', encoding='utf-8') as file:
@@ -73,3 +88,5 @@ def printTotalPointsLastYear():
 def get_match(key):
     data = get_matches()
     return data[key]
+
+update_this_event()
