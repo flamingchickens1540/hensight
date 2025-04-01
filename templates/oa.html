@@ -7,11 +7,13 @@
 async function getHtml() {
     const response = await fetch("/hensight/webscrape");
     let data = await response.json();
+    console.log(data)
     document.getElementById("page").innerHTML = data
 }
+getHtml()
 </script>
 
-<body onload="getHtml()">
+<body onclick="getHtml()">
 <div id="page"></div>
 </body>
 
