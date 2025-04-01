@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<script>
+async function getHtml() {
+    const response = await fetch("/hensight/webscrape");
+    let data = await response.json();
+    document.getElementById("page").innerHTML = data
+}
+</script>
+
+<body onload="getHtml()">
+<div id="page"></div>
+</body>
+
+</html>

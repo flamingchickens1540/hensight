@@ -98,7 +98,7 @@ def getMatchSchedule():
         if i["winning_alliance"] == "": futureMatches.append(i)
     print(f"- {i}")
     # print(f"-- {futureMatches[0]}\n")
-    futureMatches = []
+    formatFutureMatches = []
     if len(futureMatches) > 0: formatFutureMatches = format(futureMatches)
     # print(f"--- {formatFutureMatches[0]}\n")
     # print(futureMatches[0], "\n")
