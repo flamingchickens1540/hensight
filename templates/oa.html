@@ -5,6 +5,7 @@
 
 <script>
 async function getHtml() {
+    console.log("function run")
     const response = await fetch("/hensight/webscrape");
     let data = await response.json();
     console.log(data)
