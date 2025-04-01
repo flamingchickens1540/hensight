@@ -6,7 +6,8 @@
 <script>
 async function getHtml() {
     console.log("function run")
-    const data = await fetch("/hensight/webscrape");
+    const response = await fetch("/hensight/webscrape");
+    let data = response.text;
     console.log("-- ", data)
     document.getElementById("page").innerHTML = data
 }
