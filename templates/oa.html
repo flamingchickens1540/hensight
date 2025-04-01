@@ -4,18 +4,28 @@
 <head></head>
 
 <script>
-async function getHtml() {
-    console.log("function run")
-    const response = await fetch("/hensight/webscrape");
-    let data = response.text();
-    console.log("-- ", data)
-    document.getElementById("page").innerHTML = data
+// async function getHtml() {
+//     console.log("function run")
+//     const response = await fetch("/hensight/webscrape");
+//     let data = response.text();
+//     console.log("-- ", data)
+//     document.getElementById("page").innerHTML = data
+// }
+// getHtml()
+async function fetchTest() {
+    let response = await fetch('https://httpbin.org/encoding/utf8');
+    let responseText = await response.text();
+
+    document.getElementById('result').innerHTML = responseText;
 }
-getHtml()
+
+(async() => {
+    await fetchTest();
+})();
 </script>
 
 <body onclick="getHtml()">
-<div id="page"></div>
+<div id="result"></div>
 </body>
 
 </html>
