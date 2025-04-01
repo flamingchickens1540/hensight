@@ -99,6 +99,7 @@ def getMatchSchedule():
     print(f"- {i}")
     # print(f"-- {futureMatches[0]}\n")
     if len(futureMatches) > 0: formatFutureMatches = format(futureMatches)
+    else: formatFutureMatches = []
     # print(f"--- {formatFutureMatches[0]}\n")
     # print(futureMatches[0], "\n")
     data = {

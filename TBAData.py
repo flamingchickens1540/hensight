@@ -88,5 +88,3 @@ def printTotalPointsLastYear():
 def get_match(key):
     data = get_matches()
     return data[key]
-
-update_this_event()
