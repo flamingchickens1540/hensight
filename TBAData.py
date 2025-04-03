@@ -9,6 +9,7 @@ tba = tbapy.TBA(api_key)
 thisYear = vars.year
 
 def fast_events(year, genKeys=False, write=False, shouldProgress=False):
+    print(f"Keys: {genKeys}\nWrite: {write}\nProgress: {shouldProgress}\nYear: {year}")
     keys = []
     data = {}
     if genKeys:
@@ -22,7 +23,7 @@ def fast_events(year, genKeys=False, write=False, shouldProgress=False):
     else:
         with open('keys.json', encoding='utf-8') as file:
             keys = json.load(file)
-        file.cose()
+        file.close()
     print('Done\n-- Writing Match Data')
     progress = bytes(0)
     type = 'w'
