@@ -68,7 +68,6 @@ def update_this_event():
     with open('data.json', type, encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent=4)
     file.close()
-    return eventData
 
 def get_matches():
     with open('data.json', encoding='utf-8') as file:
