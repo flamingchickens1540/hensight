@@ -23,7 +23,6 @@ def getRawData():
 
 def getNexusMatch(TBAMatch, data):
     matches = data["matches"]
-    print(TBAMatch["key"])
     if TBAMatch["comp_level"] == "qm": label = f'Qualification {TBAMatch["key"].split("qm")[1]}'
     elif TBAMatch["comp_level"] == "pm": label = f'Practice {TBAMatch["key"].split("qm")[1]}'
     else: raise NotImplementedError("Only quals and practice works rn :(")
