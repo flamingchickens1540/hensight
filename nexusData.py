@@ -106,7 +106,7 @@ def getNexusData():
         return pulseData
 
     else:
-        my_team_key = "1540"
+        my_team_key = vars.team_key
         data = response.json()
         pulseData = {}
 
@@ -143,6 +143,7 @@ def getNexusData():
             elif "Practice" in label:
                 label = "PM"+label[9:]
             
+            print(f"--- {my_next_match}")
             s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
             hms = str(datetime.timedelta(seconds=s))
