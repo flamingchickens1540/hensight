@@ -143,14 +143,12 @@ def getNexusData():
             elif "Practice" in label:
                 label = "PM"+label[9:]
             
-            try: 
-                s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
-                hms = str(datetime.timedelta(seconds=s))
-                pulseData["queueTime"] = hms[2:]
-            except KeyError: s = None
+            try: s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
+            except KeyError: s = round(my_next_match["times"]["scheduledStartTime"] / 1000) - round(time.time()) - vars.offset
             # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
+            hms = str(datetime.timedelta(seconds=s))
             if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
-            if s == None:pulseData["queueTime"] = "Unknown"
+            pulseData["queueTime"] = hms[2:]
             if s < 1: pulseData["queueTime"] = "Soon"
             elif s > 3600: pulseData["queueTime"] = "1hr+"
             pulseData["color"] = color
