@@ -67,7 +67,7 @@ def format(list):
     postFormat = []
     if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
     else: list = filter(lambda match : match["comp_level"] == "qm", list)
-    list = sorted(list, key=lambda el: int(el["key"].split("m")[1]))
+    list = sorted(list, key=lambda el: int(el["key"].split("qm")[1]))
     for match in list:
         blue = match["alliances"]["blue"]["team_keys"]
         red  = match["alliances"]["red"]["team_keys"]
