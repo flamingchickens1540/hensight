@@ -94,7 +94,7 @@ def landing():
 
 @app.route("/hensight")
 def index():
-    TBAData.update_this_event()
+    # TBAData.update_this_event()
     return render_template("hensight.html")
 
 @app.route("/admin")
