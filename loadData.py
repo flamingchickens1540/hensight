@@ -9,4 +9,5 @@ for i in sys.argv:
     if i == '-k':genKeys = True
     elif i == '-p': progress = True
 # load_events(genKeys=genKeys, shouldProgress=progress, write=True, year=vars.year)
-printTotalPointsLastYear()
+fast_events(genKeys=genKeys, shouldProgress=progress, write=True, year=vars.year)
+# printTotalPointsLastYear()

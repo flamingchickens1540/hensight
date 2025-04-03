@@ -8,6 +8,54 @@ api_key: Final[str] = os.getenv("tba")
 tba = tbapy.TBA(api_key)
 thisYear = vars.year
 
+def fast_events(year, genKeys=False, write=False, shouldProgress=False):
+    keys = []
+    data = {}
+    if genKeys:
+        print('-- Getting Event Keys')
+        for i in progressBar(tba.events(year=year, keys=True)):
+            keys.append(i)
+        if write:
+            with open('keys.json', 'w', encoding='utf-8') as file:
+                json.dump(keys, file, ensure_ascii=False, indent=4)
+            file.close()
+    else:
+        with open('keys.json', encoding='utf-8') as file:
+            keys = json.load(file)
+        file.cose()
+    print('Done\n-- Writing Match Data')
+    progress = bytes(0)
+    type = 'w'
+    if shouldProgress:
+        file = open('progress.txt', 'rb')
+        record_progress = file.read()
+        file.close()
+        type = 'a'
+    else: record_progress = bytes(0)
+    for i in progressBar(keys):
+        if progress < record_progress and shouldProgress:
+            progress+=bytes(1)
+            continue
+        for j in tba.event_matches(i):
+            data[j["key"]] = j
+        if write:
+            with open('data.json', type, encoding='utf-8') as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+            file.close()
+        progress +=bytes(1)
+        if progress > record_progress: record_progress = progress
+        if write:
+            file = open('progress.txt', 'wb')
+            file.write(record_progress)
+            file.close()
+    progress, record_progress = bytes(0), bytes(0)
+    file = open('progress.txt', 'wb')
+    if write: file.write(record_progress)
+    file.close()
+    if not write: return data
+    print("Done")
+            
+
 def load_events(year, genKeys=False, write=False, shouldProgress=False):
     keys = []
     data = {}
