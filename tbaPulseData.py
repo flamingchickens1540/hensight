@@ -63,15 +63,17 @@ def myAlliance(match):
         if my_team_key in i: return "red"
     return "err"
 
-def format(list):
-    if len(list) < 1: return []
+def format(matchList):
+    if len(matchList) < 1: return []
     postFormat = []
     futureFormat = []
-    if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
+    if vars.scheduleMode == "elim":
+        matchList = list(filter(lambda match : match["comp_level"] != "qm", matchList))
+        print(matchList)
     else: 
-        list = filter(lambda match : match["comp_level"] == "qm", list)
-        list = sorted(list, key=lambda el: int(el["key"].split("qm")[1]))
-    for match in list:
+        matchList = filter(lambda match : match["comp_level"] == "qm", list)
+        matchList = sorted(matchList, key=lambda el: int(el["key"].split("qm")[1]))
+    for match in matchList:
         blue = match["alliances"]["blue"]["team_keys"]
         red  = match["alliances"]["red"]["team_keys"]
 

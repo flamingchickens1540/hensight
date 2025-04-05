@@ -1,4 +1,4 @@
-scheduleMode = "qm"
+scheduleMode = "elim"
 offset = 0
 event_key = "2025pncmp"
 team_key = "1540"
