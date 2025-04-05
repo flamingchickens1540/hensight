@@ -48,7 +48,7 @@ toggles = {
         "percent_last_year": True,
         "matches_played": True,
         "chicken_face": True,
-        "alliance_win_rate": True,
+        "alliance_win_rate": False,
         "event_algae_processed": True,
         "event_rp_earned": True
     }
