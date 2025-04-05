@@ -25,7 +25,7 @@ def getRankings():
         i["team_key"] = i["team_key"][3:]
         if my_team_key in str(i["team_key"]):
             i["team_key"] = f'<strong style="color: #f6b14b;">{i["team_key"]}</strong>'
-        postFormat.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content;">{str(i["rank"])}) {str(i["team_key"])}</p>')
+        postFormat.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content; margin:1%; border:0;">{str(i["rank"])}) {str(i["team_key"])}</p>')
         # postFormat.append(f"<div class=\"schedulelement\"><p'>{str(i['rank'])}) </p><p>{str(i['team_key'])}</p></div>")
     # print(top10)
     return postFormat
