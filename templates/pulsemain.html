@@ -51,7 +51,8 @@
         //     }
         //     html += '<div class="task">'+task[i]["task"]+'<h4 class="time" style="color: '+color+'">'+time+'</h4></div>'
         // }
-        // document.getElementById("tasks").innerHTML = html
+        html += data["tasks"]
+        document.getElementById("tasks").innerHTML = html
 
     }
 
