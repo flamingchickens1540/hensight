@@ -145,3 +145,9 @@ def printTotalPointsLastYear():
 def get_match(key):
     data = get_matches()
     return data[key]
+
+def getEvent(key):
+    with open(f'data/{key}.json', encoding='utf-8') as file:
+        data = json.load(file)
+    file.close()
+    return data

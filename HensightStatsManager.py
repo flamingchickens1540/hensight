@@ -20,18 +20,12 @@ HensightStats = {
 }
 
 def update_stats():
-    print("-- Update Stats")
     keys = get_keys()
-    for key in progressBar(keys):
-        with open(f'data/{key}.json', encoding='utf-8') as file:
+    with open(f'data/{key}.json', encoding='utf-8') as file:
+        for key in progressBar(keys, prefix="Updating Stats", length=0):
             data = json.load(file)
-        file.close()
-        updateEvent(data)
-    try:
-        HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
-    except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
-    print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
-    HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
+            updateEvent(data)
+    file.close()
 
 def updateEvent(data):
     for match in data.values():
@@ -51,6 +45,11 @@ def updateEvent(data):
                 HensightStats["event_rp_earned"] += i["rp"]
                 HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
         except AttributeError: pass
+    try:
+        HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
+    except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
+    print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
+    HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
 
 # update_stats()
 # print(HensightStats)

@@ -36,7 +36,7 @@
         else await getRanking()
         await getDriveTeamData()
 
-        html = "<h1 id='title'>Alliance Check-in</h1>"
+        html = "<h1 id='title'>Status</h1>"
         let task = data["tasks"]
         for (let i = 0; i < task.length; i++) {
             let time = task[i]["time"]
@@ -156,7 +156,7 @@
         var options = {
             width: 1152,
             height: 648,
-            channel: "FIRSTinspires14"
+            channel: "FIRSTinspires24"
         };
         var player = new Twitch.Player("test", options);
         </script>
