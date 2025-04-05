@@ -21,11 +21,11 @@ HensightStats = {
 
 def update_stats():
     keys = get_keys()
-    with open(f'data/{key}.json', encoding='utf-8') as file:
-        for key in progressBar(keys, prefix="Updating Stats", length=0):
+    for key in progressBar(keys, prefix="Updating Stats", length=0):
+        with open(f'data/{key}.json', encoding='utf-8') as file:
             data = json.load(file)
             updateEvent(data)
-    file.close()
+        file.close()
 
 def updateEvent(data):
     for match in data.values():
