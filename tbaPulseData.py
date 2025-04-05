@@ -65,6 +65,7 @@ def myAlliance(match):
 
 def format(list):
     postFormat = []
+    futureFormat = []
     if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
     else: list = filter(lambda match : match["comp_level"] == "qm", list)
     list = sorted(list, key=lambda el: int(el["key"].split("qm")[1]))
@@ -85,26 +86,15 @@ def format(list):
 
             # if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
                 # red[i] = f"<strong><u>{red[i]}</u></strong>"
-
-        postFormat.append(f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>")
-    return postFormat
+        html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
+        postFormat.append(html)
+        if match["winning_alliance"] == "": futureFormat.append(html)
+    return {"all": postFormat, "future": futureFormat}
     
 
 def getMatchSchedule():
     matches = tba.event_matches(event=event_key, simple=True)
-    allMatches = format(matches)
-    futureMatches = []
-    for i in matches:
-        if i["winning_alliance"] == "": futureMatches.append(i)
-    # print(f"-- {futureMatches[0]}\n")
-    formatFutureMatches = []
-    if len(futureMatches) > 0: formatFutureMatches = format(futureMatches)
-    # print(f"--- {formatFutureMatches[0]}\n")
-    # print(futureMatches[0], "\n")
-    data = {
-        "all": allMatches,
-        "future": formatFutureMatches
-    }
+    data = format(matches)
     print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")
     return data
 
