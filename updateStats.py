@@ -1,0 +1,3 @@
+import HensightStatsManager
+
+HensightStatsManager.update_stats()
