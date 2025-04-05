@@ -64,12 +64,13 @@ def myAlliance(match):
     return "err"
 
 def format(list):
-    if list < 1: return []
+    if len(list) < 1: return []
     postFormat = []
     futureFormat = []
     if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
-    else: list = filter(lambda match : match["comp_level"] == "qm", list)
-    list = sorted(list, key=lambda el: int(el["key"].split("qm")[1]))
+    else: 
+        list = filter(lambda match : match["comp_level"] == "qm", list)
+        list = sorted(list, key=lambda el: int(el["key"].split("qm")[1]))
     for match in list:
         blue = match["alliances"]["blue"]["team_keys"]
         red  = match["alliances"]["red"]["team_keys"]
@@ -104,5 +105,5 @@ def getPrediction():
     # print(prediction)
     return prediction
 
-# getMatchSchedule()
+getMatchSchedule()
 # print(tba.event_matches(event=event_key, simple=True)[0])
