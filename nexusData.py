@@ -213,7 +213,7 @@ def getNexusData():
         #tasks
         # pulseData["tasks"] = genTasks()
         print(data)
-        pulseData["tasks"] = [{"task": f"Now Queueing: {data['nowQueuing']}", "time": ":P"}]
+        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{data["nowQueuing"]}</p>"
 
       
     return pulseData
