@@ -48,7 +48,7 @@ def updateEvent(data):
     try:
         HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
     except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
-    print(f"This Year: {HensightStats["points_scored"]}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)}")
+    print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
 
 update_stats()
