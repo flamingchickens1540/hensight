@@ -212,7 +212,7 @@ def getNexusData():
             
         #tasks
         # pulseData["tasks"] = genTasks()
-        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{data['nowQueuing']}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), 'None')}</p>"
+        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{data['nowQueuing']}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), 'None')['label']}</p>"
 
       
     return pulseData
