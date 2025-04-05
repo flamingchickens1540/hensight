@@ -103,12 +103,18 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     print("Done")
     
 def update_this_event():
-    with open('data.json', encoding='utf-8') as file:
-        data = json.load(file)
-    file.close()
-    for i in tba.event_matches(vars.event_key):
-        data[i["key"]] = i
-    with open('data.json', encoding='utf-8') as file:
+    # with open('data.json', encoding='utf-8') as file:
+    #     data = json.load(file)
+    # file.close()
+    # for i in tba.event_matches(vars.event_key):
+    #     data[i["key"]] = i
+    # with open('data.json', encoding='utf-8') as file:
+    #     json.dump(data, file, ensure_ascii=False, indent=4)
+    # file.close()
+    data = {}
+    with open(f'data/{vars.event_key}.json', encoding='utf-8') as file:
+        for i in tba.event_matches(vars.event_key):
+            data[i["key"]] = i
         json.dump(data, file, ensure_ascii=False, indent=4)
     file.close()
     

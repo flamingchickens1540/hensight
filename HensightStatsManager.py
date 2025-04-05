@@ -20,7 +20,7 @@ HensightStats = {
 }
 
 def update_stats():
-    keys = get_keys
+    keys = get_keys()
     for key in keys:
         with open(f'data/{key}.json', encoding='utf-8') as file:
             data = json.load(file)
