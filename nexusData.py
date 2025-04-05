@@ -159,6 +159,7 @@ def getNexusData():
                 pulseData["color"] = "#50C878"
                 pulseData["queueTime"] = ":3"
                 pulseData["nextMatch"] = "No more matches!"
+            pulseData["hidden"] = round(my_next_match["times"][type] / 100)
             
         #announcements
             
