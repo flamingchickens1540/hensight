@@ -64,6 +64,7 @@ def myAlliance(match):
     return "err"
 
 def format(list):
+    if list < 1: return []
     postFormat = []
     futureFormat = []
     if vars.scheduleMode == "elim": list = filter(lambda match : match["comp_level"] != "qm", list)
