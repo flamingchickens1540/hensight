@@ -22,7 +22,7 @@ HensightStats = {
 def update_stats():
     print("-- Update Stats")
     keys = get_keys()
-    for key in progressBar(keys):
+    for key in keys:
         with open(f'data/{key}.json', encoding='utf-8') as file:
             data = json.load(file)
         file.close()
