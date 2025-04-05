@@ -212,7 +212,7 @@ def getNexusData():
             
         #tasks
         # pulseData["tasks"] = genTasks()
-        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{data['nowQueuing']}</p><p><strong>On Deck: </strong>{(FieldedMatches := (filter(lambda m: m['status'] == 'On deck', data['matches']), 'None'))[len(FieldedMatches)-1]['label']}</p><p><strong>On Field: </strong>{next(filter(lambda m: m['status'] == 'On field', data['matches']), 'None')['label']}</p>"
+        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{data['nowQueuing']}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), 'None')['label']}</p><p><strong>On Field: </strong>{filter(lambda m: m['status'] == 'On field', data['matches'])['label']}</p>"
 
       
     return pulseData
