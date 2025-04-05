@@ -1,6 +1,6 @@
-from TBAData import get_matches
+from TBAData import get_matches, get_keys
 from progress import progressBar
-import os, dotenv, sys, vars
+import os, dotenv, sys, vars, json
 
 dotenv.load_dotenv()
 
@@ -20,7 +20,14 @@ HensightStats = {
 }
 
 def update_stats():
-    data = get_matches()
+    keys = get_keys
+    for key in keys:
+        with open(f'data/{key}.json', encoding='utf-8') as file:
+            data = json.load(file)
+        file.close()
+        updateEvent(data)
+
+def updateEvent(data):
     for match in data.values():
         HensightStats["matches_played"] +=1
         HensightStats["points_scored"] += match["alliances"]["blue"]["score"]

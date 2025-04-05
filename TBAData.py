@@ -34,15 +34,13 @@ def fast_events(year, genKeys=False, write=False, shouldProgress=False):
         type = 'a'
     else: record_progress = bytes(0)
     for i in progressBar(keys):
+        if write: file = open(f"data/{i}.json", "w")
         if progress < record_progress and shouldProgress:
             progress+=bytes(1)
             continue
         for j in tba.event_matches(i):
             data[j["key"]] = j
-        if write:
-            with open('data.json', type, encoding='utf-8') as file:
-                json.dump(data, file, ensure_ascii=False, indent=4)
-            file.close()
+        if write: json.dump(data, file, ensure_ascii=False, indent=4)
         progress +=bytes(1)
         if progress > record_progress: record_progress = progress
         if write:
@@ -120,6 +118,12 @@ def get_matches():
         data = json.load(file)
         file.close()
         return data
+    
+def get_keys():
+    with open('keys.json', encoding='utf-8') as file:
+        keys = json.load(file)
+    file.close()
+    return keys
 
 def printTotalPointsLastYear():
     data = load_events(year=vars.last_year, genKeys=True, write=False, shouldProgress=False)
