@@ -1,4 +1,4 @@
-import tbapy, os, time
+import tbapy, os, time, sys
 from typing import Final
 from dotenv import load_dotenv
 from progress import progressBar
@@ -88,6 +88,7 @@ def format(list):
                 # red[i] = f"<strong><u>{red[i]}</u></strong>"
         html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
         postFormat.append(html)
+        print(f"\n\n\n\n{match}")
         if "score_breakdown" not in match: futureFormat.append(html)
     return {"all": postFormat, "future": futureFormat}
     
