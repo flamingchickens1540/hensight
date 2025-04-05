@@ -128,8 +128,10 @@ def matches_played(toggle):
 
 def alliance_win_rate(toggle):
     if toggle:
-        if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance is<h4><h3>{(HensightStats["red_win_count"] / HensightStats["blue_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
-        else: return f'<h4>The blue alliance is<h4><h3>{(HensightStats["blue_win_count"] / HensightStats["red_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
+        try:
+            if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance is<h4><h3>{(HensightStats["red_win_count"] / HensightStats["blue_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
+            else: return f'<h4>The blue alliance is<h4><h3>{(HensightStats["blue_win_count"] / HensightStats["red_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
+        except ZeroDivisionError: return "bad"
     else: return "bad"
     
 def event_algae_processed(toggle):
