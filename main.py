@@ -48,9 +48,9 @@ toggles = {
         "percent_last_year": True,
         "matches_played": True,
         "chicken_face": True,
-        "alliance_win_rate": False,
-        "event_algae_processed": True,
-        "event_rp_earned": True
+        "alliance_win_rate": True,
+        "event_algae_processed": False,
+        "event_rp_earned": False
     }
     
 listOfResuts = [
@@ -94,7 +94,7 @@ def landing():
 
 @app.route("/hensight")
 def index():
-    TBAData.update_this_event()
+    # TBAData.update_this_event()
     return render_template("hensight.html")
 
 @app.route("/admin")
