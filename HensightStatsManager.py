@@ -22,16 +22,16 @@ HensightStats = {
 def update_stats():
     print("-- Update Stats")
     keys = get_keys()
-    for key in keys:
+    for key in progressBar(keys):
         with open(f'data/{key}.json', encoding='utf-8') as file:
             data = json.load(file)
         file.close()
         updateEvent(data)
-        try:
-            HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
-        except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
-        print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
-        HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
+    try:
+        HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
+    except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
+    print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
+    HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
 
 def updateEvent(data):
     for match in data.values():
