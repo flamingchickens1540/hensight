@@ -2,8 +2,7 @@ import os
 os.chdir('/home/projects/Hensight/hensight')
 # print("current working dir: ", os.getcwd())
 
-import random, vars, requests
-# import TBAData, HensightStatsManager
+import random, vars, requests, TBAData, HensightStatsManager
 from flask import Flask, render_template, send_file
 from flask import request
 from nexusData import getNexusData
@@ -24,7 +23,7 @@ channel = 'Match Stream'
 
 # TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
 
-# HensightStatsManager.update_stats()
+HensightStatsManager.update_stats()
 
 toggles = {
         "eggs_in_season": True,
@@ -95,7 +94,7 @@ def landing():
 
 @app.route("/hensight")
 def index():
-    # TBAData.update_this_event()
+    TBAData.update_this_event()
     return render_template("hensight.html")
 
 @app.route("/admin")
