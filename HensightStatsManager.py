@@ -51,5 +51,5 @@ def updateEvent(data):
     print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
 
-update_stats()
+# update_stats()
 # print(HensightStats)
