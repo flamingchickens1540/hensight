@@ -38,7 +38,9 @@ def update_stats():
                 HensightStats["event_rp_earned"] += i["rp"]
                 HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
         except AttributeError: pass
-    HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
+    try:
+        HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
+    except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
 
 update_stats()
