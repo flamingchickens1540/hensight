@@ -114,7 +114,7 @@ def update_this_event():
     try:
         data = {}
         with open(f'data/{vars.event_key}.json', encoding='utf-8') as file:
-            for i in tba.event_matches(vars.event_key):
+            for i in progressBar(tba.event_matches(vars.event_key)):
                 data[i["key"]] = i
             json.dump(data, file, ensure_ascii=False, indent=4)
         file.close()
