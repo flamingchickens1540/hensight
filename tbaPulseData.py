@@ -105,7 +105,7 @@ def getMatchSchedule():
         "all": allMatches,
         "future": formatFutureMatches
     }
-    print(f"-- All: {data["all"][0]}\n-- Future: {data['future'][0]}")
+    print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")
     return data
 
 def getPrediction():
