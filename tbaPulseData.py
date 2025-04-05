@@ -95,7 +95,7 @@ def format(list):
 def getMatchSchedule():
     matches = tba.event_matches(event=event_key, simple=True)
     data = format(matches)
-    print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")
+    # print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")
     return data
 
 def getPrediction():
