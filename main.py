@@ -23,7 +23,7 @@ channel = 'Match Stream'
 
 # TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
 
-# HensightStatsManager.update_stats()
+HensightStatsManager.update_stats()
 
 toggles = {
         "eggs_in_season": True,
