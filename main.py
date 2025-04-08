@@ -2,7 +2,7 @@
 # print("current working dir: ", os.getcwd())
 
 import random, vars, requests, TBAData, HensightStatsManager
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, g
 from flask import request
 from nexusData import getNexusData
 # from statbotData import getTeam
@@ -386,5 +386,7 @@ def meanmachine():
 
 # print("Part 2")
 if __name__ == "__main__":
+    ServerState = "Dev"
     print("it is being run")
     app.run(host="0.0.0.0", port=5001, debug=True, use_reloader=False)
+else: ServerState = "Prod"
