@@ -54,7 +54,7 @@ def update_stats():
     # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
     times["lastPart"] = msdif(time3, time.time())
-    print(f"Finished | Took {msdif(startTime, time.time())}ms\nGetting Keys took {times['getKeys']}ms\nUpdating events took {sum(times["updateEvent"])}ms ({average(times['updateEvent'])}ms per event on average)\nOpening/Closing files took {sum(times['task']) - sum(times['updateEvent'])}ms\nLast Part Took {times["lastPart"]}")
+    print(f"Finished | Took {msdif(startTime, time.time())}ms\nGetting Keys took {times['getKeys']}ms\nUpdating events took {sum(times['updateEvent'])}ms ({average(times['updateEvent'])}ms per event on average)\nOpening/Closing files took {sum(times['task']) - sum(times['updateEvent'])}ms\nLast Part Took {times['lastPart']}")
 
 def updateEvent(data):
     for match in data.values():
