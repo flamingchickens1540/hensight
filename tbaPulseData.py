@@ -105,7 +105,7 @@ def getMatchSchedule():
     if count >= 30:
         startTime = time.time() * 1000
         matches = tba.event_matches(event=event_key, simple=True)
-        print(f"TBA Pull | Took {(time.time() * 1000) - startTime}ms")
+        # print(f"TBA Pull   | Took {(time.time() * 1000) - startTime}ms")
         count = 0
     data = format(matches)
     # print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")

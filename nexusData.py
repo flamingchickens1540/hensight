@@ -112,7 +112,7 @@ def getNexusData():
             pulseData["queueTime"] = 'No nexus at this event :('
             return pulseData
         else: data = response.json()
-        print(f"Nexus Pull | Took {round((time.time()*1000) - startTime)}ms")
+        # print(f"Nexus Pull | Took {round((time.time()*1000) - startTime)}ms")
 
     startTime = time.time_ns() / 1000000
     my_team_key = vars.team_key
