@@ -1,5 +1,4 @@
-import os
-os.chdir('/home/projects/Hensight/hensight')
+
 # print("current working dir: ", os.getcwd())
 
 import random, vars, requests, TBAData, HensightStatsManager
@@ -386,7 +385,6 @@ def meanmachine():
     return render_template('meanmachine.html')
 
 # print("Part 2")
-print('pizza')
 if __name__ == "__main__":
     print("it is being run")
     app.run(host="0.0.0.0", port=5001, debug=True, use_reloader=False)
