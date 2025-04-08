@@ -1,7 +1,7 @@
 scheduleMode = "elim"
 offset = 0
-event_key = "2025pncmp"
-team_key = "1540"
+event_key = "demo5603"
+team_key = "100"
 year = "2025"
 last_year= "2024"
 points_last_year = 2527633

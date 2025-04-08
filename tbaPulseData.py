@@ -97,6 +97,7 @@ def format(matchList):
     
 
 def getMatchSchedule():
+    event_key = "2025pncmp"
     matches = tba.event_matches(event=event_key, simple=True)
     data = format(matches)
     # print(f"-- All: {data['all'][0]}\n-- Future: {data['future'][0]}")
