@@ -116,7 +116,7 @@ def getNexusData():
 
     startTime = time.time_ns() / 1000000
     my_team_key = vars.team_key
-    pulseData = {}
+    pulseData = {"grow": False}
 
       # Get information about a specific team's next match.   
     my_matches = filter(
@@ -135,6 +135,7 @@ def getNexusData():
         pulseData["color"] = "#50C878"
         pulseData["queueTime"] = ":3"
         pulseData["nextMatch"] = "No more matches!"
+        pulseData["bumperColor"] = "#FDF3D4"
     else:
         if my_next_match["status"] == "Queuing soon":
             type = "estimatedQueueTime"
@@ -144,7 +145,7 @@ def getNexusData():
             type = "estimatedOnFieldTime"
             status = "On Field In:"
             color = "#D22B2B"
-                
+
         label = my_next_match["label"]
         if "Qualification" in label:
             label = "QM "+label[14:]
@@ -155,7 +156,9 @@ def getNexusData():
         except KeyError: s = round(my_next_match["times"]["scheduledStartTime"] / 1000) - round(time.time()) - vars.offset
         # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
         hms = str(datetime.timedelta(seconds=s))
-        if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
+        if type == "estimatedQueueTime" and s <= 300:
+            color = '#FFBF00'
+            pulseData["grow"] = True
         pulseData["queueTime"] = hms[2:]
         if s < 1: pulseData["queueTime"] = "Soon"
         elif s > 3600: pulseData["queueTime"] = "1hr+"
