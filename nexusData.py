@@ -228,7 +228,7 @@ def getNexusData():
         nowQueue = data['nowQueuing']
     except KeyError: nowQueue = "None"
     pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{nowQueue}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), {'label': 'None'})['label']}</p><p><strong>On Field: </strong>{list(filter(lambda m: m['status'] == 'On field', data['matches']))[-1]['label']}</p>"
-    print(f"Data Processing | Took {round((time.time_ns() / 1000000) - startTime)}ms")
+    # print(f"Data Processing | Took {round((time.time_ns() / 1000000) - startTime)}ms")
     return pulseData
 
 
