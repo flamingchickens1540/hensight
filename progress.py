@@ -24,7 +24,7 @@ def progressBar(iterable, prefix = 'Progress:', suffix = 'Complete', decimals = 
         else: progress =''
         timeTaken = datetime.timedelta(seconds=round(time.time() - start_time))
         remainingTime = ''
-        try: remainingTime = timeTaken / (float(percent) / 100) - timeTaken
+        try: remainingTime = ((time.time()-start_time) * 100) / (float(percent) / 100)
         except ZeroDivisionError: remainingTime = "Calculating..."
         print(f'\r{prefix} |{bar}| {percent}% {suffix} ({count}) | {timeTaken} {progress}', end = printEnd)
     # Initial Call

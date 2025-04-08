@@ -69,7 +69,7 @@ def format(matchList):
     futureFormat = []
     if vars.scheduleMode == "elim":
         matchList = list(filter(lambda match : match["comp_level"] != "qm", matchList))
-        print(matchList)
+        # print(matchList)
     else: 
         matchList = filter(lambda match : match["comp_level"] == "qm", list)
         matchList = sorted(matchList, key=lambda el: int(el["key"].split("qm")[1]))

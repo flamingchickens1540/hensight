@@ -94,131 +94,138 @@ def genTasks():
     return tasks
         
 
-
+count = -2
+data = {}
 def getNexusData():
+    global count
+    global data
+    count+=1
+    if count >= 30 or count <0 :
+        count = 0
     # print('--- FILE RUN')
-    response = requests.get(url, headers=headers)
-    if not response.ok:
-        error_message = response.text
-        print("Error getting live event status: {}".format(error_message))
-        pulseData = {}
-        pulseData["queueTime"] = 'No nexus at this event :('
-        return pulseData
+        startTime = time.time() * 1000
+        response = requests.get(url, headers=headers)
+        if not response.ok:
+            error_message = response.text
+            print("Error getting live event status: {}".format(error_message))
+            pulseData = {}
+            pulseData["queueTime"] = 'No nexus at this event :('
+            return pulseData
+        else: data = response.json()
+        print(f"Nexus Pull | Took {round((time.time()*1000) - startTime)}ms")
 
-    else:
-        my_team_key = vars.team_key
-        data = response.json()
-        pulseData = {}
+    startTime = time.time_ns() / 1000000
+    my_team_key = vars.team_key
+    pulseData = {}
 
       # Get information about a specific team's next match.   
-        my_matches = filter(
-            lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
-        data["matches"],
-        )
-        my_next_match = next(
-            filter(lambda m: not m["status"] == "On field", my_matches), None
-        )
+    my_matches = filter(
+        lambda m: my_team_key in m.get("redTeams", []) + m.get("blueTeams", []),
+    data["matches"],
+    )
+    my_next_match = next(
+        filter(lambda m: not m["status"] == "On field", my_matches), None
+    )
         
         #queueing
         
-        ms = ""
-        status = ""
-        if my_next_match is None:
+    ms = ""
+    status = ""
+    if my_next_match is None:
+        pulseData["color"] = "#50C878"
+        pulseData["queueTime"] = ":3"
+        pulseData["nextMatch"] = "No more matches!"
+    else:
+        if my_next_match["status"] == "Queuing soon":
+            type = "estimatedQueueTime"
+            status = "Queueing In:"
+            color = "#50C878"
+        else: 
+            type = "estimatedOnFieldTime"
+            status = "On Field In:"
+            color = "#D22B2B"
+                
+        label = my_next_match["label"]
+        if "Qualification" in label:
+            label = "QM "+label[14:]
+        elif "Practice" in label:
+            label = "PM"+label[9:]
+            
+        try: s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
+        except KeyError: s = round(my_next_match["times"]["scheduledStartTime"] / 1000) - round(time.time()) - vars.offset
+        # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
+        hms = str(datetime.timedelta(seconds=s))
+        if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
+        pulseData["queueTime"] = hms[2:]
+        if s < 1: pulseData["queueTime"] = "Soon"
+        elif s > 3600: pulseData["queueTime"] = "1hr+"
+        pulseData["color"] = color
+        pulseData["nextMatch"] = f"{label} - {status}"
+        if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
+        elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#6495ED"
+        if s > 36000:
             pulseData["color"] = "#50C878"
             pulseData["queueTime"] = ":3"
             pulseData["nextMatch"] = "No more matches!"
-        else:
-            if my_next_match["status"] == "Queuing soon":
-                type = "estimatedQueueTime"
-                status = "Queueing In:"
-                color = "#50C878"
-            else: 
-                type = "estimatedOnFieldTime"
-                status = "On Field In:"
-                color = "#D22B2B"
-                
-            label = my_next_match["label"]
-            if "Qualification" in label:
-                label = "QM "+label[14:]
-            elif "Practice" in label:
-                label = "PM"+label[9:]
-            
-            try: s = round(my_next_match["times"][type] / 1000) - round(time.time()) - vars.offset
-            except KeyError: s = round(my_next_match["times"]["scheduledStartTime"] / 1000) - round(time.time()) - vars.offset
-            # print(f"- {round(my_next_match["times"][type] / 1000)}\n-- {round(time.time())}\n--- {s}")
-            hms = str(datetime.timedelta(seconds=s))
-            if type == "estimatedQueueTime" and s <= 300: color = '#FFBF00'
-            pulseData["queueTime"] = hms[2:]
-            if s < 1: pulseData["queueTime"] = "Soon"
-            elif s > 3600: pulseData["queueTime"] = "1hr+"
-            pulseData["color"] = color
-            pulseData["nextMatch"] = f"{label} - {status}"
-            if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
-            elif my_team_key in my_next_match["blueTeams"]: pulseData["bumperColor"] = "#6495ED"
-            if s > 36000:
-                pulseData["color"] = "#50C878"
-                pulseData["queueTime"] = ":3"
-                pulseData["nextMatch"] = "No more matches!"
-            pulseData["hidden"] = round(my_next_match["times"][type] / 100)
+        pulseData["hidden"] = round(my_next_match["times"][type] / 100)
             
         #announcements
             
-        def mySort(item):
-            return int(item["postedTime"])
+    def mySort(item):
+        return int(item["postedTime"])
+    
+    def convert(milliseconds):
+        seconds = milliseconds / 1000
+        days = seconds // (24 * 3600)
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
         
-        def convert(milliseconds):
-            seconds = milliseconds / 1000
-            days = seconds // (24 * 3600)
-            seconds = seconds % (24 * 3600)
-            hour = seconds // 3600
-            seconds %= 3600
-            minutes = seconds // 60
-            seconds %= 60
-            
-            string = f"{round(seconds)}s"
-            if minutes != 0: string = f"{round(minutes)}mins"
-            if hour != 0: string = f"{round(hour)}hrs, {string}"
-            if days != 0: string = f"{round(days)} days, {string}"
-            
-            return string
+        string = f"{round(seconds)}s"
+        if minutes != 0: string = f"{round(minutes)}mins"
+        if hour != 0: string = f"{round(hour)}hrs, {string}"
+        if days != 0: string = f"{round(days)} days, {string}"
         
-        announcements = []
-        if len(data["announcements"]) + len(data["partsRequests"]) <1:
-            for i in range(3):
-                announcements.append({'time': '', 'announcement': 'No More Announcements', 'requestedByTeam': ''})
-            pulseData["announcements"] = announcements
-        elif len(data["announcements"]) + len(data["partsRequests"]) >1 and len(data["announcements"]) + len(data["partsRequests"]) <3:
-            for i in data["announcements"]:
-                i["requestedByTeam"] = "Pit Admin"
-                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
-                announcements.append(i)
-            for i in data["partsRequests"]:
-                i["announcement"] = i["parts"]
-                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
-                announcements.append(i)
-            announcements.sort(key=mySort, reverse=True)
-            announcements.append({'time': '', 'announcement': "", 'requestedByTeam': ''})
-            pulseData["announcements"] = announcements
-        else:
-            for i in data["announcements"]:
-                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
-                i["requestedByTeam"] = "Pit Admin"
-                announcements.append(i)
-            for i in data["partsRequests"]:
-                i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
-                i["announcement"] = i["parts"]
-                announcements.append(i)
-            announcements.sort(key=mySort, reverse=True)
-            pulseData["announcements"] = announcements
-            
-        #tasks
-        # pulseData["tasks"] = genTasks()
-        try:
-            nowQueue = data['nowQueuing']
-        except KeyError: nowQueue = "None"
-        pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{nowQueue}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), {'label': 'None'})['label']}</p><p><strong>On Field: </strong>{list(filter(lambda m: m['status'] == 'On field', data['matches']))[-1]['label']}</p>"
-
-      
+        return string
+    
+    announcements = []
+    if len(data["announcements"]) + len(data["partsRequests"]) <1:
+        for i in range(3):
+            announcements.append({'time': '', 'announcement': 'No More Announcements', 'requestedByTeam': ''})
+        pulseData["announcements"] = announcements
+    elif len(data["announcements"]) + len(data["partsRequests"]) >1 and len(data["announcements"]) + len(data["partsRequests"]) <3:
+        for i in data["announcements"]:
+            i["requestedByTeam"] = "Pit Admin"
+            i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
+            announcements.append(i)
+        for i in data["partsRequests"]:
+            i["announcement"] = i["parts"]
+            i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
+            announcements.append(i)
+        announcements.sort(key=mySort, reverse=True)
+        announcements.append({'time': '', 'announcement': "", 'requestedByTeam': ''})
+        pulseData["announcements"] = announcements
+    else:
+        for i in data["announcements"]:
+            i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
+            i["requestedByTeam"] = "Pit Admin"
+            announcements.append(i)
+        for i in data["partsRequests"]:
+            i["time"] = f'{convert((time.time()*1000) - i["postedTime"])} ago'
+            i["announcement"] = i["parts"]
+            announcements.append(i)
+        announcements.sort(key=mySort, reverse=True)
+        pulseData["announcements"] = announcements
+        
+    #tasks
+    # pulseData["tasks"] = genTasks()
+    try:
+        nowQueue = data['nowQueuing']
+    except KeyError: nowQueue = "None"
+    pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{nowQueue}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), {'label': 'None'})['label']}</p><p><strong>On Field: </strong>{list(filter(lambda m: m['status'] == 'On field', data['matches']))[-1]['label']}</p>"
+    print(f"Data Processing | Took {round((time.time_ns() / 1000000) - startTime)}ms")
     return pulseData
 
 

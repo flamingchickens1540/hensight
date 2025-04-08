@@ -2,7 +2,6 @@ import tbapy, os, json, sys, vars
 from typing import Final
 from dotenv import load_dotenv
 from progress import progressBar
-
 load_dotenv()
 api_key: Final[str] = os.getenv("tba")
 tba = tbapy.TBA(api_key)

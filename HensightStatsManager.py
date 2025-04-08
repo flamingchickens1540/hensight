@@ -1,6 +1,6 @@
 from TBAData import get_matches, get_keys
 from progress import progressBar
-import os, dotenv, sys, vars, json
+import os, dotenv, sys, vars, json, time
 
 dotenv.load_dotenv()
 
@@ -19,18 +19,42 @@ HensightStats = {
     "matches_played": 0
 }
 
+times = {
+    "getKeys": 0,
+    "task": [],
+    "updateEvent": [],
+    "lastPart": 0
+}
+
+def msdif(startTime, currentTime):
+    return round((currentTime * 1000) - startTime)
+
+def average(times):
+    total = 0
+    for i in times: total +=i
+    return round(total/len(times), 2)
+
 def update_stats():
+    startTime = time.time() * 1000
     keys = get_keys()
-    for key in progressBar(keys, prefix="Updating Stats", length=0):
+    times["getKeys"] = msdif(startTime, time.time())
+    for key in progressBar(keys, prefix="Updating Stats", length=0, printIterable=True):
+        time1 = time.time() * 1000
         with open(f'data/{key}.json', encoding='utf-8') as file:
             data = json.load(file)
+            time2 = time.time() * 1000
             updateEvent(data)
+            times["updateEvent"].append(msdif(time2, time.time()))
         file.close()
+        times["task"].append(msdif(time1, time.time()))
+    time3 = time.time() * 1000
     try:
         HensightStats["average_points_permatch"] = round(HensightStats["points_scored"] / (HensightStats["matches_played"] * 2), 2)
     except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
-    print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
+    # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
+    times["lastPart"] = msdif(time3, time.time())
+    print(f"Finished | Took {msdif(startTime, time.time())}ms\nGetting Keys took {times['getKeys']}ms\nUpdating events took {sum(times["updateEvent"])}ms ({average(times['updateEvent'])}ms per event on average)\nOpening/Closing files took {sum(times['task']) - sum(times['updateEvent'])}ms\nLast Part Took {times["lastPart"]}")
 
 def updateEvent(data):
     for match in data.values():
