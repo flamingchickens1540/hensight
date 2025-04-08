@@ -80,7 +80,7 @@ listOfResuts = [
     ]
 random.shuffle(listOfResuts)
 
-print("Part 1")
+# print("Part 1")
 
 def make_graph():
     realList = []
@@ -385,7 +385,7 @@ def triva():
 def meanmachine():
     return render_template('meanmachine.html')
 
-print("Part 2")
+# print("Part 2")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True, use_reloader=False)

@@ -104,14 +104,7 @@ def getNexusData():
         count = 0
     # print('--- FILE RUN')
         startTime = time.time() * 1000
-        response = requests.get(url, headers=headers)
-        if not response.ok:
-            error_message = response.text
-            print("Error getting live event status: {}".format(error_message))
-            pulseData = {}
-            pulseData["queueTime"] = 'No nexus at this event :('
-            return pulseData
-        else: data = response.json()
+        data = getRawData()
         # print(f"Nexus Pull | Took {round((time.time()*1000) - startTime)}ms")
 
     startTime = time.time_ns() / 1000000
