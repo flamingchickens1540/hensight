@@ -10,19 +10,40 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     var ranking = false;
+    var data = {};
+    var grow = false;
     async function getData() {
         // Nexus
         const response = await fetch(`{{url_for('getNextMatch')}}`);
-        let data = await response.json();
+        data = await response.json();
         document.getElementById("match").innerHTML = data["nextMatch"]
         document.getElementById("match").style.color = data["bumperColor"]
         qt = document.getElementById("queuetime")
         qt.innerHTML = data["queueTime"]
         qt.style.color = data["color"]
-        document.getElementById("popup").innerHTML = document.getElementById("queue").innerHTML
         document.getElementById('hidden').innerHTML = data["hidden"]
-        if (data["grow"]) {document.getElementById("queue").classList.add("big")}
-        else {document.getElementById("queue").classList.remove("big")}
+        if (data["grow"]) {
+            grow = true
+            document.getElementById("queue").classList.remove("areae")
+            document.getElementById("queue").classList.add("areaa")
+            document.getElementById("big").classList.remove("areaa")
+            document.getElementById("big").classList.add("areae")
+            document.getElementById("match").style.fontSize = "5rem"
+            document.getElementById("time").style.fontSize = "5rem"
+            document.getElementById("queuetime").style.fontSize = "20rem"
+            console.log("big")
+        }
+        else {
+            grow = false
+            document.getElementById("big").classList.remove("areae")
+            document.getElementById("big").classList.add("areaa")
+            document.getElementById("queue").classList.remove("areaa")
+            document.getElementById("queue").classList.add("areae")
+            document.getElementById("match").style.fontSize = "3rem"
+            document.getElementById("time").style.fontSize = "3rem"
+            document.getElementById("queuetime").style.fontSize = "13rem"
+            console.log("not big")
+        }
 
         let ann = data["announcements"]
         let html = "<h1 id='title'>Announcements</h1>"
@@ -151,19 +172,30 @@
     }
 </script>
 <body onclick="openFullscreen()" onload="getTime()" style="border: none;">
-    <div id="big" class="element">
+    <div id="big" class="element areaa">
         <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
         <div id="test" style="pointer-events: none;"></div>
         <script type="text/javascript">
-        var options = {
-            width: 1152,
-            height: 648,
-            channel: "FIRSTinspires24"
-        };
+        if (!grow) {
+            console.log("big stream")
+            var options = {
+                width: 1152,
+                height: 648,
+                channel: "FIRSTinspires24"
+            };
+        }
+        else {
+            console.log("small stream")
+            var options = {
+                height: 738,
+                width: 410,
+                channel: "FIRSTinspires24"
+            }
+        }
         var player = new Twitch.Player("test", options);
         </script>
     </div>
-    <div id="queue" class="element">
+    <div id="queue" class="element areae">
         <h2 id="match" class="inner">Loading...</h2>
         <h1 id="queuetime" class="inner"></h1>
         <div style="display: flex;"><h2 id="time" class="inner"></h2><p id="hidden"></p></div>
@@ -183,8 +215,8 @@
 </body>
 <style>
     .big {
-        width: 100%;
-        height: 100%;
+        width: 1920px;
+        height: 1080px;
     }
     #hidden {
         font-size: 1.5rem;
@@ -345,16 +377,20 @@
         padding: 2%;
         /* transform: translate(-20%); */
     }
-    #big {
+    .areaa {
         grid-area: a;
         height: 648px;
         width: 1152px;
+    }
+    #big {
         overflow: hidden;
     }
-    #queue {
+    .areae {
         grid-area: e;
         height: 25rem;
         width: 45.5rem;
+    }
+    #queue {
         #match {
             font-size: 3rem;
             line-height: 0;
