@@ -65,7 +65,7 @@ def update_stats():
     # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)) * 100, 2)
     times["lastPart"] = msdif(time3, time.time())
-    print(f"Finished | Took {"{:,}".format(msdif(startTime, time.time()))}ms\nGetting Keys took {"{:,}".format(times['getKeys'])}ms\nUpdating events took {"{:,}".format(sum(times['updateEvent']))}ms ({"{:,}".format(average(times['updateEvent']))}ms per event on average)\nOpening/Closing files took {"{:,}".format(sum(times['task']) - sum(times['updateEvent']))}ms\nLast Part Took {"{:,}".format(times['lastPart'])}ms")
+    print(f"Finished | Took {'{:,}'.format(msdif(startTime, time.time()))}ms\nGetting Keys took {'{:,}'.format(times['getKeys'])}ms\nUpdating events took {'{:,}'.format(sum(times['updateEvent']))}ms ({'{:,}'.format(average(times['updateEvent']))}ms per event on average)\nOpening/Closing files took {'{:,}'.format(sum(times['task']) - sum(times['updateEvent']))}ms\nLast Part Took {'{:,}'.format(times['lastPart'])}ms")
 
 def update_stats_fast():
     startTime = time.time() * 1000
@@ -86,7 +86,7 @@ def update_stats_fast():
     except ZeroDivisionError: HensightStats["average_points_permatch"] = 0
     # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
     HensightStats["percent_last_year"] = round((HensightStats["points_scored"] / int(vars.points_last_year)), 2)
-    print(f"Finished | Took {"{:,}".format(msdif(startTime, time.time()))}ms\nGetting Keys took {"{:,}".format(times['getKeys'])}ms\nUpdating events took {"{:,}".format(sum(times['updateEvent']))}ms ({"{:,}".format(average(times['updateEvent']))}ms per event on average)\nOpening/Closing files took {"{:,}".format(sum(times['task']) - sum(times['updateEvent']))}ms\nLast Part Took {"{:,}".format(times['lastPart'])}ms")
+    print(f"Finished | Took {'{:,}'.format(msdif(startTime, time.time()))}ms\nGetting Keys took {'{:,}'.format(times['getKeys'])}ms\nUpdating events took {'{:,}'.format(sum(times['updateEvent']))}ms ({'{:,}'.format(average(times['updateEvent']))}ms per event on average)\nOpening/Closing files took {'{:,}'.format(sum(times['task']) - sum(times['updateEvent']))}ms\nLast Part Took {'{:,}'.format(times['lastPart'])}ms")
     print(f"Finished Product:\n{HensightStats}")
 
 def updateEvent(data):
