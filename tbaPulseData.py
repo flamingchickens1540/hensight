@@ -71,7 +71,7 @@ def format(matchList):
         matchList = list(filter(lambda match : match["comp_level"] != "qm", matchList))
         # print(matchList)
     else: 
-        matchList = filter(lambda match : match["comp_level"] == "qm", list)
+        matchList = filter(lambda match : match["comp_level"] == "qm", matchList)
         matchList = sorted(matchList, key=lambda el: int(el["key"].split("qm")[1]))
     for match in matchList:
         blue = match["alliances"]["blue"]["team_keys"]

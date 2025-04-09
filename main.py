@@ -22,7 +22,7 @@ channel = 'Match Stream'
 
 # TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
 
-# HensightStatsManager.update_stats()
+HensightStatsManager.update_stats_fast()
 
 toggles = {
         "eggs_in_season": True,
@@ -96,6 +96,7 @@ def landing():
 @app.route("/hensight")
 def index():
     # TBAData.update_this_event()
+    HensightStatsManager.update_stats_fast()
     return render_template("hensight.html")
 
 @app.route("/admin")

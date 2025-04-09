@@ -19,4 +19,5 @@ progress.txt
 testing.py
 test.json
 data/
+processedData/
 genNexusDemo.py

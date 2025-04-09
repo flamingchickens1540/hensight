@@ -119,7 +119,7 @@ def auto_poitns(toggle):
     else: return "bad"
 
 def percent_last_year(toggle):
-    if toggle: return f'<h4>We are</h4><h3>{"{:,}".format(HensightStats["percent_last_year"])}%</h3><h4>of the way to scoring as many points as last year</h4>'
+    if toggle: return f'<h4>This season we have scored</h4><h3>{"{:,}".format(HensightStats["percent_last_year"])}x</h3><h4>more points than last year</h4>'
     else: return "bad"
 
 def matches_played(toggle):
@@ -129,8 +129,8 @@ def matches_played(toggle):
 def alliance_win_rate(toggle):
     if toggle:
         try:
-            if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance is<h4><h3>{(HensightStats["red_win_count"] / HensightStats["blue_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
-            else: return f'<h4>The blue alliance is<h4><h3>{(HensightStats["blue_win_count"] / HensightStats["red_win_count"]) * 100}%</h3><h4>more likely to win any given match</h4>'
+            if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance is<h4><h3>{round((HensightStats["red_win_count"] / HensightStats["blue_win_count"]) * 100, 2)}%</h3><h4>more likely to win any given match</h4>'
+            else: return f'<h4>The blue alliance is<h4><h3>{round((HensightStats["blue_win_count"] / HensightStats["red_win_count"]) * 100, 2)}%</h3><h4>more likely to win any given match</h4>'
         except ZeroDivisionError: return "bad"
     else: return "bad"
     

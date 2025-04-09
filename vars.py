@@ -1,4 +1,4 @@
-scheduleMode = "elim"
+scheduleMode = "qm"
 offset = 0
 event_key = "demo5603"
 team_key = "100"

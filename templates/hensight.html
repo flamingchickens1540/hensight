@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/hensight/style.css" />
-    <script src="/hensight/common.js"></script>
+    <script src="{{url_for('commonjs')}}"></script>
+    <link rel="stylesheet" href="{{url_for('stylecss')}}"/>
     <script>
         let idle_secconds = 0;
         function incrementSeconds() {
@@ -79,7 +79,7 @@
         <div
             style="text-align: center"
             id="fact-slide"
-            hx-get="/hensight/request"
+            hx-get="{{url_for('main')}}"
             hx-trigger="click"
         >
             <h3 style="font-size: 10rem">Hensight</h3>
@@ -89,7 +89,7 @@
                 alt="flaming chickens logo"
             />
         </div>
-        <a href="/hensight/menu"><button>Back to Main Menu</button></a>
+        <a href="{{url_for('menu')}}"><button>Back to Main Menu</button></a>
     </body>
 
     <script src="https://unpkg.com/hyperscript"></script>

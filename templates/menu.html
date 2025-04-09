@@ -4,8 +4,8 @@
     rel="stylesheet"
 />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/hensight/style.css" />
-<script src="/hensight/common.js"></script>
+<script src="{{url_for('commonjs')}}"></script>
+<link rel="stylesheet" href="{{url_for('stylecss')}}"/>
 <script>
     setInterval(getTime, 1000);
     let idle_secconds = 0;
@@ -25,9 +25,9 @@
 </script>
 <body class="center-col" onclick="openFullscreen()" onload="getTime()">
     <h1 style="text-align: center; font-size: 10rem;">Hensight</h1>
-    <a href="/hensight/meanmachine" style="width: 5px; height: 5px;"></a>
+    <a href="{{url_for('meanmachine')}}" style="width: 10px; height: 10px; background-color: rgb(35, 35, 35);" ></a>
     <div class="flex-row-auto">
-        <a href="/hensight/hensight"><button>Statistics</button></a>
+        <a href="{{url_for('index')}}"><button>Statistics</button></a>
         <button onclick="window.location.href = '/hensight/gallery'">Photo Gallery</button>
         <!-- <a href="/hensight/cad"><button>CAD</button></a> -->
         <!-- <a href="/judges"><button>Judges</button></a> -->
