@@ -90,6 +90,20 @@ def update_stats_fast():
     print(f"Finished Product:\n{HensightStats}")
 
 def updateEvent(data):
+    HensightStats = {
+        "stacked_coral_event": 0, # to do
+        "average_coral_lvl": 0, # to do
+        "points_scored": 0,
+        "average_points_permatch": 0,
+        "penalty_points": 0,
+        "event_algae_processed": 0,
+        "event_rp_earned": 0,
+        "auto_points": 0,
+        "percent_last_year": 0,
+        "blue_win_count": 0,
+        "red_win_count": 0,
+        "matches_played": 0
+    }
     for match in data:
         HensightStats["matches_played"] +=1
         HensightStats["points_scored"] += match["alliances"]["blue"]["score"]
@@ -107,6 +121,7 @@ def updateEvent(data):
                 HensightStats["event_rp_earned"] += i["rp"]
                 HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
         except AttributeError: pass
+    return HensightStats
 
 # update_stats()
 # print(HensightStats)

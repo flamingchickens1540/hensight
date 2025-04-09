@@ -25,27 +25,8 @@ def super_fast_events(year, genKeys=False, write=True):
         file.close()
     print('Done\n-- Writing Match Data')
     for key in progressBar(keys):
-        processedData = {
-            "stacked_coral_event": 0, # to do
-            "average_coral_lvl": 0, # to do
-            "points_scored": 0,
-            "average_points_permatch": 0,
-            "penalty_points": 0,
-            "event_algae_processed": 0,
-            "event_rp_earned": 0,
-            "auto_points": 0,
-            "percent_last_year": 0,
-            "blue_win_count": 0,
-            "red_win_count": 0,
-            "matches_played": 0
-        }
         rawData = tba.event_matches(event=key)
-        HensightStatsManager.updateEvent(rawData)
-        try:
-            processedData["average_points_permatch"] = round(processedData["points_scored"] / (processedData["matches_played"] * 2), 2)
-        except ZeroDivisionError: processedData["average_points_permatch"] = 0
-        # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
-        processedData["percent_last_year"] = round((processedData["points_scored"] / int(vars.points_last_year)) * 100, 2)
+        processedData = HensightStatsManager.updateEvent(rawData)
         file = open(f'processedData/{key}.json', 'w', encoding='utf-8')
         json.dump(processedData, file, ensure_ascii=False, indent=4)
         file.close()
@@ -145,27 +126,8 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     print("Done")
     
 def update_this_event():
-    processedData = {
-        "stacked_coral_event": 0, # to do
-        "average_coral_lvl": 0, # to do
-        "points_scored": 0,
-        "average_points_permatch": 0,
-        "penalty_points": 0,
-        "event_algae_processed": 0,
-        "event_rp_earned": 0,
-        "auto_points": 0,
-        "percent_last_year": 0,
-        "blue_win_count": 0,
-        "red_win_count": 0,
-        "matches_played": 0
-    }
     rawData = tba.event_matches(event=vars.event_key)
-    HensightStatsManager.updateEvent(rawData)
-    try:
-        processedData["average_points_permatch"] = round(processedData["points_scored"] / (processedData["matches_played"] * 2), 2)
-    except ZeroDivisionError: processedData["average_points_permatch"] = 0
-    # print(f"This Year: {HensightStats['points_scored']}\nLast Year: {vars.points_last_year}\nPercent: {round((HensightStats['points_scored'] / int(vars.points_last_year)) * 100, 2)}")
-    processedData["percent_last_year"] = round((processedData["points_scored"] / int(vars.points_last_year)) * 100, 2)
+    processedData = HensightStatsManager.updateEvent(rawData)
     file = open(f'processedData/{vars.event_key}.json', 'w', encoding='utf-8')
     json.dump(processedData, file, ensure_ascii=False, indent=4)
     file.close()
