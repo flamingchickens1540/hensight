@@ -81,7 +81,7 @@ listOfResuts = [
         event_rp_earned(toggles["event_rp_earned"]),
         matches_over_200(toggles["matches_over_200"]),
         event_trough_count(toggles["event_trough_pieces"]),
-        tech_foul_count(toggles[tech_foul_count])
+        tech_foul_count(toggles["tech_foul_count"])
     ]
 random.shuffle(listOfResuts)
 
