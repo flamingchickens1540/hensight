@@ -33,7 +33,7 @@ toggles = {
         "chicken_weights": True,
         "chicken_eat": True,
         "battery": True,
-        "logodvd": True,
+        "logodvd": False,
         "trex": True,
         "chicken_count": True,
         "chicken_eye": True,
@@ -48,8 +48,11 @@ toggles = {
         "matches_played": True,
         "chicken_face": True,
         "alliance_win_rate": True,
-        "event_algae_processed": False,
-        "event_rp_earned": False
+        "event_algae_processed": True,
+        "event_rp_earned": True,
+        "matches_over_200": True,
+        "event_trough_pieces": True,
+        "tech_foul_count": True
     }
     
 listOfResuts = [
@@ -75,7 +78,10 @@ listOfResuts = [
         chicken_face(toggles["chicken_face"]),
         alliance_win_rate(toggles["alliance_win_rate"]),
         event_algae_processed(toggles["event_algae_processed"]),
-        event_rp_earned(toggles["event_rp_earned"])
+        event_rp_earned(toggles["event_rp_earned"]),
+        matches_over_200(toggles["matches_over_200"]),
+        event_trough_count(toggles["event_trough_pieces"]),
+        tech_foul_count(toggles[tech_foul_count])
     ]
 random.shuffle(listOfResuts)
 

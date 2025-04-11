@@ -129,8 +129,8 @@ def matches_played(toggle):
 def alliance_win_rate(toggle):
     if toggle:
         try:
-            if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance is<h4><h3>{round((HensightStats["red_win_count"] / HensightStats["blue_win_count"]) * 100, 2)}%</h3><h4>more likely to win any given match</h4>'
-            else: return f'<h4>The blue alliance is<h4><h3>{round((HensightStats["blue_win_count"] / HensightStats["red_win_count"]) * 100, 2)}%</h3><h4>more likely to win any given match</h4>'
+            if HensightStats["red_win_count"] >= HensightStats["blue_win_count"]: return f'<h4>The red alliance has won<h4><h3>{round((HensightStats["red_win_count"] / HensightStats["matches_played"]) * 100, 2)}%</h3><h4>of matches played this season</h4>'
+            else: return f'<h4>The blue alliance won<h4><h3>{round((HensightStats["blue_win_count"] / HensightStats["matches_played"]) * 100, 2)}%</h3><h4>of matches played this season</h4>'
         except ZeroDivisionError: return "bad"
     else: return "bad"
     
@@ -141,19 +141,14 @@ def event_algae_processed(toggle):
 def event_rp_earned(toggle):
     if toggle: return f'<h4>At this event</h4><h3>{"{:,}".format(HensightStats["event_rp_earned"])}</h3><h4>RP have been earned</h4>'
     else: return "bad"
+    
+def matches_over_200(toggle):
+    if toggle: return f'<h4>This season there have been</h4><h3>{"{:,}".format(HensightStats["matches_over_200"])}</h3><h4>matches where over 200 points have been scored'
+    else: return "bad"
 
-
-# HensightStats = {
-#     "stacked_coral_event": 0, # to do
-#     "average_coral_lvl": 0, # to do
-#     "points_scored": 0,
-#     "average_points_permatch": 0,
-#     "penalty_points": 0,
-#     "event_aglee_processed": 0, # to do
-#     "event_rp_earned": 0, # to do
-#     "auto_points": 0,
-#     "percent_last_year": 0,
-#     "blue_win_count": 0,
-#     "red_win_count": 0,
-#     "matches_played": 0
-# }
+def event_trough_count(toggle):
+    if toggle: return f'<h4>At this event there have been<h4><h3>{"{:,}".format(HensightStats["event_trough_pieces"])}</h3><h4>pieces of coral scored in the trough</h4>'
+    else: return "bad"
+    
+def tech_foul_count(toggle):
+    if toggle: return f'<h4>This season</h4><h3>{"{:,}".format(HensightStats["tech_foul_count"])}</h3><h4>Tech fouls have been given out</h4>'

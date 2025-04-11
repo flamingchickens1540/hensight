@@ -27,7 +27,10 @@ HensightStats = {
     "percent_last_year": 0,
     "blue_win_count": 0,
     "red_win_count": 0,
-    "matches_played": 0
+    "matches_played": 0,
+    "matches_over_200": 0,
+    "event_trough_pieces": 0,
+    "tech_foul_count": 0
 }
 
 times = {
@@ -102,24 +105,30 @@ def updateEvent(data):
         "percent_last_year": 0,
         "blue_win_count": 0,
         "red_win_count": 0,
-        "matches_played": 0
+        "matches_played": 0,
+        "matches_over_200": 0,
+        "event_trough_pieces": 0,
+        "tech_foul_count": 0
     }
     for match in data:
         HensightStats["matches_played"] +=1
         HensightStats["points_scored"] += match["alliances"]["blue"]["score"]
         HensightStats["points_scored"] += match["alliances"]["red"]["score"]
+        if match["alliances"]["red"]["score"] > 200 or match["alliances"]["blue"]["score"] > 200: HensightStats["matches_over_200"] +=1
         if match["winning_alliance"] == "blue": HensightStats["blue_win_count"] +=1
         elif match["winning_alliance"] == "red": HensightStats["red_win_count"] +=1
         try:
             for i in match["score_breakdown"].values():
                 HensightStats["auto_points"] += i["autoPoints"]
                 HensightStats["penalty_points"] += i["foulPoints"]
+                HensightStats["tech_foul_count"] += i["tech_foul_count"]
         except AttributeError: pass
         if vars.event_key not in match["event_key"]: continue
         try:
             for i in match["score_breakdown"].values():
                 HensightStats["event_rp_earned"] += i["rp"]
                 HensightStats["event_algae_processed"] += i["wallAlgaeCount"]
+                HensightStats["event_trough_pieces"] += i["teleopReef"]["trough"]
         except AttributeError: pass
     return HensightStats
 
