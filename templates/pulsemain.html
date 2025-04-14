@@ -12,6 +12,7 @@
     var ranking = false;
     var data = {};
     var grow = false;
+    var prevHasQueued = false;
     async function getData() {
         // Nexus
         const response = await fetch(`{{url_for('getNextMatch')}}`);
@@ -76,6 +77,12 @@
         html += data["tasks"]
         document.getElementById("tasks").innerHTML = html
 
+        if (data["hasQueued"] == true && data["hasQueued"] != prevHasQueued) {
+            console.log("\n\nPlay sound:\nHas Queued:", data["hasQueued"], "\nPrev:", prevHasQueued)
+            var snd = new Audio("static/queue.wav"); // buffers automatically when created
+            snd.play();
+        }
+        prevHasQueued = data["hasQueued"]
     }
 
     async function getTBAData() {
@@ -176,23 +183,27 @@
         <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
         <div id="test" style="pointer-events: none;"></div>
         <script type="text/javascript">
-        if (!grow) {
-            console.log("big stream")
-            var options = {
-                width: 1152,
-                height: 648,
-                channel: "FIRSTinspires24"
-            };
-        }
-        else {
-            console.log("small stream")
-            var options = {
-                height: 738,
-                width: 410,
-                channel: "FIRSTinspires24"
+            if (!grow) {
+                console.log("big stream")
+                var options = {
+                    width: 1152,
+                    height: 648,
+                    channel: "FIRSTinspires24",
+                    muted: false,
+                    autoplay: true
+                };
             }
-        }
-        var player = new Twitch.Player("test", options);
+            else {
+                console.log("small stream")
+                var options = {
+                    height: 738,
+                    width: 410,
+                    channel: "FIRSTinspires24",
+                    muted: false,
+                    autoplay: true
+                }
+            }
+            var player = new Twitch.Player("test", options);
         </script>
     </div>
     <div id="queue" class="element areae">

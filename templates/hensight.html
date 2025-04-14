@@ -21,7 +21,7 @@
                 console.log("yay");
             }
         }
-        let cancel = setInterval(incrementSeconds, 1000);
+        setInterval(incrementSeconds, 1000);
         window.addEventListener("touchstart", () => {
             idle_secconds = 0;
             $(".popup").removeClass("show");

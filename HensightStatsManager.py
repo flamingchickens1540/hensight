@@ -121,7 +121,7 @@ def updateEvent(data):
             for i in match["score_breakdown"].values():
                 HensightStats["auto_points"] += i["autoPoints"]
                 HensightStats["penalty_points"] += i["foulPoints"]
-                HensightStats["tech_foul_count"] += i["tech_foul_count"]
+                HensightStats["tech_foul_count"] += i["techFoulCount"]
         except AttributeError: pass
         if vars.event_key not in match["event_key"]: continue
         try:

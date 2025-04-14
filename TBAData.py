@@ -10,7 +10,6 @@ thisYear = vars.year
 def super_fast_events(year, genKeys=False, write=True):
     print(f"Keys: {genKeys}\nWrite: {write}\nYear: {year}")
     keys = []
-    data = {}
     if genKeys:
         print('-- Getting Event Keys')
         for i in progressBar(tba.events(year=year, keys=True)):

@@ -20,18 +20,19 @@ def getRankings():
     rankings = tba.event_rankings(event_key)
 
     postFormat = []
-
-    for i in rankings["rankings"]:
-        i["team_key"] = i["team_key"][3:]
-        if my_team_key in str(i["team_key"]):
-            i["team_key"] = f'<strong style="color: #f6b14b;">{i["team_key"]}</strong>'
-        postFormat.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content; margin:1%; border:0;">{str(i["rank"])}) {str(i["team_key"])}</p>')
-        # postFormat.append(f"<div class=\"schedulelement\"><p'>{str(i['rank'])}) </p><p>{str(i['team_key'])}</p></div>")
+    try:
+        for i in rankings["rankings"]:
+            i["team_key"] = i["team_key"][3:]
+            if my_team_key in str(i["team_key"]):
+                i["team_key"] = f'<strong style="color: #f6b14b;">{i["team_key"]}</strong>'
+            postFormat.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content; margin:1%; border:0;">{str(i["rank"])}) {str(i["team_key"])}</p>')
+            # postFormat.append(f"<div class=\"schedulelement\"><p'>{str(i['rank'])}) </p><p>{str(i['team_key'])}</p></div>")
+    except KeyError: postFormat.append(f'<p style="font-size: 2rem; line-height:0; height:fit-content; margin:1%; border:0;">no rankings :(</p>')
     # print(top10)
     return postFormat
 
 def myMatches():
-    matches = tba.event_matches(event=event_key, simple=True)
+    matches = tba.event_matches(event="2025pncmp", simple=True)
     my_matches = []
     for match in matches:
         for i in match["alliances"]["blue"]["team_keys"]: 
@@ -90,7 +91,8 @@ def format(matchList):
 
             # if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
                 # red[i] = f"<strong><u>{red[i]}</u></strong>"
-        html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
+        # html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
+        html = f"<div class='schedulelement'><p>{(match['key'][10:]).upper()}: </p><p class='red'>{red[0]}, {red[1]}, {red[2]}</p><p class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
         postFormat.append(html)
         if match["winning_alliance"] == "": futureFormat.append(html)
     return {"all": postFormat, "future": futureFormat}

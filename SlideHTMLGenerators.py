@@ -135,11 +135,11 @@ def alliance_win_rate(toggle):
     else: return "bad"
     
 def event_algae_processed(toggle):
-    if toggle: return f'<h4>At this event</h4><h3>{"{:,}".format(HensightStats["event_algae_processed"])}</h3><h4>algae have been processed</h4>'
+    if toggle: return f'<h4>At this division</h4><h3>{"{:,}".format(HensightStats["event_algae_processed"])}</h3><h4>algae have been processed</h4>'
     else: return "bad"
     
 def event_rp_earned(toggle):
-    if toggle: return f'<h4>At this event</h4><h3>{"{:,}".format(HensightStats["event_rp_earned"])}</h3><h4>RP have been earned</h4>'
+    if toggle: return f'<h4>At this division</h4><h3>{"{:,}".format(HensightStats["event_rp_earned"])}</h3><h4>RP have been earned</h4>'
     else: return "bad"
     
 def matches_over_200(toggle):
@@ -147,7 +147,7 @@ def matches_over_200(toggle):
     else: return "bad"
 
 def event_trough_count(toggle):
-    if toggle: return f'<h4>At this event there have been<h4><h3>{"{:,}".format(HensightStats["event_trough_pieces"])}</h3><h4>pieces of coral scored in the trough</h4>'
+    if toggle: return f'<h4>At this division there have been<h4><h3>{"{:,}".format(HensightStats["event_trough_pieces"])}</h3><h4>pieces of coral scored in the trough</h4>'
     else: return "bad"
     
 def tech_foul_count(toggle):

@@ -1,0 +1,171 @@
+<html lang="en">
+<head>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+    </style>
+    <script src="{{url_for('commonjs')}}"></script>
+    <link rel="stylesheet" href="{{url_for('stylecss')}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The Holy Hen has Acquired Sight</title>
+</head>
+<script>
+    var ranking = false;
+    var data = {};
+    var grow = false;
+    var prevHasQueued = false;
+    async function getData() {
+        // Nexus
+        const response = await fetch(`{{url_for('getNextMatch')}}`);
+        data = await response.json();
+        document.getElementById("teams").innerHTML = data["nextMatchTeams"]
+        document.getElementById("match").innerHTML = data["nextMatch"]
+        document.getElementById("match").style.color = data["bumperColor"]
+        qt = document.getElementById("queuetime")
+        qt.innerHTML = data["queueTime"]
+        qt.style.color = data["color"]
+        html = "<h1 id='title'>Status</h1>"
+        html += data["tasks"]
+        document.getElementById("tasks").innerHTML = html
+    }
+    getData()
+    // setInterval(getData, 1000);
+</script>
+<body>
+    <div id="tasks" class="element">
+        Loading...
+    </div>
+    <div id="teams" class="element"></div>
+    <div id="queue" class="element areae">
+        <h2 id="match" class="inner">Loading...</h2>
+        <h1 id="queuetime" class="inner"></h1>
+    </div>
+</body>
+<style>
+    .schedulelement {
+        /* display: grid;
+        height: 3rem;
+        line-height: 0;
+        text-align: justify;
+        text-justify: auto; */
+
+    }
+    #tasks > p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    #title {
+        font-size: 48px;
+        color: #FDF3D4;
+        height: 2.5rem;
+        padding-left: 15px;
+    }
+    .blue {
+        /* color: #89CFF0; */
+        color: #6495ED;
+        margin: 0;
+        /* text-shadow:
+            -2px 2px 0 white,
+            2px 2px 0 white,
+            2px -2px 0 white,
+            -2px -2px 0 white; */
+        grid-column: 4 / span 2;
+    }
+    .red {
+        color: 	#D22B2B;
+        margin: 0;
+        /* text-shadow:
+            -2px 2px 0 white,
+            2px 2px 0 white,
+            2px -2px 0 white,
+            -2px -2px 0 white; */
+        grid-column: 2 / span 2;
+    }
+    .card {
+        border: solid 4px #FDF3D4;
+        border-radius: 10px;
+        margin: auto;
+        font-size: 1.5rem;
+        display: grid;
+        height: 10rem;
+        grid-template-areas: 
+        "a . c"
+        " b b b";
+        height: fit-content;
+        width: 85%;
+        /* padding: 5% 0 5% 0; */
+    }
+    .task {
+        border: solid 4px #FDF3D4;
+        border-radius: 10px;
+        margin: auto;
+        width: 90%;
+        height: 9rem;
+        text-align: center;
+        font-size: 1.5rem;
+        display: grid;
+        grid-template-areas: 
+        ". . c"
+        " b b b";
+    }
+    .element {
+        display: grid;
+        color: #FDF3D4;
+        border-color: #FDF3D4;
+        border-radius: 10px;
+        border-width: 5px;
+        border-style: solid;
+    }
+    .inner {
+        padding: 2%;
+        line-height: 0;
+    }
+
+    h1 {
+        color: #f6b14b;
+    }
+    h2 {
+        color: #FDF3D4;
+    }
+    h3 {
+        color: #1c1c1c;
+        -webkit-text-stroke: 2px #FDF3D4;
+    }
+    h4 {
+        color: #9c9c9c;
+    }
+    body {
+        padding: 5%;
+    }
+    body::before {
+        border: none;
+    }
+    p {
+        font-size: 1.5rem;
+        padding: 2%;
+        margin: 0;
+        /* transform: translate(-20%); */
+    }
+    #queue {
+        grid-area: b;
+        height: 25%;
+        width: 100%;
+        #match {
+            font-size: 1.5rem;
+            line-height: 0;
+            transform: translate(0, 10px);
+        }
+        #queuetime{
+            font-size: 7rem;
+            text-align: center;
+        }
+    }
+    #tasks {
+        grid-area: a;
+        /* height: 24rem; */
+        width: 100%;
+        height: 50%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+</html>

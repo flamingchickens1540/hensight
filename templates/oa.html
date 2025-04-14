@@ -13,7 +13,7 @@
 // }
 // getHtml()
 async function fetchTest() {
-    let response = await fetch('/hensight/webscrape');
+    let response = await fetch(`{{url_for('webscrape')}}`);
     let responseText = await response.text();
 
     document.getElementById('result').innerHTML = responseText;

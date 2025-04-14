@@ -1,7 +1,6 @@
-import requests, os, time, datetime, sys, vars
+import requests, os, time, datetime, sys, vars, tbaPulseData
 from typing import Final
 from dotenv import load_dotenv
-from tbaPulseData import getMatches
 from progress import progressBar
 # current_event_key = 'demo5603'
 # my_team_key = '100'
@@ -35,7 +34,7 @@ def genTasks():
     data = getRawData()
     my_team_key = vars.team_key
     tasks = []
-    matches = getMatches()
+    matches = tbaPulseData.getMatches()
     matches = list(filter(lambda match : match["comp_level"] == "qm", matches))
     for match in matches:
         match["sort"] = match["key"].split("m")[1]
@@ -106,10 +105,9 @@ def getNexusData():
         startTime = time.time() * 1000
         data = getRawData()
         # print(f"Nexus Pull | Took {round((time.time()*1000) - startTime)}ms")
-
     startTime = time.time_ns() / 1000000
     my_team_key = vars.team_key
-    pulseData = {"grow": False}
+    pulseData = {"grow": False, "hasQueued": False}
 
       # Get information about a specific team's next match.   
     my_matches = filter(
@@ -119,6 +117,9 @@ def getNexusData():
     my_next_match = next(
         filter(lambda m: not m["status"] == "On field", my_matches), None
     )
+    
+    pulseData["nextMatchTeams"] = tbaPulseData.format([tbaPulseData.myNextMatch()])["all"][0]
+    print(pulseData["nextMatchTeams"])
         
         #queueing
         
@@ -131,11 +132,13 @@ def getNexusData():
         pulseData["bumperColor"] = "#FDF3D4"
     else:
         if my_next_match["status"] == "Queuing soon":
+            pulseData["hasQueued"] = False
             type = "estimatedQueueTime"
             status = "Queueing In:"
             color = "#50C878"
         else: 
             type = "estimatedOnFieldTime"
+            pulseData["hasQueued"] = True
             status = "On Field In:"
             color = "#D22B2B"
 

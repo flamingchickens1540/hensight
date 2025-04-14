@@ -363,6 +363,10 @@ def webscrape():
     response = requests.get("https://www.chiefdelphi.com/t/team-1540-flaming-chickens-2025-build-thread/476227")
     return response.text
 
+@app.route("/phone")
+def phone():
+    return render_template("phone.html")
+
 @app.route("/getoa")
 def oa():
     return [
