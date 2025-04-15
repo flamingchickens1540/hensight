@@ -118,9 +118,8 @@ def getNexusData():
         filter(lambda m: not m["status"] == "On field", my_matches), None
     )
     
-    pulseData["nextMatchTeams"] = tbaPulseData.format([tbaPulseData.myNextMatch()])["all"][0]
-    print(pulseData["nextMatchTeams"])
-        
+    try: pulseData["nextMatchTeams"] = tbaPulseData.format([tbaPulseData.myNextMatch()])["all"][0]
+    except ValueError: pulseData["nextMatchTeams"] = "Event key not found"
         #queueing
         
     ms = ""
@@ -223,7 +222,12 @@ def getNexusData():
     try:
         nowQueue = data['nowQueuing']
     except KeyError: nowQueue = "None"
-    pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{nowQueue}</p><p><strong>On Deck: </strong>{next(filter(lambda m: m['status'] == 'On deck', data['matches']), {'label': 'None'})['label']}</p><p><strong>On Field: </strong>{list(filter(lambda m: m['status'] == 'On field', data['matches']))[-1]['label']}</p>"
+    onDeck = next(filter(lambda m: m['status'] == 'On deck', data['matches']), {'label': 'None', 'redTeams': [], 'blueTeams': []})
+    onField = list(filter(lambda m: m['status'] == 'On field', data['matches']))[-1]
+    if ('2910' in (nowQueueFull := next(filter(lambda m: m['label'] == nowQueue, data['matches'])))['redTeams'] and '1323' in nowQueueFull['redTeams']) or ('2910' in onDeck['blueTeams'] and '1323' in onDeck["blueTeams"]): nowQueue = f"<p style='color: #07a000;'>{nowQueue}</p>"
+    if ('2910' in onDeck['redTeams'] and '1323' in onDeck['redTeams']) or ('2910' in onDeck['blueTeams'] and '1323' in onDeck['blueTeams']): onDeck['label'] = f"<p style='color: #07a000;'>{onDeck['label']}</p>"
+    if ('2910' in onField['redTeams'] and '1323' in onField['redTeams']) or ('2910' in onField['blueTeams'] and '1323' in onField['blueTeams']): onField['label'] = f"<p style='color: #07a000;'>{onField['label']}</p>"
+    pulseData["tasks"] = f"<p><strong>Now Queueing: </strong>{nowQueue}</p><p><strong>On Deck: </strong>{onDeck['label']}</p><p><strong>On Field: </strong>{onField['label']}</p>"
     # print(f"Data Processing | Took {round((time.time_ns() / 1000000) - startTime)}ms")
     return pulseData
 

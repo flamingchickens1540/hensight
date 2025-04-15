@@ -32,7 +32,7 @@ def getRankings():
     return postFormat
 
 def myMatches():
-    matches = tba.event_matches(event="2025pncmp", simple=True)
+    matches = tba.event_matches(event=vars.event_key, simple=True)
     my_matches = []
     for match in matches:
         for i in match["alliances"]["blue"]["team_keys"]: 
@@ -103,10 +103,12 @@ count = 30
 def getMatchSchedule():
     global matches, count
     count +=1
-    event_key = "2025pncmp"
     if count >= 30:
         startTime = time.time() * 1000
-        matches = tba.event_matches(event=event_key, simple=True)
+        try:
+            matches = tba.event_matches(event=event_key, simple=True)
+        except ValueError:
+            return ["<h1>Event Key not found</h1>"]
         # print(f"TBA Pull   | Took {(time.time() * 1000) - startTime}ms")
         count = 0
     data = format(matches)

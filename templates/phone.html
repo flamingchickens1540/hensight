@@ -28,7 +28,7 @@
         document.getElementById("tasks").innerHTML = html
     }
     getData()
-    // setInterval(getData, 1000);
+    setInterval(getData, 1000);
 </script>
 <body>
     <div id="tasks" class="element">
@@ -41,14 +41,6 @@
     </div>
 </body>
 <style>
-    .schedulelement {
-        /* display: grid;
-        height: 3rem;
-        line-height: 0;
-        text-align: justify;
-        text-justify: auto; */
-
-    }
     #tasks > p {
         margin-top: 0;
         margin-bottom: 0;

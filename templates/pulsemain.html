@@ -23,28 +23,28 @@
         qt.innerHTML = data["queueTime"]
         qt.style.color = data["color"]
         document.getElementById('hidden').innerHTML = data["hidden"]
-        if (data["grow"]) {
-            grow = true
-            document.getElementById("queue").classList.remove("areae")
-            document.getElementById("queue").classList.add("areaa")
-            document.getElementById("big").classList.remove("areaa")
-            document.getElementById("big").classList.add("areae")
-            document.getElementById("match").style.fontSize = "5rem"
-            document.getElementById("time").style.fontSize = "5rem"
-            document.getElementById("queuetime").style.fontSize = "20rem"
-            console.log("big")
-        }
-        else {
-            grow = false
-            document.getElementById("big").classList.remove("areae")
-            document.getElementById("big").classList.add("areaa")
-            document.getElementById("queue").classList.remove("areaa")
-            document.getElementById("queue").classList.add("areae")
-            document.getElementById("match").style.fontSize = "3rem"
-            document.getElementById("time").style.fontSize = "3rem"
-            document.getElementById("queuetime").style.fontSize = "13rem"
-            console.log("not big")
-        }
+        // if (data["grow"]) {
+        //     grow = true
+        //     document.getElementById("queue").classList.remove("areae")
+        //     document.getElementById("queue").classList.add("areaa")
+        //     document.getElementById("big").classList.remove("areaa")
+        //     document.getElementById("big").classList.add("areae")
+        //     document.getElementById("match").style.fontSize = "5rem"
+        //     document.getElementById("time").style.fontSize = "5rem"
+        //     document.getElementById("queuetime").style.fontSize = "20rem"
+        //     console.log("big")
+        // }
+        // else {
+        //     grow = false
+        //     document.getElementById("big").classList.remove("areae")
+        //     document.getElementById("big").classList.add("areaa")
+        //     document.getElementById("queue").classList.remove("areaa")
+        //     document.getElementById("queue").classList.add("areae")
+        //     document.getElementById("match").style.fontSize = "3rem"
+        //     document.getElementById("time").style.fontSize = "3rem"
+        //     document.getElementById("queuetime").style.fontSize = "13rem"
+        //     console.log("not big")
+        // }
 
         let ann = data["announcements"]
         let html = "<h1 id='title'>Announcements</h1>"
