@@ -21,3 +21,5 @@ test.json
 data/
 processedData/
 genNexusDemo.py
+timetest.py
+compareTimes.py
