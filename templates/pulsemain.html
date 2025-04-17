@@ -55,10 +55,6 @@
         }
         document.getElementById("announcements").innerHTML = html
 
-        if (!ranking) await getTBAData()
-        else await getRanking()
-        await getDriveTeamData()
-
         html = "<h1 id='title'>Status</h1>"
         // let task = data["tasks"]
         // for (let i = 0; i < task.length; i++) {
@@ -84,6 +80,11 @@
             console.log("sound played")
         }
         prevHasQueued = data["hasQueued"]
+
+        if (!ranking) await getTBAData()
+        else await getRanking()
+        await getDriveTeamData()
+
     }
 
     async function getTBAData() {
@@ -164,6 +165,13 @@
             fact.innerHTML = data[0];
         }
     }
+
+    async function switchRank() {
+        ranking = !ranking
+        if (!ranking) await getTBAData()
+        else await getRanking()
+    }
+
     getData();
     // getStatBotData();
     // getFunFact()
@@ -211,7 +219,7 @@
         <h1 id="queuetime" class="inner"></h1>
         <div style="display: flex;"><h2 id="time" class="inner"></h2><p id="hidden"></p></div>
     </div>
-    <div id="schedule" class="element" onclick="ranking = !ranking">
+    <div id="schedule" class="element" onclick="switchRank()">
         Loading...
     </div>
     <div id="tasks" class="element">

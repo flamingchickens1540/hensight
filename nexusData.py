@@ -156,7 +156,9 @@ def getNexusData():
             pulseData["grow"] = True
         pulseData["queueTime"] = hms[2:]
         if s < 1: pulseData["queueTime"] = "Soon"
-        elif s > 3600: pulseData["queueTime"] = "1hr+"
+        elif s > 18000: pulseData["queueTime"] = ">5Hrs"
+        elif s > 10800: pulseData["queueTime"] = ">3hrs"
+        elif s > 3600: pulseData["queueTime"] = ">1hr"
         pulseData["color"] = color
         pulseData["nextMatch"] = f"{label} - {status}"
         if my_team_key in my_next_match["redTeams"]: pulseData["bumperColor"] = "#D22B2B"
