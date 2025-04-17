@@ -7,7 +7,7 @@ import vars
 
 load_dotenv()
 key: Final[str] = os.getenv("tba")
-event_key = vars.event_key
+event_key = vars.event_key_tba
 my_team_key = vars.team_key
 
 tba = tbapy.TBA(key)
@@ -32,7 +32,7 @@ def getRankings():
     return postFormat
 
 def myMatches():
-    matches = tba.event_matches(event=vars.event_key, simple=True)
+    matches = tba.event_matches(event=vars.event_key_tba, simple=True)
     my_matches = []
     for match in matches:
         for i in match["alliances"]["blue"]["team_keys"]: 
@@ -45,11 +45,11 @@ def myMatches():
 
 def myNextMatch():
     all = myMatches()
-    upcoming = []
-    for i in all:
-        if "winning_alliance" not in i: upcoming.append(i)
+    upcoming = filter(lambda match : match["winning_alliance"] == "", all)
+    # for i in all:
+        # if i["winning_alliance"] == "" not in i: upcoming.append(i)
     upcoming = filter(lambda match : match["comp_level"] == "qm", upcoming)
-    upcoming = sorted(upcoming, key=lambda el: el["key"].split("qm")[1])
+    upcoming = sorted(upcoming, key=lambda el: int(el["key"].split("qm")[1]))
     if len(upcoming) > 1: return upcoming[0]
     else: return all[len(all)-1]
     
@@ -74,25 +74,28 @@ def format(matchList):
     else: 
         matchList = filter(lambda match : match["comp_level"] == "qm", matchList)
         matchList = sorted(matchList, key=lambda el: int(el["key"].split("qm")[1]))
+    # matchList = [matchList[0]]
+    # print(matchList)
     for match in matchList:
         blue = match["alliances"]["blue"]["team_keys"]
         red  = match["alliances"]["red"]["team_keys"]
 
         for i in range(len(blue)):
-            blue[i] = blue[i][3:]
+            if "frc" in blue[i]: blue[i] = blue[i][3:]
             if my_team_key in blue[i]: blue[i] = f"<strong><u style='color: #89CFF0;'>{blue[i]}</u></strong>" #highlight your teamkey
             if "1844" in blue[i]: blue[i] = f"<strong><u>{blue[i]}</u></strong>"
+            
             # if blue[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]):
                 # blue[i] = f"<strong><u>{blue[i]}</u></strong>"
         for i in range(len(red)): 
-            red[i] = red[i][3:]
+            if "frc" in red[i]: red[i] = red[i][3:]
             if my_team_key in red[i]: red[i] = f"<strong><u style='color: #EE4B2B;'>{red[i]}</u></strong>"
             if "1844" in red[i]: red[i] = f"<strong><u>{red[i]}</u></strong>"
 
             # if red[i] in "".join(myNextMatch()["alliances"][myAlliance(myNextMatch())]["team_keys"]): 
                 # red[i] = f"<strong><u>{red[i]}</u></strong>"
-        # html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][10:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
-        html = f"<div class='schedulelement'><p>{(match['key'][10:]).upper()}: </p><p class='red'>{red[0]}, {red[1]}, {red[2]}</p><p class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
+        html = f"<div class='schedulelement'><p style='text-align: right;'>{(match['key'][8:]).upper()}: </p><p style='text-align: center;' class='red'>{red[0]}, {red[1]}, {red[2]}</p><p style='text-align: left;' class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
+        # html = f"<div class='schedulelement'><p>{(match['key'][8:]).upper()}: </p><p class='red'>{red[0]}, {red[1]}, {red[2]}</p><p class='blue'>{blue[0]}, {blue[1]}, {blue[2]}</p></div>"
         postFormat.append(html)
         if match["winning_alliance"] == "": futureFormat.append(html)
     return {"all": postFormat, "future": futureFormat}

@@ -125,15 +125,15 @@ def load_events(year, genKeys=False, write=False, shouldProgress=False):
     print("Done")
     
 def update_this_event():
-    rawData = tba.event_matches(event=vars.event_key)
+    rawData = tba.event_matches(event=vars.event_key_tba)
     processedData = HensightStatsManager.updateEvent(rawData)
-    file = open(f'processedData/{vars.event_key}.json', 'w', encoding='utf-8')
+    file = open(f'processedData/{vars.event_key_tba}.json', 'w', encoding='utf-8')
     json.dump(processedData, file, ensure_ascii=False, indent=4)
     file.close()
     # with open('data.json', encoding='utf-8') as file:
     #     data = json.load(file)
     # file.close()
-    # for i in tba.event_matches(vars.event_key):
+    # for i in tba.event_matches(vars.event_key_tba):
     #     data[i["key"]] = i
     # with open('data.json', encoding='utf-8') as file:
     #     json.dump(data, file, ensure_ascii=False, indent=4)
@@ -141,8 +141,8 @@ def update_this_event():
     
     # try:
     #     data = {}
-    #     with open(f'data/{vars.event_key}.json', encoding='utf-8') as file:
-    #         for i in progressBar(tba.event_matches(vars.event_key)):
+    #     with open(f'data/{vars.event_key_tba}.json', encoding='utf-8') as file:
+    #         for i in progressBar(tba.event_matches(vars.event_key_tba)):
     #             data[i["key"]] = i
     #         json.dump(data, file, ensure_ascii=False, indent=4)
     #     file.close()

@@ -92,8 +92,7 @@
         html = ""
         type = "future"
         matches = data[type]
-        // console.log(matches)
-        if (matches && matches.length > 1) {
+        if (matches && matches.length >= 1) {
             for (let i = 0; i < matches.length; i++) {
                 // console.log(matches[i])
                 html += matches[i]
@@ -188,7 +187,7 @@
                 var options = {
                     width: 1152,
                     height: 648,
-                    channel: "FIRSTinspires24",
+                    channel: "FIRSTinspires",
                     muted: false,
                     autoplay: true
                 };
@@ -198,7 +197,7 @@
                 var options = {
                     height: 738,
                     width: 410,
-                    channel: "FIRSTinspires24",
+                    channel: "FIRSTinspires",
                     muted: false,
                     autoplay: true
                 }
