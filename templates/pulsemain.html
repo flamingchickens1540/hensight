@@ -81,6 +81,7 @@
             console.log("\n\nPlay sound:\nHas Queued:", data["hasQueued"], "\nPrev:", prevHasQueued)
             var snd = new Audio("static/queue.wav"); // buffers automatically when created
             snd.play();
+            console.log("sound played")
         }
         prevHasQueued = data["hasQueued"]
     }

@@ -21,7 +21,7 @@ photos = ['https://images.squarespace-cdn.com/content/v1/634f81a61fae3d397cfce93
 
 # TBAData.load_events(year=year, genKeys=False, writeKeys=True, shouldProgress=False)
 
-HensightStatsManager.update_stats_fast()
+# HensightStatsManager.update_stats_fast()
 
 toggles = {
         "eggs_in_season": True,
