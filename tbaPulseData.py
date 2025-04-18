@@ -31,6 +31,10 @@ def getRankings():
     # print(top10)
     return postFormat
 
+def teamStatus():
+    status = tba.team_status(team=f"frc{vars.team_key}", event=vars.event_key_tba)
+    return status["overall_status_str"]
+
 def myMatches():
     matches = tba.event_matches(event=vars.event_key_tba, simple=True)
     my_matches = []

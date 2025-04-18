@@ -46,16 +46,17 @@
         //     console.log("not big")
         // }
 
-        let ann = data["announcements"]
-        let html = "<h1 id='title'>Announcements</h1>"
-        for (let i = 0; i < ann.length; i++) {
-            if (ann[i]["announcement"] == "") break;
-            html += '<div class="card"><h4 class="team">'+ann[i]["requestedByTeam"]+'</h4><h2 class="announcement">'+ann[i]["announcement"]+'</h2><h4 class="time">'+ann[i]["time"]+'</h4></div>'
-            if (ann[i]["announcement"] == "No More Announcements") break;
-        }
-        document.getElementById("announcements").innerHTML = html
+        // let ann = data["announcements"]
+        // let html = "<h1 id='title'>Announcements</h1>"
+        // for (let i = 0; i < ann.length; i++) {
+        //     if (ann[i]["announcement"] == "") break;
+        //     html += '<div class="card"><h4 class="team">'+ann[i]["requestedByTeam"]+'</h4><h2 class="announcement">'+ann[i]["announcement"]+'</h2><h4 class="time">'+ann[i]["time"]+'</h4></div>'
+        //     if (ann[i]["announcement"] == "No More Announcements") break;
+        // }
+        // document.getElementById("announcements").innerHTML = html
 
-        html = "<h1 id='title'>Status</h1>"
+
+        html = "<h1 id='title'>Event Status</h1>"
         // let task = data["tasks"]
         // for (let i = 0; i < task.length; i++) {
         // //     let time = task[i]["time"]
@@ -84,7 +85,14 @@
         if (!ranking) await getTBAData()
         else await getRanking()
         await getDriveTeamData()
+        await teamStatus()
 
+    }
+
+    async function teamStatus() {
+        const response = await fetch(`{{url_for('getStatus')}}`)
+        let data = await response.text()
+        document.getElementById("announcements").innerHTML = "<p style='font-size: 3rem;'>"+data+"</p>"
     }
 
     async function getTBAData() {

@@ -6,7 +6,7 @@ from flask import Flask, render_template, send_file, g
 from flask import request
 from nexusData import getNexusData
 # from statbotData import getTeam
-from tbaPulseData import getRankings, getPrediction, getMatchSchedule
+from tbaPulseData import getRankings, getPrediction, getMatchSchedule, teamStatus
 # from triva import getQuestion
 from SlideHTMLGenerators import *
 from dotenv import load_dotenv
@@ -158,6 +158,10 @@ def getNextMatch():
 @app.route("/getranking")
 def getRanking():
     return getRankings()
+
+@app.route("/getstatus")
+def getStatus():
+    return teamStatus()
 
 
 @app.route("/getprediction")
