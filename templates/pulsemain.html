@@ -90,9 +90,10 @@
     }
 
     async function teamStatus() {
-        const response = await fetch(`{{url_for('getStatus')}}`)
-        let data = await response.text()
-        document.getElementById("announcements").innerHTML = "<p style='font-size: 3rem;'>"+data+"</p>"
+        // const response = await fetch(`{{url_for('getStatus')}}`)
+        // let data = await response.text()
+        // document.getElementById("announcements").innerHTML = "<p style='font-size: 3rem;'>"+data+"</p>"
+        document.getElementById("announcements").innerHTML = "<p style='font-size: 3rem;'>Team 1540 is ranked <b><i>you don't want to know</i>/75</b>!</p>"
     }
 
     async function getTBAData() {
