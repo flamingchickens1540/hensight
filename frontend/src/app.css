@@ -1,43 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
-@import 'tailwindcss';
-/* @plugin '@tailwindcss/forms'; */
-/* @plugin '@tailwindcss/typography'; */
+@import "tailwindcss";
 
 :root {
-	--black: #1c1c1c;
-	--grey: #3c3c3c;
-	--white: #fbfbfb;
-	--light-grey: #ddd;
-	--red: #ee2c2c;
-	--yellow: #ffb347;
-	--blue: #34adfe;
+  --color-black: #1c1c1c;
+  --color-grey: #3c3c3c;
+  --color-white: #fbfbfb;
+  --color-light-grey: #ddd;
+  --color-red: #ee2c2c;
+  --color-yellow: #ffb347;
+  --color-blue: #34adfe;
+  --color-green: #50C878;
 }
+
 h1 {
-	color: var(--white);
-	font-weight: 700;
+  color: var(--color-white);
+  font-weight: 700;
 }
 h2 {
-	color: var(--yellow);
+  color: var(--color-yellow);
+  font-weight: 700;
 }
 h3 {
-	color: var(--red);
+  color: var(--color-red);
+  font-weight: 700;
 }
 
 * {
-	font-family: Poppins;
-	font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
-/* @media (prefers-color-scheme: dark) { */
 body {
-	background-color: var(--black);
-	color: var(--white);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
-/* } */
-
-/* @media (prefers-color-scheme: light) {
-  body {
-    background-color: var(--white);
-    color: var(--black);
-  }
-} */
