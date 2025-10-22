@@ -10,7 +10,7 @@
 	<title>The Holy Hen has Acquired Sight</title>
 </head>
 
-<div class="main h-screen w-screen">
+<div class="main h-screen w-screen overflow-hidden">
 	<div style="grid-area: schedule;"><Schedule></Schedule></div>
     <div style="grid-area: timer;"><Timer></Timer></div>
     <div style="grid-area: event;"><Event></Event></div>

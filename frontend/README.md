@@ -7,7 +7,8 @@ Frontend for hensight, handling the web UI.
 ```bash
 # install pm2
 bun i pm2 -g
-# run program
+# build program
 bun run build
+# run program
 pm2 start ecosystem.js
 ```
