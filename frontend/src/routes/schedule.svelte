@@ -1,19 +1,12 @@
 <script>
-    let data = [
-        {
-            title: "",
-            red: "",
-            blue: ""
-        }
-    ]
+    var data = [{title: "", red: "", blue: ""}]
 
-    for (let i = 0; i<100; i++) {
-        data[i] = {
-            title: `QM${i+1}`,
-            red: "1540 1540 1540",
-            blue: "1540 1540 1540"
-        }
+    async function getData() {
+        const request = await fetch("http://127.0.0.1:5003/getSchedule")
+        data = await request.json()
     }
+    getData() 
+
 </script>
 
 <div class="border-4 border-(--color-white) rounded-lg size-full overflow-auto">
