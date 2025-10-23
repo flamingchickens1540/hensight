@@ -1,6 +1,5 @@
 <script>
     var data = [{title: "", red: "", blue: ""}]
-
     async function getData() {
         const request = await fetch("http://127.0.0.1:5003/getSchedule")
         data = await request.json()
