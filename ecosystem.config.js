@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name   : "hensightFrontend",
+    name   : "hensight",
     script : "./build/index"
   }]
 }

@@ -1,7 +1,15 @@
 # Hensight
 
-An advanced pit display used for displaying useful information to pit crew, such as match schedule and queue time.
+Hensight is a fun pit display! It has two parts. Internal Hensight is for pit crew, displaying match schedule, queue timer, livestream, and more. External Hensight is for pit visitors, where it shows fun facts about the events, robot cad, and more.
 
 # Usage
 
-Hensight is split up into two different programs. *i know it's stupid don't make fun of me* There is a frontend, made with SvelteKit, and a backend, made with python. See usage documentation for each in their READMEs.
+```bash
+# install required packages
+bun i pm2 -g
+bun i
+# build program
+bun run build
+# run program
+pm2 start ecosystem.js
+```

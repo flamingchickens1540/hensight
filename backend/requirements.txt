@@ -1,3 +1,0 @@
-tbapy
-python-dotenv
-flask

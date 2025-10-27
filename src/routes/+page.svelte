@@ -1,9 +1,9 @@
 <script>
-	import Schedule from './schedule.svelte';
-	import Timer from './timer.svelte';
-	import Event from './event.svelte';
-	import Announcements from './announcements.svelte';
-    import Stream from "./livestream.svelte";
+	import Schedule from './components/schedule.svelte';
+	import Timer from './components/timer.svelte';
+	import Event from './components/event.svelte';
+	import Announcements from './components/announcements.svelte';
+    import Stream from "./components/livestream.svelte";
 </script>
 
 <head>
