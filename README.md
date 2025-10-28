@@ -1,5 +1,7 @@
 # Hensight
 
+## deprecated - please view branch blaze/2026
+
 Hensight is a display platform used to display FRC team data on a portable screen.
 
 ## Usage
