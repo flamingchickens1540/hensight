@@ -15,7 +15,7 @@
     <div style="grid-area: timer;"><Timer></Timer></div>
     <div style="grid-area: event;"><Event></Event></div>
     <div style="grid-area: announcements;"><Announcements></Announcements></div>
-    <!-- <div style="grid-area: big"><Stream channel="firstinspires"></Stream></div> -->
+    <div style="grid-area: big"><Stream channel="firstinspires"></Stream></div>
 </div>
 
 <style>
