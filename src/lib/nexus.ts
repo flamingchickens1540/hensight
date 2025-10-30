@@ -20,26 +20,12 @@ async function getData() {
 
 async function teamData() {
 	const data = await getData();
-	const myMatches = data.matches.filter(
-		(m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team)
-	);
+	const myMatches = data.matches.filter((m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team));
 	const myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
 
 	if (myNextMatch) {
-		console.log(
-			`Team ${team}'s next match is ${myNextMatch.label} (${myNextMatch.status})!`
-		);
-
 		const allianceColor = myNextMatch.redTeams?.includes(team) ? 'red' : 'blue';
-		console.log(`Put on the ${allianceColor} bumpers`);
-
 		const estimatedQueueTime = myNextMatch.times.estimatedQueueTime;
-		if (estimatedQueueTime) {
-			console.log(`We will be queued at ~${new Date(estimatedQueueTime).toLocaleTimeString()}`);
-		}
-	} else {
-		console.log(`Team ${team} doesn't have any future matches scheduled yet`);
-	}
 }
 
 async function getAnnouncements() {
