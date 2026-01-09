@@ -1,5 +1,5 @@
 import { nexusKey } from '$env/static/private';
-import { eventKey, team, type nexusMatch } from './vars';
+import { eventKey, team, type nexusMatch, type times } from './vars';
 
 async function getData() {
 	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {
@@ -18,17 +18,28 @@ async function getData() {
 	return await response.json();
 }
 
-async function teamData() {
+export async function teamData() {
 	const data = await getData();
 	const myMatches = data.matches.filter((m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team));
 	const myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
 
+	var allianceColor: string
+	var estimatedQueueTime: number
 	if (myNextMatch) {
-		const allianceColor = myNextMatch.redTeams?.includes(team) ? 'red' : 'blue';
-		const estimatedQueueTime = myNextMatch.times.estimatedQueueTime;
+		allianceColor = myNextMatch.redTeams?.includes(team) ? 'red' : 'blue';
+		estimatedQueueTime = myNextMatch.times.estimatedQueueTime;
+	}
+	else {
+		allianceColor = "white"
+		estimatedQueueTime = -1
+	}
+
+	var formattedData: {myMatches: nexusMatch[], myNextMatch: nexusMatch, allianceColor: string, estimatedQueueTime: number}
+	formattedData = {myMatches: myMatches, myNextMatch: myNextMatch, allianceColor: allianceColor, estimatedQueueTime: estimatedQueueTime}
+	return formattedData;
 }
 
-async function getAnnouncements() {
+export async function getAnnouncements() {
 	const data = await getData();
 	let announcements: {"id": string, "parts": string, "requestedByTeam": string, "postedTime": number}[] = data.announcements
     let partRequests: {"id": string, "announcements": string, "postedTime": number}[] = data.partRequests
