@@ -4,7 +4,7 @@
 	let lunch = '15:40';
 </script>
 
-<div class="size-full rounded-lg border-4 border-(--color-white)">
+<div class="size-full rounded-lg border-4 border-white">
 	<h1 class="p-1 text-[2.5rem]">Event</h1>
 	<div class="m-auto flex w-[95%] flex-col justify-center gap-1 text-center text-[3rem]">
 		<h1 class="flex justify-center gap-1">

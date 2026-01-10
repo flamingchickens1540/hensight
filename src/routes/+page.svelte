@@ -1,11 +1,18 @@
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hensight Main</title>
-	</head>
-	<body>
-		<a href="/internal">Internal Hensight</a>
-		<a href="/external">External Hensight</a>
-	</body>
-</html>
+<script>
+	import { goto } from '$app/navigation';
+</script>
+
+<div class="align- m-auto flex h-[1080px] w-full items-center justify-around text-7xl">
+	<button
+		class="rounded-xl border-10 border-[#ffb347] p-1"
+		onclick={() => {
+			goto('/internal');
+		}}>Internal Hensight</button
+	>
+	<button
+		class="rounded-xl border-10 border-[#ffb347] p-1"
+		onclick={() => {
+			goto('/external');
+		}}>External Hensight</button
+	>
+</div>
