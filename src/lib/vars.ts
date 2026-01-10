@@ -12,8 +12,8 @@ export type nexusMatch = {
 }
 
 export type times = {
-    "estimatedQueueTime": string,
-    "estimatedOnDeckTime": string,
-    "estimatedOnFieldTime": string,
-    "estimatedStartTime": string
+    "estimatedQueueTime": number,
+    "estimatedOnDeckTime": number,
+    "estimatedOnFieldTime": number,
+    "estimatedStartTime": number
 }

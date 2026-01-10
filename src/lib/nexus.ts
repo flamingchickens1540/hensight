@@ -45,3 +45,10 @@ export async function getAnnouncements() {
 	let announcements: {"id": string, "parts": string, "requestedByTeam": string, "postedTime": number}[] = data.announcements
     let partRequests: {"id": string, "announcements": string, "postedTime": number}[] = data.partRequests
 }
+
+export async function eventData() {
+	const data = await getData();
+	let nowQueue = data.nowQueuing;
+	let matches = data.myMatches
+	return {nowQueue, matches}
+}
