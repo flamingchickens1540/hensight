@@ -11,8 +11,8 @@ async function getData() {
 
 	if (!response.ok) {
 		const errorMessage = await response.text();
-		console.error('Error getting live event status:', errorMessage);
-		return;
+		// console.error('Error getting live event status:', errorMessage);
+		return false;
 	}
 
 	return await response.json();
@@ -20,6 +20,7 @@ async function getData() {
 
 export async function teamData() {
 	const data = await getData();
+	if (!data) return false;
 	const myMatches = data.matches.filter((m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team));
 	const myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
 
