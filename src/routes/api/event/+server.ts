@@ -1,5 +1,5 @@
 import { eventData, teamData } from "$lib/nexus"
-import type { nexusMatch } from "$lib/vars";
+import type { nexusMatch } from "$lib/config";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 const msToTime = (ms: number) => {return new Date(ms).toTimeString().split(' ')[0]}

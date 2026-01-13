@@ -1,5 +1,6 @@
 import { nexusKey } from '$env/static/private';
-import { eventKey, team, type nexusMatch, type times } from './vars';
+import {type nexusMatch, type times } from './types';
+import { eventKey, team } from './config';
 
 async function getData() {
 	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {

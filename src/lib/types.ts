@@ -1,7 +1,3 @@
-export let eventKey = "2025gal"
-export let year = "2025"
-export let team = "1540"
-
 export type nexusMatch = {
     "label": string,
     "status": string,

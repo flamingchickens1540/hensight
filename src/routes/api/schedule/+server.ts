@@ -1,5 +1,5 @@
 import {getEventMatches} from "$lib/tba"
-import {eventKey, team} from "$lib/vars"
+import {eventKey, team} from "$lib/config"
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 
