@@ -223,13 +223,13 @@ export type EventGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type EventGroupByOutputType = {
   key: string
-  pointsScored: number | null
-  averagePointsPerMatch: number | null
-  rpEarned: number | null
-  penaltyPoints: number | null
-  autoPoints: number | null
-  matchesPlayed: number | null
-  feetClimbed: number | null
+  pointsScored: number
+  averagePointsPerMatch: number
+  rpEarned: number
+  penaltyPoints: number
+  autoPoints: number
+  matchesPlayed: number
+  feetClimbed: number
   _count: EventCountAggregateOutputType | null
   _avg: EventAvgAggregateOutputType | null
   _sum: EventSumAggregateOutputType | null
@@ -257,24 +257,24 @@ export type EventWhereInput = {
   OR?: Prisma.EventWhereInput[]
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   key?: Prisma.StringFilter<"Event"> | string
-  pointsScored?: Prisma.IntNullableFilter<"Event"> | number | null
-  averagePointsPerMatch?: Prisma.IntNullableFilter<"Event"> | number | null
-  rpEarned?: Prisma.IntNullableFilter<"Event"> | number | null
-  penaltyPoints?: Prisma.IntNullableFilter<"Event"> | number | null
-  autoPoints?: Prisma.IntNullableFilter<"Event"> | number | null
-  matchesPlayed?: Prisma.IntNullableFilter<"Event"> | number | null
-  feetClimbed?: Prisma.IntNullableFilter<"Event"> | number | null
+  pointsScored?: Prisma.IntFilter<"Event"> | number
+  averagePointsPerMatch?: Prisma.IntFilter<"Event"> | number
+  rpEarned?: Prisma.IntFilter<"Event"> | number
+  penaltyPoints?: Prisma.IntFilter<"Event"> | number
+  autoPoints?: Prisma.IntFilter<"Event"> | number
+  matchesPlayed?: Prisma.IntFilter<"Event"> | number
+  feetClimbed?: Prisma.IntFilter<"Event"> | number
 }
 
 export type EventOrderByWithRelationInput = {
   key?: Prisma.SortOrder
-  pointsScored?: Prisma.SortOrderInput | Prisma.SortOrder
-  averagePointsPerMatch?: Prisma.SortOrderInput | Prisma.SortOrder
-  rpEarned?: Prisma.SortOrderInput | Prisma.SortOrder
-  penaltyPoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  autoPoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  matchesPlayed?: Prisma.SortOrderInput | Prisma.SortOrder
-  feetClimbed?: Prisma.SortOrderInput | Prisma.SortOrder
+  pointsScored?: Prisma.SortOrder
+  averagePointsPerMatch?: Prisma.SortOrder
+  rpEarned?: Prisma.SortOrder
+  penaltyPoints?: Prisma.SortOrder
+  autoPoints?: Prisma.SortOrder
+  matchesPlayed?: Prisma.SortOrder
+  feetClimbed?: Prisma.SortOrder
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -282,24 +282,24 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   OR?: Prisma.EventWhereInput[]
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
-  pointsScored?: Prisma.IntNullableFilter<"Event"> | number | null
-  averagePointsPerMatch?: Prisma.IntNullableFilter<"Event"> | number | null
-  rpEarned?: Prisma.IntNullableFilter<"Event"> | number | null
-  penaltyPoints?: Prisma.IntNullableFilter<"Event"> | number | null
-  autoPoints?: Prisma.IntNullableFilter<"Event"> | number | null
-  matchesPlayed?: Prisma.IntNullableFilter<"Event"> | number | null
-  feetClimbed?: Prisma.IntNullableFilter<"Event"> | number | null
+  pointsScored?: Prisma.IntFilter<"Event"> | number
+  averagePointsPerMatch?: Prisma.IntFilter<"Event"> | number
+  rpEarned?: Prisma.IntFilter<"Event"> | number
+  penaltyPoints?: Prisma.IntFilter<"Event"> | number
+  autoPoints?: Prisma.IntFilter<"Event"> | number
+  matchesPlayed?: Prisma.IntFilter<"Event"> | number
+  feetClimbed?: Prisma.IntFilter<"Event"> | number
 }, "key" | "key">
 
 export type EventOrderByWithAggregationInput = {
   key?: Prisma.SortOrder
-  pointsScored?: Prisma.SortOrderInput | Prisma.SortOrder
-  averagePointsPerMatch?: Prisma.SortOrderInput | Prisma.SortOrder
-  rpEarned?: Prisma.SortOrderInput | Prisma.SortOrder
-  penaltyPoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  autoPoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  matchesPlayed?: Prisma.SortOrderInput | Prisma.SortOrder
-  feetClimbed?: Prisma.SortOrderInput | Prisma.SortOrder
+  pointsScored?: Prisma.SortOrder
+  averagePointsPerMatch?: Prisma.SortOrder
+  rpEarned?: Prisma.SortOrder
+  penaltyPoints?: Prisma.SortOrder
+  autoPoints?: Prisma.SortOrder
+  matchesPlayed?: Prisma.SortOrder
+  feetClimbed?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
   _avg?: Prisma.EventAvgOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
@@ -312,90 +312,90 @@ export type EventScalarWhereWithAggregatesInput = {
   OR?: Prisma.EventScalarWhereWithAggregatesInput[]
   NOT?: Prisma.EventScalarWhereWithAggregatesInput | Prisma.EventScalarWhereWithAggregatesInput[]
   key?: Prisma.StringWithAggregatesFilter<"Event"> | string
-  pointsScored?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  averagePointsPerMatch?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  rpEarned?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  penaltyPoints?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  autoPoints?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  matchesPlayed?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
-  feetClimbed?: Prisma.IntNullableWithAggregatesFilter<"Event"> | number | null
+  pointsScored?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  averagePointsPerMatch?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  rpEarned?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  penaltyPoints?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  autoPoints?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  matchesPlayed?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  feetClimbed?: Prisma.IntWithAggregatesFilter<"Event"> | number
 }
 
 export type EventCreateInput = {
   key: string
-  pointsScored?: number | null
-  averagePointsPerMatch?: number | null
-  rpEarned?: number | null
-  penaltyPoints?: number | null
-  autoPoints?: number | null
-  matchesPlayed?: number | null
-  feetClimbed?: number | null
+  pointsScored: number
+  averagePointsPerMatch: number
+  rpEarned: number
+  penaltyPoints: number
+  autoPoints: number
+  matchesPlayed: number
+  feetClimbed: number
 }
 
 export type EventUncheckedCreateInput = {
   key: string
-  pointsScored?: number | null
-  averagePointsPerMatch?: number | null
-  rpEarned?: number | null
-  penaltyPoints?: number | null
-  autoPoints?: number | null
-  matchesPlayed?: number | null
-  feetClimbed?: number | null
+  pointsScored: number
+  averagePointsPerMatch: number
+  rpEarned: number
+  penaltyPoints: number
+  autoPoints: number
+  matchesPlayed: number
+  feetClimbed: number
 }
 
 export type EventUpdateInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
-  pointsScored?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  averagePointsPerMatch?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rpEarned?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  penaltyPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  autoPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  matchesPlayed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  feetClimbed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsScored?: Prisma.IntFieldUpdateOperationsInput | number
+  averagePointsPerMatch?: Prisma.IntFieldUpdateOperationsInput | number
+  rpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  penaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventUncheckedUpdateInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
-  pointsScored?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  averagePointsPerMatch?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rpEarned?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  penaltyPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  autoPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  matchesPlayed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  feetClimbed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsScored?: Prisma.IntFieldUpdateOperationsInput | number
+  averagePointsPerMatch?: Prisma.IntFieldUpdateOperationsInput | number
+  rpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  penaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventCreateManyInput = {
   key: string
-  pointsScored?: number | null
-  averagePointsPerMatch?: number | null
-  rpEarned?: number | null
-  penaltyPoints?: number | null
-  autoPoints?: number | null
-  matchesPlayed?: number | null
-  feetClimbed?: number | null
+  pointsScored: number
+  averagePointsPerMatch: number
+  rpEarned: number
+  penaltyPoints: number
+  autoPoints: number
+  matchesPlayed: number
+  feetClimbed: number
 }
 
 export type EventUpdateManyMutationInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
-  pointsScored?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  averagePointsPerMatch?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rpEarned?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  penaltyPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  autoPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  matchesPlayed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  feetClimbed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsScored?: Prisma.IntFieldUpdateOperationsInput | number
+  averagePointsPerMatch?: Prisma.IntFieldUpdateOperationsInput | number
+  rpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  penaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventUncheckedUpdateManyInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
-  pointsScored?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  averagePointsPerMatch?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  rpEarned?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  penaltyPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  autoPoints?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  matchesPlayed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  feetClimbed?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsScored?: Prisma.IntFieldUpdateOperationsInput | number
+  averagePointsPerMatch?: Prisma.IntFieldUpdateOperationsInput | number
+  rpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  penaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventCountOrderByAggregateInput = {
@@ -455,8 +455,8 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
+export type IntFieldUpdateOperationsInput = {
+  set?: number
   increment?: number
   decrement?: number
   multiply?: number
@@ -516,13 +516,13 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     key: string
-    pointsScored: number | null
-    averagePointsPerMatch: number | null
-    rpEarned: number | null
-    penaltyPoints: number | null
-    autoPoints: number | null
-    matchesPlayed: number | null
-    feetClimbed: number | null
+    pointsScored: number
+    averagePointsPerMatch: number
+    rpEarned: number
+    penaltyPoints: number
+    autoPoints: number
+    matchesPlayed: number
+    feetClimbed: number
   }, ExtArgs["result"]["event"]>
   composites: {}
 }

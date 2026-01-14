@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Event {\n  key                   String @id @unique\n  pointsScored          Int?\n  averagePointsPerMatch Int?\n  rpEarned              Int?\n  penaltyPoints         Int?\n  autoPoints            Int?\n  matchesPlayed         Int?\n  feetClimbed           Int?\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Event {\n  key                   String @id @unique\n  pointsScored          Int\n  averagePointsPerMatch Int\n  rpEarned              Int\n  penaltyPoints         Int\n  autoPoints            Int\n  matchesPlayed         Int\n  feetClimbed           Int\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},

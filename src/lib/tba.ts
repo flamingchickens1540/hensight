@@ -19,3 +19,46 @@ export function getEventMatches(eventKey: string) {
 export function getEvents(year: string) {
 	return makeRequest(`/events/${year}/keys`);
 }
+
+export function filterMatches(matches: any[]) {
+	let pointsScored = 0;
+	let averagePointsPerMatch = 0;
+	let rpEarned = 0;
+	let penaltyPoints = 0;
+	let autoPoints = 0;
+	let matchesPlayed = matches.length;
+	let feetClimbed = 0;
+	for (let match of matches) {
+		pointsScored += match.alliances.blue.score;
+		if (match.score_breakdown == null) continue;
+		rpEarned += match.score_breakdown.blue.rp;
+		rpEarned += match.score_breakdown.red.rp;
+		penaltyPoints += match.score_breakdown.blue.foulPoints;
+		penaltyPoints += match.score_breakdown.red.foulPoints;
+		autoPoints += match.score_breakdown.red.autoPoints;
+		autoPoints += match.score_breakdown.blue.autoPoints;
+		if (match.score_breakdown.blue.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.blue.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.blue.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.blue.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
+		if (match.score_breakdown.blue.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
+		if (match.score_breakdown.blue.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+		if (match.score_breakdown.red.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.red.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.red.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
+		if (match.score_breakdown.red.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
+		if (match.score_breakdown.red.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
+		if (match.score_breakdown.red.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+	}
+	if (matchesPlayed > 0) averagePointsPerMatch = pointsScored / matchesPlayed;
+	else averagePointsPerMatch = 0;
+	return {
+		pointsScored,
+		averagePointsPerMatch,
+		rpEarned,
+		penaltyPoints,
+		autoPoints,
+		matchesPlayed,
+		feetClimbed
+	};
+}
