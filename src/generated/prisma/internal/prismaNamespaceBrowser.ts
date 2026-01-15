@@ -78,7 +78,9 @@ export const EventScalarFieldEnum = {
   penaltyPoints: 'penaltyPoints',
   autoPoints: 'autoPoints',
   matchesPlayed: 'matchesPlayed',
-  feetClimbed: 'feetClimbed'
+  feetClimbed: 'feetClimbed',
+  redWinCount: 'redWinCount',
+  blueWinCount: 'blueWinCount'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]

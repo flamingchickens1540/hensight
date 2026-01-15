@@ -34,6 +34,8 @@ export type EventAvgAggregateOutputType = {
   autoPoints: number | null
   matchesPlayed: number | null
   feetClimbed: number | null
+  redWinCount: number | null
+  blueWinCount: number | null
 }
 
 export type EventSumAggregateOutputType = {
@@ -44,6 +46,8 @@ export type EventSumAggregateOutputType = {
   autoPoints: number | null
   matchesPlayed: number | null
   feetClimbed: number | null
+  redWinCount: number | null
+  blueWinCount: number | null
 }
 
 export type EventMinAggregateOutputType = {
@@ -55,6 +59,8 @@ export type EventMinAggregateOutputType = {
   autoPoints: number | null
   matchesPlayed: number | null
   feetClimbed: number | null
+  redWinCount: number | null
+  blueWinCount: number | null
 }
 
 export type EventMaxAggregateOutputType = {
@@ -66,6 +72,8 @@ export type EventMaxAggregateOutputType = {
   autoPoints: number | null
   matchesPlayed: number | null
   feetClimbed: number | null
+  redWinCount: number | null
+  blueWinCount: number | null
 }
 
 export type EventCountAggregateOutputType = {
@@ -77,6 +85,8 @@ export type EventCountAggregateOutputType = {
   autoPoints: number
   matchesPlayed: number
   feetClimbed: number
+  redWinCount: number
+  blueWinCount: number
   _all: number
 }
 
@@ -89,6 +99,8 @@ export type EventAvgAggregateInputType = {
   autoPoints?: true
   matchesPlayed?: true
   feetClimbed?: true
+  redWinCount?: true
+  blueWinCount?: true
 }
 
 export type EventSumAggregateInputType = {
@@ -99,6 +111,8 @@ export type EventSumAggregateInputType = {
   autoPoints?: true
   matchesPlayed?: true
   feetClimbed?: true
+  redWinCount?: true
+  blueWinCount?: true
 }
 
 export type EventMinAggregateInputType = {
@@ -110,6 +124,8 @@ export type EventMinAggregateInputType = {
   autoPoints?: true
   matchesPlayed?: true
   feetClimbed?: true
+  redWinCount?: true
+  blueWinCount?: true
 }
 
 export type EventMaxAggregateInputType = {
@@ -121,6 +137,8 @@ export type EventMaxAggregateInputType = {
   autoPoints?: true
   matchesPlayed?: true
   feetClimbed?: true
+  redWinCount?: true
+  blueWinCount?: true
 }
 
 export type EventCountAggregateInputType = {
@@ -132,6 +150,8 @@ export type EventCountAggregateInputType = {
   autoPoints?: true
   matchesPlayed?: true
   feetClimbed?: true
+  redWinCount?: true
+  blueWinCount?: true
   _all?: true
 }
 
@@ -230,6 +250,8 @@ export type EventGroupByOutputType = {
   autoPoints: number
   matchesPlayed: number
   feetClimbed: number
+  redWinCount: number
+  blueWinCount: number
   _count: EventCountAggregateOutputType | null
   _avg: EventAvgAggregateOutputType | null
   _sum: EventSumAggregateOutputType | null
@@ -264,6 +286,8 @@ export type EventWhereInput = {
   autoPoints?: Prisma.IntFilter<"Event"> | number
   matchesPlayed?: Prisma.IntFilter<"Event"> | number
   feetClimbed?: Prisma.IntFilter<"Event"> | number
+  redWinCount?: Prisma.IntFilter<"Event"> | number
+  blueWinCount?: Prisma.IntFilter<"Event"> | number
 }
 
 export type EventOrderByWithRelationInput = {
@@ -275,6 +299,8 @@ export type EventOrderByWithRelationInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +315,8 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   autoPoints?: Prisma.IntFilter<"Event"> | number
   matchesPlayed?: Prisma.IntFilter<"Event"> | number
   feetClimbed?: Prisma.IntFilter<"Event"> | number
+  redWinCount?: Prisma.IntFilter<"Event"> | number
+  blueWinCount?: Prisma.IntFilter<"Event"> | number
 }, "key" | "key">
 
 export type EventOrderByWithAggregationInput = {
@@ -300,6 +328,8 @@ export type EventOrderByWithAggregationInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
   _avg?: Prisma.EventAvgOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
@@ -319,6 +349,8 @@ export type EventScalarWhereWithAggregatesInput = {
   autoPoints?: Prisma.IntWithAggregatesFilter<"Event"> | number
   matchesPlayed?: Prisma.IntWithAggregatesFilter<"Event"> | number
   feetClimbed?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  redWinCount?: Prisma.IntWithAggregatesFilter<"Event"> | number
+  blueWinCount?: Prisma.IntWithAggregatesFilter<"Event"> | number
 }
 
 export type EventCreateInput = {
@@ -330,6 +362,8 @@ export type EventCreateInput = {
   autoPoints: number
   matchesPlayed: number
   feetClimbed: number
+  redWinCount: number
+  blueWinCount: number
 }
 
 export type EventUncheckedCreateInput = {
@@ -341,6 +375,8 @@ export type EventUncheckedCreateInput = {
   autoPoints: number
   matchesPlayed: number
   feetClimbed: number
+  redWinCount: number
+  blueWinCount: number
 }
 
 export type EventUpdateInput = {
@@ -352,6 +388,8 @@ export type EventUpdateInput = {
   autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
   matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
   feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
+  redWinCount?: Prisma.IntFieldUpdateOperationsInput | number
+  blueWinCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventUncheckedUpdateInput = {
@@ -363,6 +401,8 @@ export type EventUncheckedUpdateInput = {
   autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
   matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
   feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
+  redWinCount?: Prisma.IntFieldUpdateOperationsInput | number
+  blueWinCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventCreateManyInput = {
@@ -374,6 +414,8 @@ export type EventCreateManyInput = {
   autoPoints: number
   matchesPlayed: number
   feetClimbed: number
+  redWinCount: number
+  blueWinCount: number
 }
 
 export type EventUpdateManyMutationInput = {
@@ -385,6 +427,8 @@ export type EventUpdateManyMutationInput = {
   autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
   matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
   feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
+  redWinCount?: Prisma.IntFieldUpdateOperationsInput | number
+  blueWinCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventUncheckedUpdateManyInput = {
@@ -396,6 +440,8 @@ export type EventUncheckedUpdateManyInput = {
   autoPoints?: Prisma.IntFieldUpdateOperationsInput | number
   matchesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
   feetClimbed?: Prisma.IntFieldUpdateOperationsInput | number
+  redWinCount?: Prisma.IntFieldUpdateOperationsInput | number
+  blueWinCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EventCountOrderByAggregateInput = {
@@ -407,6 +453,8 @@ export type EventCountOrderByAggregateInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type EventAvgOrderByAggregateInput = {
@@ -417,6 +465,8 @@ export type EventAvgOrderByAggregateInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type EventMaxOrderByAggregateInput = {
@@ -428,6 +478,8 @@ export type EventMaxOrderByAggregateInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type EventMinOrderByAggregateInput = {
@@ -439,6 +491,8 @@ export type EventMinOrderByAggregateInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type EventSumOrderByAggregateInput = {
@@ -449,6 +503,8 @@ export type EventSumOrderByAggregateInput = {
   autoPoints?: Prisma.SortOrder
   matchesPlayed?: Prisma.SortOrder
   feetClimbed?: Prisma.SortOrder
+  redWinCount?: Prisma.SortOrder
+  blueWinCount?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -474,6 +530,8 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   autoPoints?: boolean
   matchesPlayed?: boolean
   feetClimbed?: boolean
+  redWinCount?: boolean
+  blueWinCount?: boolean
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -485,6 +543,8 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   autoPoints?: boolean
   matchesPlayed?: boolean
   feetClimbed?: boolean
+  redWinCount?: boolean
+  blueWinCount?: boolean
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -496,6 +556,8 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   autoPoints?: boolean
   matchesPlayed?: boolean
   feetClimbed?: boolean
+  redWinCount?: boolean
+  blueWinCount?: boolean
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectScalar = {
@@ -507,9 +569,11 @@ export type EventSelectScalar = {
   autoPoints?: boolean
   matchesPlayed?: boolean
   feetClimbed?: boolean
+  redWinCount?: boolean
+  blueWinCount?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"key" | "pointsScored" | "averagePointsPerMatch" | "rpEarned" | "penaltyPoints" | "autoPoints" | "matchesPlayed" | "feetClimbed", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"key" | "pointsScored" | "averagePointsPerMatch" | "rpEarned" | "penaltyPoints" | "autoPoints" | "matchesPlayed" | "feetClimbed" | "redWinCount" | "blueWinCount", ExtArgs["result"]["event"]>
 
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Event"
@@ -523,6 +587,8 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     autoPoints: number
     matchesPlayed: number
     feetClimbed: number
+    redWinCount: number
+    blueWinCount: number
   }, ExtArgs["result"]["event"]>
   composites: {}
 }
@@ -954,6 +1020,8 @@ export interface EventFieldRefs {
   readonly autoPoints: Prisma.FieldRef<"Event", 'Int'>
   readonly matchesPlayed: Prisma.FieldRef<"Event", 'Int'>
   readonly feetClimbed: Prisma.FieldRef<"Event", 'Int'>
+  readonly redWinCount: Prisma.FieldRef<"Event", 'Int'>
+  readonly blueWinCount: Prisma.FieldRef<"Event", 'Int'>
 }
     
 

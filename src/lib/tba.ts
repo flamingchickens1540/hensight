@@ -28,6 +28,8 @@ export function filterMatches(matches: any[]) {
 	let autoPoints = 0;
 	let matchesPlayed = matches.length;
 	let feetClimbed = 0;
+	let redWinCount = 0;
+	let blueWinCount = 0;
 	for (let match of matches) {
 		pointsScored += match.alliances.blue.score;
 		if (match.score_breakdown == null) continue;
@@ -37,20 +39,24 @@ export function filterMatches(matches: any[]) {
 		penaltyPoints += match.score_breakdown.red.foulPoints;
 		autoPoints += match.score_breakdown.red.autoPoints;
 		autoPoints += match.score_breakdown.blue.autoPoints;
+
 		if (match.score_breakdown.blue.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.blue.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.blue.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.blue.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
-		if (match.score_breakdown.blue.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
-		if (match.score_breakdown.blue.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
-		if (match.score_breakdown.red.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.red.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.red.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
-		if (match.score_breakdown.red.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
-		if (match.score_breakdown.red.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
-		if (match.score_breakdown.red.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.blue.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
+		else if (match.score_breakdown.blue.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
+		else if (match.score_breakdown.blue.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.blue.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.blue.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.red.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
+		else if (match.score_breakdown.red.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
+		else if (match.score_breakdown.red.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
+		else if (match.score_breakdown.red.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.red.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
+		else if (match.score_breakdown.red.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+
+		if (match.winning_alliance == 'red') redWinCount++;
+		else if (match.winning_alliance == 'blue') blueWinCount++;
 	}
-	if (matchesPlayed > 0) averagePointsPerMatch = pointsScored / matchesPlayed;
+	if (matchesPlayed > 0) averagePointsPerMatch = Math.round(pointsScored / matchesPlayed);
 	else averagePointsPerMatch = 0;
 	return {
 		pointsScored,
@@ -59,6 +65,8 @@ export function filterMatches(matches: any[]) {
 		penaltyPoints,
 		autoPoints,
 		matchesPlayed,
-		feetClimbed
+		feetClimbed,
+		redWinCount,
+		blueWinCount
 	};
 }

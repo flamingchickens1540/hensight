@@ -14,7 +14,9 @@ export const load: PageServerLoad = async () => {
 		penaltyPoints: 0,
 		autoPoints: 0,
 		matchesPlayed: 0,
-		feetClimbed: 0
+		feetClimbed: 0,
+		redWinCount: 0,
+		blueWinCount: 0
 	};
 	console.log('Loading from TBA...');
 	const progBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
@@ -30,6 +32,8 @@ export const load: PageServerLoad = async () => {
 		globalData.autoPoints += data.autoPoints;
 		globalData.matchesPlayed += data.matchesPlayed;
 		globalData.feetClimbed += data.feetClimbed;
+		globalData.redWinCount += data.redWinCount;
+		globalData.blueWinCount += data.blueWinCount;
 		await prisma.event.upsert({
 			where: { key },
 			update: data,

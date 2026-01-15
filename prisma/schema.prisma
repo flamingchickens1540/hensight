@@ -22,4 +22,6 @@ model Event {
   autoPoints            Int
   matchesPlayed         Int
   feetClimbed           Int
+  redWinCount           Int
+  blueWinCount          Int
 }

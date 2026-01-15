@@ -12,15 +12,18 @@
 
     function increment() {
         i++
-        if (i>=stats.length) i = 0
+        if (i>=stats.length) {
+            i = 0
+            stats.sort(() => Math.random() - 0.5);
+        }
         stat = stats[i]
     }
 
-    // onMount(() => {
-    //     setInterval(() => {
-    //        increment()
-    //     }, 5000)
-    // })
+    onMount(() => {
+        // setInterval(() => {
+        //    increment()
+        // }, 5000)
+    })
 </script>
 
 <button onclick={increment} class="w-full h-67.5 m-auto text-center border-14 border-(--color-yellow)">
