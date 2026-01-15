@@ -24,3 +24,11 @@ export type statsData = {
 	matchesPlayed: number;
 	feetClimbed: number;
 };
+
+export type partRequest = {
+	id: string;
+	parts: string;
+	requestedByTeam: string;
+	postedTime: number;
+};
+export type announcement = { id: string; announcements: string; postedTime: number };

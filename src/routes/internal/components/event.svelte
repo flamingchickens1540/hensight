@@ -1,7 +1,19 @@
-<script>
-	let nowQueue = 'QM3';
-	let onField = 'QM1';
-	let lunch = '15:40';
+<script lang="ts">
+	import { onMount } from "svelte";
+
+	let nowQueue = "Loading..."
+	let onField = "Loading..."
+	let lunch = "Loading..."
+    async function load() {
+        const res = await fetch("/api/schedule");
+        const data = await res.json();
+		nowQueue = data.nowQueue
+		onField = data.onField
+		lunch = data.lunch
+    }
+    onMount(() => {
+        load()
+    })
 </script>
 
 <div class="size-full rounded-lg border-4 border-white">
