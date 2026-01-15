@@ -25,7 +25,7 @@ export const GET: RequestHandler = async () => {
 		]);
 	}
 	let announcements: processedItem[] = processAnnouncements(data.announcements);
-	let partRequests: processedItem[] = [];
+	let partRequests: processedItem[] = processPartRequests(data.partRequests);
 
 	let all: processedItem[] = [];
 	all.concat(announcements, partRequests);
