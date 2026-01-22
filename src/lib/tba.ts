@@ -20,6 +20,12 @@ export function getEvents(year: string) {
 	return makeRequest(`/events/${year}/keys`);
 }
 
+function calcCageFeet(depth: string) {
+	if (depth == 'DeepCage') return 0.2604166667;
+	else if (depth == 'ShallowCage') return 2.4479166667;
+	else return 0;
+}
+
 export function filterMatches(matches: any[]) {
 	let pointsScored = 0;
 	let averagePointsPerMatch = 0;
@@ -40,18 +46,15 @@ export function filterMatches(matches: any[]) {
 		autoPoints += match.score_breakdown.red.autoPoints;
 		autoPoints += match.score_breakdown.blue.autoPoints;
 
-		if (match.score_breakdown.blue.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.blue.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.blue.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.blue.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
-		else if (match.score_breakdown.blue.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
-		else if (match.score_breakdown.blue.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
-		else if (match.score_breakdown.red.endGameRobot1 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.red.endGameRobot2 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.red.endGameRobot3 == 'DeepCage') feetClimbed += 0.2604166667;
-		else if (match.score_breakdown.red.endGameRobot1 == 'ShallowCage') feetClimbed += 2.4479166667;
-		else if (match.score_breakdown.red.endGameRobot2 == 'ShallowCage') feetClimbed += 2.4479166667;
-		else if (match.score_breakdown.red.endGameRobot3 == 'ShallowCage') feetClimbed += 2.4479166667;
+		let blue = match.score_breakdown.blue;
+		let red = match.score_breakdown.red;
+		feetClimbed += calcCageFeet(red.endGameRobot1);
+		feetClimbed += calcCageFeet(red.endGameRobot2);
+		feetClimbed += calcCageFeet(red.endGameRobot3);
+
+		feetClimbed += calcCageFeet(blue.endGameRobot1);
+		feetClimbed += calcCageFeet(blue.endGameRobot2);
+		feetClimbed += calcCageFeet(blue.endGameRobot3);
 
 		if (match.winning_alliance == 'red') redWinCount++;
 		else if (match.winning_alliance == 'blue') blueWinCount++;
