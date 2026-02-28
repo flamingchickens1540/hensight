@@ -20,7 +20,7 @@ export function getEvents(year: string) {
 	return makeRequest(`/events/${year}/keys`);
 }
 
-function calcCageFeet(depth: string) {
+function calcClimbFeet(depth: string) {
 	if (depth == 'DeepCage') return 0.2604166667;
 	else if (depth == 'ShallowCage') return 2.4479166667;
 	else return 0;
@@ -48,13 +48,13 @@ export function filterMatches(matches: any[]) {
 
 		let blue = match.score_breakdown.blue;
 		let red = match.score_breakdown.red;
-		feetClimbed += calcCageFeet(red.endGameRobot1);
-		feetClimbed += calcCageFeet(red.endGameRobot2);
-		feetClimbed += calcCageFeet(red.endGameRobot3);
+		feetClimbed += calcClimbFeet(red.endGameRobot1);
+		feetClimbed += calcClimbFeet(red.endGameRobot2);
+		feetClimbed += calcClimbFeet(red.endGameRobot3);
 
-		feetClimbed += calcCageFeet(blue.endGameRobot1);
-		feetClimbed += calcCageFeet(blue.endGameRobot2);
-		feetClimbed += calcCageFeet(blue.endGameRobot3);
+		feetClimbed += calcClimbFeet(blue.endGameRobot1);
+		feetClimbed += calcClimbFeet(blue.endGameRobot2);
+		feetClimbed += calcClimbFeet(blue.endGameRobot3);
 
 		if (match.winning_alliance == 'red') redWinCount++;
 		else if (match.winning_alliance == 'blue') blueWinCount++;

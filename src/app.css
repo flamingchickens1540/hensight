@@ -6,14 +6,16 @@
 }
 
 :root {
-	--color-black: #1c1c1c;
-	--color-grey: #3c3c3c;
-	--color-white: #fbfbfb;
-	--color-light-grey: #a7a7a7;
-	--color-red: #ee2c2c;
-	--color-yellow: #ffb347;
-	--color-blue: #6495ed;
-	--color-green: #50c878;
+	--black: #1c1c1c;
+	--grey: #3c3c3c;
+	--white: #fbfbfb;
+	--light-grey: #a7a7a7;
+	--red: #ee2c2c;
+	--accent-red: #EC5800;
+	--yellow: #ffb347;
+	--blue: #6495ed;
+	--accent-blue: #89CFF0;
+	--green: #50c878;
 }
 
 h1,
@@ -28,7 +30,7 @@ h4 {
 }
 
 body {
-	background-color: var(--color-black);
-	color: var(--color-white);
+	background-color: var(--black);
+	color: var(--white);
 	font-weight: 500;
 }

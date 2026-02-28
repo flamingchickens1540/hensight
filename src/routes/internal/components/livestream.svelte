@@ -2,7 +2,7 @@
 	export let channel;
 </script>
 
-<div class="border-(--color-white) size-full rounded-lg border-4">
+<div class="border-white size-full rounded-lg border-4">
 	<iframe
         title="twitchstream"
 		src="https://player.twitch.tv/?channel={channel}&parent=localhost"

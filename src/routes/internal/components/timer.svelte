@@ -5,30 +5,37 @@
 		return new Date(ms).toTimeString().split(' ')[0];
 	};
 
-	function getQueueString(ms: number) {
+	function getQueueString(ms: number, hasQueued: false) {
 		let seconds = ms / 1000;
 		const hours = Math.floor(seconds / 3600);
 		seconds = seconds % 3600;
 		const minutes = Math.floor(seconds / 60);
 		seconds = Math.floor(seconds % 60);
 		let string: string = seconds.toString().padStart(2, '0');
-		if (seconds <= 0) string = 'Now';
-		if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds}`;
-		if (hours > 0) string = '>1hr';
+		if (!hasQueued) {
+			if (seconds <= 0) string = 'Soon';
+			if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+			if (hours > 0) string = '>1hr';
+		}
+		else string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 		return string;
 	}
 
-	let currentTimeMS = $state(Date.now());
 	var match: string = $state('loading...');
-	var queueTime: number = $state(Date.now());
-	var ms: number = $derived(queueTime - currentTimeMS);
-	var time: string = $derived(getQueueString(ms));
-	var currentTime: string = $derived(msToTime(currentTimeMS));
+	var queueTime: number = $state(0);
+	var hasQueued = $state(false);
+	var time: string = $derived(getQueueString(queueTime, hasQueued));
+	var timerColor: string = $derived.by(() => {
+		if (hasQueued) return 'red';
+		else if (queueTime < 5 * 60 * 1000) return 'yellow';
+		else return 'green';
+	})
+	var currentTime: string = $derived(msToTime(Date.now()));
 	var color: string = $state('#fff');
 	let lastUpdated = Date.now();
 	const interval = setInterval(() => {
-		currentTimeMS = Date.now();
-		if (ms < 1000 || lastUpdated < Date.now() - 60 * 1000) load();
+		queueTime -= 1000
+		if (queueTime <= 0 || lastUpdated < Date.now() - 60 * 1000) load();
 	}, 1000);
 	onDestroy(() => clearInterval(interval));
 
@@ -36,7 +43,7 @@
 		const res = await fetch('/api/queue');
 		if (res.ok) {
 			let data = await res.json();
-			({ match, queueTime, color } = data);
+			({ match, queueTime, color, hasQueued } = data);
 			lastUpdated = Date.now();
 		} else throw new Error(await res.text());
 	}
@@ -45,12 +52,16 @@
 	});
 </script>
 
-<div class="size-full rounded-lg border-4 border-(--color-white)">
+<div class="size-full rounded-lg border-4 border-(--white)">
 	<div class="flex items-center justify-between">
-		<h1 class="p-1 text-[4rem]" style="color: {color};">{match}</h1>
-		<h1 class="p-1 text-[3rem]">{currentTime}</h1>
+		{#if !hasQueued}
+			<h1 class="p-1 text-[2.5rem]" style="color: {color};">Queueing {match} in...</h1>
+		{:else}
+			<h1 class="p-1 text-[2.5rem]" style="color: {color};">{match} On field in...</h1>
+		{/if}
+		<h1 class="p-1 text-[2.5rem]">{currentTime}</h1>
 	</div>
-	<div class="flex size-full justify-center">
-		<h1 class="text-[10rem] font-extrabold text-(--color-green)">{time}</h1>
+	<div class="flex w-full h-fit justify-center pt-1">
+		<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
 	</div>
 </div>

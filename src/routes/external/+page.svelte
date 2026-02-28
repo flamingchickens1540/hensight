@@ -6,7 +6,13 @@
 	<button
 		class="rounded-xl border-10 border-[#ffb347] p-1"
 		onclick={() => {
-			goto('/internal/stats');
+			goto('/external/stats');
 		}}>Statistics</button
+	>
+	<button
+		class="rounded-xl border-10 border-[#ffb347] p-1"
+		onclick={() => {
+			goto('/external/outreach');
+		}}>Outreach</button
 	>
 </div>

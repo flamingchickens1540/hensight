@@ -19,7 +19,7 @@
         <div class="border-3 border-white rounded-lg w-[80%] m-auto mb-1">
             <h1 class="text-[1.4rem] p-0.5">{msg.author}</h1>
             <p class="m-auto text-center text-[1.8rem]">{msg.message}</p>
-            <p class="text-(--color-light-grey) text-[1.2rem] pl-0.5">{msg.time}</p>
+            <p class="text-(--light-grey) text-[1.2rem] pl-0.5">{msg.time}</p>
         </div>
     {/each}
 </div>

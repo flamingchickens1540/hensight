@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-	let nowQueue = "Loading..."
-	let onField = "Loading..."
-	let lunch = "Loading..."
+	let nowQueue = $state("Loading...")
+	let onField = $state("Loading...")
+	let lunch = $state("Loading...")
     async function load() {
-        const res = await fetch("/api/schedule");
+        const res = await fetch("/api/event");
         const data = await res.json();
+		console.log(data)
 		nowQueue = data.nowQueue
 		onField = data.onField
 		lunch = data.lunch

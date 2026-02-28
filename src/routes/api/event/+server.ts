@@ -9,7 +9,7 @@ const msToTime = (ms: number) => {
 export const GET: RequestHandler = async () => {
 	let data = await eventData();
 	if (!data) {
-		return json({ nowQueue: 'Q67', onField: 'Q69', lunch: '15:40' });
+		return json({ nowQueue: 'Q69', onField: 'Q67', lunch: '15:40' });
 	}
 
 	let nowQueuing = data.nowQueue;
@@ -24,11 +24,14 @@ export const GET: RequestHandler = async () => {
 	if (onField.includes('Qualification')) onField = 'QM' + onField.split(' ')[1];
 	else if (onField.includes('Practice')) onField = 'PM' + onField.split(' ')[1];
 
-	let matchBeforeLunch: nexusMatch = data.matches.find((m: nexusMatch) => {
+	let matchBeforeLunch = data.matches.find((m: nexusMatch) => {
 		m.breakAfter == 'Lunch';
 	});
-	let lunchMS: number = matchBeforeLunch.times.estimatedStartTime + 3 * 60 * 1000;
-	let lunch = msToTime(lunchMS);
+	let lunch = 'Never';
+	if (matchBeforeLunch) {
+		let lunchMS: number = matchBeforeLunch.times.estimatedStartTime + 3 * 60 * 1000;
+		lunch = msToTime(lunchMS);
+	}
 
 	return json({ nowQueuing, onField, lunch });
 };

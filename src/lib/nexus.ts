@@ -2,7 +2,16 @@ import { nexusKey } from '$env/static/private';
 import { type announcement, type nexusMatch, type partRequest, type times } from './types';
 import { eventKey, team } from './config';
 
-async function getData() {
+var data: {
+	eventKey: string;
+	dataAsOfTime: number;
+	nowQueuing: string;
+	matches: nexusMatch[];
+	announcements: announcement[];
+	partsRequests: partRequest[];
+};
+
+export async function updateData() {
 	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {
 		method: 'GET',
 		headers: {
@@ -16,52 +25,56 @@ async function getData() {
 		return false;
 	}
 
-	return await response.json();
+	global = await response.json();
 }
 
-export async function teamData() {
-	const data = await getData();
+export function teamData() {
 	if (!data) return false;
 	const myMatches = data.matches.filter(
 		(m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team)
 	);
-	const myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
+	let myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
 
-	var allianceColor: string;
-	var estimatedQueueTime: number;
-	if (myNextMatch) {
-		allianceColor = myNextMatch.redTeams?.includes(team) ? 'red' : 'blue';
-		estimatedQueueTime = myNextMatch.times.estimatedQueueTime;
-	} else {
-		allianceColor = 'white';
-		estimatedQueueTime = -1;
-	}
+	if (!myNextMatch)
+		myNextMatch = {
+			label: 'Dummy Match',
+			status: 'Now queuing',
+			redTeams: ['1540', '1540', '1540'],
+			blueTeams: ['1844', '1844', '1844'],
+			times: {
+				estimatedQueueTime: Date.now(),
+				estimatedOnDeckTime: Date.now(),
+				estimatedOnFieldTime: Date.now(),
+				estimatedStartTime: Date.now()
+			},
+			breakAfter: 'End of day'
+		};
+	let allianceColor = myNextMatch.redTeams?.includes(team) ? 'red' : 'blue';
+	let estimatedQueueTime = myNextMatch.times.estimatedQueueTime;
+	let estimatedOnFieldTime = myNextMatch.times.estimatedOnFieldTime;
 
-	var formattedData: {
-		myMatches: nexusMatch[];
-		myNextMatch: nexusMatch;
-		allianceColor: string;
-		estimatedQueueTime: number;
+	return {
+		myMatches,
+		myNextMatch,
+		allianceColor,
+		estimatedQueueTime,
+		estimatedOnFieldTime
 	};
-	formattedData = {
-		myMatches: myMatches,
-		myNextMatch: myNextMatch,
-		allianceColor: allianceColor,
-		estimatedQueueTime: estimatedQueueTime
-	};
-	return formattedData;
 }
 
 export async function getAnnouncements() {
-	const data = await getData();
+	if (!data) return false;
 	let announcements: announcement[] = data.announcements;
-	let partRequests: partRequest[] = data.partRequests;
+	let partRequests: partRequest[] = data.partsRequests;
 	return { announcements, partRequests };
 }
 
 export async function eventData() {
-	const data = await getData();
+	if (!data) return false;
 	let nowQueue = data.nowQueuing;
-	let matches = data.myMatches;
-	return { nowQueue, matches };
+	let tData = teamData();
+	if (tData) {
+		let matches = tData.myMatches;
+		return { nowQueue, matches };
+	} else return false;
 }
