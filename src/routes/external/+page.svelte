@@ -12,6 +12,12 @@
 	<button
 		class="rounded-xl border-10 border-[#ffb347] p-1"
 		onclick={() => {
+			goto('/external/cad');
+		}}>CAD</button
+	>
+	<button
+		class="rounded-xl border-10 border-[#ffb347] p-1"
+		onclick={() => {
 			goto('/external/outreach');
 		}}>Outreach</button
 	>
