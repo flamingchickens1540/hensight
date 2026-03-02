@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import type { PageProps } from "./$types";
+	import { goto } from "$app/navigation";
     let { data }: PageProps = $props();
 
     let i = 0;
@@ -34,3 +35,13 @@
     <h1 class="text-[10rem] text-(--yellow)">{value}</h1>
     <h1 class="text-[5rem]">{p2}</h1>
 </button>
+<div class="w-full h-67.5 m-auto text-center border-14 border-(--yellow) absolute">
+    <nav class="p-1 flex gap-2 justify-center bottom-1 fixed w-full text-3xl font-bold">
+        <button
+            class="rounded-xl border-4 border-(--red) p-1 w-[10%]"
+            onclick={() => {
+                goto('/external/');
+            }}>Exit</button
+	    >
+    </nav>
+</div>
