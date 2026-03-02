@@ -9,7 +9,7 @@
             class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"
             onclick={() => {
                 goto('/external/outreach/thing1');
-            }}>Thing 1</button
+            }}>Thing </button
 	    >
         <button
             class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"

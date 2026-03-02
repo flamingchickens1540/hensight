@@ -32,7 +32,7 @@
       canvasWidth = canvasContainer.clientWidth
       canvasHeight = canvasContainer.clientHeight
       
-      loader.load( '/src/lib/assets/koenigsegg-ccx.glb', function(gltf) {
+      loader.load( '/src/lib/assets/cad.glb', function(gltf) {
         scene.add( gltf.scene );
       }, undefined, function(error) {
         console.error( error );
