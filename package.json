@@ -34,6 +34,7 @@
     "@prisma/client": "^7.4.2",
     "@types/cli-progress": "^3.11.6",
     "@types/pg": "^8.18.0",
+    "@types/three": "^0.183.1",
     "cli-progress": "^3.12.0",
     "dotenv": "^17.3.1",
     "pg": "^8.19.0",
