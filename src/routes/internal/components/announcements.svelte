@@ -1,16 +1,14 @@
-<script>
-    let data = [
-        {
-            author: "Pit Admin",
-            message: "the pits are burning down",
-            time: "15m ago"
-        },
-        {
-            author: "1844",
-            message: "we need a 18x44 meter pizza",
-            time: "40m ago"
-        }
-    ]
+<script lang="ts">
+    import { onMount } from "svelte";
+
+	var data: {author: string, message: string, time: string, sort: number}[] = []
+    async function load() {
+        const res = await fetch("/api/announcements");
+        data = await res.json();
+    }
+    onMount(() => {
+        load()
+    })
 </script>
 
 <div class="border-4 border-white rounded-lg size-full overflow-auto">

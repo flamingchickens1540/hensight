@@ -6,6 +6,7 @@ type processedItem = {
 	author: string;
 	message: string;
 	time: string;
+	sort: number;
 };
 
 export const GET: RequestHandler = async () => {
@@ -29,6 +30,7 @@ export const GET: RequestHandler = async () => {
 
 	let all: processedItem[] = [];
 	all.concat(announcements, partRequests);
+	all.sort((a, b) => a.sort - b.sort);
 	return json(all);
 };
 
@@ -50,26 +52,26 @@ function msToRelative(ms: number): string {
 }
 
 function processAnnouncements(raw: announcement[]): processedItem[] {
-	raw.sort((a, b) => a.postedTime - b.postedTime);
 	let processed: processedItem[] = [];
 	for (let announcement of raw) {
 		processed.push({
 			author: 'Pit Admin',
 			message: announcement.announcements,
-			time: msToRelative(announcement.postedTime)
+			time: msToRelative(announcement.postedTime),
+			sort: announcement.postedTime
 		});
 	}
 	return processed;
 }
 
 function processPartRequests(raw: partRequest[]): processedItem[] {
-	raw.sort((a, b) => a.postedTime - b.postedTime);
 	let processed: processedItem[] = [];
 	for (let request of raw) {
 		processed.push({
 			author: request.requestedByTeam,
 			message: request.parts,
-			time: msToRelative(request.postedTime)
+			time: msToRelative(request.postedTime),
+			sort: request.postedTime
 		});
 	}
 	return processed;
