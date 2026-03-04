@@ -1,9 +1,14 @@
 <script>
+	import Rankings from './components/rankings.svelte';
 	import Schedule from './components/schedule.svelte';
 	import Timer from './components/timer.svelte';
 	import Event from './components/event.svelte';
 	import Announcements from './components/announcements.svelte';
 	import Stream from './components/livestream.svelte';
+
+	let scheduleVisible = $state(true)
+	
+	const toggle = () => scheduleVisible = !scheduleVisible;
 </script>
 
 <head>
@@ -11,7 +16,13 @@
 </head>
 
 <div class="main h-screen w-screen overflow-hidden">
-	<div style="grid-area: schedule;"><Schedule></Schedule></div>
+	<button style="grid-area: schedule" onclick={toggle}>
+		{#if scheduleVisible}
+			<Schedule bind:scheduleVisible = {scheduleVisible}></Schedule>
+		{:else}
+			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
+		{/if}
+	</button>
 	<div style="grid-area: timer;"><Timer></Timer></div>
 	<div style="grid-area: event;"><Event></Event></div>
 	<div style="grid-area: announcements;"><Announcements></Announcements></div>

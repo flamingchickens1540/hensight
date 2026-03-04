@@ -20,6 +20,11 @@ export function getEvents(year: string) {
 	return makeRequest(`/events/${year}/keys`);
 }
 
+export async function getRankings(eventKey: string) {
+	const res = await makeRequest(`/event/${eventKey}/rankings`);
+	return res.rankings;
+}
+
 function calcClimbFeet(depth: string) {
 	if (depth == 'DeepCage') return 0.2604166667;
 	else if (depth == 'ShallowCage') return 2.4479166667;

@@ -1,13 +1,29 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-    var data: {title: string, red: string, blue: string, time: number}[] = []
+    let { scheduleVisible = $bindable() } = $props();
+
+    var data: {title: string, red: string, blue: string, time: number}[] = $state([])
     async function load() {
         const res = await fetch("/api/schedule");
         data = await res.json();
     }
+
+    var ticking = false;
+
+    function tick() {
+        if (scheduleVisible && !ticking) {
+            ticking = true;
+            setTimeout(() => {
+                scheduleVisible = false; 
+                ticking = false;
+            }, 15 * 1000)
+        }
+    }
+
     onMount(() => {
         load()
+        setInterval(tick, 1000)
     })
 </script>
 

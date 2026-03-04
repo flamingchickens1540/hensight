@@ -1,5 +1,5 @@
 <script>
-	export let channel;
+	let {channel} = $props()
 </script>
 
 <div class="border-white size-full rounded-lg border-4">
