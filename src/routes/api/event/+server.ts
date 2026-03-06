@@ -9,7 +9,7 @@ const msToTime = (ms: number) => {
 export const GET: RequestHandler = async () => {
 	let data = await eventData();
 	if (!data) {
-		return json({ nowQueue: 'Q69', onField: 'Q67', lunch: '15:40' });
+		return json({ nowQueue: 'I', onField: "don't", lunch: 'know' });
 	}
 
 	let nowQueuing = data.nowQueue;

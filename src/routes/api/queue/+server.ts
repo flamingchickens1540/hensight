@@ -4,7 +4,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async () => {
 	let data = await teamData();
 	if (!data) {
-		return json({ match: 'Q67', queueTime: 10 * 1000, color: '#ee2c2c', hasQueued: false });
+		return json({});
 	}
 	let match = data.myNextMatch.label;
 	if (match.includes('Qualification')) match = 'QM' + match.split(' ')[1];

@@ -14,14 +14,9 @@ export const GET: RequestHandler = async () => {
 	if (!data) {
 		return json([
 			{
-				author: 'Pit Admin',
-				message: 'the pits are burning down',
-				time: '15m ago'
-			},
-			{
-				author: '1844',
-				message: 'we need a 18x44 meter pizza',
-				time: '40m ago'
+				author: 'Hensight',
+				message: 'No announcements at this time',
+				time: ':p'
 			}
 		]);
 	}

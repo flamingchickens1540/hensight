@@ -7,7 +7,6 @@
     async function load() {
         const res = await fetch("/api/event");
         const data = await res.json();
-		console.log(data)
 		nowQueue = data.nowQueue
 		onField = data.onField
 		lunch = data.lunch
