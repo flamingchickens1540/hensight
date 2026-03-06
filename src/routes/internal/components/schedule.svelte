@@ -1,12 +1,16 @@
 <script lang="ts">
+	import Schedule from './schedule.svelte';
 	import { onMount } from "svelte";
 
     let { scheduleVisible = $bindable() } = $props();
 
-    var data: {title: string, red: string, blue: string, time: number}[] = $state([])
+    var schedule: {title: string, red: string, blue: string, time: number}[] = $state([])
+    var percent = $state(0)
     async function load() {
         const res = await fetch("/api/schedule");
-        data = await res.json();
+        const data = await res.json();
+        percent = data.percent;
+        schedule = data.schedule;
     }
 
     var ticking = false;
@@ -29,12 +33,13 @@
 </script>
 
 <div class="border-4 border-white rounded-lg size-full">
-    <h1 class="pt-0.5 pl-1 text-[2.5rem]">Schedule</h1>
+    <h1 class="text-[2.5rem]">Schedule</h1>
+    <p class="text[2.2rem]">We have played {percent}% of our matches</p>
     <div class="w-full max-h-[87%] overflow-scroll border-t-4 border-white">
-        {#if data.length == 0}
+        {#if schedule.length == 0}
             <div class="text-5xl font-bold m-auto p-3 size-fit text-(--green)">No more matches :p</div>
         {:else}
-            {#each data as match}
+            {#each schedule as match}
                 <div class="text-[1.9rem] text-left flex flex-row justify-around"><h1>{match.title}: </h1><p class="text-(--red) flex gap-0.5">{@html match.red}</p><p class="text-(--blue) flex gap-0.5">{@html match.blue}</p></div>
             {/each}
         {/if}
