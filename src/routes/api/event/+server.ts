@@ -1,9 +1,10 @@
 import { allMatches, eventData, teamData } from '$lib/nexus';
 import type { nexusMatch } from '$lib/types';
 import { json, type RequestHandler } from '@sveltejs/kit';
+import { timeZone } from '$lib/config';
 
 const msToTime = (ms: number) => {
-	return new Date(ms).toTimeString().split(' ')[0];
+	return new Date(ms).toLocaleTimeString('it-IT', { timeZone });
 };
 
 export const GET: RequestHandler = async () => {
@@ -44,7 +45,7 @@ export const GET: RequestHandler = async () => {
 		let ms = 0;
 		if (matchBefore) {
 			ms = matchBefore.times.estimatedStartTime + 3 * 60 * 1000;
-			ms -= 8 * 60 * 1000;
+			// ms -= 8 * 60 * 1000;
 		}
 		return ms;
 	}
