@@ -1,5 +1,5 @@
 import { nexusKey } from '$env/static/private';
-import { type announcement, type nexusMatch, type partRequest, type times } from './types';
+import { type announcement, type nexusMatch, type partRequest } from './types';
 import { eventKey, team } from './config';
 
 var data: {
@@ -21,11 +21,11 @@ export async function updateData() {
 
 	if (!response.ok) {
 		const errorMessage = await response.text();
-		console.error('Error getting live event status:', errorMessage);
+		console.log('Error getting live event status:', errorMessage);
 		return false;
 	}
 
-	global = await response.json();
+	data = await response.json();
 }
 
 export function teamData() {
@@ -60,6 +60,11 @@ export function teamData() {
 		estimatedQueueTime,
 		estimatedOnFieldTime
 	};
+}
+
+export function allMatches() {
+	if (!data) return false;
+	return data.matches;
 }
 
 export async function getAnnouncements() {

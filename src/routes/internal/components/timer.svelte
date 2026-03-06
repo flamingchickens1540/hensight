@@ -66,7 +66,7 @@
 			{:else}
 				<h1 class="p-1 text-[2.5rem]" style="color: {color};">{match} On field in...</h1>
 			{/if}
-			<h1 class="p-1 text-[2.5rem]">{currentTime}</h1>
+			<h1 class="p-1 text-[2.3rem]">{currentTime}</h1>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
 			<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>

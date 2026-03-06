@@ -36,7 +36,6 @@ export async function getRankings(eventKey: string) {
 }
 
 function calcClimbFeet(depth: string) {
-	// console.log(depth);
 	if (depth == 'Level1') return 2.25;
 	else if (depth == 'Level2') return 3.75;
 	else if (depth == 'Level3') return 5.25;

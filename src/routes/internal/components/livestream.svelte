@@ -5,7 +5,7 @@
 <div class="border-white size-full rounded-lg border-4">
 	<iframe
         title="twitchstream"
-		src="https://player.twitch.tv/?channel={channel}&parent=yayblaze.com"
+		src="https://player.twitch.tv/?channel={channel}&parent=hensight.yayblaze.com"
 		height="100%"
 		width="100%"
 	>

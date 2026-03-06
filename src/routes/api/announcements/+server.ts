@@ -10,15 +10,16 @@ type processedItem = {
 };
 
 export const GET: RequestHandler = async () => {
+	let placeholder = [
+		{
+			author: 'Hensight',
+			message: 'No announcements at this time',
+			time: ':p'
+		}
+	];
 	const data = await getAnnouncements();
 	if (!data) {
-		return json([
-			{
-				author: 'Hensight',
-				message: 'No announcements at this time',
-				time: ':p'
-			}
-		]);
+		return json(placeholder);
 	}
 	let announcements: processedItem[] = processAnnouncements(data.announcements);
 	let partRequests: processedItem[] = processPartRequests(data.partRequests);
@@ -26,6 +27,7 @@ export const GET: RequestHandler = async () => {
 	let all: processedItem[] = [];
 	all.concat(announcements, partRequests);
 	all.sort((a, b) => a.sort - b.sort);
+	if (all.length < 1) return json(placeholder);
 	return json(all);
 };
 

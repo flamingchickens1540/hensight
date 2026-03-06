@@ -6,9 +6,13 @@ export async function handle({ event, resolve }) {
 	if (!started) {
 		started = true;
 
-		setInterval(() => {
-			updateData().catch(console.error);
-		}, 60_000);
+		updateData();
+		setInterval(
+			() => {
+				updateData().catch(console.error);
+			},
+			3 * 60 * 1000
+		);
 	}
 
 	return resolve(event);
