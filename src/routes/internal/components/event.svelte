@@ -3,13 +3,15 @@
 
 	let nowQueue = $state("Loading...")
 	let onField = $state("Loading...")
-	let lunch = $state("Loading...")
+	let milestone = $state("Loading...")
+	let milestoneTime = $state("")
     async function load() {
         const res = await fetch("/api/event");
         const data = await res.json();
 		nowQueue = data.nowQueuing
 		onField = data.onField
-		lunch = data.lunch
+		milestone = data.milestone
+		milestoneTime = data.milestoneString
     }
     onMount(() => {
         load()
@@ -27,7 +29,7 @@
 			On Field: <p class="font-medium">{onField}</p>
 		</h1>
 		<h1 class="flex justify-center gap-1">
-			Lunch: <p class="font-medium">{lunch}</p>
+			{milestone}: <p class="font-medium">{milestoneTime}</p>
 		</h1>
 	</div>
 </div>

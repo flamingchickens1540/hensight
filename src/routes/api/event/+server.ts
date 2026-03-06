@@ -19,7 +19,7 @@ export const GET: RequestHandler = async () => {
 
 	let onField = 'None';
 	let fileded: nexusMatch[] = [];
-	let all = allMatches();
+	let all: false | nexusMatch[] = allMatches();
 	if (all) {
 		for (let match of all) {
 			if (match.status == 'On field') fileded.push(match);
@@ -34,18 +34,33 @@ export const GET: RequestHandler = async () => {
 		}
 	}
 
-	let matchBeforeLunch;
-	if (all) {
+	function findMilestone(breakType: string): number {
+		if (!all) return 0;
+		let matchBefore = null;
 		for (let match of all) {
-			if (match.breakAfter == 'Lunch') matchBeforeLunch = match;
+			if (match.breakAfter == breakType) matchBefore = match;
 		}
-	}
-	let lunch = 'Never';
-	if (matchBeforeLunch) {
-		let lunchMS: number = matchBeforeLunch.times.estimatedStartTime + 3 * 60 * 1000;
-		lunchMS -= 8 * 60 * 60 * 1000;
-		lunch = msToTime(lunchMS);
+
+		let ms = 0;
+		if (matchBefore) {
+			ms = matchBefore.times.estimatedStartTime + 3 * 60 * 1000;
+			ms -= 8 * 60 * 1000;
+		}
+		return ms;
 	}
 
-	return json({ nowQueuing, onField, lunch });
+	let milestone = '';
+	let milestoneMS = 0;
+	let lunchMS = findMilestone('Lunch');
+	let eomMS = findMilestone('End of day');
+	if (lunchMS > Date.now()) {
+		milestone = 'Lunch';
+		milestoneMS = lunchMS;
+	} else if (eomMS > Date.now()) {
+		milestone = 'Matches End';
+		milestoneMS = eomMS;
+	}
+	let milestoneString = msToTime(milestoneMS);
+
+	return json({ nowQueuing, onField, milestone, milestoneString });
 };
