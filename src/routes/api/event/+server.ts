@@ -43,6 +43,7 @@ export const GET: RequestHandler = async () => {
 	let lunch = 'Never';
 	if (matchBeforeLunch) {
 		let lunchMS: number = matchBeforeLunch.times.estimatedStartTime + 3 * 60 * 1000;
+		lunchMS -= 8 * 60 * 60 * 1000;
 		lunch = msToTime(lunchMS);
 	}
 
