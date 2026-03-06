@@ -1,7 +1,8 @@
-import { teamData } from '$lib/nexus';
+import { teamData, updateData } from '$lib/nexus';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
+	await updateData();
 	let data = await teamData();
 	if (!data) {
 		return json({});

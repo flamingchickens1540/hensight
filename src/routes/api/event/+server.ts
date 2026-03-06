@@ -26,7 +26,7 @@ export const GET: RequestHandler = async () => {
 		}
 		if (fileded?.length > 0) {
 			fileded.sort((a, b) => {
-				return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+				return b.times.estimatedOnFieldTime - a.times.estimatedOnFieldTime;
 			});
 			onField = fileded[0].label;
 			if (onField.includes('Qualification')) onField = 'QM' + onField.split(' ')[1];

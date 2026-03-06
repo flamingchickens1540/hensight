@@ -7,7 +7,7 @@ export const GET: RequestHandler = async () => {
 	let formatted: { title: string; red: string; blue: string; time: number }[] = [];
 	let i = 0;
 	for (let match = 0; match < matches.length; match++) {
-		// if (matches[match].actual_time) continue;
+		if (matches[match].actual_time) continue;
 		formatted[i] = formatSchedule(matches[match]);
 		i++;
 	}
