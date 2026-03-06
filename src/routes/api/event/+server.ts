@@ -18,17 +18,22 @@ export const GET: RequestHandler = async () => {
 	else if (nowQueuing.includes('Practice')) nowQueuing = 'PM' + nowQueuing.split(' ')[1];
 
 	let onField = 'None';
-	let fileded: nexusMatch[] = data.matches.filter((m: nexusMatch) => m.status == 'On field');
-	if (fileded?.length > 0) {
-		fileded.sort((a, b) => {
-			return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
-		});
-		onField = fileded[0].label;
-		if (onField.includes('Qualification')) onField = 'QM' + onField.split(' ')[1];
-		else if (onField.includes('Practice')) onField = 'PM' + onField.split(' ')[1];
+	let fileded: nexusMatch[] = [];
+	let all = allMatches();
+	if (all) {
+		for (let match of all) {
+			if (match.status == 'On field') fileded.push(match);
+		}
+		if (fileded?.length > 0) {
+			fileded.sort((a, b) => {
+				return parseInt(b.label.split(' ')[1]) - parseInt(a.label.split(' ')[1]);
+			});
+			onField = fileded[0].label;
+			if (onField.includes('Qualification')) onField = 'QM' + onField.split(' ')[1];
+			else if (onField.includes('Practice')) onField = 'PM' + onField.split(' ')[1];
+		}
 	}
 
-	let all = allMatches();
 	let matchBeforeLunch;
 	if (all) {
 		for (let match of all) {

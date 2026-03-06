@@ -30,8 +30,8 @@
             
             if (container.scrollHeight > 1 && container.scrollTop + container.clientHeight >= container.scrollHeight - 1) {
                 scrolling = false;
+                load()
                 setTimeout(() => container.scrollTop = 0, 1000)
-                
                 setTimeout(() => scheduleVisible = true, 3000);
             }
 

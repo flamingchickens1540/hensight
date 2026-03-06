@@ -7,12 +7,13 @@
     async function load() {
         const res = await fetch("/api/event");
         const data = await res.json();
-		nowQueue = data.nowQueue
+		nowQueue = data.nowQueuing
 		onField = data.onField
 		lunch = data.lunch
     }
     onMount(() => {
         load()
+		setInterval(load, 60 * 1000)
     })
 </script>
 

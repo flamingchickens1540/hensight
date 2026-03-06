@@ -8,6 +8,7 @@
     }
     onMount(() => {
         load()
+        setInterval(load, 60 * 1000)
     })
 </script>
 

@@ -24,6 +24,7 @@
     onMount(() => {
         load()
         setInterval(tick, 1000)
+        setInterval(load, 60 * 1000)
     })
 </script>
 
