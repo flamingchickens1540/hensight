@@ -9,13 +9,19 @@
 	let scheduleVisible = $state(true)
 	
 	const toggle = () => scheduleVisible = !scheduleVisible;
+
+	function openFullScreen() {
+		document.documentElement.requestFullscreen();
+	}
 </script>
 
 <head>
 	<title>The Holy Hen has Acquired Sight</title>
 </head>
 
-<div class="main h-screen w-screen overflow-hidden">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="main h-screen w-screen overflow-hidden" onclick={openFullScreen}>
 	<button style="grid-area: schedule" onclick={toggle}>
 		{#if scheduleVisible}
 			<Schedule bind:scheduleVisible = {scheduleVisible}></Schedule>
