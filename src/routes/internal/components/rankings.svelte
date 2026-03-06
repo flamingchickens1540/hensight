@@ -17,6 +17,7 @@
         container = document.getElementById('autoScrollList') as HTMLDivElement;
         function autoScroll() {
             if (scheduleVisible || container.clientHeight >= container.scrollHeight) {
+                if (data.length < 1) scheduleVisible = true;
                 requestAnimationFrame(autoScroll);
                 return;
             }
@@ -29,8 +30,8 @@
             
             if (container.scrollHeight > 1 && container.scrollTop + container.clientHeight >= container.scrollHeight - 1) {
                 scrolling = false;
-
                 setTimeout(() => container.scrollTop = 0, 1000)
+                
                 setTimeout(() => scheduleVisible = true, 3000);
             }
 
@@ -40,7 +41,7 @@
         autoScroll();
     });
 
-    onMount(load)
+    onMount(() => setInterval(load, 10 * 1000))
 </script>
 
 <div class="border-4 border-white rounded-lg size-full">
