@@ -19,7 +19,7 @@ interface GlobalData {
 
 export const load: PageServerLoad = async () => {
 	const data = filterMatches(await getEventMatches(eventKey));
-	let globalData: GlobalData = (getData('GLOBAL') as GlobalData) ?? {
+	let globalData: GlobalData = ((await getData('GLOBAL')) as GlobalData) ?? {
 		key: 'GLOBAL',
 		pointsScored: 0,
 		averagePointsPerMatch: 0,

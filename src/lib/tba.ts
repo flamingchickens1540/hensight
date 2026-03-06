@@ -57,6 +57,7 @@ export function filterMatches(matches: any[]) {
 		matchesPlayed++;
 		pointsScored += match.alliances.blue.score;
 		pointsScored += match.alliances.red.score;
+		if (!match.score_breakdown) continue;
 		let blue = match.score_breakdown.blue;
 		let red = match.score_breakdown.red;
 		rpEarned += blue.rp;
