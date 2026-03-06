@@ -25,13 +25,14 @@ export const GET: RequestHandler = async () => {
 	let partRequests: processedItem[] = processPartRequests(data.partRequests);
 
 	let all: processedItem[] = [];
-	all.concat(announcements, partRequests);
-	all.sort((a, b) => a.sort - b.sort);
+	all = all.concat(announcements, partRequests);
+	all.sort((a, b) => b.sort - a.sort);
 	if (all.length < 1) return json(placeholder);
 	return json(all);
 };
 
 function msToRelative(ms: number): string {
+	ms = Date.now() - ms;
 	let seconds = ms / 1000;
 	let days = Math.floor(seconds / (24 * 3600));
 	seconds = seconds % (24 * 3600);
