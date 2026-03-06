@@ -5,11 +5,8 @@ Hensight is a fun pit display! It has two parts. Internal Hensight is for pit cr
 ## Usage
 
 ```bash
-# install required packages
+# install pm2
 bun i pm2 -g
-bun i
-# build program
-bun run build
 # run program
-pm2 start ecosystem.js
+. run.sh
 ```

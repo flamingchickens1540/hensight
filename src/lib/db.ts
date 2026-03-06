@@ -1,26 +1,37 @@
-import { Database } from 'bun:sqlite';
 import type { statObj } from './types';
 
-const db = new Database('stats.db');
+let db: any = null;
 
-db.run('PRAGMA journal_mode = WAL;');
+async function getDB() {
+	if (!db) {
+		const { Database } = await import('bun:sqlite');
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS stats (
-    key TEXT PRIMARY KEY,
-    pointsScored INTEGER,
-	averagePointsPerMatch INTEGER,
-	rpEarned INTEGER,
-	penaltyPoints INTEGER,
-	autoPoints INTEGER,
-	matchesPlayed INTEGER,
-	feetClimbed INTEGER,
-	redWinCount INTEGER,
-	blueWinCount INTEGER
-  )
-`);
+		db = new Database('stats.db');
 
-export function addData(key: string, data: statObj) {
+		db.run('PRAGMA journal_mode = WAL;');
+
+		db.run(`
+      CREATE TABLE IF NOT EXISTS stats (
+        key TEXT PRIMARY KEY,
+        pointsScored INTEGER,
+        averagePointsPerMatch INTEGER,
+        rpEarned INTEGER,
+        penaltyPoints INTEGER,
+        autoPoints INTEGER,
+        matchesPlayed INTEGER,
+        feetClimbed INTEGER,
+        redWinCount INTEGER,
+        blueWinCount INTEGER
+      )
+    `);
+	}
+
+	return db;
+}
+
+export async function addData(key: string, data: statObj) {
+	const db = await getDB();
+
 	db.prepare(
 		`INSERT INTO stats
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -49,8 +60,9 @@ export function addData(key: string, data: statObj) {
 	);
 }
 
-export function getData(key: string) {
+export async function getData(key: string) {
+	const db = await getDB();
 	return db.prepare('SELECT * FROM stats WHERE key = ?').get(key);
 }
 
-export default db;
+export { getDB };
