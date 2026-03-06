@@ -1,3 +1,3 @@
-export const eventKey = '2025pncmp';
-export const year = '2025';
+export const eventKey = '2026orore';
+export const year = '2026';
 export const team = '1540';

@@ -1,12 +1,25 @@
 import { eventKey } from '$lib/config';
-import prisma from '$lib/prisma';
 import { filterMatches, getEventMatches } from '$lib/tba';
 import type { PageServerLoad } from './$types';
 import stats from '$lib/stats.json';
+import { getData } from '$lib/db';
+
+interface GlobalData {
+	key: string;
+	pointsScored: number;
+	averagePointsPerMatch: number;
+	rpEarned: number;
+	penaltyPoints: number;
+	autoPoints: number;
+	matchesPlayed: number;
+	feetClimbed: number;
+	redWinCount: number;
+	blueWinCount: number;
+}
 
 export const load: PageServerLoad = async () => {
 	const data = filterMatches(await getEventMatches(eventKey));
-	let globalData = (await prisma.event.findUnique({ where: { key: 'GLOBAL' } })) ?? {
+	let globalData: GlobalData = (getData('GLOBAL') as GlobalData) ?? {
 		key: 'GLOBAL',
 		pointsScored: 0,
 		averagePointsPerMatch: 0,

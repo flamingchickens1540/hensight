@@ -1,11 +1,14 @@
 import { year } from '$lib/config';
-import prisma from '$lib/prisma';
-import { filterMatches, getEventMatches, getEvents } from '$lib/tba';
+import { filterMatches, getEventMatches, getEvents, getPastEvents } from '$lib/tba';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import cliProgress from 'cli-progress';
+import { addData } from '$lib/db';
 
 export const load: PageServerLoad = async () => {
-	let eventKeys = await getEvents(year);
+	console.log('Starting...');
+	let eventKeys = await getPastEvents(year);
+	console.log(`Recived ${eventKeys.length} event keys`);
 	let globalData = {
 		key: 'GLOBAL',
 		pointsScored: 0,
@@ -23,8 +26,9 @@ export const load: PageServerLoad = async () => {
 	progBar.start(eventKeys.length, 0);
 	for (let key of eventKeys) {
 		progBar.increment();
-		let data = filterMatches(await getEventMatches(key));
-
+		const matches = await getEventMatches(key);
+		if (matches.length < 1) continue;
+		let data = filterMatches(matches);
 		globalData.pointsScored += data.pointsScored;
 		globalData.averagePointsPerMatch += data.averagePointsPerMatch;
 		globalData.rpEarned += data.rpEarned;
@@ -34,15 +38,9 @@ export const load: PageServerLoad = async () => {
 		globalData.feetClimbed += data.feetClimbed;
 		globalData.redWinCount += data.redWinCount;
 		globalData.blueWinCount += data.blueWinCount;
-		await prisma.event.upsert({
-			where: { key },
-			update: data,
-			create: { key, ...data }
-		});
+		addData(key, data);
 	}
-	await prisma.event.upsert({
-		where: { key: 'GLOBAL' },
-		update: globalData,
-		create: globalData
-	});
+	addData('GLOBAL', globalData);
+
+	redirect(303, '/external/stats');
 };
