@@ -1,8 +1,18 @@
 import { getEventMatches, getRankings } from '$lib/tba';
 import { eventKey, team } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
+import { teamData } from '$lib/nexus';
 
 export const GET: RequestHandler = async () => {
+	let tData = teamData();
+	if (tData) {
+		if (
+			tData.myNextMatch.label.includes('Playoff') ||
+			tData.myNextMatch.label.includes('Final') ||
+			tData.myNextMatch.label.includes('Dummy')
+		)
+			return json({});
+	}
 	let rankings = await getRankings(eventKey);
 	let formatted: { team: string; rank: number }[] = [];
 	let i = 0;

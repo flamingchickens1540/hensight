@@ -7,8 +7,11 @@
     async function load() {
         const res = await fetch("/api/rankings");
         data = await res.json();
+        if (data.length > 0) hasData = true;
+        else hasData = false;
     }
 
+    var hasData : boolean = false;
     var container: HTMLDivElement;
     var scrolling: boolean = false;
     var prev: boolean = true;
@@ -17,6 +20,10 @@
         container = document.getElementById('autoScrollList') as HTMLDivElement;
         function autoScroll() {
             if (scheduleVisible || container.clientHeight >= container.scrollHeight) {
+                if (!hasData) {
+                    scheduleVisible = true;
+                    scrolling = false;
+                }
                 requestAnimationFrame(autoScroll);
                 return;
             }
