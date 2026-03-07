@@ -12,12 +12,14 @@ export const GET: RequestHandler = async () => {
 	else if (match.includes('Practice')) match = 'PM' + match.split(' ')[1];
 
 	let hasQueued = false;
-	let estMS: number = data.estimatedQueueTime;
-	let rn = Date.now();
-	if (estMS < rn) {
-		estMS = data.estimatedOnFieldTime;
+	let estMS: number = 0;
+	if (data.myNextMatch.status == 'Queuing soon') {
+		estMS = data.estimatedQueueTime;
+	} else {
 		hasQueued = true;
+		estMS = data.estimatedOnFieldTime;
 	}
+	let rn = Date.now();
 	let difference = estMS - rn;
 
 	let color = '#fff';

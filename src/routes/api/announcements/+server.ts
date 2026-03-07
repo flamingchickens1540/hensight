@@ -54,7 +54,7 @@ function processAnnouncements(raw: announcement[]): processedItem[] {
 	for (let announcement of raw) {
 		processed.push({
 			author: 'Pit Admin',
-			message: announcement.announcements,
+			message: announcement.announcement,
 			time: msToRelative(announcement.postedTime),
 			sort: announcement.postedTime
 		});

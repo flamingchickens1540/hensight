@@ -31,7 +31,7 @@ export type partRequest = {
 	requestedByTeam: string;
 	postedTime: number;
 };
-export type announcement = { id: string; announcements: string; postedTime: number };
+export type announcement = { id: string; announcement: string; postedTime: number };
 
 export type statObj = {
 	pointsScored: number;

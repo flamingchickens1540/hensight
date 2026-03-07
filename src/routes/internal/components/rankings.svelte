@@ -31,7 +31,7 @@
                 scrolling = false;
                 load()
                 setTimeout(() => container.scrollTop = 0, 1000)
-                setTimeout(() => scheduleVisible = true, 2000);
+                setTimeout(() => scheduleVisible = true, 3000);
             }
 
             requestAnimationFrame(autoScroll);
