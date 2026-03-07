@@ -53,6 +53,7 @@
 			currentTimeMS = Date.now();
 			queueTime -= 1000
 			if (queueTime <= 0 || lastUpdated < Date.now() - 60 * 1000) load();
+			else if (queueTime < 5 * 60 * 1000 && lastUpdated < Date.now() - 30 * 1000) load();
 		}, 1000);
 	});
 	onDestroy(() => clearInterval(interval));

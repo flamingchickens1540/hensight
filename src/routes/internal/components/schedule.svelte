@@ -40,7 +40,7 @@
             <div class="text-5xl font-bold m-auto p-3 size-fit text-(--green)">No more matches :p</div>
         {:else}
             {#each schedule as match}
-                <div class="text-[1.9rem] text-left flex flex-row justify-around"><h1>{match.title}: </h1><p class="text-(--red) flex gap-0.5">{@html match.red}</p><p class="text-(--blue) flex gap-0.5">{@html match.blue}</p></div>
+                <div class="text-[1.8rem] text-left flex flex-row justify-around"><h1>{match.title}: </h1><p class="text-(--red) flex gap-0.5">{@html match.red}</p><p class="text-(--blue) flex gap-0.5">{@html match.blue}</p></div>
             {/each}
         {/if}
     </div> 

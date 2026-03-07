@@ -26,7 +26,7 @@
 			Now Queueing: <p class="font-medium">{nowQueue}</p>
 		</h1>
 		<h1 class="flex justify-center gap-1 text-[2.7rem]">
-			Break After Next: <p class="font-medium">{breakAfter}</p>
+			Next turn around: <p class="font-medium">{breakAfter}</p>
 		</h1>
 		<h1 class="flex justify-center gap-1">
 			{milestone}: <p class="font-medium">{milestoneTime}</p>
