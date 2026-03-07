@@ -4,7 +4,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async () => {
 	await updateData();
 	let data = await teamData();
-	if (!data) {
+	if (!data || data.myNextMatch.label == 'Dummy Match') {
 		return json({});
 	}
 	let match = data.myNextMatch.label;
