@@ -34,11 +34,28 @@ export function teamData() {
 		(m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team)
 	);
 	let myNextMatch = myMatches.find((m: nexusMatch) => m.status !== 'On field');
+	let myFollowingMatch = myMatches.find(
+		(m: nexusMatch) => m.status !== 'On field' && m.label !== myNextMatch?.label
+	);
 
 	if (!myNextMatch)
 		myNextMatch = {
 			label: 'Dummy Match',
 			status: 'Now queuing',
+			redTeams: ['1540', '1540', '1540'],
+			blueTeams: ['1844', '1844', '1844'],
+			times: {
+				estimatedQueueTime: Date.now(),
+				estimatedOnDeckTime: Date.now(),
+				estimatedOnFieldTime: Date.now(),
+				estimatedStartTime: Date.now()
+			},
+			breakAfter: 'End of day'
+		};
+	if (!myFollowingMatch)
+		myFollowingMatch = {
+			label: 'Dummy Match',
+			status: 'Queuing Soon',
 			redTeams: ['1540', '1540', '1540'],
 			blueTeams: ['1844', '1844', '1844'],
 			times: {
@@ -56,6 +73,7 @@ export function teamData() {
 	return {
 		myMatches,
 		myNextMatch,
+		myFollowingMatch,
 		allianceColor,
 		estimatedQueueTime,
 		estimatedOnFieldTime

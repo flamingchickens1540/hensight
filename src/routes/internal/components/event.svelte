@@ -2,14 +2,14 @@
 	import { onMount } from "svelte";
 
 	let nowQueue = $state("Loading...")
-	let onField = $state("Loading...")
+	let breakAfter = $state("Loading...")
 	let milestone = $state("Loading...")
 	let milestoneTime = $state("")
     async function load() {
         const res = await fetch("/api/event");
         const data = await res.json();
 		nowQueue = data.nowQueuing
-		onField = data.onField
+		breakAfter = data.breakAfter
 		milestone = data.milestone
 		milestoneTime = data.milestoneString
     }
@@ -25,8 +25,8 @@
 		<h1 class="flex justify-center gap-1">
 			Now Queueing: <p class="font-medium">{nowQueue}</p>
 		</h1>
-		<h1 class="flex justify-center gap-1">
-			On Field: <p class="font-medium">{onField}</p>
+		<h1 class="flex justify-center gap-1 text-[2.7rem]">
+			Break After Next: <p class="font-medium">{breakAfter}</p>
 		</h1>
 		<h1 class="flex justify-center gap-1">
 			{milestone}: <p class="font-medium">{milestoneTime}</p>

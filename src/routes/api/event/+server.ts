@@ -7,10 +7,27 @@ const msToTime = (ms: number) => {
 	return new Date(ms).toLocaleTimeString('it-IT', { timeZone });
 };
 
+function msToRelative(ms: number): string {
+	let seconds = ms / 1000;
+	let days = Math.floor(seconds / (24 * 3600));
+	seconds = seconds % (24 * 3600);
+	let hour = Math.floor(seconds / 3600);
+	seconds %= 3600;
+	let minutes = Math.floor(seconds / 60);
+	seconds %= 60;
+
+	let string = Math.round(seconds) + 's';
+	if (minutes != 0) string = Math.round(minutes) + 'mins';
+	if (hour != 0) string = Math.round(hour) + 'hrs, ' + string;
+	if (days != 0) string = '>24hrs';
+
+	return string;
+}
+
 export const GET: RequestHandler = async () => {
 	let data = await eventData();
 	if (!data) {
-		return json({ nowQueue: 'I', onField: "don't", lunch: 'know' });
+		return json({ nowQueue: 'I', break: "don't", lunch: 'know' });
 	}
 
 	let nowQueuing = data.nowQueue;
@@ -18,27 +35,22 @@ export const GET: RequestHandler = async () => {
 	else if (nowQueuing.includes('Qualification')) nowQueuing = 'QM' + nowQueuing.split(' ')[1];
 	else if (nowQueuing.includes('Practice')) nowQueuing = 'PM' + nowQueuing.split(' ')[1];
 
-	let onField = 'None';
-	let fileded: nexusMatch[] = [];
-	let all: false | nexusMatch[] = allMatches();
-	if (all) {
-		for (let match of all) {
-			if (match.status == 'On field') fileded.push(match);
-		}
-		if (fileded?.length > 0) {
-			fileded.sort((a, b) => {
-				return b.times.estimatedOnFieldTime - a.times.estimatedOnFieldTime;
-			});
-			onField = fileded[0].label;
-			if (onField.includes('Qualification')) onField = 'QM' + onField.split(' ')[1];
-			else if (onField.includes('Practice')) onField = 'PM' + onField.split(' ')[1];
-		}
+	let breakAfter = 'Unkown';
+	let tData = teamData();
+	if (tData) {
+		let nextEnd = tData.myNextMatch.times.estimatedStartTime + 3 * 60 * 1000;
+		let followingStart = tData.myFollowingMatch.times.estimatedQueueTime;
+
+		let dif = followingStart - nextEnd;
+		breakAfter = msToRelative(dif);
 	}
 
+	let all: false | nexusMatch[] = allMatches();
 	function findMilestone(breakType: string): number {
 		if (!all) return 0;
 		let matchBefore = null;
 		for (let match of all) {
+			if (Date.now() - match.times.estimatedStartTime > 8 * 60 * 60 * 1000) continue;
 			if (match.breakAfter == breakType) matchBefore = match;
 		}
 
@@ -50,18 +62,21 @@ export const GET: RequestHandler = async () => {
 		return ms;
 	}
 
-	let milestone = '';
+	let milestone = 'Lunch';
 	let milestoneMS = 0;
 	let lunchMS = findMilestone('Lunch');
 	let eomMS = findMilestone('End of day');
 	if (lunchMS > Date.now()) {
+		console.log('lunch');
 		milestone = 'Lunch';
 		milestoneMS = lunchMS;
 	} else if (eomMS > Date.now()) {
+		console.log('end');
 		milestone = 'Matches End';
 		milestoneMS = eomMS;
 	}
-	let milestoneString = msToTime(milestoneMS);
+	let milestoneString = 'Never';
+	if (milestoneMS != 0) milestoneString = msToTime(milestoneMS);
 
-	return json({ nowQueuing, onField, milestone, milestoneString });
+	return json({ nowQueuing, breakAfter, milestone, milestoneString });
 };
