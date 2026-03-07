@@ -62,11 +62,11 @@
 	{#if hasData}
 		<div class="flex items-center justify-between">
 			{#if !hasQueued}
-				<h1 class="p-1 text-[2.5rem]" style="color: {color};">Queueing {match} in...</h1>
+				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: {color};">Queueing {match} in...</h1>
 			{:else}
-				<h1 class="p-1 text-[2.5rem]" style="color: {color};">{match} On field in...</h1>
+				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: {color};">{match} On field in...</h1>
 			{/if}
-			<h1 class="p-1 text-[2.3rem]">{currentTime}</h1>
+			<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
 			<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
