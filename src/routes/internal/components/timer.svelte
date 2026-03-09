@@ -20,7 +20,7 @@
 		return string;
 	}
 
-	function getQueueString(ms: number, hasQueued: false) {
+	function getQueueString(ms: number, hasQueued: boolean) {
 		let seconds = ms / 1000;
 		const hours = Math.floor(seconds / 3600);
 		seconds = seconds % 3600;
@@ -66,15 +66,8 @@
 			lastUpdatedMS = Date.now();
 		} else throw new Error(await res.text());
 	}
-	var interval: NodeJS.Timeout;
-	onMount(() => {
-		load();
-		setInterval(() => {
-			queueTime -= 1000
-			currentTimeMS = Date.now()
-			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 60 * 1000) load();
-		}, 1000);
 
+	async function initStream() {
 		es = new EventSource('/api/stream')
 		es.onmessage = (e) => {
 			let data = JSON.parse(e.data)
@@ -83,6 +76,17 @@
 			({ match, queueTime, color, hasQueued } = data);
 			lastUpdatedMS = Date.now();
 		};
+	}
+
+	var interval: NodeJS.Timeout;
+	onMount(() => {
+		load();
+		initStream();
+		setInterval(() => {
+			queueTime -= 1000
+			currentTimeMS = Date.now()
+			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 60 * 1000) load();
+		}, 1000);
 	});
 	onDestroy(() => {
 		clearInterval(interval);
