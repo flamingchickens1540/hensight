@@ -1,4 +1,5 @@
 import { emitter } from '$lib/nexus';
+import { send } from 'vite';
 
 export function GET() {
 	let controller: ReadableStreamDefaultController;
@@ -11,8 +12,9 @@ export function GET() {
 			};
 
 			emitter.on('nexus', send);
-
-			return () => emitter.off('nexus', send);
+		},
+		cancel() {
+			emitter.off('nexus', send);
 		}
 	});
 

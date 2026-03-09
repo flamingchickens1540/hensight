@@ -3,6 +3,23 @@
 
 	const msToTime = (ms: number) => new Date(ms).toTimeString().split(' ')[0];
 
+	function msToRelative(ms: number): string {
+		let seconds = ms / 1000;
+		let days = Math.floor(seconds / (24 * 3600));
+		seconds = seconds % (24 * 3600);
+		let hour = Math.floor(seconds / 3600);
+		seconds %= 3600;
+		let minutes = Math.floor(seconds / 60);
+		seconds %= 60;
+
+		let string = Math.round(seconds) + 's ago';
+		if (minutes > 0) string = Math.round(minutes) + 'mins ago';
+		if (hour > 0) string = Math.round(hour) + 'hrs, ' + string;
+		if (days > 0) string = '>24hrs ago';
+
+		return string;
+	}
+
 	function getQueueString(ms: number, hasQueued: false) {
 		let seconds = ms / 1000;
 		const hours = Math.floor(seconds / 3600);
@@ -31,10 +48,12 @@
 		else if (queueTime < 5 * 60 * 1000) return 'yellow';
 		else return 'green';
 	})
-	var currentTimeMS: number = $derived(Date.now())
+	var currentTimeMS: number = $state(Date.now())
 	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var color: string = $state('#fff');
-	var lastUpdated = Date.now();
+	var lastUpdatedMS = $state(Date.now());
+	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)
+	var lastUpdated = $derived(msToRelative(msSinceUpdate))
 	var es: EventSource;
 
 	async function load() {
@@ -44,7 +63,7 @@
 			if (Object.keys(data).length > 0) hasData = true;
 			else hasData = false;
 			({ match, queueTime, color, hasQueued } = data);
-			lastUpdated = Date.now();
+			lastUpdatedMS = Date.now();
 		} else throw new Error(await res.text());
 	}
 	var interval: NodeJS.Timeout;
@@ -52,7 +71,8 @@
 		load();
 		setInterval(() => {
 			queueTime -= 1000
-			if (queueTime <= 0 || lastUpdated < Date.now() - 60 * 1000) load();
+			currentTimeMS = Date.now()
+			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 60 * 1000) load();
 		}, 1000);
 
 		es = new EventSource('/api/stream')
@@ -61,10 +81,13 @@
 			if (Object.keys(data).length > 0) hasData = true;
 			else hasData = false;
 			({ match, queueTime, color, hasQueued } = data);
-			lastUpdated = Date.now();
+			lastUpdatedMS = Date.now();
 		};
 	});
-	onDestroy(() => clearInterval(interval));
+	onDestroy(() => {
+		clearInterval(interval);
+		es?.close()
+	});
 </script>
 
 <div class="size-full rounded-lg border-4 border-(--white)">
@@ -75,7 +98,10 @@
 			{:else}
 				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">{match} On field in...</h1>
 			{/if}
-			<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
+			<div class="flex flex-col">
+				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
+				<p class="text-[2.3rem]">last updated: {lastUpdated}</p>
+			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
 			<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
@@ -83,7 +109,10 @@
 	{:else}
 		<div class="flex items-center justify-between">
 				<h1 class="p-1 text-[2.5rem] text-(--yellow)">No more matches</h1>
-			<h1 class="p-1 text-[2.5rem]">{currentTime}</h1>
+			<div class="flex flex-col">
+				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
+				<p class="text-[1.5rem] text-right text-(--grey)">{lastUpdated}</p>
+			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
 			<h1 class="text-[10rem] font-extrabold text-(--green)">:)</h1>
