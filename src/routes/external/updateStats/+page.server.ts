@@ -38,9 +38,9 @@ export const load: PageServerLoad = async () => {
 		globalData.feetClimbed += data.feetClimbed;
 		globalData.redWinCount += data.redWinCount;
 		globalData.blueWinCount += data.blueWinCount;
-		addData(key, data);
+		await addData(key, data);
 	}
-	addData('GLOBAL', globalData);
+	await addData('GLOBAL', globalData);
 
 	redirect(303, '/external/stats');
 };
