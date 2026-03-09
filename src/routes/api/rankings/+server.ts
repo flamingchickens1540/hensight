@@ -1,10 +1,10 @@
 import { getEventMatches, getRankings } from '$lib/tba';
 import { eventKey, team } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { teamData } from '$lib/nexus';
+import { getTeamData } from '$lib/nexus';
 
 export const GET: RequestHandler = async () => {
-	let tData = teamData();
+	let tData = getTeamData();
 	if (tData) {
 		if (
 			tData.myNextMatch.label.includes('Playoff') ||

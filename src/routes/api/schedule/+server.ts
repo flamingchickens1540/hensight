@@ -1,7 +1,7 @@
 import { getEventMatches } from '$lib/tba';
 import { eventKey, team } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { allMatches, teamData } from '$lib/nexus';
+import { getAllMatches, getTeamData } from '$lib/nexus';
 import Schedule from '../../internal/components/schedule.svelte';
 
 export const GET: RequestHandler = async () => {
@@ -17,7 +17,7 @@ export const GET: RequestHandler = async () => {
 		return a.time - b.time;
 	});
 
-	let tData = await teamData();
+	let tData = await getTeamData();
 	if (!tData) return json({ percent: null, schedule: formatted });
 	let myMatches = tData.myMatches;
 	let complete = [];

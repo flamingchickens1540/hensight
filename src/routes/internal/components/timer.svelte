@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 
-	const msToTime = (ms: number) => {
-		return new Date(ms).toTimeString().split(' ')[0];
-	};
+	const msToTime = (ms: number) => new Date(ms).toTimeString().split(' ')[0];
 
 	function getQueueString(ms: number, hasQueued: false) {
 		let seconds = ms / 1000;
@@ -16,6 +14,8 @@
 			if (seconds <= 0) string = 'Soon';
 			if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 			if (hours > 0) string = '>1hr';
+			if (hours > 2) string = '>2hrs';
+			if (hours > 8) string = 'Tmrw'
 		}
 		else string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 		return string;
@@ -31,10 +31,11 @@
 		else if (queueTime < 5 * 60 * 1000) return 'yellow';
 		else return 'green';
 	})
-	var currentTimeMS: number = $state(Date.now())
+	var currentTimeMS: number = $derived(Date.now())
 	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var color: string = $state('#fff');
-	let lastUpdated = Date.now();
+	var lastUpdated = Date.now();
+	var es: EventSource;
 
 	async function load() {
 		const res = await fetch('/api/queue');
@@ -50,11 +51,18 @@
 	onMount(() => {
 		load();
 		setInterval(() => {
-			currentTimeMS = Date.now();
 			queueTime -= 1000
 			if (queueTime <= 0 || lastUpdated < Date.now() - 60 * 1000) load();
-			else if (queueTime < 5 * 60 * 1000 && lastUpdated < Date.now() - 30 * 1000) load();
 		}, 1000);
+
+		es = new EventSource('/api/stream')
+		es.onmessage = (e) => {
+			let data = JSON.parse(e.data)
+			if (Object.keys(data).length > 0) hasData = true;
+			else hasData = false;
+			({ match, queueTime, color, hasQueued } = data);
+			lastUpdated = Date.now();
+		};
 	});
 	onDestroy(() => clearInterval(interval));
 </script>
@@ -63,9 +71,9 @@
 	{#if hasData}
 		<div class="flex items-center justify-between">
 			{#if !hasQueued}
-				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: {color};">Queueing {match} in...</h1>
+				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">Queueing {match} in...</h1>
 			{:else}
-				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: {color};">{match} On field in...</h1>
+				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">{match} On field in...</h1>
 			{/if}
 			<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
 		</div>

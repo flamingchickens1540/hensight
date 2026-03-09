@@ -1,3 +1,18 @@
+export type nexusData = {
+	eventKey: string;
+	dataAsOfTime: number;
+	nowQueuing: string;
+	matches: nexusMatch[];
+	announcements: announcement[];
+	partsRequests: partRequest[];
+};
+
+export type nexusWebhookData = {
+	eventKey: string;
+	dataAsOfTime: number;
+	match: nexusMatch;
+};
+
 export type nexusMatch = {
 	label: string;
 	status: string;
@@ -12,17 +27,6 @@ export type times = {
 	estimatedOnDeckTime: number;
 	estimatedOnFieldTime: number;
 	estimatedStartTime: number;
-};
-
-export type statsData = {
-	key: string;
-	pointsScored: number;
-	averagePointsPerMatch: number;
-	rpEarned: number;
-	penaltyPoints: number;
-	autoPoints: number;
-	matchesPlayed: number;
-	feetClimbed: number;
 };
 
 export type partRequest = {

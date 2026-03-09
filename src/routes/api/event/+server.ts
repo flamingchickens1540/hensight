@@ -1,4 +1,4 @@
-import { allMatches, eventData, teamData } from '$lib/nexus';
+import { getAllMatches, getEventData, getTeamData } from '$lib/nexus';
 import type { nexusMatch } from '$lib/types';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { timeZone } from '$lib/config';
@@ -25,7 +25,7 @@ function msToRelative(ms: number): string {
 }
 
 export const GET: RequestHandler = async () => {
-	let data = await eventData();
+	let data = await getEventData();
 	if (!data) {
 		return json({ nowQueue: 'I', break: "don't", lunch: 'know' });
 	}
@@ -36,7 +36,7 @@ export const GET: RequestHandler = async () => {
 	else if (nowQueuing.includes('Practice')) nowQueuing = 'PM' + nowQueuing.split(' ')[1];
 
 	let breakAfter = 'Unkown';
-	let tData = teamData();
+	let tData = getTeamData();
 	if (tData && tData.myFollowingMatch.label != 'Dummy Match') {
 		let nextEnd = tData.myNextMatch.times.estimatedStartTime + 3 * 60 * 1000;
 		let followingStart = tData.myFollowingMatch.times.estimatedQueueTime;
@@ -45,7 +45,7 @@ export const GET: RequestHandler = async () => {
 		breakAfter = msToRelative(dif);
 	}
 
-	let all: false | nexusMatch[] = allMatches();
+	let all: false | nexusMatch[] = getAllMatches();
 	function findMilestone(breakType: string): number {
 		if (!all) return 0;
 		let matchBefore = null;

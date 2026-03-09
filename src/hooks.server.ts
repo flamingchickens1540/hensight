@@ -1,4 +1,4 @@
-import { updateData } from '$lib/nexus';
+import { fetchData } from '$lib/nexus';
 
 let started = false;
 
@@ -6,13 +6,10 @@ export async function handle({ event, resolve }) {
 	if (!started) {
 		started = true;
 
-		updateData();
-		setInterval(
-			() => {
-				updateData().catch(console.error);
-			},
-			2 * 60 * 1000
-		);
+		fetchData();
+		setInterval(() => {
+			fetchData().catch(console.error);
+		}, 60 * 1000);
 	}
 
 	return resolve(event);

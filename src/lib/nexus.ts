@@ -1,17 +1,12 @@
 import { nexusKey } from '$env/static/private';
-import { type announcement, type nexusMatch, type partRequest } from './types';
+import { type announcement, type nexusData, type nexusMatch, type partRequest } from './types';
 import { eventKey, team } from './config';
+import { EventEmitter } from 'events';
 
-var data: {
-	eventKey: string;
-	dataAsOfTime: number;
-	nowQueuing: string;
-	matches: nexusMatch[];
-	announcements: announcement[];
-	partsRequests: partRequest[];
-};
+export const emitter = new EventEmitter();
+var data: nexusData;
 
-export async function updateData() {
+export async function fetchData() {
 	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {
 		method: 'GET',
 		headers: {
@@ -28,7 +23,15 @@ export async function updateData() {
 	data = await response.json();
 }
 
-export function teamData() {
+export function getData() {
+	return data;
+}
+
+export function setData(newData: nexusData) {
+	data = newData;
+}
+
+export function getTeamData() {
 	if (!data) return false;
 	const myMatches = data.matches.filter(
 		(m: nexusMatch) => m.redTeams?.includes(team) || m.blueTeams?.includes(team)
@@ -80,7 +83,7 @@ export function teamData() {
 	};
 }
 
-export function allMatches() {
+export function getAllMatches() {
 	if (!data) return false;
 	return data.matches;
 }
@@ -92,12 +95,36 @@ export async function getAnnouncements() {
 	return { announcements, partRequests };
 }
 
-export async function eventData() {
+export async function getEventData() {
 	if (!data) return false;
 	let nowQueue = data.nowQueuing;
-	let tData = teamData();
+	let tData = getTeamData();
 	if (tData) {
 		let matches = tData.myMatches;
 		return { nowQueue, matches };
 	} else return false;
+}
+
+export function formatTimer() {
+	let data = getTeamData();
+	if (!data || data.myNextMatch.label == 'Dummy Match') {
+		return {};
+	}
+
+	let match = data.myNextMatch.label;
+	if (match.includes('Qualification')) match = 'QM' + match.split(' ')[1];
+	else if (match.includes('Practice')) match = 'PM' + match.split(' ')[1];
+
+	let hasQueued = false;
+	let estMS: number = 0;
+	if (data.myNextMatch.status == 'Queuing soon') {
+		estMS = data.estimatedQueueTime;
+	} else {
+		hasQueued = true;
+		estMS = data.estimatedOnFieldTime;
+	}
+	let rn = Date.now();
+	let difference = estMS - rn;
+
+	return { match, queueTime: difference, color: data.allianceColor, hasQueued };
 }
