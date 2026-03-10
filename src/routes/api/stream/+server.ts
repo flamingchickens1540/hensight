@@ -1,28 +1,11 @@
-import { emitter } from '$lib/nexus';
-import { send } from 'vite';
+import { produce } from 'sveltekit-sse';
+import { clients } from '$lib/nexus';
 
-export function GET() {
-	let controller: ReadableStreamDefaultController;
-
-	const stream = new ReadableStream({
-		start(c) {
-			controller = c;
-			const send = async (data: unknown) => {
-				controller.enqueue(`data: ${JSON.stringify(data)}\n\n`);
-			};
-
-			emitter.on('nexus', send);
-		},
-		cancel() {
-			emitter.off('nexus', send);
-		}
-	});
-
-	return new Response(stream, {
-		headers: {
-			'Content-Type': 'text/event-stream',
-			'Cache-Control': 'no-cache',
-			Connection: 'keep-alive'
-		}
+export function POST() {
+	return produce(function start({ emit }) {
+		clients.add(emit);
+		return function stop() {
+			clients.delete(emit);
+		};
 	});
 }

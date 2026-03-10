@@ -1,5 +1,7 @@
 <script lang="ts">
+	import type { formattedTimer } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
+	import { source } from 'sveltekit-sse';
 	let { shouldUpdate = $bindable() } = $props();
 
 	const msToTime = (ms: number) => new Date(ms).toTimeString().split(' ')[0];
@@ -52,7 +54,6 @@
 	var lastUpdatedMS = $state(Date.now());
 	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)
 	var lastUpdated = $derived(msToRelative(msSinceUpdate))
-	var es: EventSource;
 
 	async function load() {
 		const res = await fetch('/api/queue');
@@ -65,31 +66,32 @@
 		} else throw new Error(await res.text());
 	}
 
-	async function initStream() {
-		es = new EventSource('/api/stream')
-		es.onmessage = (e) => {
-			let data = JSON.parse(e.data)
-			if (Object.keys(data).length > 0) hasData = true;
-			else hasData = false;
-			({ match, queueTime, color, hasQueued } = data);
-			lastUpdatedMS = Date.now();
-			shouldUpdate = true;
-		};
-	}
-
 	var interval: NodeJS.Timeout;
 	onMount(() => {
 		load();
-		initStream();
 		setInterval(() => {
 			queueTime -= 1000
 			currentTimeMS = Date.now()
 			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 3 * 60 * 1000) load();
 		}, 1000);
 	});
+
+	const data = source('/api/stream')
+		.select('nexus')
+		.json<formattedTimer>(({ previous }) => previous)
+
+	$effect(() => {
+		if ($data) {
+			hasData = true;
+		({ match, queueTime, color, hasQueued } = $data);
+		lastUpdatedMS = Date.now();
+		} else {
+		hasData = false;
+		}
+	})
+
 	onDestroy(() => {
 		clearInterval(interval);
-		es?.close()
 	});
 </script>
 

@@ -42,3 +42,10 @@ export type statObj = {
 	redWinCount: number;
 	blueWinCount: number;
 };
+
+export type formattedTimer = {
+	match: string;
+	queueTime: number;
+	color: string;
+	hasQueued: boolean;
+};

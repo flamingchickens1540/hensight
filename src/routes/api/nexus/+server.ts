@@ -1,5 +1,5 @@
 import { nexusWebhookToken } from '$env/static/private';
-import { emitter, formatTimer, setData } from '$lib/nexus';
+import { clients, formatTimer, setData } from '$lib/nexus';
 import type { nexusData } from '$lib/types';
 import type { RequestHandler } from '@sveltejs/kit';
 
@@ -12,7 +12,11 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const data: nexusData = await request.json();
 	setData(data);
+	console.log('new thing: ', data.dataAsOfTime);
 
-	emitter.emit('nexus', formatTimer());
+	for (const emit of clients) {
+		emit('nexus', JSON.stringify(formatTimer()));
+	}
+
 	return new Response('OK', { status: 200 });
 };

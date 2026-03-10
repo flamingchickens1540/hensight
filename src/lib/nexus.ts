@@ -1,9 +1,8 @@
 import { nexusKey } from '$env/static/private';
 import { type announcement, type nexusData, type nexusMatch, type partRequest } from './types';
 import { eventKey, team } from './config';
-import { EventEmitter } from 'events';
 
-export const emitter = new EventEmitter();
+export const clients: Set<(eventName: string, data: string) => void> = new Set();
 var data: nexusData;
 
 export async function fetchData() {
