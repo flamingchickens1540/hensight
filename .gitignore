@@ -23,7 +23,6 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-*.glb
-*.gltf
+cad.*
 
-stats.db*
+*.db*

@@ -1,27 +1,29 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import type { WebGLRenderer } from 'three';
 
 	let canvasContainer: HTMLDivElement;
 
 	onMount(async () => {
 		const THREE = await import('three');
 		const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js');
-		const { GLTFLoader } = await import('three/examples/jsm/Addons.js');
+		const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
 
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 		const renderer = new THREE.WebGLRenderer();
 		const controls = new OrbitControls(camera, renderer.domElement);
-
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.3)
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
 		const loader = new GLTFLoader();
 
 		const canvasWidth = canvasContainer.clientWidth;
 		const canvasHeight = canvasContainer.clientHeight;
 
-		await loader.load('/src/lib/assets/cad.glb', (gltf) => {
-			scene.add(gltf.scene);
-		});
+		const gltf = await loader.loadAsync('/src/lib/assets/cad.glb');
+		scene.add(gltf.scene);
+
 
 		scene.background = new THREE.Color(0x1c1c1c);
 
@@ -30,21 +32,48 @@
 		canvasContainer.appendChild(renderer.domElement);
 
 		controls.enableDamping = true;
-		// controls.autoRotate = true;
-		controls.autoRotateSpeed = 1.5;
+		controls.autoRotate = true;
+		controls.autoRotateSpeed = 3;
 		controls.enableZoom = true;
-		controls.maxDistance = 5;
+		controls.maxDistance = 2;
 		controls.enablePan = false;
+		controls.update();
 
 		camera.position.z = 5;
 		camera.aspect = canvasWidth / canvasHeight;
 		camera.updateProjectionMatrix();
 
-		function animate() {
-			requestAnimationFrame(animate);
+		scene.add(ambientLight)
+		let camPos = camera.position
+		directionalLight.position.set(camPos.x, camPos.y, camPos.z);
+		
+		scene.add(directionalLight)
 
-			controls.update();
+		function resizeRendererToDisplaySize(renderer: WebGLRenderer) {
+			const canvas = renderer.domElement;
+			const width = canvas.clientWidth;
+			const height = canvas.clientHeight;
+			const needResize = canvas.width !== width || canvas.height !== height;
+			if (needResize) {
+				renderer.setSize(width, height, false);
+			}
+
+			return needResize;
+		}
+
+		function animate() {
+			if (resizeRendererToDisplaySize(renderer)) {
+				const canvas = renderer.domElement;
+				camera.aspect = canvas.clientWidth / canvas.clientHeight;
+				camera.updateProjectionMatrix();
+			}
+			let camPos = camera.position
+			directionalLight.position.set(camPos.x, camPos.y, camPos.z);
+
 			renderer.render(scene, camera);
+
+			requestAnimationFrame(animate);
+			controls.update();
 		}
 
 		animate();
