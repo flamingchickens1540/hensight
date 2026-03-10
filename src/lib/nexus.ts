@@ -6,7 +6,7 @@ import { EventEmitter } from 'events';
 export const emitter = new EventEmitter();
 var data: nexusData;
 
-async function fetchData() {
+export async function fetchData() {
 	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {
 		method: 'GET',
 		headers: {
@@ -22,8 +22,6 @@ async function fetchData() {
 
 	data = await response.json();
 }
-
-fetchData();
 
 export function getData() {
 	if (data) return data;

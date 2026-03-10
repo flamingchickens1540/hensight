@@ -43,7 +43,7 @@
 	var time: string = $derived(getQueueString(queueTime));
 	var timerColor: string = $derived.by(() => {
 		if (hasQueued) return 'red';
-		else if (queueTime < 5 * 60 * 1000) return 'yellow';
+		else if (queueTime <= 2 * 60 * 1000) return 'yellow';
 		else return 'green';
 	})
 	var currentTimeMS: number = $state(Date.now())
@@ -84,7 +84,7 @@
 		setInterval(() => {
 			queueTime -= 1000
 			currentTimeMS = Date.now()
-			// if (lastUpdatedMS < Date.now() - 60 * 1000) load();
+			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 3 * 60 * 1000) load();
 		}, 1000);
 	});
 	onDestroy(() => {
