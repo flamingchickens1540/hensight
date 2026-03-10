@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Schedule from './schedule.svelte';
 	import { onMount } from "svelte";
 
     let { scheduleVisible = $bindable() } = $props();

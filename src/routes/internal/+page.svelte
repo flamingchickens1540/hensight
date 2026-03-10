@@ -7,6 +7,7 @@
 	import Stream from './components/livestream.svelte';
 
 	let scheduleVisible = $state(true)
+	let shouldUpdate = $state(false)
 	
 	const toggle = () => scheduleVisible = !scheduleVisible;
 
@@ -29,10 +30,10 @@
 			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
 		{/if}
 	</button>
-	<div style="grid-area: timer;"><Timer></Timer></div>
-	<div style="grid-area: event;"><Event></Event></div>
+	<div style="grid-area: timer;"><Timer bind:shouldUpdate = { shouldUpdate }></Timer></div>
+	<div style="grid-area: event;"><Event bind:shouldUpdate = { shouldUpdate }></Event></div>
 	<div style="grid-area: announcements;"><Announcements></Announcements></div>
-	<div style="grid-area: big"><Stream></Stream></div>
+	<!-- <div style="grid-area: big"><Stream></Stream></div> -->
 </div>
 
 <style>

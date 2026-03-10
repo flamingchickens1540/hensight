@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
+	let { shouldUpdate = $bindable() } = $props();
 
 	const msToTime = (ms: number) => new Date(ms).toTimeString().split(' ')[0];
 
@@ -20,21 +21,18 @@
 		return string;
 	}
 
-	function getQueueString(ms: number, hasQueued: boolean) {
+	function getQueueString(ms: number) {
 		let seconds = ms / 1000;
 		const hours = Math.floor(seconds / 3600);
 		seconds = seconds % 3600;
 		const minutes = Math.floor(seconds / 60);
 		seconds = Math.floor(seconds % 60);
 		let string: string = seconds.toString().padStart(2, '0');
-		if (!hasQueued) {
-			if (seconds <= 0) string = 'Soon';
-			if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-			if (hours > 0) string = '>1hr';
-			if (hours > 2) string = '>2hrs';
-			if (hours > 8) string = 'Tmrw'
-		}
-		else string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+		if (seconds <= 0) string = 'Soon';
+		if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+		if (hours > 0) string = '>1hr';
+		if (hours > 2) string = '>2hrs';
+		if (hours > 8) string = 'Tmrw'
 		return string;
 	}
 
@@ -42,7 +40,7 @@
 	var match: string = $state('loading...');
 	var queueTime: number = $state(0);
 	var hasQueued = $state(false);
-	var time: string = $derived(getQueueString(queueTime, hasQueued));
+	var time: string = $derived(getQueueString(queueTime));
 	var timerColor: string = $derived.by(() => {
 		if (hasQueued) return 'red';
 		else if (queueTime < 5 * 60 * 1000) return 'yellow';
@@ -75,6 +73,7 @@
 			else hasData = false;
 			({ match, queueTime, color, hasQueued } = data);
 			lastUpdatedMS = Date.now();
+			shouldUpdate = true;
 		};
 	}
 
@@ -85,7 +84,7 @@
 		setInterval(() => {
 			queueTime -= 1000
 			currentTimeMS = Date.now()
-			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 60 * 1000) load();
+			// if (lastUpdatedMS < Date.now() - 60 * 1000) load();
 		}, 1000);
 	});
 	onDestroy(() => {
@@ -104,7 +103,7 @@
 			{/if}
 			<div class="flex flex-col">
 				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
-				<p class="text-[2.3rem]">last updated: {lastUpdated}</p>
+				<p class="text-[1.5rem] text-right text-(--grey)">{lastUpdated}</p>
 			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">

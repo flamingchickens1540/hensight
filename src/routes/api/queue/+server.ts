@@ -1,4 +1,4 @@
-import { formatTimer, getTeamData } from '$lib/nexus';
+import { formatTimer } from '$lib/nexus';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {

@@ -7,12 +7,6 @@ export type nexusData = {
 	partsRequests: partRequest[];
 };
 
-export type nexusWebhookData = {
-	eventKey: string;
-	dataAsOfTime: number;
-	match: nexusMatch;
-};
-
 export type nexusMatch = {
 	label: string;
 	status: string;

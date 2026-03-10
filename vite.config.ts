@@ -6,5 +6,8 @@ export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	ssr: {
 		external: ['bun:sqlite']
+	},
+	server: {
+		allowedHosts: ['furless-devona-proequality.ngrok-free.dev']
 	}
 });
