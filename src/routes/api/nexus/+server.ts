@@ -1,7 +1,6 @@
 import { nexusWebhookToken } from '$env/static/private';
-import { eventKey } from '$lib/config';
-import { emitter, formatTimer, getData, getTeamData, setData } from '$lib/nexus';
-import type { nexusData, nexusMatch } from '$lib/types';
+import { emitter, formatTimer, setData } from '$lib/nexus';
+import type { nexusData } from '$lib/types';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {
