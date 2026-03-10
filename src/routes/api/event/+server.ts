@@ -67,11 +67,9 @@ export const GET: RequestHandler = async () => {
 	let lunchMS = findMilestone('Lunch');
 	let eomMS = findMilestone('End of day');
 	if (lunchMS > Date.now()) {
-		console.log('lunch');
 		milestone = 'Lunch';
 		milestoneMS = lunchMS;
 	} else if (eomMS > Date.now()) {
-		console.log('end');
 		milestone = 'Matches End';
 		milestoneMS = eomMS;
 	}
