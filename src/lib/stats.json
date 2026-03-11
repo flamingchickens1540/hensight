@@ -50,13 +50,13 @@
         "value": 0
     },
     "eggsSinceKickoff": {
-        "p1": "A single chicken would have laied",
+        "p1": "A single chicken would have laid",
         "p2": "eggs since FRC kickoff",
         "value": 0
     },
     "eggsPerMatch": {
         "p1": "Throughout the US",
-        "p2": "eggs are laied per match",
+        "p2": "eggs are laid per match",
         "value": 470889
     },
     "chickensCount": {

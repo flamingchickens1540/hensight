@@ -17,7 +17,6 @@
         count = 0;
         if (i>=stats.length) {
             i = 0
-            stats.sort(() => Math.random() - 0.5);
         }
         stat = stats[i]
     }

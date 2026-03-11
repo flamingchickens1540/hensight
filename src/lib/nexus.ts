@@ -28,7 +28,7 @@ export function getData() {
 }
 
 export function setData(newData: nexusData) {
-	if (newData.dataAsOfTime < data.dataAsOfTime) return;
+	if (data && newData.dataAsOfTime < data.dataAsOfTime) return;
 	if (newData.eventKey != eventKey) return;
 
 	data = newData;
