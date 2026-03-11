@@ -1,10 +1,12 @@
 <script>
+	import People from './components/people.svelte';
 	import Rankings from './components/rankings.svelte';
 	import Schedule from './components/schedule.svelte';
 	import Timer from './components/timer.svelte';
 	import Event from './components/event.svelte';
 	import Announcements from './components/announcements.svelte';
 	import Stream from './components/livestream.svelte';
+	import { bottomLeft } from '$lib/config';
 
 	let scheduleVisible = $state(true)
 	let shouldUpdate = $state(false)
@@ -32,7 +34,11 @@
 	</button>
 	<div style="grid-area: timer;"><Timer bind:shouldUpdate = { shouldUpdate }></Timer></div>
 	<div style="grid-area: event;"><Event bind:shouldUpdate = { shouldUpdate }></Event></div>
-	<div style="grid-area: announcements;"><Announcements></Announcements></div>
+	{#if bottomLeft == 'rotations'}
+		<div style="grid-area: announcements;"><People></People></div>
+	{:else}
+		<div style="grid-area: announcements;"><Announcements></Announcements></div>
+	{/if}
 	<!-- <div style="grid-area: big"><Stream></Stream></div> -->
 </div>
 

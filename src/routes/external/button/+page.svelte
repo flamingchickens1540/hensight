@@ -80,8 +80,8 @@
   }
 
   .big-red-button:active {
-    box-shadow: 0 12px 0 #800000,
-                0 4px 10px rgba(0,0,0,0.4);
-    transform: translateY(6px);  /* moves down when pressed */
+    box-shadow: 0 10px 0 #800000,
+                0 2px 10px rgba(0,0,0,0.4);
+    transform: translateY(8px);  /* moves down when pressed */
   }
 </style>

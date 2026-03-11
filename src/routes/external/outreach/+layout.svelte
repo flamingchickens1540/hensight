@@ -43,7 +43,7 @@
         border-radius: 12px;
         border: 4px solid var(--yellow);
         padding: 1rem;
-        width: 10%;
+        width: 13%;
         transition: 1s;
     }
 </style>
