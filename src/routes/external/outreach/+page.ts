@@ -2,5 +2,5 @@ import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
-	redirect(303, '/external/outreach/thing1');
+	redirect(303, '/external/outreach/general');
 };

@@ -4,24 +4,30 @@
 </script>
 
 <div class="w-full h-67.5 m-auto text-center border-14 border-(--yellow) absolute">
-    <nav class="p-1 flex gap-2 justify-center bottom-1 fixed w-full text-2xl font-bold">
+    <nav class="p-1 flex gap-2 justify-center bottom-1 fixed w-full text-3xl font-bold">
         <button
-            class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"
+            class="button"
             onclick={() => {
-                goto('/external/outreach/thing1');
-            }}>Thing 1</button
+                goto('/external/outreach/general');
+            }}>General</button
 	    >
         <button
-            class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"
+            class="button"
             onclick={() => {
-                goto('/external/outreach/thing2');
-            }}>Thing 2</button
+                goto('/external/outreach/fll');
+            }}>FLL</button
 	    >
         <button
-            class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"
+            class="button"
             onclick={() => {
-                goto('/external/outreach/thing3');
-            }}>Thing 3</button
+                goto('/external/outreach/events');
+            }}>Events</button
+	    >
+        <button
+            class="button"
+            onclick={() => {
+                goto('/external/outreach/bunnybots');
+            }}>Bunnybots</button
 	    >
         <button
             class="rounded-xl border-4 border-(--red) p-1 w-[10%]"
@@ -31,5 +37,15 @@
 	    >
     </nav>
 </div>
+
+<style>
+    .button {
+        border-radius: 12px;
+        border: 4px solid var(--yellow);
+        padding: 1rem;
+        width: 10%;
+        transition: 1s;
+    }
+</style>
 
 {@render children?.()}
