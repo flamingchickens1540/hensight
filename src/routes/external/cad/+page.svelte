@@ -89,7 +89,7 @@
 		<button
 			class="rounded-xl border-4 border-(--yellow) p-1.5 w-[10 bg-(--black)"
 			onclick={() => goto('/external/')}>
-			Back
+			Menu
 		</button>
 	</nav>
 </div>

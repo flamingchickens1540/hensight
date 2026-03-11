@@ -56,9 +56,10 @@
  <nav class="p-1 flex gap-2 justify-center bottom-1 fixed w-full text-3xl font-bold">
     <button
         class="rounded-xl border-4 border-(--yellow) p-1 w-[10%]"
-        onclick={() => {
+        onclick={async () => {
+            await fetch('/api/clicks', { method: 'POST', body: JSON.stringify({ clicks }) });
             goto('/external/');
-        }}>Back</button
+        }}>Menu</button
 	>
   </nav>
 
@@ -67,19 +68,19 @@
   .big-red-button {
     background-color: var(--red);
     color: var(--white);
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: bold;
     padding: 3rem 3rem;
     border: none;
     border-radius: 50%;        /* makes it circular */
     cursor: pointer;
-    box-shadow: 0 8px 0 #800000,          /* bottom "depth" shadow */
+    box-shadow: 0 18px 0 #800000,          /* bottom "depth" shadow */
                 0 10px 20px rgba(0,0,0,0.4); /* outer glow */
     transition: all 0.1s ease;
   }
 
   .big-red-button:active {
-    box-shadow: 0 2px 0 #800000,
+    box-shadow: 0 12px 0 #800000,
                 0 4px 10px rgba(0,0,0,0.4);
     transform: translateY(6px);  /* moves down when pressed */
   }
