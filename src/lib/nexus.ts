@@ -77,6 +77,7 @@ export function getTeamData() {
 	let estimatedOnFieldTime = myNextMatch.times.estimatedOnFieldTime;
 
 	return {
+		dataTime: data.dataAsOfTime,
 		myMatches,
 		myNextMatch,
 		myFollowingMatch,
@@ -111,7 +112,7 @@ export async function getEventData() {
 export function formatTimer() {
 	let data = getTeamData();
 	if (!data || data.myNextMatch.label == 'Dummy Match') {
-		return {};
+		return { dataTime: Date.now() };
 	}
 
 	let match = data.myNextMatch.label;
@@ -126,8 +127,8 @@ export function formatTimer() {
 		hasQueued = true;
 		estMS = data.estimatedOnFieldTime;
 	}
-	let rn = Date.now();
-	let difference = estMS - rn;
+	let dataTime = data.dataTime;
+	let difference = estMS - dataTime;
 
-	return { match, queueTime: difference, color: data.allianceColor, hasQueued };
+	return { match, queueTime: difference, color: data.allianceColor, hasQueued, dataTime };
 }

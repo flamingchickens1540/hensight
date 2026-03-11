@@ -48,4 +48,5 @@ export type formattedTimer = {
 	queueTime: number;
 	color: string;
 	hasQueued: boolean;
+	dataTime: number;
 };

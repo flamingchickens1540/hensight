@@ -19,6 +19,7 @@
 		if (minutes > 0) string = Math.round(minutes) + 'mins ago';
 		if (hour > 0) string = Math.round(hour) + 'hrs, ' + string;
 		if (days > 0) string = '>24hrs ago';
+		if (days > 3) string = 'Never'
 
 		return string;
 	}
@@ -51,7 +52,7 @@
 	var currentTimeMS: number = $state(Date.now())
 	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var color: string = $state('#fff');
-	var lastUpdatedMS = $state(Date.now());
+	var lastUpdatedMS = $state(0);
 	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)
 	var lastUpdated = $derived(msToRelative(msSinceUpdate))
 
@@ -59,10 +60,10 @@
 		const res = await fetch('/api/queue');
 		if (res.ok) {
 			let data = await res.json();
-			if (Object.keys(data).length > 0) hasData = true;
+			if (Object.keys(data).length > 1) hasData = true;
 			else hasData = false;
 			({ match, queueTime, color, hasQueued } = data);
-			lastUpdatedMS = Date.now();
+			lastUpdatedMS = data.dataTime;
 		} else throw new Error(await res.text());
 	}
 
@@ -81,12 +82,10 @@
 		.json<formattedTimer>(({ previous }) => previous)
 
 	$effect(() => {
-		if ($data) {
-			hasData = true;
-		({ match, queueTime, color, hasQueued } = $data);
-		lastUpdatedMS = Date.now();
-		} else {
-		hasData = false;
+		hasData = Object.keys($data ?? {}).length > 1;
+		if (hasData && $data) {
+			({ match, queueTime, color, hasQueued } = $data);
+			lastUpdatedMS = $data.dataTime;
 		}
 	})
 
