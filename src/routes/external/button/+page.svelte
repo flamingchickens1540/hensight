@@ -48,9 +48,9 @@
 <div class="w-full h-67.5 m-auto text-center border-14 border-(--yellow) absolute flex items-center justify-center flex-col gap-5">
     <button class="big-red-button" onclick={click}>Press Me</button>
     <div class="flex justify-center gap-2 text-3xl">
-        <p class="font-medium" style="color: var(--{color});">Clicks Last Event: {lastEventClicks}</p>
+        {#if lastEventClicks > 0}<p class="font-medium" style="color: var(--{color});">Clicks Last Event: {lastEventClicks}</p>{/if}
         <h1 class="text-4xl">Clicks: {clicks}</h1>
-        <p class="font-medium">Clicks all time: {globalClicks}</p>
+        <p class="font-medium">All time clicks: {globalClicks}</p>
     </div>
 </div>
  <nav class="p-1 flex gap-2 justify-center bottom-1 fixed w-full text-3xl font-bold">
