@@ -1,6 +1,8 @@
+import { eventKey } from './config';
 import type { statObj } from './types';
 
 let db: any = null;
+let clickDB: any = null;
 
 async function getDB() {
 	if (!db) {
@@ -63,6 +65,57 @@ export async function addData(key: string, data: statObj) {
 export async function getData(key: string) {
 	const db = await getDB();
 	return db.prepare('SELECT * FROM stats WHERE key = ?').get(key);
+}
+
+async function getClickDB() {
+	if (!clickDB) {
+		const { Database } = await import('bun:sqlite');
+
+		clickDB = new Database('clicks.db');
+
+		clickDB.run(`
+      CREATE TABLE IF NOT EXISTS stats (
+        key TEXT PRIMARY KEY,
+        clicks INT
+      )
+    `);
+	}
+
+	return clickDB;
+}
+
+export async function setClicks(clicks: number) {
+	const db = await getClickDB();
+
+	db.prepare(
+		`INSERT INTO stats
+        VALUES (?, ?)
+        ON CONFLICT(key)
+        DO UPDATE SET
+            clicks = excluded.clicks;`
+	).run(eventKey, clicks);
+
+	let globalCount = 0;
+	const res = db.prepare(`Select * FROM stats`).all();
+	for (const item of res) {
+		if (item.key == 'GLOBAL') continue;
+		globalCount += item.clicks;
+	}
+
+	db.prepare(
+		`INSERT INTO stats
+        VALUES ('GLOBAL', ?)
+        ON CONFLICT(key)
+        DO UPDATE SET
+            clicks = excluded.clicks;`
+	).run(globalCount);
+}
+
+export async function getClicks(key: string) {
+	let db = await getClickDB();
+	const res = db.prepare('SELECT clicks FROM stats WHERE key = ?').get(key);
+	if (res) return res.clicks;
+	else return 0;
 }
 
 export { getDB };

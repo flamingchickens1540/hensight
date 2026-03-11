@@ -21,4 +21,10 @@
 			goto('/external/outreach');
 		}}>Outreach</button
 	>
+	<button
+		class="rounded-xl border-10 border-[#800000] p-1"
+		onclick={() => {
+			goto('/external/button');
+		}}>The Button</button
+	>
 </div>
