@@ -3,12 +3,11 @@
 Hensight is a fun pit display! It has two parts. Internal Hensight is for pit crew, displaying match schedule, queue timer, livestream, and more. External Hensight is for pit visitors, where it shows fun facts about the events, robot cad, and more.
 
 ## Usage
+1. Install [bun](bun.sh)
+2. Install [PM2](https://pm2.io/docs/runtime/guide/installation/)
+3. Run the program
 ```bash
-# install pm2
-bun  i  pm2  -g
-
-# run program
-source  update.sh
+source update.sh
 ```
 
 ## Config
@@ -39,5 +38,7 @@ nexusWebhookToken = <insertToken>
 ```
 
 ### External Hensight
-If you plan to use external hensight, place a GLB of your robot's cad in `src/lib/assets` and make sure it's named `cad.glb`.
-You could also possible remove outreach unless you like giving us free advertising 😁
+- If you plan to use external hensight, place a GLB of your robot's cad in `src/lib/assets` and make sure it's named `cad.glb`
+- You you might also remove outreach unless you like giving us free advertising 😁
+- Statistics are updated for the current event when the page loads, and visit `/external/updateStats` in your browser to update global statistics
+- If you wish to reset button presses, simply delete `clicks.db`
