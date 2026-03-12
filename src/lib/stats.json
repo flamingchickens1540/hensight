@@ -83,5 +83,15 @@
         "p1": "This year the world has scored",
         "p2": "% of the points last year",
         "value": 0
+    },
+    "daysToChamps": {
+        "p1": "There are",
+        "p2": "days left until huston",
+        "value": 0
+    },
+    "teamsThisYear": {
+        "p1": "This year there are",
+        "p2": "teams registered with FRC",
+        "value": "9,183"
     }
 }
