@@ -9,7 +9,7 @@
     let globalClicks = $derived(data.globalClicks)
 
     let color = $derived.by(() => {
-        return clicks > lastEventClicks ? 'green' : 'red';
+        return clicks > lastEventClicks ? 'green' : 'white';
     })
     let lastUpdatedCount = $state(0);
     let showingConfetti = $state(false);

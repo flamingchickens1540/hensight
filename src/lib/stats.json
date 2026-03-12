@@ -78,5 +78,10 @@
         "p1": "___ alliance has a",
         "p2": "% win rate",
         "value": 0
+    },
+    "%lastYear": {
+        "p1": "This year the world has scored",
+        "p2": "% of the points last year",
+        "value": 0
     }
 }

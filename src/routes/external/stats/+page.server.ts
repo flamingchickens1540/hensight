@@ -1,4 +1,4 @@
-import { eventKey } from '$lib/config';
+import { eventKey, pointsLastYear } from '$lib/config';
 import { filterMatches, getEventMatches } from '$lib/tba';
 import type { PageServerLoad } from './$types';
 import stats from '$lib/stats.json';
@@ -50,6 +50,7 @@ export const load: PageServerLoad = async () => {
 	stats.eventAutoPoints.value = data?.autoPoints ?? 0;
 	stats.eventMatchesPlayed.value = data?.matchesPlayed ?? 0;
 	stats.eggsSinceKickoff.value = Math.floor(((Date.now() - 1768064400000) / 31556952000) * 270);
+	stats['%lastYear'].value = (globalData?.pointsScored / pointsLastYear) * 100;
 	let final = Object.values(stats);
 	final.sort(() => Math.random() - 0.5);
 	return { final };

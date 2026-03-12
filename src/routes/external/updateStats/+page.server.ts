@@ -42,7 +42,7 @@ export const load: PageServerLoad = async () => {
 		await addData(key, data);
 		count++;
 	}
-	console.log(`Processed data for ${count} events`);
+	console.log(`\nProcessed data for ${count} events`);
 	await addData('GLOBAL', globalData);
 
 	redirect(303, '/external/stats');
