@@ -3,7 +3,7 @@
 Hensight is a fun pit display! It has two parts. Internal Hensight is for pit crew, displaying match schedule, queue timer, livestream, and more. External Hensight is for pit visitors, where it shows fun facts about the events, robot cad, and more.
 
 ## Usage
-1. Install [bun](bun.sh)
+1. Install [bun](https://bun.sh)
 2. Install [PM2](https://pm2.io/docs/runtime/guide/installation/)
 3. Run the program
 ```bash
