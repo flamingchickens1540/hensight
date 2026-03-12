@@ -5,6 +5,8 @@
 
 	let canvasContainer: HTMLDivElement;
 
+	let hasLoaded = $state(false);
+
 	onMount(async () => {
 		const THREE = await import('three');
 		const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js');
@@ -61,7 +63,7 @@
 			return needResize;
 		}
 
-		function animate() {
+		async function animate() {
 			if (resizeRendererToDisplaySize(renderer)) {
 				const canvas = renderer.domElement;
 				camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -70,8 +72,8 @@
 			let camPos = camera.position
 			directionalLight.position.set(camPos.x, camPos.y, camPos.z);
 
-			renderer.render(scene, camera);
-
+			await renderer.render(scene, camera);
+			if (!hasLoaded) hasLoaded = true;
 			requestAnimationFrame(animate);
 			controls.update();
 		}
@@ -93,3 +95,24 @@
 		</button>
 	</nav>
 </div>
+
+{#if !hasLoaded}
+	<div class="loader absolute left-[47%] top-[40%]"></div>
+	<h1 class="text-4xl absolute left-[45.7%] top-[55%]">Loading...</h1>
+{/if}
+
+<style>
+	.loader {
+		border: 16px solid var(--grey);
+		border-top: 16px solid var(--yellow);
+		border-radius: 50%;
+		width: 120px;
+		height: 120px;
+		animation: spin 2s linear infinite;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+</style>
