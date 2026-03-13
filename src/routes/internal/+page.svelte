@@ -39,7 +39,7 @@
 	{:else}
 		<div style="grid-area: announcements;"><Announcements></Announcements></div>
 	{/if}
-	<!-- <div style="grid-area: big"><Stream></Stream></div> -->
+	<div style="grid-area: big"><Stream></Stream></div>
 </div>
 
 <style>

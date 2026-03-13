@@ -51,7 +51,7 @@ export const load: PageServerLoad = async () => {
 	stats.eventMatchesPlayed.value = data?.matchesPlayed ?? 0;
 	stats.eggsSinceKickoff.value = Math.floor(((Date.now() - 1768064400000) / 31556952000) * 270);
 	stats['%lastYear'].value = (globalData?.pointsScored / pointsLastYear) * 100;
-	stats.daysToChamps.value = Math.round(1777072800000 - Date.now()) / (24 * 60 * 60 * 1000);
+	stats.daysToChamps.value = Math.round((1777072800000 - Date.now()) / (24 * 60 * 60 * 1000));
 	let final = Object.values(stats);
 	final.sort(() => Math.random() - 0.5);
 	return { final };
