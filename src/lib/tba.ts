@@ -32,7 +32,13 @@ export async function getPastEvents(year: string) {
 
 export async function getRankings(eventKey: string) {
 	const res = await makeRequest(`/event/${eventKey}/rankings`);
-	return res.rankings;
+	return res.rankings.length >= 1 ? res.rankings : false;
+}
+
+export async function getStreamID(eventKey: string) {
+	const res = await makeRequest(`/event/${eventKey}`)
+	let webcasts: {channel: string; date: string; type: string}[] = res.webcasts;
+	return webcasts.find(stream => new Date(stream.date).getTime() >= Date.now())?.channel ?? false;
 }
 
 function calcClimbFeet(depth: string) {

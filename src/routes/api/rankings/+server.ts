@@ -14,8 +14,10 @@ export const GET: RequestHandler = async () => {
 			return json({});
 	}
 	let rankings = await getRankings(eventKey);
+	if (!rankings) return json({});
 	let formatted: { team: string; rank: number }[] = [];
 	let i = 0;
+
 	for (let rank = 0; rank < rankings.length; rank++) {
 		formatted[i++] = formatRanking(rankings[rank]);
 	}

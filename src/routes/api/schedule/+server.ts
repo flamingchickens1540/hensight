@@ -1,8 +1,7 @@
 import { getEventMatches } from '$lib/tba';
 import { eventKey, team } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { getAllMatches, getTeamData } from '$lib/nexus';
-import Schedule from '../../internal/components/schedule.svelte';
+import { getTeamData } from '$lib/nexus';
 
 export const GET: RequestHandler = async () => {
 	let matches = await getEventMatches(eventKey);
