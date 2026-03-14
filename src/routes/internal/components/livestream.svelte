@@ -1,14 +1,20 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
 	var data: {hasData: boolean; channelID: string} = $state({hasData: false, channelID: ''})
     async function load() {
         const res = await fetch("/api/livestream");
         data = await res.json();
-		console.log(data)
     }
-    onMount(load)
-
+	let intverval: NodeJS.Timeout
+    onMount(() => {
+		load()
+		const iframe = document.querySelector('iframe');
+		intverval = setInterval(() => {
+			if (iframe) iframe.src = iframe.src;
+		}, 5 * 60 * 1000);
+	})
+	onDestroy(() => clearInterval(intverval))
 </script>
 
 {#if data.hasData}
@@ -16,7 +22,7 @@
 		<iframe 
 		width="100%" 
 		height="100%" 
-		src="https://www.youtube-nocookie.com/embed/{data.channelID}?autoplay=1&mute=1" 
+		src="https://www.youtube-nocookie.com/embed/{data.channelID}?autoplay=1&mute=1&start=99999" 
 		title="YouTube video player" 
 		frameborder="0" 
 		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

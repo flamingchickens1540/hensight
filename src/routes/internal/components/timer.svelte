@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { timeZone } from '$lib/config';
 	import type { formattedTimer } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
 	import { source } from 'sveltekit-sse';
@@ -82,6 +83,7 @@
 		.json<formattedTimer>(({ previous }) => previous)
 
 	$effect(() => {
+		console.log(`new data:\n${$data}`)
 		if (Object.keys($data ?? {}).length > 1 && $data) {
 			({ match, queueTime, color, hasQueued } = $data);
 			lastUpdatedMS = $data.dataTime;
