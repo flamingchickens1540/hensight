@@ -34,7 +34,7 @@
 <div class="border-4 border-white rounded-lg size-full">
     <h1 class="text-[2.5rem]">Schedule</h1>
     <p class="text[2.2rem]">We have played {percent}% of our matches</p>
-    <div class="w-full max-h-[87%] overflow-scroll border-t-4 border-white">
+    <div class="w-full max-h-[86%] overflow-scroll border-t-4 border-white">
         {#if schedule.length == 0}
             <div class="text-5xl font-bold m-auto p-3 size-fit text-(--green)">No more matches :p</div>
         {:else}

@@ -40,9 +40,10 @@ export const GET: RequestHandler = async () => {
 	if (tData && tData.myFollowingMatch.label != 'Dummy Match') {
 		let nextEnd = tData.myNextMatch.times.estimatedStartTime + 3 * 60 * 1000;
 		let followingStart = tData.myFollowingMatch.times.estimatedQueueTime;
-
-		let dif = followingStart - nextEnd;
-		breakAfter = msToRelative(dif);
+		if (!Number.isNaN(nextEnd) && !Number.isNaN(followingStart)) {
+			let dif = followingStart - nextEnd;
+			breakAfter = msToRelative(dif);
+		}
 	}
 
 	let all: false | nexusMatch[] = getAllMatches();

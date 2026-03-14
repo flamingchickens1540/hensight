@@ -73,7 +73,7 @@
 		setInterval(() => {
 			queueTime -= 1000
 			currentTimeMS = Date.now()
-			if (queueTime <= 0 || lastUpdatedMS < Date.now() - 3 * 60 * 1000) load();
+			if (lastUpdatedMS < Date.now() - 3 * 60 * 1000) load();
 		}, 1000);
 	});
 
@@ -82,8 +82,7 @@
 		.json<formattedTimer>(({ previous }) => previous)
 
 	$effect(() => {
-		hasData = Object.keys($data ?? {}).length > 1;
-		if (hasData && $data) {
+		if (Object.keys($data ?? {}).length > 1 && $data) {
 			({ match, queueTime, color, hasQueued } = $data);
 			lastUpdatedMS = $data.dataTime;
 		}
