@@ -25,7 +25,7 @@
 		src="https://www.youtube-nocookie.com/embed/{data.channelID}?autoplay=1&mute=1&start=99999" 
 		title="YouTube video player" 
 		frameborder="0" 
-		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+		allow="autoplay;" 
 		referrerpolicy="strict-origin-when-cross-origin" 
 		allowfullscreen
 		>

@@ -1,6 +1,6 @@
 import { nexusKey } from '$env/static/private';
 import { type announcement, type nexusData, type nexusMatch, type partRequest } from './types';
-import { eventKey, team } from './config';
+import { eventKey, team, timeZone } from './config';
 
 export const clients: Set<(eventName: string, data: string) => void> = new Set();
 var data: nexusData;
@@ -18,6 +18,9 @@ export async function fetchData() {
 		console.log('Error getting live event status:', errorMessage);
 		return false;
 	}
+	console.log(
+		`Updated Data via polling at ${new Date().toLocaleTimeString('it-IT', { timeZone: timeZone })}`
+	);
 
 	data = await response.json();
 }
