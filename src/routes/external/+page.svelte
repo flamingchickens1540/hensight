@@ -1,8 +1,14 @@
 <script>
 	import { goto } from '$app/navigation';
+
+	function openFullScreen() {
+		document.documentElement.requestFullscreen();
+	}
 </script>
 
-<div class="w-full h-screen flex flex-col items-center justify-center gap-10 overflow-hidden">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="w-full h-screen flex flex-col items-center justify-center gap-10 overflow-hidden" onclick={openFullScreen}>
 	<div class="glass p-5 text-center">
 		<h1 class="text-[10rem] text-(--yellow) font-extrabold">Hensight</h1>
 		<h2 class="text-6xl text-(--light-grey) font-bold">By Team 1540</h2>

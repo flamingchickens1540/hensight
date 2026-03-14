@@ -2,6 +2,7 @@
 	import { goto } from "$app/navigation";
     import { Confetti } from "svelte-confetti"
 	import type { PageProps } from "./$types";
+	import { onMount } from "svelte";
     let { data }: PageProps = $props();
 
     let clicks = $derived(data.clicks)
@@ -30,6 +31,12 @@
             fetch('/api/clicks', { method: 'POST', body: JSON.stringify({ clicks }) });
         }
     }
+
+    function openFullScreen() {
+		document.documentElement.requestFullscreen();
+	}
+
+    onMount(openFullScreen)
 </script>
 {#if showingConfetti}
     <div style="

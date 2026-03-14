@@ -30,6 +30,7 @@
 
     let tick: NodeJS.Timeout;
     onMount(() => {
+        openFullScreen()
         tick = setInterval(() => {
            count++
            if (lastClick < Date.now() - 3 * 60 * 1000) redirect(303, '/external/stats')
@@ -40,6 +41,10 @@
     onDestroy(() => {
         clearInterval(tick)
     })
+
+    function openFullScreen() {
+		document.documentElement.requestFullscreen();
+	}
 </script>
 
 <button onclick={click} class="w-full h-67.5 m-auto text-center border-14 border-(--yellow)">
