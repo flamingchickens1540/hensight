@@ -82,7 +82,7 @@
 		.json<formattedTimer>(({ previous }) => previous)
 
 	$effect(() => {
-		console.log(`new data:\n${$data?.queueTime}`)
+		console.log(`new data:\n${Date.now()}`)
 		if (Object.keys($data ?? {}).length > 1 && $data) {
 			({ match, queueTime, color, hasQueued } = $data);
 			lastUpdatedMS = $data.dataTime;
