@@ -103,7 +103,7 @@
 			{/if}
 			<div class="flex flex-col">
 				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
-				<p class="text-[1.5rem] text-right text-(--grey)">{lastUpdated}</p>
+				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
 			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
@@ -114,7 +114,7 @@
 				<h1 class="p-1 text-[2.5rem] text-(--yellow)">No more matches</h1>
 			<div class="flex flex-col">
 				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
-				<p class="text-[1.5rem] text-right text-(--grey)">{lastUpdated}</p>
+				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
 			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">

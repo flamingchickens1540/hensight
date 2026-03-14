@@ -11,6 +11,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	const data: nexusData = await request.json();
+	console.log(`Recived Nexus Webhook at ${data.dataAsOfTime}`);
 	setData(data);
 
 	for (const emit of clients) {
