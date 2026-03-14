@@ -2,7 +2,6 @@
 	import { onDestroy, onMount } from "svelte";
 	import type { PageProps } from "./$types";
 	import { goto } from "$app/navigation";
-	import { redirect } from "@sveltejs/kit";
     let { data }: PageProps = $props();
 
     let i = 0;
@@ -33,7 +32,6 @@
         openFullScreen()
         tick = setInterval(() => {
            count++
-           if (lastClick < Date.now() - 3 * 60 * 1000) redirect(303, '/external/stats')
            if (count >= 5) increment()
         }, 1000)
     })
