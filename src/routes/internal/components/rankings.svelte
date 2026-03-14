@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
     let { scheduleVisible = $bindable() } = $props();
 
@@ -28,7 +28,7 @@
                 return;
             }
 
-            if (scrolling) container.scrollTop += 2;
+            if (scrolling) container.scrollTop += 1.5;
             else {
                 if (scheduleVisible != prev) setTimeout(() => scrolling = true, 2000)
                 prev = scheduleVisible
@@ -44,13 +44,15 @@
             requestAnimationFrame(autoScroll);
         }
 
-        autoScroll();
+        setTimeout(autoScroll, 3 * 1000)
     });
 
+    let interval: NodeJS.Timeout;
     onMount(() => {
         load()
-        setInterval(load, 60 * 1000)
+        interval = setInterval(load, 60 * 1000)
     })
+    onDestroy(() => clearInterval(interval))
 </script>
 
 <div class="border-4 border-white rounded-lg size-full">

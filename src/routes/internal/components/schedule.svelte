@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
     let { scheduleVisible = $bindable() } = $props();
 
@@ -19,15 +19,22 @@
             ticking = true;
             setTimeout(() => {
                 scheduleVisible = false; 
-                ticking = false;
+                setTimeout(() => ticking = false, 3 * 1000)
             }, 30 * 1000)
         }
     }
 
+    let tickInteval: NodeJS.Timeout;
+    let loadInteval: NodeJS.Timeout;
     onMount(() => {
         load()
-        setInterval(tick, 1000)
-        setInterval(load, 60 * 1000)
+        tickInteval = setInterval(tick, 1000)
+        loadInteval = setInterval(load, 60 * 1000)
+    })
+
+    onDestroy(() => {
+        clearInterval(tickInteval);
+        clearInterval(loadInteval);
     })
 </script>
 
