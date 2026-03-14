@@ -18,6 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	setData(data);
 
 	for (const emit of clients) {
+		console.log(`sending: ${formatTimer()}`);
 		emit('nexus', JSON.stringify(formatTimer()));
 	}
 

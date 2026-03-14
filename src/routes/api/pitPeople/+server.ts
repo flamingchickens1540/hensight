@@ -114,6 +114,5 @@ async function getPitsPersonnelJSON(): Promise<PitsPersonnel> {
 		else if (person.schedule[correctSlotIndex] == 'Pit Lead') result.leads.push(person.name);
 	}
 
-	console.log(result);
 	return result;
 }
