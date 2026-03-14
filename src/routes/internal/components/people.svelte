@@ -14,23 +14,23 @@
     }
     onMount(() => {
         load()
-		setInterval(load, 1000)
+		setInterval(load, 5 * 60 * 1000)
     })
 </script>
 
 <div class="size-full rounded-lg border-4 border-white">
 	<div class="flex flex-col gap-1 text-4xl size-full justify-around items-center m-auto">
-        <h1 class="pl-1 text-left w-full">Pits: {timeRange}</h1>
+        <h1 class="pl-1 text-left w-full text-[2.5rem]">Pits: {timeRange}</h1>
         <h2>Pit Leads</h2>
         <div class="flex gap-1">
             {#each leads as person}
-            <p class="text-[2.5rem]">{person}</p>
+            <p>{person}</p>
             {/each}
         </div>
         <h2>Pit Members</h2>
         <div class="flex gap-1">
             {#each people as person}
-            <p class="text-[2rem]">{person}</p>
+            <p>{person}</p>
             {/each}
         </div>
     </div>
