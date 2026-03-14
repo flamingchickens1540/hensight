@@ -1,3 +1,4 @@
+import { timeZone } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { readFileSync } from 'fs';
 
@@ -40,7 +41,7 @@ function getPitsPersonnel(): PitsPersonnel {
 		const name = cols[1];
 
 		const date = new Date(nowMs);
-		const currentDay = date.toLocaleDateString('en-US', { weekday: 'long' });
+		const currentDay = date.toLocaleDateString('en-US', { weekday: 'long', timeZone: timeZone });
 
 		if (day !== currentDay) continue;
 

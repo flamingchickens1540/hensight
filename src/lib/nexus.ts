@@ -54,7 +54,8 @@ export function getTeamData() {
 				estimatedQueueTime: Date.now(),
 				estimatedOnDeckTime: Date.now(),
 				estimatedOnFieldTime: Date.now(),
-				estimatedStartTime: Date.now()
+				estimatedStartTime: Date.now(),
+				scheduledStartTime: Date.now()
 			},
 			breakAfter: 'End of day'
 		};
@@ -68,7 +69,8 @@ export function getTeamData() {
 				estimatedQueueTime: Date.now(),
 				estimatedOnDeckTime: Date.now(),
 				estimatedOnFieldTime: Date.now(),
-				estimatedStartTime: Date.now()
+				estimatedStartTime: Date.now(),
+				scheduledStartTime: Date.now()
 			},
 			breakAfter: 'End of day'
 		};
@@ -126,6 +128,9 @@ export function formatTimer() {
 	} else {
 		hasQueued = true;
 		estMS = data.estimatedOnFieldTime;
+	}
+	if (!estMS) {
+		estMS = data.myNextMatch.times.scheduledStartTime - 3 * 60 * 1000;
 	}
 	let dataTime = data.dataTime;
 	let difference = estMS - dataTime;

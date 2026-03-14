@@ -26,11 +26,11 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="main h-screen w-screen overflow-hidden" onclick={openFullScreen}>
 	<button style="grid-area: schedule" onclick={toggle}>
-		{#if scheduleVisible}
+		<!-- {#if scheduleVisible} -->
 			<Schedule bind:scheduleVisible = {scheduleVisible}></Schedule>
-		{:else}
-			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
-		{/if}
+		<!-- {:else} -->
+			<!-- <Rankings bind:scheduleVisible = {scheduleVisible}></Rankings> -->
+		<!-- {/if} -->
 	</button>
 	<div style="grid-area: timer;"><Timer bind:shouldUpdate = { shouldUpdate }></Timer></div>
 	<div style="grid-area: event;"><Event bind:shouldUpdate = { shouldUpdate }></Event></div>
@@ -39,7 +39,7 @@
 	{:else}
 		<div style="grid-area: announcements;"><Announcements></Announcements></div>
 	{/if}
-	<!-- <div style="grid-area: big"><Stream></Stream></div> -->
+	<div style="grid-area: big"><Stream></Stream></div>
 </div>
 
 <style>

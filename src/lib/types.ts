@@ -21,6 +21,7 @@ export type times = {
 	estimatedOnDeckTime: number;
 	estimatedOnFieldTime: number;
 	estimatedStartTime: number;
+	scheduledStartTime: number;
 };
 
 export type partRequest = {

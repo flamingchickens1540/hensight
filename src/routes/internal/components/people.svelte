@@ -13,7 +13,6 @@
         timeRange = data.timeRange;
     }
     onMount(() => {
-        console.log('mounted!')
         load()
 		setInterval(load, 1000)
     })
