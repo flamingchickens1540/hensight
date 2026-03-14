@@ -23,7 +23,7 @@
 		const canvasWidth = canvasContainer.clientWidth;
 		const canvasHeight = canvasContainer.clientHeight;
 
-		const gltf = await loader.loadAsync('/src/lib/assets/cad.glb');
+		const gltf = await loader.loadAsync('/models/cad.glb');
 		scene.add(gltf.scene);
 
 
