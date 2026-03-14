@@ -2,7 +2,8 @@
 	import { goto } from "$app/navigation";
     import { Confetti } from "svelte-confetti"
 	import type { PageProps } from "./$types";
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
+	import { redirect } from "@sveltejs/kit";
     let { data }: PageProps = $props();
 
     let clicks = $derived(data.clicks)
@@ -14,10 +15,12 @@
     })
     let lastUpdatedCount = $state(0);
     let showingConfetti = $state(false);
+    let lastClicked = Date.now()
 
     function click() {
         clicks++;
         globalClicks++;
+        lastClicked = Date.now()
 
         if (clicks % 1540 == 0) {
             showingConfetti = true;
@@ -31,12 +34,16 @@
             fetch('/api/clicks', { method: 'POST', body: JSON.stringify({ clicks }) });
         }
     }
+ 
+    let interval: NodeJS.Timeout
+    onMount(() => {
+        interval = setInterval(() => {
+            console.log(lastClicked - Date.now())
+            if (lastClicked < Date.now() - 60 * 1000) goto('/external/stats')
+        }, 1000)
+    })
 
-    function openFullScreen() {
-		document.documentElement.requestFullscreen();
-	}
-
-    onMount(openFullScreen)
+    onDestroy(() => clearInterval(interval))
 </script>
 {#if showingConfetti}
     <div style="
