@@ -5,7 +5,7 @@ import { getTeamData } from '$lib/nexus';
 
 export const GET: RequestHandler = async () => {
 	let matches = await getEventMatches(eventKey);
-	let formatted: { title: string; red: string; blue: string; time: number }[] = [];
+	let formatted: { title: string; red: string; blue: string; sort: number }[] = [];
 	let i = 0;
 	for (let match = 0; match < matches.length; match++) {
 		if (matches[match].actual_time) continue;
@@ -13,7 +13,7 @@ export const GET: RequestHandler = async () => {
 		i++;
 	}
 	formatted.sort((a, b) => {
-		return a.time - b.time;
+		return a.sort - b.sort;
 	});
 
 	let tData = await getTeamData();
@@ -30,9 +30,9 @@ export const GET: RequestHandler = async () => {
 
 function formatSchedule(match: { [k: string]: any }) {
 	let title = match.key.split('_')[1].toUpperCase();
-	let time = match.predicted_time;
 	let red = match.alliances.red.team_keys;
 	let blue = match.alliances.blue.team_keys;
+	let sort = parseInt(title.split('M')[1]);
 	for (let i = 0; i < 3; i++) {
 		red[i] = red[i].split('frc')[1];
 		if (red[i] == team) red[i] = `<div class='text-(--accent-red) font-bold'>${red[i]}</div>`;
@@ -41,5 +41,5 @@ function formatSchedule(match: { [k: string]: any }) {
 	}
 	let redProcessed = `${red[0]}, ${red[1]}, ${red[2]}`;
 	let blueProcessed = `${blue[0]}, ${blue[1]}, ${blue[2]}`;
-	return { title: title, red: redProcessed, blue: blueProcessed, time };
+	return { title: title, red: redProcessed, blue: blueProcessed, sort };
 }

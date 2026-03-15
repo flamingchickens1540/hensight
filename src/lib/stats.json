@@ -14,9 +14,9 @@
         "p2": "matches have been played",
         "value": 0
     },
-    "globalPercent2Moon": {
+    "globalPercent2ISS": {
         "p1": "This season we have climbed",
-        "p2": "% of the way to the moon",
+        "p2": "% of the way to the ISS",
         "value": 0
     },
     "eventPointsScored": {
@@ -75,7 +75,7 @@
         "value": 100
     },
     "allianceWinRate": {
-        "p1": "___ alliance has a",
+        "p1": "The ___ alliance has a",
         "p2": "% win rate",
         "value": 0
     },

@@ -35,7 +35,7 @@ export const load: PageServerLoad = async () => {
 	stats.globalPointsScored.value = globalData?.pointsScored ?? 0;
 	stats.globalPenaltyPoints.value = globalData?.penaltyPoints ?? 0;
 	stats.globalMatchesPlayed.value = globalData?.matchesPlayed ?? 0;
-	stats.globalPercent2Moon.value = (globalData?.feetClimbed / 1255000) * 100;
+	stats.globalPercent2ISS.value = (globalData?.feetClimbed / 1320000) * 100;
 	if (globalData.redWinCount > globalData.blueWinCount) {
 		stats.allianceWinRate.p1 = 'The red alliance has a';
 		stats.allianceWinRate.value = (globalData.redWinCount / globalData.matchesPlayed) * 100;
