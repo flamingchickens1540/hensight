@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import People from './components/people.svelte';
 	import Rankings from './components/rankings.svelte';
 	import Schedule from './components/schedule.svelte';
@@ -7,11 +7,50 @@
 	import Announcements from './components/announcements.svelte';
 	import Stream from './components/livestream.svelte';
 	import { showRotations } from '$lib/config';
+	import { onDestroy, onMount } from 'svelte';
 
 	let scheduleVisible = $state(true)
 	let shouldUpdate = $state(false)
+	let timeUntilSwitch = 0;
+	let hasRankings = false;
 	
 	const toggle = () => scheduleVisible = !scheduleVisible;
+
+	function tick() {
+		timeUntilSwitch -= 1;
+		if (timeUntilSwitch <= 0) {
+			if (scheduleVisible) {
+				if (hasRankings) toggle()
+				timeUntilSwitch = 20;
+			}
+			else {
+				toggle()
+				timeUntilSwitch = 5;
+			}
+		}
+	}
+
+	async function updateRankings() {
+		const res = await fetch("/api/rankings");
+		const data = await res.json();
+		if (data.length > 0) hasRankings = true;
+		else hasRankings = false;
+	}
+
+	let tickInterval: NodeJS.Timeout;
+	let rankingsInterval: NodeJS.Timeout;
+	onMount(async () => {
+		timeUntilSwitch = 5;
+		tickInterval = setInterval(tick, 1000)
+		await updateRankings()
+		rankingsInterval = setInterval(updateRankings, 60 * 1000)
+	})
+
+	onDestroy(() => {
+		clearInterval(tickInterval);
+		clearInterval(rankingsInterval);
+	}
+	)
 
 	function openFullScreen() {
 		document.documentElement.requestFullscreen();
@@ -27,7 +66,7 @@
 <div class="main h-screen w-screen overflow-hidden" onclick={openFullScreen}>
 	<button style="grid-area: schedule" onclick={toggle}>
 		{#if scheduleVisible}
-			<Schedule bind:scheduleVisible = {scheduleVisible}></Schedule>
+			<Schedule></Schedule>
 		{:else}
 			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
 		{/if}

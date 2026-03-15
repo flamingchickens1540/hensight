@@ -33,13 +33,16 @@
 		let string: string = seconds.toString().padStart(2, '0');
 		if (seconds <= 0) string = 'Soon';
 		if (minutes > 0) string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-		if (hours > 0) string = '>1hr';
+		if (hours >= 1) string = '>1hr';
 		if (hours > 2) string = '>2hrs';
+		if (hours > 5) string = '>5hrs'
 		if (hours > 8) string = 'Tmrw'
 		return string;
 	}
 
 	var hasData = $state(false)
+	var currentTimeMS: number = $state(Date.now())
+	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var match: string = $state('loading...');
 	var queueTime: number = $state(0);
 	var hasQueued = $state(false);
@@ -49,8 +52,6 @@
 		else if (queueTime <= 2 * 60 * 1000) return 'yellow';
 		else return 'green';
 	})
-	var currentTimeMS: number = $state(Date.now())
-	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var color: string = $state('#fff');
 	var lastUpdatedMS = $state(0);
 	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)

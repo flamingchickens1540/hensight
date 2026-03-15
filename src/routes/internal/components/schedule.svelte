@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
 
-    let { scheduleVisible = $bindable() } = $props();
-
     var schedule: {title: string, red: string, blue: string, time: number}[] = $state([])
     var percent = $state(0)
     async function load() {
@@ -12,28 +10,13 @@
         schedule = data.schedule;
     }
 
-    var ticking = false;
-
-    function tick() {
-        if (scheduleVisible && !ticking) {
-            ticking = true;
-            setTimeout(() => {
-                scheduleVisible = false; 
-                setTimeout(() => ticking = false, 3 * 1000)
-            }, 30 * 1000)
-        }
-    }
-
-    let tickInteval: NodeJS.Timeout;
     let loadInteval: NodeJS.Timeout;
     onMount(() => {
         load()
-        tickInteval = setInterval(tick, 1000)
         loadInteval = setInterval(load, 60 * 1000)
     })
 
     onDestroy(() => {
-        clearInterval(tickInteval);
         clearInterval(loadInteval);
     })
 </script>
