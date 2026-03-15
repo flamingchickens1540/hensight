@@ -19,7 +19,7 @@
 </script>
 
 <div class="size-full rounded-lg border-4 border-white">
-	<div class="flex flex-col gap-1 text-4xl size-full justify-around items-center m-auto">
+	<div class="flex flex-col text-4xl size-full justify-around items-center m-auto">
         <h1 class="pl-1 text-left w-full text-[2.5rem]">Pits: {timeRange}</h1>
         <h2>Pit Leads</h2>
         <div class="flex gap-1">

@@ -45,9 +45,12 @@ export type statObj = {
 };
 
 export type formattedTimer = {
-	match: string;
-	queueTime: number;
-	color: string;
-	hasQueued: boolean;
-	dataTime: number;
+	data: {
+		match: string;
+		queueTime: number;
+		color: string;
+		hasQueued: boolean;
+		dataTime: number;
+	};
+	source: string;
 };

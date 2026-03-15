@@ -3,5 +3,5 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
 	await fetchData();
-	return json(formatTimer());
+	return json({ data: formatTimer(), source: 'poll' });
 };

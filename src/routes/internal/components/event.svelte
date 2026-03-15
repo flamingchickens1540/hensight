@@ -30,7 +30,7 @@
 
 <div class="size-full rounded-lg border-4 border-white">
 	<h1 class="p-1 text-[2.5rem]">Event</h1>
-	<div class="m-auto flex w-[95%] flex-col justify-center gap-1 text-center text-[3rem]">
+	<div class="m-auto flex w-[95%] flex-col justify-center gap-1 text-center text-[2.7rem]">
 		<h1 class="flex justify-center gap-1">
 			Now Queueing: <p class="font-medium">{nowQueue}</p>
 		</h1>

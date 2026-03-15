@@ -56,15 +56,18 @@
 	var lastUpdatedMS = $state(0);
 	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)
 	var lastUpdated = $derived(msToRelative(msSinceUpdate))
+	var updateSource = $state('none');
 
 	async function load() {
 		const res = await fetch('/api/queue');
 		if (res.ok) {
-			let data = await res.json();
-			if (Object.keys(data).length > 1) hasData = true;
+			let data: formattedTimer = await res.json();
+			updateSource = data.source;
+			let realData = data.data;
+			if (Object.keys(realData).length > 1) hasData = true;
 			else hasData = false;
-			({ match, queueTime, color, hasQueued } = data);
-			lastUpdatedMS = data.dataTime;
+			({ match, queueTime, color, hasQueued } = realData);
+			lastUpdatedMS = realData.dataTime;
 		} else throw new Error(await res.text());
 	}
 
@@ -84,9 +87,11 @@
 
 	$effect(() => {
 		console.log(`new data:\n${Date.now()}`)
-		if (Object.keys($data ?? {}).length > 1 && $data) {
-			({ match, queueTime, color, hasQueued } = $data);
-			lastUpdatedMS = $data.dataTime;
+		if ($data?.source) updateSource = $data.source
+		let realData = $data?.data
+		if (Object.keys(realData ?? {}).length > 1 && realData) {
+			({ match, queueTime, color, hasQueued } = realData);
+			lastUpdatedMS = realData.dataTime;
 		}
 	})
 
@@ -97,7 +102,7 @@
 
 <div class="size-full rounded-lg border-4 border-(--white)">
 	{#if hasData}
-		<div class="flex items-center justify-between">
+		<div class="flex justify-between">
 			{#if !hasQueued}
 				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">Queueing {match} in...</h1>
 			{:else}
@@ -106,17 +111,19 @@
 			<div class="flex flex-col">
 				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
 				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
+				<p class="text-[1rem] text-right text-(--grey)">{updateSource}</p>
 			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">
 			<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
 		</div>
 	{:else}
-		<div class="flex items-center justify-between">
+		<div class="flex justify-between">
 				<h1 class="p-1 text-[2.5rem] text-(--yellow)">No more matches</h1>
 			<div class="flex flex-col">
 				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
 				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
+				<p class="text-[1rem] text-right text-(--grey) pr-1">{updateSource}</p>
 			</div>
 		</div>
 		<div class="flex w-full h-fit justify-center pt-1">

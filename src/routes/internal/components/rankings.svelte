@@ -12,7 +12,6 @@
     var container: HTMLDivElement;
     var scrolling: boolean = false;
     var prev: boolean = true;
-    var start = 0;
 
     onMount(() => {
         container = document.getElementById('autoScrollList') as HTMLDivElement;
@@ -22,7 +21,7 @@
                 return;
             }
 
-            if (scrolling) container.scrollTop += 1.5;
+            if (scrolling) container.scrollTop += 2;
             else {
                 if (scheduleVisible != prev) setTimeout(() => scrolling = true, 2000)
                 prev = scheduleVisible

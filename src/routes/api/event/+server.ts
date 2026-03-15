@@ -65,11 +65,15 @@ export const GET: RequestHandler = async () => {
 
 	let milestone = 'Lunch';
 	let milestoneMS = 0;
+	let allianceMS = findMilestone('Alliance selection');
 	let lunchMS = findMilestone('Lunch');
 	let eomMS = findMilestone('End of day');
 	if (lunchMS > Date.now()) {
 		milestone = 'Lunch';
 		milestoneMS = lunchMS;
+	} else if (allianceMS > Date.now()) {
+		milestone = 'Alliance selection';
+		milestoneMS = allianceMS;
 	} else if (eomMS > Date.now()) {
 		milestone = 'Matches End';
 		milestoneMS = eomMS;

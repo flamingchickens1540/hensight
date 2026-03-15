@@ -25,7 +25,7 @@
 			}
 			else {
 				toggle()
-				timeUntilSwitch = 5;
+				timeUntilSwitch = 30;
 			}
 		}
 	}
@@ -40,7 +40,7 @@
 	let tickInterval: NodeJS.Timeout;
 	let rankingsInterval: NodeJS.Timeout;
 	onMount(async () => {
-		timeUntilSwitch = 5;
+		timeUntilSwitch = 30;
 		tickInterval = setInterval(tick, 1000)
 		await updateRankings()
 		rankingsInterval = setInterval(updateRankings, 60 * 1000)

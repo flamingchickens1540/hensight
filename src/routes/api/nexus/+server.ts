@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	setData(data);
 
 	for (const emit of clients) {
-		emit('nexus', JSON.stringify(formatTimer()));
+		emit('nexus', JSON.stringify({ data: formatTimer(), source: 'webhook' }));
 	}
 
 	return new Response('OK', { status: 200 });
