@@ -22,7 +22,7 @@
 		<iframe 
 		width="100%" 
 		height="100%" 
-		src="https://www.youtube-nocookie.com/embed/{data.channelID}?autoplay=1&mute=1&start=99999" 
+		src="https://www.youtube-nocookie.com/embed/K3Ftdmvmw1E?autoplay=1&mute=1&start=99999" 
 		title="YouTube video player" 
 		frameborder="0" 
 		allow="autoplay;" 
