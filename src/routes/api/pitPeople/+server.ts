@@ -2,14 +2,35 @@ import { timeZone } from '$lib/config';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { readFileSync } from 'fs';
 
+const placeholderLeads: string[] = [
+	'Baseball Chuck',
+	'The Robot',
+	'The sawzall',
+	'The Ghost of William Spry'
+];
+const placeholderMembers: string[] = [
+	'The 3D Printer',
+	'Battery #4',
+	'Owen Russo',
+	'That one bolt'
+];
+
 export const GET: RequestHandler = async () => {
-	let data = await getPitsPersonnelJSON();
+	let data = await getPitsPersonnelCSV();
 	if (data.timeRange == null) {
 		data = {
 			timeRange: 'Not Scheduled',
-			people: ['Baseball Chuck', 'The 3D Printer'],
-			leads: ['The Robot', 'Basketball Chuck']
+			people: [
+				placeholderMembers[Math.floor(Math.random() * placeholderMembers.length)],
+				placeholderMembers[Math.floor(Math.random() * placeholderMembers.length)]
+			],
+			leads: [
+				placeholderLeads[Math.floor(Math.random() * placeholderLeads.length)],
+				placeholderLeads[Math.floor(Math.random() * placeholderLeads.length)]
+			]
 		};
+		if (data.leads.includes('The Ghost of William Spry'))
+			data.leads = ['The Ghost of William Spry'];
 	}
 	return json(data);
 };

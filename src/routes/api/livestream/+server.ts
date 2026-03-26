@@ -4,15 +4,15 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
 	let data = {
-        hasData: false,
-        channelID: ''
-    }
+		hasData: false,
+		channelID: ''
+	};
 
-    const res = await getStreamID(eventKey)
-    if (res) {
-        data.hasData = true
-        data.channelID = res
-    }
+	const res = await getStreamID(eventKey);
+	if (res) {
+		data.hasData = true;
+		data.channelID = res;
+	}
 
 	return json(data);
 };

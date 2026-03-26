@@ -1,5 +1,5 @@
-export const eventKey = '2026orwil';
-export const lastEventKey = '2025orsal';
+export const eventKey = '2026orore';
+export const lastEventKey = '2026orwil';
 export const year = '2026';
 export const pointsLastYear = 4697484;
 export const team = '1540';
