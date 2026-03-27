@@ -21,7 +21,7 @@
                 return;
             }
 
-            if (scrolling) container.scrollTop += 2;
+            if (scrolling) container.scrollTop += 5;
             else {
                 if (scheduleVisible != prev) setTimeout(() => scrolling = true, 2000)
                 prev = scheduleVisible

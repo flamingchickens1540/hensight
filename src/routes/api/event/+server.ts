@@ -71,7 +71,10 @@ export const GET: RequestHandler = async () => {
 	if (lunchMS > Date.now()) {
 		milestone = 'Lunch';
 		milestoneMS = lunchMS;
-	} else if (allianceMS > Date.now()) {
+	} else if (
+		allianceMS > Date.now() &&
+		new Date(allianceMS).getDay() == new Date(Date.now()).getDay()
+	) {
 		milestone = 'Alliance selection';
 		milestoneMS = allianceMS;
 	} else if (eomMS > Date.now()) {
