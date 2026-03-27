@@ -16,7 +16,7 @@ const placeholderMembers: string[] = [
 ];
 
 export const GET: RequestHandler = async () => {
-	let data = await getPitsPersonnelCSV();
+	let data = await getPitsPersonnelSchedule();
 	if (data.timeRange == null) {
 		data = {
 			timeRange: 'Not Scheduled',
@@ -39,6 +39,16 @@ interface PitsPersonnel {
 	timeRange: string | null;
 	people: string[];
 	leads: string[];
+}
+
+async function getPitsPersonnelSchedule(): Promise<PitsPersonnel> {
+	const res = await fetch('https://schedule.yayblaze.com/api/pits');
+	const data = await res.json();
+	return {
+		timeRange: data.slot,
+		people: data.pits,
+		leads: data.leads
+	};
 }
 
 function getPitsPersonnelCSV(): PitsPersonnel {

@@ -25,7 +25,7 @@
             i = 0
         }
         stat = stats[i]
-        if (parseInt(stat.value.toLocaleString()) <= 0) increment()
+        if (parseFloat(stat.value.toLocaleString()) <= 0) increment()
     }
 
     let tick: NodeJS.Timeout;
