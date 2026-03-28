@@ -13,6 +13,7 @@ export const GET: RequestHandler = async () => {
 		data.hasData = true;
 		data.channelID = res;
 	}
+	console.log(data);
 
 	return json(data);
 };

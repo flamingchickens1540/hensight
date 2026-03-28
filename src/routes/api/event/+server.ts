@@ -35,10 +35,10 @@ export const GET: RequestHandler = async () => {
 	else if (nowQueuing.includes('Qualification')) nowQueuing = 'QM' + nowQueuing.split(' ')[1];
 	else if (nowQueuing.includes('Practice')) nowQueuing = 'PM' + nowQueuing.split(' ')[1];
 
-	let breakAfter = 'Unkown';
+	let breakAfter = 'Unknown';
 	let tData = getTeamData();
 	if (tData && tData.myFollowingMatch.label != 'Dummy Match') {
-		let nextEnd = tData.myNextMatch.times.estimatedStartTime + 3 * 60 * 1000;
+		let nextEnd = tData.myNextMatch.times.estimatedStartTime + 5 * 60 * 1000;
 		let followingStart = tData.myFollowingMatch.times.estimatedQueueTime;
 		if (!Number.isNaN(nextEnd) && !Number.isNaN(followingStart)) {
 			let dif = followingStart - nextEnd;

@@ -37,12 +37,14 @@ export async function getRankings(eventKey: string) {
 }
 
 export async function getStreamID(eventKey: string) {
-	const res = await makeRequest(`/event/${eventKey}`);
-	let webcasts: { channel: string; date: string; type: string }[] = res.webcasts;
+	const res: { webcasts: any[] } = await makeRequest(`/event/${eventKey}`);
+	let webcasts: { channel: string; date: string; type: string }[] = res.webcasts.filter(
+		(v) => v.type === 'youtube'
+	);
 	if (!webcasts) return false;
 	return (
-		webcasts.find((stream) => stream.date == new Date().toLocaleDateString('en-US'))?.channel ??
-		webcasts[0].channel
+		webcasts.find((stream) => new Date(stream.date).getUTCDate() == new Date().getUTCDate())
+			?.channel ?? webcasts[0].channel
 	);
 }
 
