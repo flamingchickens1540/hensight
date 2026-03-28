@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from "svelte";
 
-	var data: {hasData: boolean; channelID: string} = $state({hasData: false, channelID: ''})
+	var data: {hasData: boolean; channelID: string; type: string} = $state({hasData: false, channelID: '', type: ''})
 
 
     async function load() {
@@ -19,7 +19,7 @@
 	onDestroy(() => clearInterval(intverval))
 </script>
 
-{#if data.hasData}
+{#if data.hasData && data.type == 'youtube'}
 	<div class="border-white size-full rounded-lg border-4">
 		<iframe 
 		width="100%" 
@@ -33,4 +33,13 @@
 		>
 		</iframe>
 	</div>
+{:else if data.hasData && data.type == 'twitch'}
+<div class="border-white size-full rounded-lg border-4">
+	<iframe
+		title="twitchstream"
+		src="https://player.twitch.tv/?channel={data.channelID}&parent=hensight.yayblaze.com"
+		height="100%"
+		width="100%"
+	></iframe>
+</div>
 {/if}
