@@ -1,97 +1,97 @@
 {
-    "globalPointsScored": {
-        "p1": "There has been",
-        "p2": "points scored this season",
-        "value": 0
-    },
-    "globalPenaltyPoints": {
-        "p1": "There has been",
-        "p2": "penalty points given this season",
-        "value": 0
-    },
-    "globalMatchesPlayed": {
-        "p1": "This season",
-        "p2": "matches have been played",
-        "value": 0
-    },
-    "globalPercent2ISS": {
-        "p1": "This season we have climbed",
-        "p2": "% of the way to the ISS",
-        "value": 0
-    },
-    "eventPointsScored": {
-        "p1": "At this event",
-        "p2": "points have been scored",
-        "value": 0
-    },
-    "eventAveragePointsPerMatch": {
-        "p1": "This event averages",
-        "p2": "points per match",
-        "value": 0
-    },
-    "eventRpEarned": {
-        "p1": "At this event",
-        "p2": "RP have been earned",
-        "value": 0
-    },
-    "eventPenaltyPoints": {
-        "p1":"At this event",
-        "p2":"penatly points have been given",
-        "value": 0
-    },
-    "eventAutoPoints": {
-        "p1": "During auto at this event",
-        "p2": "points have been scored",
-        "value": 0
-    },
-    "eventMatchesPlayed": {
-        "p1": "There has been",
-        "p2": "matches played at this event",
-        "value": 0
-    },
-    "eggsSinceKickoff": {
-        "p1": "A single chicken would have laid",
-        "p2": "eggs since FRC kickoff",
-        "value": 0
-    },
-    "eggsPerMatch": {
-        "p1": "Throughout the US",
-        "p2": "eggs are laid per match",
-        "value": 470889
-    },
-    "chickensCount": {
-        "p1": "There are more than",
-        "p2": "chickens in the world",
-        "value": "25 billion"
-    },
-    "chickenBreeds": {
-        "p1": "There are over",
-        "p2": "chicken breeds worldwide",
-        "value": 500
-    },
-    "chickenFace": {
-        "p1": "Chickens can remember and reconize over",
-        "p2": "different human faces",
-        "value": 100
-    },
-    "allianceWinRate": {
-        "p1": "The ___ alliance has a",
-        "p2": "% win rate",
-        "value": 0
-    },
-    "%lastYear": {
-        "p1": "This year the world has scored",
-        "p2": "% of the points last year",
-        "value": 0
-    },
-    "daysToChamps": {
-        "p1": "There are",
-        "p2": "days left until huston",
-        "value": 0
-    },
-    "teamsThisYear": {
-        "p1": "This year there are",
-        "p2": "teams registered with FRC",
-        "value": "9,183"
-    }
+	"globalPointsScored": {
+		"p1": "There have been",
+		"p2": "points scored this season",
+		"value": 0
+	},
+	"globalPenaltyPoints": {
+		"p1": "There have been",
+		"p2": "penalty points given this season",
+		"value": 0
+	},
+	"globalMatchesPlayed": {
+		"p1": "This season",
+		"p2": "matches have been played",
+		"value": 0
+	},
+	"globalPercentClimb": {
+		"p1": "This season we have climbed",
+		"p2": "% of the way to Mount Everest",
+		"value": 0
+	},
+	"eventPointsScored": {
+		"p1": "At this event",
+		"p2": "points have been scored",
+		"value": 0
+	},
+	"eventAveragePointsPerMatch": {
+		"p1": "This event averages",
+		"p2": "points per match",
+		"value": 0
+	},
+	"eventRpEarned": {
+		"p1": "At this event",
+		"p2": "RP have been earned",
+		"value": 0
+	},
+	"eventPenaltyPoints": {
+		"p1": "At this event",
+		"p2": "penalty points have been given",
+		"value": 0
+	},
+	"eventAutoPoints": {
+		"p1": "During auto at this event",
+		"p2": "points have been scored",
+		"value": 0
+	},
+	"eventMatchesPlayed": {
+		"p1": "There have been",
+		"p2": "matches played at this event",
+		"value": 0
+	},
+	"eggsSinceKickoff": {
+		"p1": "A single chicken would have laid",
+		"p2": "eggs since FRC kickoff",
+		"value": 0
+	},
+	"eggsPerMatch": {
+		"p1": "Throughout the US",
+		"p2": "eggs are laid per match",
+		"value": 470889
+	},
+	"chickensCount": {
+		"p1": "There are more than",
+		"p2": "chickens in the world",
+		"value": "25 billion"
+	},
+	"chickenBreeds": {
+		"p1": "There are over",
+		"p2": "chicken breeds worldwide",
+		"value": 500
+	},
+	"chickenFace": {
+		"p1": "Chickens can remember and recognize over",
+		"p2": "different human faces",
+		"value": 100
+	},
+	"allianceWinRate": {
+		"p1": "The ___ alliance has a",
+		"p2": "% win rate",
+		"value": 0
+	},
+	"%lastYear": {
+		"p1": "This year the world has scored",
+		"p2": "% of the points last year",
+		"value": 0
+	},
+	"daysToChamps": {
+		"p1": "There are",
+		"p2": "days left until Houston",
+		"value": 0
+	},
+	"teamsThisYear": {
+		"p1": "This year there are",
+		"p2": "teams registered with FRC",
+		"value": "9,183"
+	}
 }
