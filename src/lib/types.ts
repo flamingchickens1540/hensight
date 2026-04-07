@@ -42,6 +42,7 @@ export type statObj = {
 	feetClimbed: number;
 	redWinCount: number;
 	blueWinCount: number;
+	pnwPointsScored: number;
 };
 
 export type formattedTimer = {

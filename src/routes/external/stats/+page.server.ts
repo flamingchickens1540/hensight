@@ -15,10 +15,11 @@ interface GlobalData {
 	feetClimbed: number;
 	redWinCount: number;
 	blueWinCount: number;
+	pnwPointsScored: number;
 }
 
 export const load: PageServerLoad = async () => {
-	const data = filterMatches(await getEventMatches(eventKey));
+	const data = filterMatches(eventKey, await getEventMatches(eventKey));
 	let globalData: GlobalData = ((await getData('GLOBAL')) as GlobalData) ?? {
 		key: 'GLOBAL',
 		pointsScored: 0,
@@ -29,7 +30,8 @@ export const load: PageServerLoad = async () => {
 		matchesPlayed: 0,
 		feetClimbed: 0,
 		redWinCount: 0,
-		blueWinCount: 0
+		blueWinCount: 0,
+		pnwPointsScored: 0
 	};
 
 	stats.globalPointsScored.value = globalData?.pointsScored ?? 0;
@@ -43,6 +45,8 @@ export const load: PageServerLoad = async () => {
 		stats.allianceWinRate.p1 = 'The blue alliance has a';
 		stats.allianceWinRate.value = (globalData.blueWinCount / globalData.matchesPlayed) * 100;
 	}
+	stats.percentPnwPoints.value = (globalData?.pnwPointsScored / globalData.pointsScored) * 100;
+	stats.numPnwPoints.value = globalData.pnwPointsScored;
 	stats.eventPointsScored.value = data?.pointsScored ?? 0;
 	stats.eventAveragePointsPerMatch.value = data?.averagePointsPerMatch ?? 0;
 	stats.eventRpEarned.value = data?.rpEarned ?? 0;
@@ -51,7 +55,7 @@ export const load: PageServerLoad = async () => {
 	stats.eventMatchesPlayed.value = data?.matchesPlayed ?? 0;
 	stats.eggsSinceKickoff.value = Math.floor(((Date.now() - 1768064400000) / 31556952000) * 270);
 	stats['%lastYear'].value = (globalData?.pointsScored / pointsLastYear) * 100;
-	stats.daysToChamps.value = Math.round((1777072800000 - Date.now()) / (24 * 60 * 60 * 1000));
+	stats.daysToChamps.value = new Date(1777611600000).getDate() - new Date().getDate();
 	let final = Object.values(stats);
 	final.sort(() => Math.random() - 0.5);
 	return { final };

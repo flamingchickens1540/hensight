@@ -23,7 +23,8 @@ async function getDB() {
         matchesPlayed INTEGER,
         feetClimbed INTEGER,
         redWinCount INTEGER,
-        blueWinCount INTEGER
+        blueWinCount INTEGER,
+		pnwPointsScored INTEGER
       )
     `);
 	}
@@ -36,7 +37,7 @@ export async function addData(key: string, data: statObj) {
 
 	db.prepare(
 		`INSERT INTO stats
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(key)
         DO UPDATE SET
             pointsScored = excluded.pointsScored,
@@ -47,7 +48,8 @@ export async function addData(key: string, data: statObj) {
             matchesPlayed = excluded.matchesPlayed,
             feetClimbed = excluded.feetClimbed,
             redWinCount = excluded.redWinCount,
-            blueWinCount = excluded.blueWinCount;`
+            blueWinCount = excluded.blueWinCount,
+			pnwPointsScored = excluded.pnwPointsScored;`
 	).run(
 		key,
 		data.pointsScored,
@@ -58,7 +60,8 @@ export async function addData(key: string, data: statObj) {
 		data.matchesPlayed,
 		data.feetClimbed,
 		data.redWinCount,
-		data.blueWinCount
+		data.blueWinCount,
+		data.pnwPointsScored
 	);
 }
 

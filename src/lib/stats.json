@@ -93,5 +93,15 @@
 		"p1": "This year there are",
 		"p2": "teams registered with FRC",
 		"value": "9,183"
+	},
+	"percentPnwPoints": {
+		"p1": "The PNW has scored",
+		"p2": "% of the points this year",
+		"value": 0
+	},
+	"numPnwPoints": {
+		"p1": "The PNW has scored",
+		"p2": "points this year",
+		"value": 0
 	}
 }

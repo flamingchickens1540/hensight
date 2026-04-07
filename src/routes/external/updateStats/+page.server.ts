@@ -19,7 +19,8 @@ export const load: PageServerLoad = async () => {
 		matchesPlayed: 0,
 		feetClimbed: 0,
 		redWinCount: 0,
-		blueWinCount: 0
+		blueWinCount: 0,
+		pnwPointsScored: 0
 	};
 	console.log('Loading from TBA...');
 	let count = 0;
@@ -29,7 +30,7 @@ export const load: PageServerLoad = async () => {
 		progBar.increment();
 		const matches = await getEventMatches(key);
 		if (matches.length < 1) continue;
-		let data = filterMatches(matches);
+		let data = filterMatches(key, matches);
 		globalData.pointsScored += data.pointsScored;
 		globalData.averagePointsPerMatch += data.averagePointsPerMatch;
 		globalData.rpEarned += data.rpEarned;
@@ -39,6 +40,7 @@ export const load: PageServerLoad = async () => {
 		globalData.feetClimbed += data.feetClimbed;
 		globalData.redWinCount += data.redWinCount;
 		globalData.blueWinCount += data.blueWinCount;
+		globalData.pnwPointsScored += data.pnwPointsScored;
 		await addData(key, data);
 		count++;
 	}

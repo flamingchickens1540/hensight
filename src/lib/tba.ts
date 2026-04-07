@@ -55,7 +55,18 @@ function calcClimbFeet(depth: string) {
 	else return 0;
 }
 
-export function filterMatches(matches: any[]) {
+export function filterMatches(eventKey: string, matches: any[]) {
+	const pnwEventKeys = [
+		'2026orore',
+		'2026orsal',
+		'2026orwil',
+		'2026pncmp',
+		'2026waahs',
+		'2026wabon',
+		'2026wasam',
+		'2026wasno',
+		'2026wayak'
+	];
 	let pointsScored = 0;
 	let averagePointsPerMatch = 0;
 	let rpEarned = 0;
@@ -110,6 +121,7 @@ export function filterMatches(matches: any[]) {
 		matchesPlayed,
 		feetClimbed,
 		redWinCount,
-		blueWinCount
+		blueWinCount,
+		pnwPointsScored: pnwEventKeys.includes(eventKey) ? pointsScored : 0
 	};
 }
