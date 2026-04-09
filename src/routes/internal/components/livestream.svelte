@@ -34,12 +34,16 @@
 		</iframe>
 	</div>
 {:else if data.hasData && data.type == 'twitch'}
-<div class="border-white size-full rounded-lg border-4">
-	<iframe
-		title="twitchstream"
-		src="https://player.twitch.tv/?channel={data.channelID}&parent=hensight.yayblaze.com"
-		height="100%"
-		width="100%"
-	></iframe>
-</div>
+	<div class="border-white size-full rounded-lg border-4">
+		<iframe
+			title="twitchstream"
+			src="https://player.twitch.tv/?channel={data.channelID}&parent=hensight.yayblaze.com"
+			height="100%"
+			width="100%"
+		></iframe>
+	</div>
+{:else}
+	<div class="border-white size-full rounded-lg border-4 flex justify-center items-center">
+		<h1 class="font-black text-7xl">No Stream</h1>
+	</div>
 {/if}
