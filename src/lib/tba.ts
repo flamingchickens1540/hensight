@@ -43,7 +43,7 @@ export async function getStreamID(eventKey: string) {
 	return (
 		webcasts.find(
 			(stream) =>
-				new Date(stream.date).getUTCDate() == new Date().getUTCDate() || stream.type == 'twitch'
+				new Date(stream.date).getUTCDate() == new Date().getDate() || stream.type == 'twitch'
 		) ?? webcasts[0]
 	);
 }
