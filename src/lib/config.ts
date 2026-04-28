@@ -1,5 +1,5 @@
-export const eventKey = '2026pncmp';
-export const lastEventKey = '2026orore';
+export const eventKey = '2026new';
+export const lastEventKey = '2026pncmp';
 export const year = '2026';
 export const pointsLastYear = 4697484;
 export const team = '1540';

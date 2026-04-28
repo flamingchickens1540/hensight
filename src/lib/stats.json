@@ -84,11 +84,6 @@
 		"p2": "% of the points last year",
 		"value": 0
 	},
-	"daysToChamps": {
-		"p1": "There are",
-		"p2": "days left until Houston",
-		"value": 0
-	},
 	"teamsThisYear": {
 		"p1": "This year there are",
 		"p2": "teams registered with FRC",
