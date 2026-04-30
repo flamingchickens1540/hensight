@@ -1,17 +1,20 @@
 import { nexusKey } from '$env/static/private';
 import { type announcement, type nexusData, type nexusMatch, type partRequest } from './types';
-import { eventKey, team, timeZone } from './config';
+import { eventKey, nexusEventKey, team, timeZone } from './config';
 
 export const clients: Set<(eventName: string, data: string) => void> = new Set();
 var data: nexusData;
 
 export async function fetchData() {
-	const response = await fetch(`https://frc.nexus/api/v1/event/${eventKey}`, {
-		method: 'GET',
-		headers: {
-			'Nexus-Api-Key': nexusKey
+	const response = await fetch(
+		`https://frc.nexus/api/v1/event/${nexusEventKey ? nexusEventKey : eventKey}`,
+		{
+			method: 'GET',
+			headers: {
+				'Nexus-Api-Key': nexusKey
+			}
 		}
-	});
+	);
 
 	if (!response.ok) {
 		const errorMessage = await response.text();
