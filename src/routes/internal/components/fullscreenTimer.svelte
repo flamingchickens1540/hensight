@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { formattedTimer } from '$lib/types';
+	import { beforeNavigate } from '$app/navigation';
+import type { formattedTimer } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
 	import { source } from 'sveltekit-sse';
 	let { fullscreen = $bindable() } = $props();
@@ -42,7 +43,6 @@
 
 	var hasData = $state(false)
 	var currentTimeMS: number = $state(Date.now())
-	var currentTime: string = $derived(msToTime(currentTimeMS));
 	var match: string = $state('loading...');
 	var queueTime: number = $state(0);
 	var hasQueued = $state(false);
@@ -57,6 +57,7 @@
 	var msSinceUpdate = $derived(currentTimeMS - lastUpdatedMS)
 	var lastUpdated = $derived(msToRelative(msSinceUpdate))
 	var updateSource = $state('none');
+    var breakAfter: string = $state('Unknown')
 
 	async function load() {
 		const res = await fetch('/api/queue');
@@ -69,6 +70,7 @@
 			({ match, queueTime, color, hasQueued } = realData);
 			lastUpdatedMS = realData.dataTime;
 		} else throw new Error(await res.text());
+        breakAfter = (await (await fetch('/api/event')).json()).breakAfter ?? 'Unknown'
 	}
 
 	var interval: NodeJS.Timeout;
@@ -103,34 +105,29 @@
 	});
 </script>
 
-<div class="size-full rounded-lg border-4 border-(--white)">
+<div class="w-screen h-screen rounded-lg border-4 border-(--white) flex justify-center items-center text-center flex-col">
 	{#if hasData}
-		<div class="flex justify-between">
-			{#if !hasQueued}
-				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">Queueing {match} in...</h1>
-			{:else}
-				<h1 class="pl-1 pt-1 text-[2.4rem] text-clip" style="color: var(--{color});">{match} On field in...</h1>
-			{/if}
-			<div class="flex flex-col">
-				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
-				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
-				<p class="text-[1rem] text-right text-(--grey)">{updateSource}</p>
-			</div>
-		</div>
-		<div class="flex w-full h-fit justify-center pt-1">
-			<h1 class="text-[10rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
-		</div>
+		{#if !hasQueued}
+			<h1 class="text-[3rem] text-clip" style="color: var(--{color});">Queueing {match} in...</h1>
+		{:else}
+			<h1 class="text-[3rem] text-clip" style="color: var(--{color});">{match} On field in...</h1>
+		{/if}
+        <h1 class="text-[17rem] font-extrabold" style="color: var(--{timerColor});">{time}</h1>
+        <div class="flex mt-0 mb-0 gap-2 items-center">
+            <p class="text-[1rem] text-right text-(--grey)">{lastUpdated}</p>
+			<p class="text-[1rem] text-right text-(--grey)">{updateSource}</p>
+        </div>
+        {#if breakAfter && breakAfter != "Unknown"}
+            <h1 class="flex justify-center gap-1 text-[2.7rem]">
+                Next turn around: <p class="font-medium">{breakAfter}</p>
+            </h1>
+        {/if}
 	{:else}
-		<div class="flex justify-between">
-				<h1 class="p-1 text-[2.5rem] text-(--yellow)">No more matches</h1>
-			<div class="flex flex-col">
-				<h1 class="pr-1 pt-1 text-[2.3rem]">{currentTime}</h1>
-				<p class="text-[1.5rem] text-right text-(--light-grey)">{lastUpdated}</p>
-				<p class="text-[1rem] text-right text-(--grey) pr-1">{updateSource}</p>
-			</div>
-		</div>
-		<div class="flex w-full h-fit justify-center pt-1">
-			<h1 class="text-[10rem] font-extrabold text-(--green)">:)</h1>
-		</div>
+		<h1 class="text-[3rem] text-clip" style="color: var(--white);">No more matches</h1>
+        <h1 class="text-[17rem] font-extrabold" style="color: var(--{timerColor});">:D</h1>
+        <div class="flex mt-0 mb-0 gap-2 items-center">
+            <p class="text-[1rem] text-right text-(--grey)">{lastUpdated}</p>
+			<p class="text-[1rem] text-right text-(--grey)"></p>
+        </div>
 	{/if}
 </div>

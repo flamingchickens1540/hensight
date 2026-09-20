@@ -6,6 +6,7 @@ export const clients: Set<(eventName: string, data: string) => void> = new Set()
 var data: nexusData;
 
 export async function fetchData() {
+	if (data && data.dataAsOfTime > Date.now() - 30 * 1000) return;
 	const response = await fetch(
 		`https://frc.nexus/api/v1/event/${nexusEventKey ? nexusEventKey : eventKey}`,
 		{

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	let { shouldUpdate = $bindable() } = $props();
 
 	let nowQueue = $state("Loading...")
 	let breakAfter = $state("Loading...")
@@ -12,16 +11,15 @@
         const data = await res.json();
 		nowQueue = data.nowQueuing
 		breakAfter = data.breakAfter
-		milestone = data.milestone
+		milestone = data.milestone ?? 'Lunch'
 		milestoneTime = data.milestoneString
     }
     onMount(() => {
         load()
 		setInterval(() => {
 			count++
-			if (shouldUpdate || count > 600) {
+			if (count > 600) {
 				count = 0;
-				shouldUpdate = false;
 				load()
 			}
 		}, 100)

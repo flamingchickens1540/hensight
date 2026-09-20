@@ -8,9 +8,10 @@
 	import Stream from './components/livestream.svelte';
 	import { showRotations } from '$lib/config';
 	import { onDestroy, onMount } from 'svelte';
+	import FullscreenTimer from './components/fullscreenTimer.svelte';
 
+	let timerFullscreen = $state(false)
 	let scheduleVisible = $state(true)
-	let shouldUpdate = $state(false)
 	let timeUntilSwitch = 0;
 	let hasRankings = false;
 	
@@ -63,6 +64,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
+{#if !timerFullscreen}
 <div class="main h-screen w-screen overflow-hidden" onclick={openFullScreen}>
 	<button style="grid-area: schedule" onclick={toggle}>
 		{#if scheduleVisible}
@@ -71,8 +73,8 @@
 			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
 		{/if}
 	</button>
-	<div style="grid-area: timer;"><Timer bind:shouldUpdate = { shouldUpdate }></Timer></div>
-	<div style="grid-area: event;"><Event bind:shouldUpdate = { shouldUpdate }></Event></div>
+	<div style="grid-area: timer;"><Timer bind:fullscreen = { timerFullscreen }></Timer></div>
+	<div style="grid-area: event;"><Event></Event></div>
 	{#if showRotations}
 		<div style="grid-area: announcements;"><People></People></div>
 	{:else}
@@ -80,6 +82,9 @@
 	{/if}
 	<div style="grid-area: big"><Stream></Stream></div>
 </div>
+{:else}
+<div onclick={openFullScreen}><FullscreenTimer bind:fullscreen = { timerFullscreen }></FullscreenTimer></div>
+{/if}
 
 <style>
 	.main {
