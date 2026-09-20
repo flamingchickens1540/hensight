@@ -9,7 +9,7 @@ Hensight is a fun pit display! It has two parts. Internal Hensight is for pit cr
 3. Run the program
 
 ```bash
-source update.sh
+source run.sh
 ```
 
 ## Config
