@@ -11,6 +11,7 @@
 	import FullscreenTimer from './components/fullscreenTimer.svelte';
 
 	let timerFullscreen = $state(false)
+	let fullScreenCooldown = $state(0);
 	let scheduleVisible = $state(true)
 	let timeUntilSwitch = 0;
 	let hasRankings = false;
@@ -73,7 +74,7 @@
 			<Rankings bind:scheduleVisible = {scheduleVisible}></Rankings>
 		{/if}
 	</button>
-	<div style="grid-area: timer;"><Timer bind:fullscreen = { timerFullscreen }></Timer></div>
+	<div style="grid-area: timer;"><Timer bind:fullscreen = { timerFullscreen } bind:fullscreenCooldown = {fullScreenCooldown} ></Timer></div>
 	<div style="grid-area: event;"><Event></Event></div>
 	{#if showRotations}
 		<div style="grid-area: announcements;"><People></People></div>
@@ -83,7 +84,7 @@
 	<div style="grid-area: big"><Stream></Stream></div>
 </div>
 {:else}
-<div onclick={openFullScreen}><FullscreenTimer bind:fullscreen = { timerFullscreen }></FullscreenTimer></div>
+<div onclick={() => {timerFullscreen = false; fullScreenCooldown = Date.now() + 5 * 60 * 1000}}><FullscreenTimer bind:fullscreen = { timerFullscreen }></FullscreenTimer></div>
 {/if}
 
 <style>
