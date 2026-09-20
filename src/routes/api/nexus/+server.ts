@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const data: nexusData = await request.json();
 	console.log(
-		`Recived Nexus Webhook at ${new Date(data.dataAsOfTime).toLocaleTimeString('it-IT', { timeZone: timeZone })}`
+		`Received Nexus Webhook at ${new Date(data.dataAsOfTime).toLocaleTimeString('it-IT', { timeZone: timeZone })}`
 	);
 	setData(data);
 
