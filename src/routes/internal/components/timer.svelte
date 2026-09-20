@@ -74,10 +74,11 @@
 	var interval: NodeJS.Timeout;
 	onMount(() => {
 		load();
-		setInterval(() => {
+		interval = setInterval(() => {
 			queueTime -= 1000
 			currentTimeMS = Date.now()
-			if (lastUpdatedMS < Date.now() - 3 * 60 * 1000) load();
+			let updateInterval = hasQueued ? 30 * 1000 : (queueTime > 60 * 1000 ? 3 * 60 * 1000 : 30 * 1000)
+			if (lastUpdatedMS < Date.now() - updateInterval) load();
 		}, 1000);
 	});
 

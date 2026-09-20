@@ -1,6 +1,6 @@
 import { nexusWebhookToken } from '$env/static/private';
 import { timeZone } from '$lib/config';
-import { clients, formatTimer, setData } from '$lib/nexus';
+import { clients, formatTimer, isNewer, setData } from '$lib/nexus';
 import type { nexusData } from '$lib/types';
 import type { RequestHandler } from '@sveltejs/kit';
 
@@ -15,10 +15,12 @@ export const POST: RequestHandler = async ({ request }) => {
 	console.log(
 		`Received Nexus Webhook at ${new Date(data.dataAsOfTime).toLocaleTimeString('it-IT', { timeZone: timeZone })}`
 	);
-	setData(data);
+	if (isNewer(data)) {
+		setData(data);
 
-	for (const emit of clients) {
-		emit('nexus', JSON.stringify({ data: formatTimer(), source: 'webhook' }));
+		for (const emit of clients) {
+			emit('nexus', JSON.stringify({ data: formatTimer(), source: 'webhook' }));
+		}
 	}
 
 	return new Response('OK', { status: 200 });

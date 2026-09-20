@@ -21,11 +21,15 @@ export async function fetchData() {
 		console.log('Error getting live event status:', errorMessage);
 		return false;
 	}
+	let newData = await response.json();
+	if (!isNewer(newData)) {
+		console.log('Polled old data, returning');
+	}
+
 	console.log(
 		`Updated Data via polling at ${new Date().toLocaleTimeString('it-IT', { timeZone: timeZone })}`
 	);
-
-	data = await response.json();
+	data = newData;
 }
 
 export function getData() {
@@ -38,6 +42,10 @@ export function setData(newData: nexusData) {
 	if (newData.eventKey != eventKey) return;
 
 	data = newData;
+}
+
+export function isNewer(newData: nexusData) {
+	return newData.dataAsOfTime > data.dataAsOfTime;
 }
 
 export function getTeamData() {
