@@ -9,7 +9,9 @@ export const GET: RequestHandler = async () => {
 	let i = 0;
 	for (let match = 0; match < matches.length; match++) {
 		if (matches[match].actual_time) continue;
-		formatted[i] = formatSchedule(matches[match]);
+		let formattedSchedule = formatSchedule(matches[match]);
+		if (formattedSchedule) formatted[i] = formattedSchedule;
+		else continue;
 		i++;
 	}
 	formatted.sort((a, b) => {
@@ -32,6 +34,7 @@ function formatSchedule(match: { [k: string]: any }) {
 	let title = match.key.split('_')[1].toUpperCase();
 	let red = match.alliances.red.team_keys;
 	let blue = match.alliances.blue.team_keys;
+	if (red.length < 1 || blue.length < 1) return null;
 	let sort = parseInt(title.split('M')[1]);
 	for (let i = 0; i < 3; i++) {
 		red[i] = red[i].split('frc')[1];
@@ -41,5 +44,5 @@ function formatSchedule(match: { [k: string]: any }) {
 	}
 	let redProcessed = `${red[0]}, ${red[1]}, ${red[2]}`;
 	let blueProcessed = `${blue[0]}, ${blue[1]}, ${blue[2]}`;
-	return { title: title, red: redProcessed, blue: blueProcessed, sort };
+	return { title, red: redProcessed, blue: blueProcessed, sort };
 }

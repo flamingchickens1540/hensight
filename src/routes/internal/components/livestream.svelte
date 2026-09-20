@@ -7,6 +7,7 @@
     async function load() {
         const res = await fetch("/api/livestream");
         data = await res.json();
+		console.log(data)
     }
 	let intverval: NodeJS.Timeout
     onMount(() => {
@@ -24,7 +25,7 @@
 		<iframe 
 		width="100%" 
 		height="100%" 
-		src="https://www.youtube-nocookie.com/embed/{data.channelID}?autoplay=1&mute=1&start=99999" 
+		src="https://www.youtube.com/embed/{data.channelID}?autoplay=1&mute=1&start=99999" 
 		title="YouTube video player" 
 		frameborder="0" 
 		allow="autoplay;" 
