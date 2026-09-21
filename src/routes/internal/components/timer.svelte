@@ -79,7 +79,10 @@
 			currentTimeMS = Date.now()
 			let updateInterval = hasQueued ? 30 * 1000 : (queueTime > 60 * 1000 ? 3 * 60 * 1000 : 30 * 1000)
 			if (lastUpdatedMS < Date.now() - updateInterval) load();
-			if (Date.now() > fullscreenCooldown && (hasQueued || queueTime < 5 * 60 * 1000)) fullscreen = true
+			if (Date.now() > fullscreenCooldown && (hasQueued || queueTime < 5 * 60 * 1000)) {
+				fullscreen = true;
+				clearInterval(interval)
+			}
 			else fullscreen = false
 		}, 1000);
 	});

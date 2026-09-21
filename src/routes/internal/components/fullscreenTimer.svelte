@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { beforeNavigate } from '$app/navigation';
 import type { formattedTimer } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
 	import { source } from 'sveltekit-sse';
 	let { fullscreen = $bindable() } = $props();
-
-	const msToTime = (ms: number) => new Date(ms).toTimeString().split(' ')[0];
 
 	function msToRelative(ms: number): string {
 		let seconds = ms / 1000;
@@ -81,7 +78,7 @@ import type { formattedTimer } from '$lib/types';
 			currentTimeMS = Date.now()
 			let updateInterval = hasQueued ? 30 * 1000 : (queueTime > 60 * 1000 ? 3 * 60 * 1000 : 30 * 1000)
 			if (lastUpdatedMS < Date.now() - updateInterval) load();
-			if (!hasQueued && queueTime > 5 * 60 * 1000) fullscreen = false
+			if (!hasQueued && queueTime > 5 * 60 * 1000) {fullscreen = false; clearInterval(interval)}
 		}, 1000);
 	});
 
